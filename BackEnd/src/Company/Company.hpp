@@ -2,22 +2,21 @@
 #define COMPANY_2210
 
 #include "../Client/Client.hpp"
+#include <array>
 #include <string>
-#include <string_view>
 
 class Company: public Client{
    public:
-      Company(){}
-      ~Company(){}
+      explicit Company(int id, std::string name, std::string address, std::array<char, 14> cpnj);
+      ~Company();
 
       // Setters
-      bool setCnpj(std::string);
 
       // Getters
-      std::string_view getCnpj();
+      std::array<char, 14>& getCnpj();
 
    private:
-      std::string cnpj{};
+      std::array<char, 14> m_cnpj{};
 };
 
 #endif
