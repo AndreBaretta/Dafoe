@@ -4,7 +4,7 @@
 #include <string_view>
 class Client{
    public:
-      explicit Client(int, std::string, std::string);
+      explicit Client(int id, std::string name, std::string address); // id is a unique number. name is the name of the client, address is the location of the client
       ~Client();
 
       // Setters
