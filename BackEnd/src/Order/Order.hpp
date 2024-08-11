@@ -8,7 +8,7 @@
 
 class Order{
    public:
-      Order(int id, Client* buyer, double price, year_month_day date){}
+      explicit Order(int id, Client* buyer, double price, year_month_day date){}
       ~Order(){}
       
       // Setters
