@@ -1,17 +1,23 @@
+:root {
+  --glass: rgba(255, 255, 255, 0.1); 
+}
+
 .App {
-  text-align: left;
+  text-align: center;
   color: white;
+  font-family: 'Inter', sans-serif;
   font-size: calc(20px + 2vmin);
   background-color: #2f1624;
+  height: 100vh;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
 }
 
 .App-logo {
   height: 50vmin;
   pointer-events: none;
-  align-items: top;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -30,7 +36,6 @@
   background-color: #2f1624;
   min-height: 80vh;
   display: flex;
-  justify-items: center;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -42,7 +47,17 @@
   color: #0059ff;
   font-size: calc(5px + 2vmin);
 }
-  
+
+.App-glass {
+  display: grid;
+  height: 99%;
+  width: 99%;
+  border-radius: 1rem;
+  background-color: var(--glass);
+  overflow: hidden;
+  grid-template-columns: 11rem auto 20rem;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -51,3 +66,4 @@
     transform: rotate(360deg);
   }
 }
+

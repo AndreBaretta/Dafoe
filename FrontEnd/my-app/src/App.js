@@ -1,24 +1,24 @@
-import img from './images.jpg';
 import './App.css';
+import Sidebar from './components/Sidebar/sidebar';
 
 function App() {
   return (
     <div className="App">
-      <header className="Name-header">
-        <p>DAFOE</p>
-      </header>
-      <header className="App-header">
-        <img src={img} className="App-logo" alt="logo" />
-        <p>Facilitando suas vendas</p>
-        <a
-          className="App-link"
-          href="https://github.com/AndreBaretta/Dafoe"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Veja nosso código
-        </a>
-      </header>
+      <div className="App-glass">
+        <Sidebar/>
+        <div></div>
+        <div></div>
+
+        {/* menu */}
+        <div className="menu">
+          <div className="menuItem">
+              <div>
+                  icon
+              </div>
+              <span>Menu inicial</span>
+            </div> 
+        </div>
+      </div>
     </div>
   );
 }
