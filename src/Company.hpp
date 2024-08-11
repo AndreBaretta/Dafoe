@@ -1,4 +1,8 @@
+#ifndef COMPANY_2210
+#define COMPANY_2210
 
+#include "Client.hpp"
+#include <string>
 
 class Empresa : public Cliente{
    public:
@@ -13,5 +17,6 @@ class Empresa : public Cliente{
 
    private:
       std::string cnpj{};
-}
+};
 
+#endif

@@ -1,4 +1,7 @@
-#include <iostream>
+#ifndef PRODUCT_2211
+#define PRODUCT_2211
+
+#include <string>
 
 class Product{
    public:
@@ -19,6 +22,6 @@ class Product{
       int id{};
       std::string name{};
       int quantity{};
-}
-
+};
+#endif
 

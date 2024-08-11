@@ -1,9 +1,11 @@
+#ifndef CLIENT_2208
+#define CLIENT_2208
 
-
+#include <string>
 class Cliente{
    public:
-      Cliente(){}
-      ~Cliente{}
+      Cliente();
+      ~Cliente();
 
       // Setters
       bool setId(int);
@@ -22,5 +24,6 @@ class Cliente{
       std::string name{};
       std::string address{};
       double bill{};
-}
+};
 
+#endif

@@ -1,4 +1,8 @@
+#ifndef PERSON_2210
+#define PERSON_2210
 
+#include "Client.hpp"
+#include <string>
 
 class Pessoa : public Cliente{
    public:
@@ -13,4 +17,6 @@ class Pessoa : public Cliente{
 
    private:
       std::string cpf{};
-}
+};
+
+#endif
