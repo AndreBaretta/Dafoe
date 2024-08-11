@@ -7,7 +7,7 @@
 
 class Company: public Client{
    public:
-      explicit Company(int id, std::string name, std::string address, std::array<char, 14> cpnj);
+      explicit Company(std::string name, std::array<char, 14> cnpj);
       ~Company();
 
       // Setters
