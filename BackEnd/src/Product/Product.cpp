@@ -49,4 +49,4 @@ int Product::getId(){return this->m_id;}
 std::string_view Product::getName(){return this->m_name;}
 int Product::getQuantity(){return this->m_quantity;}
 double Product::getPrice(){return this->m_price;}
-std::array<char, 13> Product::getBarCode(){return this->m_barCode;}
+std::array<char, 13>& Product::getBarCode(){return this->m_barCode;}
