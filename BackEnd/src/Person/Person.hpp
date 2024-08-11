@@ -6,6 +6,7 @@
 
 class Person : public Client{
    public:
+      explicit Person(std::string name);
       explicit Person(std::string name, std::array<char, 11> cpf);
       ~Person();
       
