@@ -1,15 +1,13 @@
 #ifndef CLIENT_2208
 #define CLIENT_2208
-
 #include <string>
 #include <string_view>
 class Client{
    public:
-      Client();
+      explicit Client(int id, std::string name, std::string address); // id is a unique number. name is the name of the client, address is the location of the client
       ~Client();
 
       // Setters
-      bool setId(int);
       bool setName(std::string);
       bool setAddress(std::string);
       bool setBill(double);
@@ -21,10 +19,10 @@ class Client{
       double getBill();
 
    private:
-      int id{};
-      std::string name{};
-      std::string address{};
-      double bill{};
+      int m_id{};
+      std::string m_name{};
+      std::string m_address{};
+      double m_bill{};
 };
 
 #endif

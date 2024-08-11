@@ -6,9 +6,9 @@
 #include <array>
 class Product{
    public:
-      explicit Product(int, std::string, double);
-      explicit Product(int, std::string, double, int);
-      explicit Product(int, std::string, double, int, std::array<char, 13>);
+      explicit Product(int id, std::string name, double price);
+      explicit Product(int id, std::string name, double price, int quantity);
+      explicit Product(int id, std::string name, double price, int quantity, std::array<char, 13> barCode);
       ~Product();
 
       // Setters
@@ -21,7 +21,7 @@ class Product{
       std::string_view getName();
       int getQuantity();
       double getPrice();
-      std::array<char, 13> getBarCode();
+      std::array<char, 13>& getBarCode();
       
 
    private:

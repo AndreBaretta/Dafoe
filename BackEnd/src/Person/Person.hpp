@@ -2,22 +2,20 @@
 #define PERSON_2210
 
 #include "../Client/Client.hpp"
-#include <string>
-#include <string_view>
+#include <array>
 
 class Person : public Client{
    public:
-      Person(){}
-      ~Person(){}
+      explicit Person(int id, std::string name, std::string address, std::array<char, 11> cpf);
+      ~Person();
       
       // Setters
-      bool setCpf(std::string);
 
       // Getters
-      std::string_view getCpf();
+      std::array<char, 11>& getCpf();
 
    private:
-      std::string cpf{};
+      std::array<char, 11> m_cpf{};
 };
 
 #endif
