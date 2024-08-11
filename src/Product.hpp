@@ -20,6 +20,7 @@ class Product{
 
    private:
       int id{};
+      int barCode{};
       std::string name{};
       int quantity{};
 };
