@@ -3,10 +3,9 @@
 #include <string_view>
 
 
-Client::Client(int id, std::string name, std::string address)
-: m_id{id}
+Client::Client(std::string name)
+: m_id{s_id++}
 , m_name{name}
-, m_address{address}
 {}
 
 bool Client::setBill(double bill) {

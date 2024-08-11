@@ -2,8 +2,8 @@
 #include <string>
 #include <array>
 
-Company::Company(int id, std::string name, std::string address, std::array<char, 14> cnpj)
-: Client(id, name, address)
+Company::Company(std::string name, std::array<char, 14> cnpj)
+: Client(name)
 , m_cnpj(cnpj)
 {}
 

@@ -6,7 +6,7 @@
 
 class Person : public Client{
    public:
-      explicit Person(int id, std::string name, std::string address, std::array<char, 11> cpf);
+      explicit Person(std::string name, std::array<char, 11> cpf);
       ~Person();
       
       // Setters
