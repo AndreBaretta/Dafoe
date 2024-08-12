@@ -13,7 +13,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
+  text-shadow: #000 1px 1px;
+} 
 
 .App-logo {
   height: 50vmin;

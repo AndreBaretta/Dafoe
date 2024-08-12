@@ -4,4 +4,5 @@
    justify-content: right;
    align-items: right;
    font-size: calc(2px + 2vmin);
+   /*background-image: url(../../assets/background.jpg); */
 }
