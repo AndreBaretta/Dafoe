@@ -23,7 +23,7 @@
    height: 100%;
    background-color: whitesmoke;
    outline: none;
-   border: 2px solid rgba(red, green, blue, alpha);
+   border: 2px solid rgba(red, green, blue, 0.15);
    border-radius: 17px;
    font-size: 20px;
 }
