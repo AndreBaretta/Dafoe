@@ -1,11 +1,15 @@
 import './App.css';
 import Sidebar from './components/Sidebar/sidebar';
+import Login from './components/Login/Login';
+
+// colocar o login em uma tela separada por cima de tudo
 
 function App() {
   return (
     <div className="App">
       <div className="App-glass">
         <Sidebar />
+        <Login />
         <div className="content">
           {/* Menu */}
           <div className="menu">
