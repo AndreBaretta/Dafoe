@@ -1,5 +1,5 @@
 :root {
-  --glass: rgba(255, 255, 255, 0.1);
+  --glass: rgba(255, 255, 255, 0.25);
 }
 
 .App {
@@ -14,9 +14,9 @@
   justify-content: center;
   align-items: center;
   text-shadow: #000 1px 1px;
-  /*background-image: url(../../assets/background.jpg);
+  background-image: url(./assets/background.jpg);
   background-size: cover;
-  background-position: center;*/
+  background-position: center;
 } 
 
 .App-logo {
