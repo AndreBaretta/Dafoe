@@ -16,11 +16,11 @@ const Login = () => {
    return(
       <div className="Login">
          <form onSubmit={handleSubmit}>
-            <div>
+            <div className="input-field">
                <input type="user" placeholder="Usuário" onChange={(e) => setUsername(e.target.value)} />
                <FaUser className="icon" />
             </div>
-            <div>
+            <div className="input-field">
                <input type="password" placeholder="Senha" onChange={(e) => setPassword(e.target.value)} />
                <FaLock className="icon" />
             </div>
