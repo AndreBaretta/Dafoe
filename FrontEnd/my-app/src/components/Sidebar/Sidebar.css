@@ -4,6 +4,8 @@
     position: relative;
     padding-top: 4rem;
     transition: all 300ms ease;
+    text-shadow: #000 1px 1px;
+    font-family: sys;
 }
 
 .logo{
