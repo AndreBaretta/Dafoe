@@ -24,12 +24,6 @@
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
 .Name-header {
   background-color: #2f1624;
   font-size: calc(40px + 2vmin);
@@ -118,13 +112,4 @@
 .icon {
   margin-right: 0.5rem;
   font-size: 1.5rem; /* Ajuste o tamanho do ícone conforme necessário */
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }
