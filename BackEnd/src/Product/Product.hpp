@@ -4,6 +4,8 @@
 #include <string>
 #include <string_view>
 #include <array>
+#include "Category.hpp"
+
 class Product{
    public:
       explicit Product(int id, std::string name, double price);
@@ -28,11 +30,8 @@ class Product{
       int m_id{};
       std::string m_name{};
       int m_quantity{};
-      double m_price{};
-      std::array<char, 13> m_barCode{};
-      bool setId(int);
-      bool setBarCode(std::array<char, 13>);
-
+      Category m_category{};
+      
 };
 #endif
 
