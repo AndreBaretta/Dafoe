@@ -5,18 +5,18 @@
     padding-top: 4rem;
     transition: all 300ms ease;
     text-shadow: #000 1px 1px;
-    font-family: sys;
+    font-family: impact;
 }
 
 .logo{
     display: flex;
     height: 5rem;
     font-weight: bold;
-    font-size: 22px;
+    font-size: 50px;
     gap : 1rem;
     align-items: center;
-    justify-content: center;
-    height: 4%;
+    justify-content: left;
+    height: 25%;
     width: 4%;
 }
 
