@@ -4,25 +4,20 @@
 #include <string>
 #include <string_view>
 #include <array>
-#include "Category.hpp"
-
 class Product{
    public:
-      explicit Product(int id, std::string name, double price);
-      explicit Product(int id, std::string name, double price, int quantity);
-      explicit Product(int id, std::string name, double price, int quantity, std::array<char, 13> barCode);
-      ~Product();
+      Product(int id, std::string name);
+      Product(int id, std::string name, int quantity);
+      Product(int id, std::string name, int quantity, std::array<char, 13> barCode);
 
       // Setters
-      bool setName(std::string);
-      bool setQuantity(int);
-      bool setPrice(double);
-
+      bool setName(std::string name);
+      bool setQuantity(int qnty);
+      bool setId(int id);
       // Getters
       int getId();
       std::string_view getName();
       int getQuantity();
-      double getPrice();
       std::array<char, 13>& getBarCode();
       
 
@@ -30,7 +25,8 @@ class Product{
       int m_id{};
       std::string m_name{};
       int m_quantity{};
-      Category m_category{};
+      int m_category{};
+      friend class ProductDAO;
       
 };
 #endif
