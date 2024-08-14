@@ -1,7 +1,7 @@
 import React from "react";
-import './DailyOwe.css'
+import './Daily.css'
 
-const daily = () => {
+const Daily = () => {
    return(
       <div className="Daily">
 
@@ -10,4 +10,4 @@ const daily = () => {
 };
 
 
-export default daily;
+export default Daily;
