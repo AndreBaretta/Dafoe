@@ -1,13 +1,36 @@
+:root {
+   --glass: rgba(255, 255, 255, 0.25);
+ }
+
 .Login{
+   text-align: center;
+   color: white;
+   font-family: 'Inter', sans-serif;
+   font-size: calc(20px + 2vmin);
+   background-color: #2f1624;
+   height: 100vh;
    display: flex;
    flex-direction: column;
-   justify-content: right;
-   align-items: right;
-   font-size: calc(2px + 2vmin);
-   width: 450px;
-   background-color: rgba(255, 255, 255, 0.15);
-   backdrop-filter: blur(10px);
+   justify-content: center;
+   align-items: center;
+   text-shadow: #000 1px 1px;
+   background-image: url(../../assets/background.jpg);
+   background-size: cover;
+   background-position: center;
 }
+
+.Login-glass {
+   display: flex;
+   flex-direction: column;
+   width: 90%;
+   height: 90%;
+   border-radius: 2rem;
+   background-color: var(--glass);
+   padding: 2rem;
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+   align-items: center;
+   justify-content: center;
+ }
 
 .Login .input-field {
    position: relative;
@@ -38,6 +61,7 @@
    display: flex;
    justify-content: center;
    margin: -15px 0 15px;
+   font-size: calc(20px);
 }
 
 .recall input {
