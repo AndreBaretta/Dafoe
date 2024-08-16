@@ -1,0 +1,12 @@
+.OneQuery {
+   max-Width: 300px;
+   height: auto;
+   word-Wrap: break-word;
+   text-Align: start;
+   cursor: pointer
+}
+
+.OneQuery .QueryText {
+  font-weight: bold;
+}
+

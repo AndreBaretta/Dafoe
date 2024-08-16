@@ -1,0 +1,7 @@
+.Table {
+      width: 100%;
+      z-Index: -1;
+      background-Color: #f7f6f2;
+      padding: 0.25em;
+      max-Height: 500px;
+}
