@@ -19,7 +19,7 @@ class TCPServer{
       int m_port{};
       int m_socket{};
       int m_newSocket{};
-      int m_bufferSize{};
+      int m_bufferSize{1024};
       uint m_socketAddressSize{};
       int64_t m_incomingMessage{};
       std::string m_ipAddress{};
