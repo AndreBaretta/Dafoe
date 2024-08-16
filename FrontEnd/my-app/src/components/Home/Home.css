@@ -31,9 +31,9 @@
  }
  
  .Home-header {
-   align-self: right;
+   align-self: end;
    position: relative;
-   left: 500px;
+   margin-right: 5%;
    background-color: transparent;
    font-size: calc(20px + 2vmin);
  }

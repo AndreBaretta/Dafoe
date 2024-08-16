@@ -5,8 +5,14 @@ import Login from './components/Login/Login';
 import Sales from './components/Sales/Sales';
 import Stock from './components/Stock/Stock';
 import Register from './components/Register/Register';
+import SearchBar from './components/SearchBar/SearchBar';
+import QueryList from './components/SearchBar/QueryList';
 
 function App() {
+
+  const [query, setQuery] = useState ("");
+  const [results, setResults] = useState ([]);
+
 
   const [page, setPage] = useState(0)
 
@@ -44,19 +50,17 @@ function App() {
     }else if(page==='register'){
       return <Register />
     }else{
-      return <div>
-              <button onClick={()=>linksPages(1)}>Home</button>
+      return <div>  
               <button onClick={()=>linksPages(2)}>Login</button>
-              <button onClick={()=>linksPages(3)}>Sales</button>
-              <button onClick={()=>linksPages(4)}>Stock</button>
-              <button onClick={()=>linksPages(5)}>Register</button>
-           </div>
+              </div>
   }
   }
 
   return (
     <div className="App">
       {returnPage()}
+      <SearchBar query={query} setQuery={setQuery}/>
+      <QueryList results={results} query={query} setQuery={setQuery}/>
     </div>
   );
 }
