@@ -1,5 +1,6 @@
 #include "HTTPRequestParser.hpp"
 #include <sstream>
+#include <iostream>
 
 HTTPRequestParser::HTTPRequestParser(){}
 HTTPRequestParser::~HTTPRequestParser(){}
@@ -20,6 +21,10 @@ std::string HTTPRequestParser::getHeader(std::string key){
    return this->m_headers[key];
 }
 
+std::string HTTPRequestParser::getData(){
+   return this->m_data;
+}
+
 bool HTTPRequestParser::parseRequest(std::string request){
    std::istringstream stream(request);
    std::string line;
@@ -35,6 +40,10 @@ bool HTTPRequestParser::parseRequest(std::string request){
          std::string value = line.substr(division+2);
          m_headers[key] = value;
       }
+   }
+   
+   if(stream.peek() != EOF){
+      std::getline(stream,m_data, '\0');
    }
    return true;
 }
