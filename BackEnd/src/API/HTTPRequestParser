@@ -1,14 +1,14 @@
-#ifndef HTTPPARSER_2208
-#define HTTPPARSER_2208
+#ifndef HTTPREQUESTPARSER_2208
+#define HTTPREQUESTPARSER_2208
 
 #include <string>
 #include <map>
 
-class HTTPParser {
+class HTTPRequestParser {
 public:
-    HTTPParser();
+    HTTPRequestParser();
 
-    ~HTTPParser();
+    ~HTTPRequestParser();
 
     std::string getMethod();
 
@@ -18,7 +18,7 @@ public:
 
     std::string getHeader(std::string key);
 
-    void setRequest(std::string httpRequest);
+    bool parseRequest(std::string request);
 
 private:
     std::string m_request;
@@ -26,8 +26,6 @@ private:
     std::string m_path;
     std::string m_version;
     std::map<std::string, std::string> m_headers;
-
-    void parse();
 };
 
 #endif
