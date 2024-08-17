@@ -7,7 +7,7 @@ TCPServer::TCPServer(std::string ipAddress, int port)
 : m_ipAddress{ipAddress}
 , m_port{port}
 {
-   this->m_HTTPParser = HTTPParser();
+   this->m_HTTPRParser = HTTPRequestParser();
    this->startServer();
    
 }
@@ -64,10 +64,6 @@ int TCPServer::readRequest(){
    ssize_t bytesReceived = read(this->m_newSocket, buffer, this->m_bufferSize);
    if(bytesReceived < 0){
       return -1;
-   }
-   if(!memcmp(buffer, "Stop", strlen("Stop"))){
-      std::cout << "Fechando o servidor.";
-      return 1;
    }
    
    std::cout << "Mensagem: " << buffer << "\n";
