@@ -7,7 +7,6 @@ TCPServer::TCPServer(std::string ipAddress, int port)
 : m_ipAddress{ipAddress}
 , m_port{port}
 {
-   this->m_HTTPRParser = HTTPRequestParser();
    this->startServer();
    
 }
@@ -59,15 +58,15 @@ int TCPServer::acceptConnection(){
    return 0;
 }
 
-int TCPServer::readRequest(){
+bool TCPServer::readRequest(std::string* request){
    char buffer[this->m_bufferSize];
    ssize_t bytesReceived = read(this->m_newSocket, buffer, this->m_bufferSize);
    if(bytesReceived < 0){
-      return -1;
+      return false;
    }
-   
-   std::cout << "Mensagem: " << buffer << "\n";
-   return 0;
+   std::string stringBuffer(buffer);
+   *request = stringBuffer;
+   return true;
 }
 
 int TCPServer::writeResponse(){
