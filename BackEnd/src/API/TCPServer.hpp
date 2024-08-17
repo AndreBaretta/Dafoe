@@ -3,7 +3,6 @@
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <string>
-#include "HTTPParser.hpp"
 
 class TCPServer{
    public:
@@ -11,13 +10,12 @@ class TCPServer{
       ~TCPServer();
       int startListen();
       int acceptConnection();
-      int readRequest();
+      bool readRequest(std::string* request);
       int writeResponse();
       void setBSize(int bSize);
       void setResponse(std::string response);
 
    private:
-      HTTPParser m_HTTPParser;
       int m_port{};
       int m_socket{};
       int m_newSocket{};
