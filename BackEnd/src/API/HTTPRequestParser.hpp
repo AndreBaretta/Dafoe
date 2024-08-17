@@ -5,27 +5,30 @@
 #include <map>
 
 class HTTPRequestParser {
-public:
-    HTTPRequestParser();
+   public:
+      HTTPRequestParser();
+   
+      ~HTTPRequestParser();
 
-    ~HTTPRequestParser();
+      std::string getMethod();
 
-    std::string getMethod();
+      std::string getPath();
 
-    std::string getPath();
+      std::string getVersion();
 
-    std::string getVersion();
+      std::string getHeader(std::string key);
 
-    std::string getHeader(std::string key);
+      std::string getData();
 
-    bool parseRequest(std::string request);
+      bool parseRequest(std::string request);
 
-private:
-    std::string m_request;
-    std::string m_method;
-    std::string m_path;
-    std::string m_version;
-    std::map<std::string, std::string> m_headers;
+   private:
+      std::string m_request;
+      std::string m_method;
+      std::string m_path;
+      std::string m_version;
+      std::string m_data;
+      std::map<std::string, std::string> m_headers;
 };
 
 #endif
