@@ -7,6 +7,7 @@ TCPServer::TCPServer(std::string ipAddress, int port)
 : m_ipAddress{ipAddress}
 , m_port{port}
 {
+   this->m_HTTPParser = HTTPParser();
    this->startServer();
    
 }
