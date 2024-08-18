@@ -3,19 +3,19 @@
 #include <string_view>
 #include "Product.hpp"
 
-Product::Product(int id, std::string name)
+Product::Product(const int id, const std::string& name)
 : m_id{id}
 , m_name{name}
 {}
 
-Product::Product(int id, std::string name, int quantity)
+Product::Product(const int id, const std::string& name, const int quantity)
 : m_id{id}
 , m_name{name}
 , m_quantity{quantity}
 {}
 
 
-Product::Product(int id, std::string name, int quantity, std::array<char, 13> barCode)
+Product::Product(const int id, const std::string& name, const int quantity, const int category)
 : m_id{id}
 , m_name{name}
 , m_quantity{quantity}
