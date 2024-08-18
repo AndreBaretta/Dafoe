@@ -2,10 +2,12 @@
 #include <string>
 #include <string_view>
 
-
-Client::Client(std::string name)
-: m_id{s_id++}
+Client::Client(const int id, const std::string& name, const std::string& phoneNumber=nullptr, const std::string& address=nullptr, const double bill=0)
+: m_id{id}
 , m_name{name}
+, m_phoneNumber{phoneNumber}
+, m_address{address}
+, m_bill{bill}
 {}
 
 bool Client::setBill(double bill) {

@@ -4,7 +4,7 @@
 #include <string_view>
 class Client{
    public:
-      explicit Client(std::string name);
+      Client(const int id, const std::string& name, const std::string& phoneNumber, const std::string& address, const double bill);
       ~Client();
 
       // Setters
@@ -23,7 +23,8 @@ class Client{
       std::string m_name{};
       std::string m_address{};
       double m_bill{};
-      static inline int s_id{};
+      std::string m_phoneNumber{};
+      static inline int s_id{0};
 };
 
 #endif
