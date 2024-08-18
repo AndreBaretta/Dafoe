@@ -16,6 +16,8 @@ HTTPRequest::HTTPRequest(std::string method, std::string path, std::string versi
 , m_body{body}
 {}
 
+HTTPRequest::~HTTPRequest(){}
+
 bool HTTPRequest::setMethod(std::string method){
    this->m_method = method;
    return true;
