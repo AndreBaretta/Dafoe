@@ -2,21 +2,23 @@
     display: flex;
     flex-direction: column;
     position: relative;
-    padding-top: 4rem;
+    padding-top: 1rem;
     transition: all 300ms ease;
     text-shadow: #000 1px 1px;
     font-family: impact;
+    justify-content: right;
+    align-items: right;
 }
 
 .logo{
     display: flex;
-    height: 5rem;
+    height: 1rem;
     font-weight: bold;
     font-size: 50px;
     gap : 1rem;
+    position: relative;
     align-items: center;
-    justify-content: left;
-    height: 25%;
+    justify-content: center;
     width: 4%;
 }
 
@@ -27,20 +29,4 @@
 
 .logo>span>span{
     color: rgb(221, 78, 221);
-}
-
-/* menu */
-
-.menu{
-    margin-top: 1rem;
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    font-size: 25px; 
-}
-
-.menuItem{
-    display: flex;
-    align-items: center;
-    gap: 1rem;
 }

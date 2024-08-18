@@ -6,9 +6,9 @@
 #include <array>
 class Product{
    public:
-      Product(int id, std::string name);
-      Product(int id, std::string name, int quantity);
-      Product(int id, std::string name, int quantity, std::array<char, 13> barCode);
+      Product(const int id, const std::string& name);
+      Product(const int id, const std::string& name,const int quantity);
+      Product(const int id, const std::string& name, const int quantity, const int category);
 
       // Setters
       bool setName(std::string name);
@@ -26,7 +26,6 @@ class Product{
       std::string m_name{};
       int m_quantity{};
       int m_category{};
-      friend class ProductDAO;
       
 };
 #endif
