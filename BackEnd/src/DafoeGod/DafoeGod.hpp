@@ -1,5 +1,6 @@
 #ifndef DAFOEGOD_2013
 #define DAFOEGOD_2013
+
 #include <mariadb/conncpp.hpp>
 #include <mariadb/conncpp/Connection.hpp>
 #include <mariadb/conncpp/ResultSet.hpp>
@@ -7,6 +8,8 @@
 #include <mariadb/conncpp/Statement.hpp>
 #include <mariadb/conncpp/jdbccompat.hpp>
 
+class ProductDAO;
+class ClientDAO;
 class DafoeGod{
 public:
     DafoeGod();
@@ -19,6 +22,8 @@ public:
     sql::Connection* conn{};
     sql::Statement* statement{};
     sql::ResultSet* res{};
+    friend class ProductDAO;
+    friend class ClientDAO;
 };
 
 #endif

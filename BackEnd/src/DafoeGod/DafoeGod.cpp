@@ -32,3 +32,4 @@ sql::ResultSet* DafoeGod::query(const std::string& queryArgument){
    this->res = this->statement->executeQuery(queryArgument);
    return res;
 }
+
