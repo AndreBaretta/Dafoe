@@ -3,7 +3,7 @@
 
 #include <string>
 #include <map>
-#include "HTTPRequest.hpp"
+#include "../HTTPRequest/HTTPRequest.hpp"
 
 class HTTPRequestParser {
    public:
