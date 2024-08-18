@@ -1,6 +1,5 @@
 #ifndef CLIENT_2208
 #define CLIENT_2208
-#include <array>
 #include <string>
 #include <string_view>
 class Client{
