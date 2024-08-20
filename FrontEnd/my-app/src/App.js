@@ -6,12 +6,11 @@ import Sales from './components/Sales/Sales';
 import Stock from './components/Stock/Stock';
 import Register from './components/Register/Register';
 import SearchBar from './components/SearchBar/SearchBar';
-import QueryList from './components/SearchBar/QueryList';
 
 function App() {
 
   const [query, setQuery] = useState ("");
-  const [results, setResults] = useState ([]);
+  const [results, setResults] = useState ("");
 
 
   const [page, setPage] = useState(0)
@@ -59,8 +58,7 @@ function App() {
   return (
     <div className="App">
       {returnPage()}
-      <SearchBar query={query} setQuery={setQuery}/>
-      <QueryList results={results} query={query} setQuery={setQuery}/>
+      <SearchBar results={results} setResults={setResults}/>
     </div>
   );
 }

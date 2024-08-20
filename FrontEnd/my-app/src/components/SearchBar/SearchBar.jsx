@@ -1,13 +1,13 @@
 import { FaSearch} from "react-icons/fa";
 import './SearchBar.css'
 
-const SearchBar = ({query, setQuery}) => {
+const SearchBar = ({results, setResults}) => {
 
    
    return (
       <div className="SearchBar">
         <FaSearch className="icon" />
-        <input type="text" value={query} />
+        <input type="text" value={results} />
    </div>
    );
 }
