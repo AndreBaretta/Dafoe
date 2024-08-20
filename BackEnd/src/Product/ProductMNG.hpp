@@ -15,10 +15,10 @@ class ProductMNG{
                          const double cost, const double price);
 
       // Read
-      std::vector<Product> queryByName(const std::string& name);
-      Product retrieveByID(const int id);
-      Product retrieveByReference(const std::string& reference);
-      Product retrieveByBarCode(const std::string& barCode);
+      std::vector<Product> queryProductByName(const std::string& name);
+      Product retrieveProductByID(const int id);
+      Product retrieveProductByReference(const std::string& reference);
+      Product retrieveProductByBarCode(const std::string& barCode);
 
       // Update
       bool updateProduct(const int id, const std::string& name, const int manufacturerId,
