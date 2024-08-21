@@ -29,7 +29,6 @@ public:
 private:
    static inline int s_id{0};
    DafoeGod& m_theos;
-   sql::ResultSet* result{};
 };
 
 #endif
