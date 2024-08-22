@@ -1,9 +1,9 @@
 #ifndef HTTPREQUESTPARSER_2208
 #define HTTPREQUESTPARSER_2208
 
+#include "../HTTPRequest/HTTPRequest.hpp"
 #include <string>
 #include <map>
-#include "../HTTPRequest/HTTPRequest.hpp"
 
 class HTTPRequestParser {
    public:

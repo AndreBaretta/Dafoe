@@ -8,7 +8,6 @@ TCPServer::TCPServer(std::string ipAddress, int port)
 , m_port{port}
 {
    this->startServer();
-   
 }
 
 TCPServer::~TCPServer(){
