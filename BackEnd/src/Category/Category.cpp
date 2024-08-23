@@ -1,6 +1,6 @@
 #include "Category.hpp"
 
-Category::Category(std::string name, int id)
+Category::Category(int id, std::string name)
 : m_name(name)
 , m_id(id)
 {}

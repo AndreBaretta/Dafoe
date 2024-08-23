@@ -10,6 +10,9 @@
 
 class ProductDAO;
 class ClientDAO;
+class OrderDAO;
+class CategoryDAO;
+
 class DafoeGod{
 public:
     DafoeGod();
@@ -24,6 +27,8 @@ public:
     sql::ResultSet* res{};
     friend class ProductDAO;
     friend class ClientDAO;
+    friend class OrderDAO;
+    friend class CategoryDAO;
 };
 
 #endif
