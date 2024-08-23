@@ -10,7 +10,7 @@ class TCPServer{
       ~TCPServer();
       int startListen();
       int acceptConnection();
-      bool readRequest(std::string* request);
+      std::string readRequest();
       int writeResponse();
       void setBSize(int bSize);
       void setResponse(std::string response);

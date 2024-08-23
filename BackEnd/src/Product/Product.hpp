@@ -13,13 +13,13 @@ class Product{
       bool setQuantity(int qnty);
       bool setId(int id);
       bool setBarCode(std::string barcode);
-      bool setCategory(std::string category);
+      bool setCategory(int category);
 
       // Getters
       int getId();
       std::string getName();
       int getQuantity();
-      std::string getCategory();
+      int getCategory();
       std::string getBarCode();
       
 

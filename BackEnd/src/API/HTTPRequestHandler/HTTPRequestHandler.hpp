@@ -2,24 +2,26 @@
 #define HTTPREQUESTHANDLER_1453
 #include "../HTTPRequest/HTTPRequest.hpp"
 #include "../../Product/ProductMNG.hpp"
+#include "../HTTPResponse/HTTPResponse.hpp"
+#include "../HTTPResponseBuilder/HTTPResponseBuilder.hpp"
 #include <nlohmann/json.hpp>
 using json = nlohmann::json;
 #include <string>
-#include <map>
-#include <vector>
 
 class HTTPRequestHandler{
    public:
-      HTTPRequestHandler(ProductMNG& productMNG);
+      HTTPRequestHandler(ProductMNG& productMNG, HTTPResponseBuilder& responseBuilder);
       ~HTTPRequestHandler();
-      json handleRequest(HTTPRequest& request);
+      std::string handleRequest(HTTPRequest& request);
    private:
-      json handleQueryProductByName(std::string& name);
-      json handleRetrieveAll();
-      json handleRetrieveProductById(int& id);
-      json handleRetrieveProductByReference(std::string& reference);
-      json handleRetrieveProductByBarcode(std::string& barCode);
+      std::string handleQueryProductByName(std::string& name);
+      std::string handleRetrieveAll();
+      std::string handleRetrieveProductById(int& id);
+      std::string handleRetrieveProductByReference(std::string& reference);
+      std::string handleRetrieveProductByBarcode(std::string& barCode);
+      std::string handleNotFound();
       ProductMNG& m_productMNG;
+      HTTPResponseBuilder& m_responseBuilder;
 
 };
 

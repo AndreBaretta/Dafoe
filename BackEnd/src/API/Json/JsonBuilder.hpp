@@ -6,14 +6,14 @@
 #include <nlohmann/json.hpp>
 using json = nlohmann::json;
 
-class JsonBuilder(){
+class JsonBuilder{
    public:
       JsonBuilder();
       ~JsonBuilder();
       json productToJson(const Product& product);
       json productVectorToJson(const std::vector<Product>& products);
       
-}
+};
 
 
 #endif
