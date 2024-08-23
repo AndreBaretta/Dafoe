@@ -1,3 +1,6 @@
+#ifndef CATEGORYDAO_2320
+#define CATEGORYDAO_2320
+
 #include "Category.hpp"
 #include <vector>
 #include "../DafoeGod/DafoeGod.hpp"
@@ -15,4 +18,4 @@ private:
 
 };
 
-
+#endif
