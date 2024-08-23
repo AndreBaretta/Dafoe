@@ -29,6 +29,7 @@ Product ProductDAO::retrieveByID(const int id){
     std::unique_ptr<sql::PreparedStatement> state{m_theos.conn->prepareStatement("select * from genericProduct where id = ?")};
     state->setInt(1,id);
     sql::ResultSet* result {state->executeQuery()};
+    result->next();
     
     
     return Product(result->getInt("id"), static_cast<std::string>(result->getString("name")), result->getInt("quantity"), result->getInt("category"));
