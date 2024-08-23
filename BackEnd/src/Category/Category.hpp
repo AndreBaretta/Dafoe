@@ -3,7 +3,8 @@
 
 #include <string>
 class Category{
-    Category(std::string name, int id);
+public:
+    Category(int id, std::string name);
 private:
     std::string m_name{};
     int m_id{};
