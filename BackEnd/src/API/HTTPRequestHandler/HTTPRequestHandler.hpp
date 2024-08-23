@@ -3,6 +3,7 @@
 #include "../HTTPRequest/HTTPRequest.hpp"
 #include "../../Product/ProductMNG.hpp"
 #include "../HTTPResponse/HTTPResponse.hpp"
+#include <iostream>
 #include "../HTTPResponseBuilder/HTTPResponseBuilder.hpp"
 #include <nlohmann/json.hpp>
 using json = nlohmann::json;
