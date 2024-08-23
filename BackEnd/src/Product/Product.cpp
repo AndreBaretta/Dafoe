@@ -38,7 +38,7 @@ bool Product::setName(std::string name){
     return true;
 }
 
-bool Product::setCategory(std::string category){
+bool Product::setCategory(int category){
     this->m_category = category;
     return true;
 }

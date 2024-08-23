@@ -3,17 +3,16 @@
 
 #include "../HTTPResponse/HTTPResponse.hpp"
 #include <string>
-#include <map>
 
 class HTTPResponseBuilder{
    public:
       HTTPResponseBuilder();
-      ~HTTPResponseBUilder();
-      std::string buildResponseString(const HTTPResponse& response);
+      ~HTTPResponseBuilder();
+      std::string buildResponseString(HTTPResponse& response);
 
    private:
-      std::string buildStatusLine(const HTTPResponse& response);
-      std::string buildHeaders(const HTTPResponse& response);
+      std::string buildStatusLine(HTTPResponse& response);
+      std::string buildHeaders(HTTPResponse& response);
 
 };
 
