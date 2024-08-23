@@ -43,7 +43,7 @@ bool Product::setCategory(int category){
     return true;
 }
 
-std::string Product::getCategory(){return this->m_category;}
+int Product::getCategory(){return this->m_category;}
 std::string Product::getBarCode(){return this->m_barcode;}
 int Product::getId(){return this->m_id;}
 std::string Product::getName(){return this->m_name;}

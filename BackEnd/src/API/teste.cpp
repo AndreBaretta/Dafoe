@@ -7,7 +7,6 @@
 #include "HTTPRequestParser/HTTPRequestParser.hpp"
 #include "HTTPRequestHandler/HTTPRequestHandler.hpp"
 #include "../DafoeGod/DafoeGod.hpp"
-#include "HTTPResponseCreator/HTTPResponseCreator.hpp"
 #include "../Product/ProductDAO.hpp"
 #include "../Product/ProductMNG.hpp"
 #include "HTTPResponse/HTTPResponse.hpp"
@@ -16,19 +15,18 @@
 using json = nlohmann::json;
 
 int main(){
+   HTTPResponseBuilder* httpResponseBuilder = new HTTPResponseBuilder();
    DafoeGod* dafoeGod = new DafoeGod();
    ProductDAO* productDAO = new ProductDAO(*dafoeGod);
    JsonBuilder* jsonBuilder = new JsonBuilder();
    ProductMNG* productMNG = new ProductMNG(*productDAO, *jsonBuilder);
    TCPServer* server = new TCPServer("127.0.0.1",12354);
    HTTPRequestParser* httpParser = new HTTPRequestParser();
-   HTTPRequestHandler* httpHandler = new HTTPRequestHandler(*productMNG);
+   HTTPRequestHandler* httpHandler = new HTTPRequestHandler(*productMNG, *httpResponseBuilder);
    std::string requestString{};
    HTTPRequest* request = new HTTPRequest();
    HTTPResponse* httpResponse = new HTTPResponse();
-   HTTPResponseCreator* responseCreator = new HTTPResponseCreator();
-   HTTPResponseBuilder* httpResponseBuilder = new HTTPResponseBuilder();
-   json response;
+   std::string response;
 
    
    server->startListen();
@@ -37,6 +35,8 @@ int main(){
       requestString  = server->readRequest();
       *request       = httpParser->parseRequest(requestString);
       response       = httpHandler->handleRequest(*request);
+      server->setResponse(response);
+      server->writeResponse();
    }
    return 1;
 }

@@ -7,13 +7,11 @@
 DafoeGod::DafoeGod(){
    try{
       this->driver     = sql::mariadb::get_driver_instance();
-      this->url        = "jdbc:mariadb://localhost:3306/DAFOE";
-      this->properties = {{
-         {"user", "Atlas"},
-         {"password", "curitiba"}
-      }};
+      this->url        = "jdbc:mariadb://172.18.0.2:3306/Dafoe";
+      sql::SQLString user = "Atlas";
+      sql::SQLString pwd  = "curitiba";
 
-      this->conn = driver->connect(url, properties);
+      this->conn = driver->connect(url,user,pwd);
       this->statement = conn->createStatement();
 
 

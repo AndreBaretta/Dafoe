@@ -36,14 +36,17 @@ HTTPRequest HTTPRequestParser::parseRequest(std::string request){
    }
 
    while(getline(pathStream,buffer,'/')){
-      path.push_back(buffer);
+      if(buffer != ""){
+         path.push_back(buffer);
+      }
    }
    
    division = path[path.size() - 1].find('?');
    
-   query = path[path.size() - 1].substr(division+1);
-   path[path.size()-1] = path[path.size()-1].substr(0,division);
-   
+   if(division != std::string::npos){
+      query = path[path.size() - 1].substr(division+1);
+   }
+
    if(stream.peek() != EOF){
       std::getline(stream,body, '\0');
    }

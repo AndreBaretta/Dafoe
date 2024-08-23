@@ -10,8 +10,8 @@ class JsonBuilder{
    public:
       JsonBuilder();
       ~JsonBuilder();
-      json productToJson(const Product& product);
-      json productVectorToJson(const std::vector<Product>& products);
+      json productToJson(Product& product);
+      json productVectorToJson(std::vector<Product>& products);
       
 };
 

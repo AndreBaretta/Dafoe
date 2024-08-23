@@ -16,7 +16,11 @@ std::string HTTPRequestHandler::handleRequest(HTTPRequest& request){
 
    std::vector<std::string> path = request.getPath();
    std::string query = request.getQuery();
-
+   for(int i = 0; i < path.size(); i++){
+      std::cout << path[i] << '\n';
+   }
+   std::cout << query << '\n';
+   std::cout << path.size();
    // Lidando com o path /api/product
    if (path.size() == 2 && path[0] == "api" && path[1] == "product"){
       if (query.empty()) {
@@ -79,7 +83,7 @@ std::string HTTPRequestHandler::handleRequest(HTTPRequest& request){
    headers["Content-Type"] = "text/plain";
    HTTPResponse response = HTTPResponse(version,statusCode,statusMessage,headers,responseBody);
    std::string stringResponse = this->m_responseBuilder.buildResponseString(response);
-   return handleNotFound();
+   return stringResponse;
 }
 
 std::string HTTPRequestHandler::handleRetrieveAll(){
