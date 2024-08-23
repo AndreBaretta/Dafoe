@@ -2,12 +2,15 @@
 #define PRODUCTMNG_2208
 #include "ProductDAO.hpp"
 #include "Product.hpp"
+#include "../API/Json/JsonBuilder.hpp"
+#include <nlohmann/json.hpp>
+using json = nlohmann::json;
 #include <vector>
 
 
 class ProductMNG{
    public:
-      ProductMNG(ProductDAO& ProductDAO);
+      ProductMNG(ProductDAO& productDAO, JsonBuilder& jsonBuilder);
       ~ProductMNG();
       // Create
       bool createProduct(const std::string& name, const int manufacturerId, const int quantity,
@@ -15,10 +18,11 @@ class ProductMNG{
                          const double cost, const double price);
 
       // Read
-      std::vector<Product> queryProductByName(const std::string& name);
-      Product retrieveProductByID(const int id);
-      Product retrieveProductByReference(const std::string& reference);
-      Product retrieveProductByBarCode(const std::string& barCode);
+      json queryProductByName(const std::string& name);
+      json retrieveAll();
+      json retrieveProductByID(const int id);
+      json retrieveProductByReference(const std::string& reference);
+      json retrieveProductByBarCode(const std::string& barCode);
 
       // Update
       bool updateProduct(const int id, const std::string& name, const int manufacturerId,
@@ -32,6 +36,7 @@ class ProductMNG{
 
    private:
       ProductDAO& m_productDAO;
+      JsonBuilder& m_jsonBuilder;
       
 
 };

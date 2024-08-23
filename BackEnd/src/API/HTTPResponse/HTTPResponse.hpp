@@ -6,6 +6,7 @@
 
 class HTTPResponse{
    public:
+      HTTPResponse();
       HTTPResponse(std::string version, std::string statusCode, std::string statusMessage, std::map<std::string, std::string> headers, std::string body);
       ~HTTPResponse();
       
