@@ -57,15 +57,16 @@ int TCPServer::acceptConnection(){
    return 0;
 }
 
-bool TCPServer::readRequest(std::string* request){
+std::string TCPServer::readRequest(){
+   std::string request{};
    char buffer[this->m_bufferSize];
    ssize_t bytesReceived = read(this->m_newSocket, buffer, this->m_bufferSize);
    if(bytesReceived < 0){
-      return false;
+      return request;
    }
-   std::string stringBuffer(buffer);
-   *request = stringBuffer;
-   return true;
+   std::string stringBuffer = buffer;
+   request = stringBuffer;
+   return request;
 }
 
 int TCPServer::writeResponse(){

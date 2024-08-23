@@ -1,24 +1,26 @@
 #ifndef PRODUCT_2211
 #define PRODUCT_2211
-
 #include <string>
-#include <string_view>
-#include <array>
+
 class Product{
    public:
       Product(const int id, const std::string& name);
-      Product(const int id, const std::string& name,const int quantity);
+      Product(const int id, const std::string& name, const int quantity);
       Product(const int id, const std::string& name, const int quantity, const int category);
 
       // Setters
       bool setName(std::string name);
       bool setQuantity(int qnty);
       bool setId(int id);
+      bool setBarCode(std::string barcode);
+      bool setCategory(std::string category);
+
       // Getters
       int getId();
-      std::string_view getName();
+      std::string getName();
       int getQuantity();
-      std::array<char, 13>& getBarCode();
+      std::string getCategory();
+      std::string getBarCode();
       
 
    private:
@@ -26,6 +28,7 @@ class Product{
       std::string m_name{};
       int m_quantity{};
       int m_category{};
+      std::string m_barcode{};
       
 };
 #endif

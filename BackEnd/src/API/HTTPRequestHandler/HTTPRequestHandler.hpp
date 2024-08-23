@@ -2,6 +2,8 @@
 #define HTTPREQUESTHANDLER_1453
 #include "../HTTPRequest/HTTPRequest.hpp"
 #include "../../Product/ProductMNG.hpp"
+#include <nlohmann/json.hpp>
+using json = nlohmann::json;
 #include <string>
 #include <map>
 #include <vector>
@@ -10,13 +12,13 @@ class HTTPRequestHandler{
    public:
       HTTPRequestHandler(ProductMNG& productMNG);
       ~HTTPRequestHandler();
-      bool handleRequest(HTTPRequest& request);
+      json handleRequest(HTTPRequest& request);
    private:
-      handleQueryProductByName(std::string& name);
-      handleRetrieveAll();
-      handleRetrieveProductById(int& id);
-      handleRetrieveProductByReference(std::string& reference);
-      handleRetrieveProductByBarcode(std::string& barCode);
+      json handleQueryProductByName(std::string& name);
+      json handleRetrieveAll();
+      json handleRetrieveProductById(int& id);
+      json handleRetrieveProductByReference(std::string& reference);
+      json handleRetrieveProductByBarcode(std::string& barCode);
       ProductMNG& m_productMNG;
 
 };

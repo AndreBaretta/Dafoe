@@ -1,6 +1,3 @@
-#include <array>
-#include <string>
-#include <string_view>
 #include "Product.hpp"
 
 Product::Product(const int id, const std::string& name)
@@ -26,12 +23,28 @@ bool Product::setId(int id){
     return true;
 }
 
+bool Product::setQuantity(int qnty){
+    this->m_quantity = qnty;
+    return true;
+}
+
+bool Product::setBarCode(std::string barcode){
+    this->m_barcode = barcode;
+    return true;
+}
+
 bool Product::setName(std::string name){
     this->m_name = name;
     return true;
 }
 
+bool Product::setCategory(std::string category){
+    this->m_category = category;
+    return true;
+}
 
+std::string Product::getCategory(){return this->m_category;}
+std::string Product::getBarCode(){return this->m_barcode;}
 int Product::getId(){return this->m_id;}
-std::string_view Product::getName(){return this->m_name;}
+std::string Product::getName(){return this->m_name;}
 int Product::getQuantity(){return this->m_quantity;}

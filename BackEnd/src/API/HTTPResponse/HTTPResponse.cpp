@@ -1,5 +1,7 @@
 #include "HTTPResponse.hpp"
 
+HTTPResponse::HTTPResponse(){}
+
 HTTPResponse::HTTPResponse(std::string version, std::string statusCode, std::string statusMessage, std::map<std::string, std::string> headers, std::string body)
 : m_version{version}
 , m_statusCode{statusCode}

@@ -6,12 +6,13 @@ HTTPRequestHandler::HTTPRequestHandler(ProductMNG& productMNG)
 
 HTTPRequestHandler::~HTTPRequestHandler(){}
 
-std::string HTTPRequestHandler::handleRequest(HTTPRequest& request){
+json HTTPRequestHandler::handleRequest(HTTPRequest& request){
+   nlohmann::json json;
    std::vector<std::string> path = request.getPath();
    std::string query = request.getQuery();
 
-   // Lidando com a rota /api/product
-   if (path.size() == 2 && path[0] == "api" && path[1] == "product") {
+   // Lidando com o path /api/product
+   if (path.size() == 2 && path[0] == "api" && path[1] == "product"){
       if (query.empty()) {
 	 return handleRetrieveAll();
       } else if (query.find("name=") == 0) {
@@ -26,27 +27,27 @@ std::string HTTPRequestHandler::handleRequest(HTTPRequest& request){
       }
    }
 
-   if (path.size() == 3 && path[0] == "api" && path[1] == "product") {
+   if (path.size() == 3 && path[0] == "api" && path[1] == "product"){
       return handleRetrieveProductById(path[2]);
    }
 
    return handleNotFound();
 }
 
-std::string HTTPRequestHandler::handleRetrieveAll(){
-   this->m_productMNG.retrieveAll();
+json HTTPRequestHandler::handleRetrieveAll(){
+   return this->m_productMNG.retrieveAll();
 }
 
-std::string HTTPRequestHandler::handleQueryProductByName(std::string name){
-   this->m_productMNG.queryProductByName(name);
+json HTTPRequestHandler::handleQueryProductByName(std::string name){
+   return this->m_productMNG.queryProductByName(name);
 }
 
-std::string HTTPRequestHandler::handleRetrieveProductByReference(std::string reference){
-   this->m_productMNG.retrieveProductByReference(reference);
+json HTTPRequestHandler::handleRetrieveProductByReference(std::string reference){
+   return this->m_productMNG.retrieveProductByReference(reference);
 }
 
-std::string HTTPRequestHandler::handleRetrieveProductByBarCode(std::string barcode){
-   this->m_productMNG.retrieveProductByBarCode(barcode);
+json HTTPRequestHandler::handleRetrieveProductByBarCode(std::string barcode){
+   return this->m_productMNG.retrieveProductByBarCode(barcode);
 }
 
 std::string HTTPRequestHandler::handleNotFound() {
