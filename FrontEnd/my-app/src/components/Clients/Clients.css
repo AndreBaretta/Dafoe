@@ -2,7 +2,7 @@
    --glass: rgba(255, 255, 255, 0.25);
  }
  
- .Stock {
+ .Clients {
    text-align: center;
    color: white;
    font-family: 'Inter', sans-serif;
@@ -19,7 +19,7 @@
    background-position: center;
  } 
  
- .Stock-logo {
+ .Clients-logo {
    height: 50vmin;
    pointer-events: none;
  }
@@ -30,31 +30,13 @@
    color: white;
  }
  
- .Stock-header {
-   background-color: #2f1624;
-   min-height: 80vh;
-   display: flex;
-   flex-direction: column;
-   align-items: center;
-   justify-content: center;
-   font-size: calc(20px + 2vmin);
-   color: white;
- }
  
- .SideBarHeader {
-  align-self: end;
-  position: relative;
-  margin-right: 10%;
-  background-color: transparent;
-  font-size: calc(20px + 2vmin); 
- }
-
- .Stock-link {
+ .Clients-link {
    color: #0059ff;
    font-size: calc(5px + 2vmin);
  }
  
- .Stock-glass {
+ .Clients-glass {
    display: flex;
    flex-direction: column;
    width: 90%;
@@ -92,3 +74,4 @@
    margin: 0;
    color: white;
  }
+ 

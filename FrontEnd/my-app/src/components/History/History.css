@@ -2,7 +2,7 @@
    --glass: rgba(255, 255, 255, 0.25);
  }
  
- .Stock {
+ .History {
    text-align: center;
    color: white;
    font-family: 'Inter', sans-serif;
@@ -19,7 +19,7 @@
    background-position: center;
  } 
  
- .Stock-logo {
+ .History-logo {
    height: 50vmin;
    pointer-events: none;
  }
@@ -30,7 +30,7 @@
    color: white;
  }
  
- .Stock-header {
+ .History-header {
    background-color: #2f1624;
    min-height: 80vh;
    display: flex;
@@ -41,20 +41,12 @@
    color: white;
  }
  
- .SideBarHeader {
-  align-self: end;
-  position: relative;
-  margin-right: 10%;
-  background-color: transparent;
-  font-size: calc(20px + 2vmin); 
- }
-
- .Stock-link {
+ .History-link {
    color: #0059ff;
    font-size: calc(5px + 2vmin);
  }
  
- .Stock-glass {
+ .History-glass {
    display: flex;
    flex-direction: column;
    width: 90%;

@@ -1,11 +1,11 @@
-import './Sales.css';
+import './History.css';
 import Sidebar from '../Sidebar/sidebar';
 import Menu from '../Menu/Menuu';
 
-function Sales() {
+function History() {
   return (
-    <div className="Sales">
-      <div className="Sales-glass">
+    <div className="History">
+      <div className="History-glass">
         <header className='Menu-header'>
         <Sidebar />
         <Menu />
@@ -15,4 +15,4 @@ function Sales() {
   );
 }
 
-export default Sales;
+export default History;

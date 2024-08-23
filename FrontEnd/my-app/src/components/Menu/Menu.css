@@ -14,26 +14,46 @@
    color: white;
    cursor: pointer;
    transition: background-color 0.3s ease;
-   width: 100%;
+   width: 80%;
+   height: 1.5rem;
+   font-size: small;
    max-width: 250px; /* Ajuste o tamanho máximo dos itens do menu conforme necessário */
  }
+
+ .Menu-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
  
  .MenuItem:hover {
    background-color: #5a3e5b;
  }
  
  .icon {
-   margin-right: 0.5rem;
-   font-size: 1.5rem; /* Ajuste o tamanho do ícone conforme necessário */
+   margin-right: 0.4rem;
+   color: #890090;
+   font-size: 1rem; /* Ajuste o tamanho do ícone conforme necessário */
  }
 
  .MenuItem button {
-   background-color:  transparent;
-   width: 100%;
-   height: 14%;
+   background-color: transparent;
+   width: 80%;
+   height: 10%;
    border-radius: 0.5rem;
    box-shadow: 0 0 10px rgba(0, 0, 0, 0);
    border: transparent;
    position: absolute;
    cursor: pointer;
+}
+
+.Menu-header {
+  align-self: start;
+  position: relative;
+  margin-left: 5%;
+  background-color: transparent;
+  font-size: calc(20px + 2vmin);
 }

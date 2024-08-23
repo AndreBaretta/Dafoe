@@ -30,13 +30,6 @@
    color: white;
  }
  
- .Home-header {
-   align-self: end;
-   position: relative;
-   margin-right: 5%;
-   background-color: transparent;
-   font-size: calc(20px + 2vmin);
- }
  
  .Home-link {
    color: #0059ff;
@@ -45,7 +38,7 @@
  
  .Home-glass {
    display: flex;
-   flex-direction: column;
+   flex-direction: row;
    width: 90%;
    height: 90%;
    border-radius: 2rem;
