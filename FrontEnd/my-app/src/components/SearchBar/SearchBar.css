@@ -10,6 +10,12 @@
    box-Shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
  }
 
+ .SearchBarHeader {
+  position: absolute;
+  align-items: center;
+  margin-top: 2rem;
+ }
+
  .SearchBar input {
    width: 100%;
    border: none;
