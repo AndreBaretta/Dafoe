@@ -4,7 +4,7 @@ import './Daily.css'
 const Daily = () => {
    return(
       <div className="Daily">
-
+         
       </div>
    )
 };
