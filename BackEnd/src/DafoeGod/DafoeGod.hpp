@@ -12,6 +12,8 @@ class ProductDAO;
 class ClientDAO;
 class OrderDAO;
 class CategoryDAO;
+class EmployeeDAO;
+class ManufacturerDAO;
 
 class DafoeGod{
 public:
@@ -29,6 +31,8 @@ public:
     friend class ClientDAO;
     friend class OrderDAO;
     friend class CategoryDAO;
+    friend class EmployeeDAO;
+    friend class ManufacturerDAO;
 };
 
 #endif

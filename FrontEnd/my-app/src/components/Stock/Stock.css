@@ -49,12 +49,6 @@
   font-size: calc(20px + 2vmin); 
  }
 
- .SearchBarHeader {
-  position: absolute;
-  align-items: center;
-  margin-top: 2rem;
- }
-
  .Stock-link {
    color: #0059ff;
    font-size: calc(5px + 2vmin);
