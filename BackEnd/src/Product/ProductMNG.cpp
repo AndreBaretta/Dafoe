@@ -17,32 +17,32 @@ bool ProductMNG::createProduct(const std::string& name, const int manufacturerId
 
 // Read
 json ProductMNG::queryProductByName(const std::string& name){
-   Product product = this->m_productDAO->retrieveByName(name);
-   json json = this->m_jsonBuilder->productVectorToJson(product);
+   std::vector<Product> product = this->m_productDAO.retrieveByName(name);
+   json json = this->m_jsonBuilder.productVectorToJson(product);
    return json;
 }
 
 json ProductMNG::retrieveAll(){
-   std::vector<Product> products = this->m_productDAO->retrieveByName("");
-   json json = this->m_jsonBuilder->productVectorToJson(products);
+   std::vector<Product> products = this->m_productDAO.retrieveByName("");
+   json json = this->m_jsonBuilder.productVectorToJson(products);
    return json;
 }
 
 json ProductMNG::retrieveProductByID(const int id){
    Product product = this->m_productDAO.retrieveByID(id);
-   json json = this->m_jsonBuilder->productToJson(product);
+   json json = this->m_jsonBuilder.productToJson(product);
    return json;
 }
 
 json ProductMNG::retrieveProductByBarCode(const std::string& barCode){
    Product product = this->m_productDAO.retrieveByBarCode(barCode);
-   json json = this->m_jsonBuilder->productToJson(product);
+   json json = this->m_jsonBuilder.productToJson(product);
    return json;
 }
 
 json ProductMNG::retrieveProductByReference(const std::string& reference){
-   Product product = this->m_productDAO.retrieveByReference(reference);
-   json json = this->m_jsonBuilder->productToJson(product);
+   std::vector<Product> products = this->m_productDAO.retrieveByReference(reference);
+   json json = this->m_jsonBuilder.productVectorToJson(products);
    return json;
 }
 
