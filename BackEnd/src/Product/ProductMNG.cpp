@@ -41,8 +41,8 @@ json ProductMNG::retrieveProductByBarCode(const std::string& barCode){
 }
 
 json ProductMNG::retrieveProductByReference(const std::string& reference){
-   Product product = this->m_productDAO.retrieveByReference(reference);
-   json json = this->m_jsonBuilder.productToJson(product);
+   std::vector<Product> products = this->m_productDAO.retrieveByReference(reference);
+   json json = this->m_jsonBuilder.productVectorToJson(products);
    return json;
 }
 
