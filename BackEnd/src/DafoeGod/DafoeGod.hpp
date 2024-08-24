@@ -10,12 +10,13 @@
 
 class ProductDAO;
 class ClientDAO;
-class OrderDAO;
+class SellOrderDAO;
 class CategoryDAO;
 class EmployeeDAO;
 class ManufacturerDAO;
 class StatusDAO;
 class PaymentMethodDAO;
+class GenericProductDAO;
 
 class DafoeGod{
 public:
@@ -31,12 +32,14 @@ public:
     sql::ResultSet* res{};
     friend class ProductDAO;
     friend class ClientDAO;
-    friend class OrderDAO;
+    friend class SellOrderDAO;
     friend class CategoryDAO;
     friend class EmployeeDAO;
     friend class ManufacturerDAO;
     friend class StatusDAO;
     friend class PaymentMethodDAO;
+    friend class GenericProductDAO;
+
 };
 
 #endif
