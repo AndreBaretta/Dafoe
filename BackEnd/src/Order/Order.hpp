@@ -5,39 +5,29 @@
 #include "../Product/Product.hpp"
 #include <array>
 #include <chrono>
-#include <vector>
 
-using year_month_day = std::chrono::year_month_day;
-class sellOrder{
+class Order{
+   public:
+      explicit Order(int id, Client* buyer, double price, year_month_day date){}
+      ~Order(){}
+      
+      // Setters
+      bool setId(int);
+      bool setBuyer(Client*);
+      bool setPrice(double);
+      bool setDate(year_month_day);
 
-public:
-    sellOrder(int id, int clientId, int sellerId, int deliveredBy, int status, int paymentMethod, std::string date, double price);
-   ~sellOrder(){}
-
-   // Setters
-   bool setId(int id);
-   bool setClient(int id);
-   bool setSeller(int id);
-   bool setDeliveredBy(int id);
-
-   bool setPrice(double price);
-   bool setDate(std::string date);
-
-   // Getters
-   int            getId();
-   Client&        getBuyer();
-   double         getPrice();
-   const year_month_day getDate();
-
-private:
-   int               m_id{};
-   int	             m_clientId;
-   int               m_sellerId;
-   int               m_deliveredBy;
-   int               m_status;
-   int               m_paymentMethod;
-   std::string       m_date{};
-   double	     m_price{};
+      // Getters
+      int            getId();
+      Client*        getBuyer();
+      double         getPrice();
+      year_month_day getDate();
+	    
+   private:
+      int            m_id{};
+      Client* 	     m_buyer{};
+      double	     m_price{};
+      year_month_day m_date{};
 };
 
 #endif
