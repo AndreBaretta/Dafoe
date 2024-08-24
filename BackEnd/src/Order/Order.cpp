@@ -31,4 +31,3 @@ int            Order::getId(){return this->m_id;}
 Client*        Order::getBuyer(){return this->m_buyer;}
 double         Order::getPrice(){return this->m_price;}
 year_month_day Order::getDate(){return this->m_date;}
-

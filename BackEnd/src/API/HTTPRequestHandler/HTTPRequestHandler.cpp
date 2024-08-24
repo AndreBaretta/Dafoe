@@ -83,19 +83,23 @@ std::string HTTPRequestHandler::handleRequest(HTTPRequest& request){
 }
 
 std::string HTTPRequestHandler::handleRetrieveAll(){
-   return this->m_productMNG.retrieveAll();
+   std::string response = this->m_productMNG.retrieveAll().dump();
+   return response;
 }
 
 std::string HTTPRequestHandler::handleQueryProductByName(std::string& name){
-   return this->m_productMNG.queryProductByName(name);
+   std::string response = this->m_productMNG.queryProductByName(name).dump();
+   return response;
 }
 
 std::string HTTPRequestHandler::handleRetrieveProductByReference(std::string& reference){
-   return this->m_productMNG.retrieveProductByReference(reference);
+   std::string response = this->m_productMNG.retrieveProductByReference(reference).dump();
+   return response;
 }
 
 std::string HTTPRequestHandler::handleRetrieveProductByBarcode(std::string& barcode){
-   return this->m_productMNG.retrieveProductByBarCode(barcode);
+   std::string response = this->m_productMNG.retrieveProductByBarCode(barcode).dump();
+   return response;
 }
 
 std::string HTTPRequestHandler::handleRetrieveProductById(int& id){
