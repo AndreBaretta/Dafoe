@@ -3,7 +3,6 @@
 
 #include <string>
 #include <map>
-//#include <chrono>
 
 class HTTPResponse{
    public:
@@ -30,7 +29,7 @@ class HTTPResponse{
       std::string m_statusCode;
       std::string m_statusMessage;
       std::map<std::string, std::string> m_headers;
-      std::string m_body;
+      std::string body;
 };
 
 #endif

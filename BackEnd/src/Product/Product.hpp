@@ -4,37 +4,31 @@
 
 class Product{
    public:
-      Product();
-      Product(const int id, const std::string& name, const std::string& barcode, const double price, const int quantity);
-      Product(const int id, const std::string& name, const std::string& barcode, const double price, const double cost, std::string& reference, const int quantity);
+      Product(const int id, const std::string& name);
+      Product(const int id, const std::string& name, const int quantity);
+      Product(const int id, const std::string& name, const int quantity, const int category);
 
       // Setters
-      bool setId(int id);
       bool setName(std::string name);
-      bool setBarcode(std::string barcode);
-      bool setPrice(double price);
-      bool setCost(double cost);
-      bool setReference(std::string reference);
-      bool setQuantity(int quantity);
+      bool setQuantity(int qnty);
+      bool setId(int id);
+      bool setBarCode(std::string barcode);
+      bool setCategory(int category);
 
       // Getters
       int getId();
       std::string getName();
-      std::string getBarcode();
-      double getPrice();
-      double getCost();
-      std::string getReference();
       int getQuantity();
+      int getCategory();
+      std::string getBarCode();
       
 
    private:
       int m_id{};
       std::string m_name{};
-      std::string m_barcode{};
-      double m_price{};
-      double m_cost{};
-      std::string m_reference{};
       int m_quantity{};
+      int m_category{};
+      std::string m_barcode{};
       
 };
 #endif

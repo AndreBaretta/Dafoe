@@ -1,110 +1,65 @@
 #include "HTTPRequestHandler.hpp"
 
-HTTPRequestHandler::HTTPRequestHandler(ProductMNG& productMNG, HTTPResponseBuilder& responseBuilder)
+HTTPRequestHandler::HTTPRequestHandler(ProductMNG& productMNG)
 : m_productMNG{productMNG}
-, m_responseBuilder{responseBuilder}
 {}
 
 HTTPRequestHandler::~HTTPRequestHandler(){}
 
-std::string HTTPRequestHandler::handleRequest(HTTPRequest& request){
-   json responseBody;
-   std::string version;
-   std::string statusCode;
-   std::string statusMessage;
-   std::map<std::string,std::string> headers;
-
+json HTTPRequestHandler::handleRequest(HTTPRequest& request){
+   nlohmann::json json;
    std::vector<std::string> path = request.getPath();
    std::string query = request.getQuery();
-   for(int i = 0; i < path.size(); i++){
-      std::cout << path[i] << '\n';
-   }
-   std::cout << query << '\n';
-   std::cout << path.size();
+
    // Lidando com o path /api/product
    if (path.size() == 2 && path[0] == "api" && path[1] == "product"){
       if (query.empty()) {
-	 responseBody = handleRetrieveAll();
-	 version = "HTTP/1.1";
-	 statusCode = "200";
-	 statusMessage = "OK";
-	 HTTPResponse response = HTTPResponse(version,statusCode,statusMessage,headers,responseBody);
-	 std::string stringResponse = this->m_responseBuilder.buildResponseString(response);
-	 return stringResponse;
-
+	 return handleRetrieveAll();
       } else if (query.find("name=") == 0) {
 	 std::string name = query.substr(5);
-	 responseBody = handleQueryProductByName(name);
-	 version = "HTTP/1.1";
-	 statusCode = "200";
-	 statusMessage = "OK";
-	 HTTPResponse response = HTTPResponse(version,statusCode,statusMessage,headers,responseBody);
-	 std::string stringResponse = this->m_responseBuilder.buildResponseString(response);
-	 return stringResponse;
-
+	 return handleQueryProductByName(name);
       } else if (query.find("reference=") == 0) {
 	 std::string reference = query.substr(10);
-	 responseBody = handleRetrieveProductByReference(reference);
-	 version = "HTTP/1.1";
-	 statusCode = "200";
-	 statusMessage = "OK";
-	 HTTPResponse response = HTTPResponse(version,statusCode,statusMessage,headers,responseBody);
-	 std::string stringResponse = this->m_responseBuilder.buildResponseString(response);
-	 return stringResponse;
-
+	 return handleRetrieveProductByReference(reference);
       } else if (query.find("barcode=") == 0) {
 	 std::string barcode = query.substr(8);
-	 responseBody = handleRetrieveProductByBarcode(barcode);
-	 version = "HTTP/1.1";
-	 statusCode = "200";
-	 statusMessage = "OK";
-	 HTTPResponse response = HTTPResponse(version,statusCode,statusMessage,headers,responseBody);
-	 std::string stringResponse = this->m_responseBuilder.buildResponseString(response);
-	 return stringResponse;
+	 return handleRetrieveProductByBarCode(barcode);
       }
    }
 
    if (path.size() == 3 && path[0] == "api" && path[1] == "product"){
-      int temp = std::stoi(path[2]);
-      responseBody = handleRetrieveProductById(temp);
-      version = "HTTP/1.1";
-      statusCode = "200";
-      statusMessage = "OK";
-      HTTPResponse response = HTTPResponse(version,statusCode,statusMessage,headers,responseBody);
-      std::string stringResponse = this->m_responseBuilder.buildResponseString(response);
-      return stringResponse;
+      return handleRetrieveProductById(path[2]);
    }
 
-
-   responseBody = "Page not found.";
-   version = "HTTP/1.1";
-   statusCode = "404";
-   statusMessage = "Not Found";
-   headers["Content-Type"] = "text/plain";
-   HTTPResponse response = HTTPResponse(version,statusCode,statusMessage,headers,responseBody);
-   std::string stringResponse = this->m_responseBuilder.buildResponseString(response);
-   return stringResponse;
+   return handleNotFound();
 }
 
-std::string HTTPRequestHandler::handleRetrieveAll(){
+json HTTPRequestHandler::handleRetrieveAll(){
    return this->m_productMNG.retrieveAll();
 }
 
-std::string HTTPRequestHandler::handleQueryProductByName(std::string& name){
+json HTTPRequestHandler::handleQueryProductByName(std::string name){
    return this->m_productMNG.queryProductByName(name);
 }
 
-std::string HTTPRequestHandler::handleRetrieveProductByReference(std::string& reference){
+json HTTPRequestHandler::handleRetrieveProductByReference(std::string reference){
    return this->m_productMNG.retrieveProductByReference(reference);
 }
 
-std::string HTTPRequestHandler::handleRetrieveProductByBarcode(std::string& barcode){
+json HTTPRequestHandler::handleRetrieveProductByBarCode(std::string barcode){
    return this->m_productMNG.retrieveProductByBarCode(barcode);
 }
 
-std::string HTTPRequestHandler::handleRetrieveProductById(int& id){
-   
-   return this->m_productMNG.retrieveProductByID(id);
+std::string HTTPRequestHandler::handleNotFound() {
+   return "HTTP/1.1 404 Not Found\nContent-Type: text/plain\n\nPage not found.";
 }
+
+
+
+
+
+
+
+
 
 
