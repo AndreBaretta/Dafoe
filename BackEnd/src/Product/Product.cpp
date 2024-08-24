@@ -1,5 +1,7 @@
 #include "Product.hpp"
 
+Product::Product(){}
+
 Product::Product(const int id, std::string& name, std::string& barcode, const double price, const int quantity)
    : m_id{id}
    , m_name{name}
