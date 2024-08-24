@@ -1,15 +1,15 @@
-#include "HTTPResponse.hpp"
+#include "HTTPResponseBuilder.hpp"
 
 HTTPResponseBuilder::HTTPResponseBuilder(){}
 
 HTTPResponseBuilder::~HTTPResponseBuilder(){}
 
-HTTPResponseBuilder::buildStatusLine(const HTTPResponse& response){
+std::string HTTPResponseBuilder::buildStatusLine(HTTPResponse& response){
    std::string statusLine = response.getVersion() + " " + response.getStatusCode() + " " + response.getStatusMessage();
    return statusLine;
 }
 
-HTTPResponseBuilder::buildHeaders(const HTTPResponse& response){
+std::string HTTPResponseBuilder::buildHeaders(HTTPResponse& response){
    std::string headersString;
    std::map<std::string, std::string> headers = response.getHeaders();
    for(auto const& [key,val] : headers){
@@ -18,7 +18,7 @@ HTTPResponseBuilder::buildHeaders(const HTTPResponse& response){
    return headersString;
 }
 
-HTTPResponseBuilder::buildResponseString(const HTTPResponse& response){
+std::string HTTPResponseBuilder::buildResponseString(HTTPResponse& response){
    std::string responseString;
    responseString += buildStatusLine(response) + "\r\n";
    responseString += buildHeaders(response) + "\r\n";
