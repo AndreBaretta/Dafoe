@@ -10,7 +10,7 @@ public:
    ProductDAO(DafoeGod& zeus);
    std::vector<Product> retrieveByName(const std::string& name);
    Product retrieveByID(const int id);
-   Product retrieveByReference(const std::string& reference);
+   std::vector<Product> retrieveByReference(const std::string& reference);
    std::vector<Product> retrieveByManufacturer(const std::string& manufacturer);
    Product retrieveByBarCode(const std::string& barCode);
 
@@ -28,6 +28,7 @@ public:
    bool updateCategoryPriceByPercentage(const int category, const double percentage);
 private:
    static inline int s_id{0};
+   static inline int s_genericProductId{0};
    DafoeGod& m_theos;
 };
 
