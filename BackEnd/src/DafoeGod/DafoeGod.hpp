@@ -15,6 +15,7 @@ class CategoryDAO;
 class EmployeeDAO;
 class ManufacturerDAO;
 class StatusDAO;
+class PaymentMethodDAO;
 
 class DafoeGod{
 public:
@@ -35,6 +36,7 @@ public:
     friend class EmployeeDAO;
     friend class ManufacturerDAO;
     friend class StatusDAO;
+    friend class PaymentMethodDAO;
 };
 
 #endif
