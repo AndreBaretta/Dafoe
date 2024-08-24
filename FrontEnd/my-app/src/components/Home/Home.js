@@ -6,13 +6,15 @@ import Daily from '../Daily/Daily';
 function Home() {
   return (
     <div className="Home">
-       <header className='Menu-header'>
+      <div className="Home-glass">
+        <header className='Menu-header'>
           <Sidebar />
           <div className='content'>
           <Menu />
           </div>
         </header>
         <Daily />
+      </div>
     </div>
   );
 }

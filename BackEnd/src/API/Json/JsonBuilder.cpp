@@ -3,7 +3,7 @@
 JsonBuilder::JsonBuilder(){}
 JsonBuilder::~JsonBuilder(){}
 
-json JsonBuilder::productToJson(Product& product){
+json JsonBuilder::productToJson(const Product& product){
    json jsonProduct;
    jsonProduct["id"]        = product.getId();
    jsonProduct["name"]      = product.getName();
@@ -15,7 +15,7 @@ json JsonBuilder::productToJson(Product& product){
    return jsonProduct;
 }
 
-json JsonBuilder::productVectorToJson(std::vector<Product>& products){
+json JsonBuilder::productVectorToJson(const std::vector<Product>& products){
    json jsonProductArray = json::array();
    for(int i = 0; i < products.size(); i++){
       json jsonProduct;

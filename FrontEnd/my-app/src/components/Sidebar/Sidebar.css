@@ -15,7 +15,7 @@
     height: 1rem;
     font-weight: bold;
     font-size: 50px;
-    gap : 0.1rem;
+    gap : 1rem;
     position: relative;
     align-items: center;
     justify-content: center;
@@ -23,8 +23,8 @@
 }
 
 .logo>img{
-    width: 3.5rem;
-    height: 3.5rem;
+    width: 5rem;
+    height: 5rem;
 }
 
 .logo>span>span{
