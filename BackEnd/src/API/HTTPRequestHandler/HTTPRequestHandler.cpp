@@ -16,11 +16,6 @@ std::string HTTPRequestHandler::handleRequest(HTTPRequest& request){
 
    std::vector<std::string> path = request.getPath();
    std::string query = request.getQuery();
-   for(int i = 0; i < path.size(); i++){
-      std::cout << path[i] << '\n';
-   }
-   std::cout << query << '\n';
-   std::cout << path.size();
    // Lidando com o path /api/product
    if (path.size() == 2 && path[0] == "api" && path[1] == "product"){
       if (query.empty()) {
@@ -103,8 +98,8 @@ std::string HTTPRequestHandler::handleRetrieveProductByBarcode(std::string& barc
 }
 
 std::string HTTPRequestHandler::handleRetrieveProductById(int& id){
-   
-   return this->m_productMNG.retrieveProductByID(id);
+   std::string response = this->m_productMNG.retrieveProductByID(id).dump();
+   return response; 
 }
 
 
