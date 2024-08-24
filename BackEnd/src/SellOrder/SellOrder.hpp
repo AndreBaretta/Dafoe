@@ -1,18 +1,13 @@
 #ifndef ORDER_2210
 #define ORDER_2210
 
-#include "../Client/Client.hpp"
-#include "../Product/Product.hpp"
-#include <array>
-#include <chrono>
-#include <vector>
+#include <string>
 
-using year_month_day = std::chrono::year_month_day;
-class sellOrder{
+class SellOrder{
 
 public:
-    sellOrder(int id, int clientId, int sellerId, int deliveredBy, int status, int paymentMethod, std::string date, double price);
-   ~sellOrder(){}
+    SellOrder(int id, int clientId, int sellerId, int deliveredBy, int status, int paymentMethod, std::string date, double price);
+   ~SellOrder(){}
 
    // Setters
    bool setId(int id);
@@ -25,9 +20,9 @@ public:
 
    // Getters
    int            getId();
-   Client&        getBuyer();
+   int       getBuyer();
    double         getPrice();
-   const year_month_day getDate();
+   std::string& getDate();
 
 private:
    int               m_id{};
