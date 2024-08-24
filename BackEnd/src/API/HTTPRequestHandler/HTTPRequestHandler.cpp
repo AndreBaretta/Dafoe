@@ -10,7 +10,7 @@ json HTTPRequestHandler::handleRequest(HTTPRequest& request){
    nlohmann::json json;
    std::vector<std::string> path = request.getPath();
    std::string query = request.getQuery();
-
+  
    // Lidando com o path /api/product
    if (path.size() == 2 && path[0] == "api" && path[1] == "product"){
       if (query.empty()) {
@@ -50,8 +50,9 @@ json HTTPRequestHandler::handleRetrieveProductByBarCode(std::string barcode){
    return this->m_productMNG.retrieveProductByBarCode(barcode);
 }
 
-std::string HTTPRequestHandler::handleNotFound() {
-   return "HTTP/1.1 404 Not Found\nContent-Type: text/plain\n\nPage not found.";
+std::string HTTPRequestHandler::handleRetrieveProductById(int& id){
+   std::string response = this->m_productMNG.retrieveProductByID(id).dump();
+   return response; 
 }
 
 

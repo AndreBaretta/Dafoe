@@ -1,10 +1,7 @@
 #include "ProductDAO.hpp"
-#include "Product.hpp"
 #include <mariadb/conncpp.hpp>
 #include <mariadb/conncpp/PreparedStatement.hpp>
 #include <mariadb/conncpp/ResultSet.hpp>
-#include <memory>
-#include <vector>
 //NEED TO ADD TRY CATCHES TO ALL SQL QUERIES
 
 
@@ -12,10 +9,11 @@ ProductDAO::ProductDAO(DafoeGod& zeus)
 : m_theos{zeus}
 {}
 
-std::vector<Product> ProductDAO::retrieveByName(const std::string& name){
+std::vector<Product> ProductDAO::retrieveByName(std::string name){
     std::unique_ptr<sql::PreparedStatement> state{m_theos.conn->prepareStatement("select * from product where name like ?")};
     state->setString(1, '%' + name + '%');
     sql::ResultSet* result {state->executeQuery()};
+
     Product product{};
     std::vector<Product> products{};
     while(result->next()){
@@ -44,7 +42,7 @@ Product ProductDAO::retrieveByID(const int id){
     return product;
 }
 
-Product ProductDAO::retrieveByBarCode(const std::string& barCode){
+Product ProductDAO::retrieveByBarCode(std::string barCode){
     std::unique_ptr<sql::PreparedStatement> state{m_theos.conn->prepareStatement("select * from product where barcode = ?")};
     state->setString(1,barCode);
     sql::ResultSet* result {state->executeQuery()};
@@ -58,7 +56,7 @@ Product ProductDAO::retrieveByBarCode(const std::string& barCode){
     return product;
 }
 
-std::vector<Product> ProductDAO::retrieveByReference(const std::string& reference){
+std::vector<Product> ProductDAO::retrieveByReference(std::string reference){
     std::unique_ptr<sql::PreparedStatement> state{m_theos.conn->prepareStatement("select * from product where reference like ?")};
     state->setString(1,'%' + reference + '%');
     sql::ResultSet* result {state->executeQuery()};
@@ -76,7 +74,7 @@ std::vector<Product> ProductDAO::retrieveByReference(const std::string& referenc
 
     return products;
 }
-std::vector<Product> ProductDAO::retrieveByManufacturer(const std::string& manufacturer){
+std::vector<Product> ProductDAO::retrieveByManufacturer(std::string manufacturer){
     std::unique_ptr<sql::PreparedStatement> state{m_theos.conn->prepareStatement("select id from manufacturer where name like ?")};
     state->setString(1,'%' + manufacturer + '%');
     sql::ResultSet* result {state->executeQuery()};

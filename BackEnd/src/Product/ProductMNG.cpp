@@ -1,4 +1,5 @@
 #include "ProductMNG.hpp"
+#include <iostream>
 
 ProductMNG::ProductMNG(ProductDAO& productDAO,JsonBuilder& jsonBuilder)
 : m_productDAO{productDAO}

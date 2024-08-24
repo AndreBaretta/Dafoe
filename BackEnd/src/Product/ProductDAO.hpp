@@ -3,16 +3,18 @@
 #include "../DafoeGod/DafoeGod.hpp"
 #include "Product.hpp"
 #include <mariadb/conncpp/ResultSet.hpp>
+#include <memory>
+#include <vector>
 
 class ProductDAO{
 public:
 
    ProductDAO(DafoeGod& zeus);
-   std::vector<Product> retrieveByName(const std::string& name);
+   std::vector<Product> retrieveByName(std::string name);
    Product retrieveByID(const int id);
-   std::vector<Product> retrieveByReference(const std::string& reference);
-   std::vector<Product> retrieveByManufacturer(const std::string& manufacturer);
-   Product retrieveByBarCode(const std::string& barCode);
+   std::vector<Product> retrieveByReference(std::string reference);
+   std::vector<Product> retrieveByManufacturer(std::string manufacturer);
+   Product retrieveByBarCode(std::string barCode);
 
    bool createProduct(const std::string& name, const int manufacturerId, const int quantity,
                       const int category, const std::string& barCode, const std::string& reference,
