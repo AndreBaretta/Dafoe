@@ -1,29 +1,25 @@
 import React, { useState } from "react";
-import { FaUser, FaLock } from "react-icons/fa";
-import './Login.css'
+import './Login.css';
 
 const Login = () => {
-
    const [username, setUsername] = useState("");
    const [password, setPassword] = useState("");
 
    const handleSubmit = (event) => {
       event.preventDefault();
-
       alert("enviando dados " + username + " - " + password);
    };
 
    return(
       <div className="Login">
          <div className="Login-glass">
+            <h1>Dafoe</h1> {/* Texto grande e centralizado */}
             <form onSubmit={handleSubmit}>
                <div className="input-field">
-                  <input type="user" placeholder="Usuário" onChange={(e) => setUsername(e.target.value)} />
-                  <FaUser className="input-field-icon" />
+                  <input type="text" placeholder="Usuário" onChange={(e) => setUsername(e.target.value)} />
                </div>
                <div className="input-field">
                   <input type="password" placeholder="Senha" onChange={(e) => setPassword(e.target.value)} />
-                  <FaLock className="input-field-icon" />
                </div>
 
                <div className="recall">
@@ -32,11 +28,14 @@ const Login = () => {
                      Lembre de mim
                   </label>
                </div>
-               <button onClick={()=>window.open('http://localhost:3000?home','_self')}>Entrar</button>
+               <button type="submit">Entrar</button>
             </form>
          </div>
+         <div className="watermark">
+           ©dafoeformation - 2024
+         </div>
       </div>
-   )
+   );
 };
 
-export default Login; 
+export default Login;
