@@ -20,24 +20,6 @@ function App() {
     }
   )
 
-  const linksPages=(p) => {
-    if(p===1){
-      window.open('http://localhost:3000?home','_self')
-    }else if(p===2){
-      window.open('http://localhost:3000?login','_self')
-    }else if(p===3){
-      window.open('http://localhost:3000?sales','_self')
-    }else if(p===4){
-      window.open('http://localhost:3000?stock','_self')
-    }else if(p===5){
-      window.open('http://localhost:3000?register','_self')
-    }else if(p===6){
-      window.open('http://localhost:3000?clients','_self')
-    }else if(p===7){
-      window.open('http://localhost:3000?history','_self')
-    }
-  }
-
   function returnPage() {
     if(page==='home'){
       return <Home />
