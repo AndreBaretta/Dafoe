@@ -7,7 +7,7 @@ const SearchBar = ({results, setResults}) => {
    return (
       <div className="SearchBar">
         <FaSearch className="icon" />
-        <input type="text" value={results} />
+        <input type="search" value={results} onChange={(e) => setResults(e.target.value)}/>
    </div>
    );
 }

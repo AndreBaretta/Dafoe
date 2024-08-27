@@ -4,14 +4,27 @@ import SearchBar from '../SearchBar/SearchBar';
 import Menu from '../Menu/Menuu';
 import React, {useState, useEffect} from 'react';
 
+
+
 function Stock() {
 
-  const [query, setQuery] = useState ("");
-  const [results, setResults] = useState ("");
+  const [searchValue, setSearchValue] = useState("");
+  const [results, setResults] = useState([]);
+  console.log(results)
 
-  function getData() {
-    fetch("https://jsonplaceholder.typicode.com/posts").then((Response) => Response.json().then(json=>console.log(json)))
-  }
+  useEffect(() => {
+    const getData = async () => {
+      try{
+        const response = await fetch("localhost:12354/api/product/" + searchValue);
+        const data = await response.json();
+        setResults(data)
+      } catch(error) {
+        console.error(error);
+      }
+    };
+
+    getData();
+  }, [searchValue])
 
   return (
     <div className="Stock">
@@ -21,8 +34,19 @@ function Stock() {
           <Menu />
         </header>
         <header className='SearchBarHeader'>
-          <SearchBar results={results} setResults={setResults}/>
+          <SearchBar results={searchValue} setResults={setSearchValue}/>
         </header>
+        <div>
+          {results.map((item) => (
+            <tr>
+              <td>{item.name}</td>
+              <td>{item.manufacturer}</td>
+              <td>{item.price}</td>
+              <td>{item.cost}</td>
+              <td>{item.quantity}</td>
+            </tr>
+          ))}
+        </div>
       </div>
     </div>  
   );
