@@ -97,26 +97,20 @@ std::vector<Product> ProductDAO::retrieveByManufacturer(std::string manufacturer
     return products;
 }
 
-bool ProductDAO::createProduct(const std::string& name, const int manufacturerId, const int quantity, 
-                               const int category, const std::string& barCode, const std::string& reference,
-                               const double cost, const double price){
+bool ProductDAO::createProduct(const std::string& name, const int genericProduct, const int manufacturerId,
+                               const std::string& barCode, const double price, const double cost, 
+                               const std::string& reference,const int quantity){
 
-    std::unique_ptr<sql::PreparedStatement> state{m_theos.conn->prepareStatement("insert into genericProduct (id,name,quantity,category) values (?,?,?,?)")};
-    state->setInt(1, this->s_id);
-    state->setString(2, name);
-    state->setInt(3, quantity);
-    state->setInt(4, category);
-    state->executeQuery();
-
-    std::unique_ptr<sql::PreparedStatement> statement{m_theos.conn->prepareStatement("insert into product (id, genericProduct, manufacturer, barcode, price, cost, reference, quantity) values (?, ?, ?, ?, ?, ?, ?)")};
-    statement->setInt(1, this->s_id++);
-    statement->setInt(2, this->s_genericProductId++);
+    std::unique_ptr<sql::PreparedStatement> statement{m_theos.conn->prepareStatement("insert into product (id, genericProduct, manufacturer, name, barcode, price, cost, reference, quantity) values (?, ?, ?, ?, ?, ?, ?, ?, ?);")};
+    statement->setInt(1, s_id++);
+    statement->setInt(2, genericProduct);
     statement->setInt(3, manufacturerId);
-    statement->setString(4, barCode);
-    statement->setDouble(5, price);
-    statement->setDouble(6, cost);
-    statement->setString(7, reference);
-    statement->setInt(8, quantity);
+    statement->setString(4, name);
+    statement->setString(5, barCode);
+    statement->setDouble(6, price);
+    statement->setDouble(7, cost);
+    statement->setString(8, reference);
+    statement->setInt(9, quantity);
 
     statement->executeQuery();
 
