@@ -3,7 +3,7 @@
 #include "../HTTPRequest/HTTPRequest.hpp"
 #include "../../Product/ProductMNG.hpp"
 #include "../HTTPResponse/HTTPResponse.hpp"
-#include <iostream>
+#include <stdexcept>
 #include "../HTTPResponseBuilder/HTTPResponseBuilder.hpp"
 #include <nlohmann/json.hpp>
 using json = nlohmann::json;
@@ -15,12 +15,12 @@ class HTTPRequestHandler{
       ~HTTPRequestHandler();
       std::string handleRequest(HTTPRequest& request);
    private:
-      std::string handleQueryProductByName(std::string& name);
+      std::string handleQueryProductByName(const std::string& name);
       std::string handleRetrieveAll();
-      std::string handleRetrieveProductById(int& id);
-      std::string handleRetrieveProductByReference(std::string& reference);
-      std::string handleRetrieveProductByBarcode(std::string& barCode);
-      std::string handleNotFound();
+      std::string handleRetrieveProductById(int id);
+      std::string handleRetrieveProductByReference(const std::string& reference);
+      std::string handleRetrieveProductByBarcode(const std::string& barCode);
+      bool handleCreateProduct(const std::string& body);
       ProductMNG& m_productMNG;
       HTTPResponseBuilder& m_responseBuilder;
 
