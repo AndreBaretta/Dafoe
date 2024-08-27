@@ -15,7 +15,7 @@ function Stock() {
   useEffect(() => {
     const getData = async () => {
       try{
-        const response = await fetch("localhost:t12354/api/product/" + searchValue);
+        const response = await fetch("localhost:12354/api/product/" + searchValue);
         const data = await response.json();
         setResults(data)
       } catch(error) {
