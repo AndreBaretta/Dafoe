@@ -3,7 +3,6 @@
 #include "../DafoeGod/DafoeGod.hpp"
 #include "Product.hpp"
 #include <mariadb/conncpp/ResultSet.hpp>
-#include <memory>
 #include <vector>
 
 class ProductDAO{
@@ -16,9 +15,9 @@ public:
    std::vector<Product> retrieveByManufacturer(std::string manufacturer);
    Product retrieveByBarCode(std::string barCode);
 
-   bool createProduct(const std::string& name, const int manufacturerId, const int quantity,
-                      const int category, const std::string& barCode, const std::string& reference,
-                      const double cost, const double price);
+   bool createProduct(const std::string& name, const int genericProduct, const int manufacturerId,
+                      const std::string& barCode, const double price, const double cost, 
+                      const std::string& reference, const int quantity);
 
    bool deleteProduct(const int id);
 
