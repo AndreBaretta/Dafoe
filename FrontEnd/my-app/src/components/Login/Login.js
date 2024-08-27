@@ -10,7 +10,7 @@ const Login = () => {
       alert("enviando dados " + username + " - " + password);
    };
 
-   return(
+   return (
       <div className="Login">
          <div className="Login-glass">
             <h1>Dafoe</h1> {/* Texto grande e centralizado */}
@@ -28,11 +28,11 @@ const Login = () => {
                      Lembre de mim
                   </label>
                </div>
-               <button onClick={()=>window.open('http://localhost:3000?home','_self')}>Entrar</button>
+               <button onClick={() => window.open('http://localhost:3000?home', '_self')}>Entrar</button>
             </form>
          </div>
          <div className="watermark">
-           ©dafoeformation - 2024
+            ©dafoeformation - 2024
          </div>
       </div>
    );
