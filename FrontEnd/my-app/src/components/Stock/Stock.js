@@ -16,6 +16,7 @@ function Stock() {
     const getData = async () => {
       try{
         const response = await fetch("http://localhost:12354/api/product?name=" + searchValue);
+
         const data = await response.json();
         setResults(data)
       } catch(error) {
