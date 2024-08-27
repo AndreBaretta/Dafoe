@@ -21,7 +21,7 @@ std::string HTTPResponseBuilder::buildHeaders(HTTPResponse& response){
 std::string HTTPResponseBuilder::buildResponseString(HTTPResponse& response){
    std::string responseString;
    responseString += buildStatusLine(response) + "\r\n";
-   responseString += buildHeaders(response) + "\r\n";
+   responseString += buildHeaders(response) + "\r\n\r\n";
    responseString += response.getBody();
    return responseString;
 }

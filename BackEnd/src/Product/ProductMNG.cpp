@@ -1,5 +1,4 @@
 #include "ProductMNG.hpp"
-#include <iostream>
 
 ProductMNG::ProductMNG(ProductDAO& productDAO,JsonBuilder& jsonBuilder)
 : m_productDAO{productDAO}
@@ -9,10 +8,10 @@ ProductMNG::ProductMNG(ProductDAO& productDAO,JsonBuilder& jsonBuilder)
 ProductMNG::~ProductMNG(){}
 
 // Create
-bool ProductMNG::createProduct(const std::string& name, const int manufacturerId, const int quantity,
-                         const int category, const std::string& barCode, const std::string& reference,
-                         const double cost, const double price){
-   return this->m_productDAO.createProduct(name,manufacturerId,quantity,category,barCode,reference,cost,price);
+bool ProductMNG::createProduct(const std::string& name, const int genericProduct, const int manufacturerId, 
+                               const std::string& barCode, const double price, const double cost, 
+                               const std::string& reference, const int quantity){
+   return this->m_productDAO.createProduct(name,genericProduct,manufacturerId,barCode,price,cost,reference,quantity);
 }
 
 
