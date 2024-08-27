@@ -69,27 +69,22 @@ std::string HTTPRequestHandler::handleRequest(HTTPRequest& request){
       }
 
       if(path.size() == 3 && path[0] == "api" && path[1] == "product"){
-	 try
-	 {
-	    int temp = std::stoi(path[2]);
-	    responseBody = handleRetrieveProductById(temp);
-	    headers["Content-Type"] = "application/json";
-	    statusCode = "200";
-	    statusMessage = "OK";
-	    HTTPResponse response = HTTPResponse(version,statusCode,statusMessage,headers,responseBody);
-	    stringResponse = this->m_responseBuilder.buildResponseString(response);
-	    return stringResponse;
-	 }
-	 catch(std::invalid_argument const& exception)
-	 {
+	 if(!isNumber(path[2])){
 	    statusCode = "400";
 	    statusMessage = "Bad Request";
 	    HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
 	    stringResponse = this->m_responseBuilder.buildResponseString(response);
 	    return stringResponse;
 	 }
+	 int temp = std::stoi(path[2]);
+	 responseBody = handleRetrieveProductById(temp);
+	 headers["Content-Type"] = "application/json";
+	 statusCode = "200";
+	 statusMessage = "OK";
+	 HTTPResponse response = HTTPResponse(version,statusCode,statusMessage,headers,responseBody);
+	 stringResponse = this->m_responseBuilder.buildResponseString(response);
+	 return stringResponse;
       }
-
       statusCode = "404";
       statusMessage = "Not Found";
       HTTPResponse response = HTTPResponse(version,statusCode,statusMessage,headers,responseBody);
@@ -132,7 +127,45 @@ std::string HTTPRequestHandler::handleRequest(HTTPRequest& request){
       HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
       stringResponse = this->m_responseBuilder.buildResponseString(response);
       return stringResponse;
+   }else if(method == "DELETE"){
+      if(path.size() != 3){
+	 statusCode = "400";
+	 statusMessage = "Bad Request";
+	 HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+	 stringResponse = this->m_responseBuilder.buildResponseString(response);
+	 return stringResponse;
+      }
+      if(path[0] != "api"){
+	 statusCode = "404";
+	 statusMessage = "Not Found";
+	 HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+	 stringResponse = this->m_responseBuilder.buildResponseString(response);
+	 return stringResponse;
+      }
+      if(!isNumber(path[2])){
+	 statusCode = "404";
+	 statusMessage = "Not Found";
+	 HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+	 stringResponse = this->m_responseBuilder.buildResponseString(response);
+	 return stringResponse;
+      }
+      if(path[1] == "product"){
+	 int id = std::stoi(path[2]);
+	 handleDeleteProduct(id);
+	 statusCode = "200";
+	 statusMessage = "OK";
+	 HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+	 stringResponse = this->m_responseBuilder.buildResponseString(response);
+	 return stringResponse;
+      }
+      statusCode = "404";
+      statusMessage = "Not Found";
+      HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+      stringResponse = this->m_responseBuilder.buildResponseString(response);
+      return stringResponse;
    }
+
+
 
    statusCode = "400";
    statusMessage = "Bad Request";
@@ -178,5 +211,23 @@ bool HTTPRequestHandler::handleCreateProduct(const std::string& body){
    int quantity = json["quantity"];
    bool response = this->m_productMNG.createProduct(name,genericProduct,manufacturer,barcode,price,cost,reference,quantity);
    return response;
+};
+
+bool HTTPRequestHandler::isNumber(const std::string& string){
+   for(int i = 0; i < string.size(); i++){
+      if(!std::isdigit(string[i])){
+	 return false;
+      }
+   }
+   return true;
 }
+
+bool HTTPRequestHandler::handleDeleteProduct(const int id){
+   bool response = this->m_productMNG.deleteProduct(id);
+   return response;
+}
+
+
+
+
 
