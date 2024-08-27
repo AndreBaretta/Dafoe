@@ -17,6 +17,7 @@ class ManufacturerDAO;
 class StatusDAO;
 class PaymentMethodDAO;
 class GenericProductDAO;
+class ProductOrderDAO;
 
 class DafoeGod{
 public:
@@ -30,6 +31,7 @@ public:
     sql::Connection* conn{};
     sql::Statement* statement{};
     sql::ResultSet* res{};
+
     friend class ProductDAO;
     friend class ClientDAO;
     friend class SellOrderDAO;
@@ -39,6 +41,7 @@ public:
     friend class StatusDAO;
     friend class PaymentMethodDAO;
     friend class GenericProductDAO;
+    friend class ProductOrderDAO;
 
 };
 
