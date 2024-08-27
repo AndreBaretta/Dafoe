@@ -1,57 +1,20 @@
 const { app, BrowserWindow } = require('electron')
 
-<<<<<<< Updated upstream
-function createWindow () {
-  // Create the browser window.
-  const win = new BrowserWindow({
-    width: 800,
-    height: 600,
-    webPreferences: {
-      nodeIntegration: true
-    }
-  })
-
-  //load the index.html from a url
-  win.loadURL('http://localhost:3000');
-
-  // Open the DevTools.
-  win.webContents.openDevTools()
-=======
 function createWindow() {
    // Create the browser window.
    const win = new BrowserWindow({
       width: 800,
       height: 600,
       webPreferences: {
-         nodeIntegration: true,
-         webSecutiry: false,
-         allowRunningInsecureContent: true
+         nodeIntegration: true
       }
    })
-
-   win.webContents.session.webRequest.onBeforeSendHeaders(
-      (details, callback) => {
-         callback({ requestHeaders: { Origin: '*', ...details.requestHeaders } });
-      },
-   );
-
-   win.webContents.session.webRequest.onHeadersReceived((details, callback) => {
-      callback({
-         responseHeaders: {
-            'Access-Control-Allow-Origin': ['*'],
-            ...details.responseHeaders,
-         },
-      });
-   });
-
 
    //load the index.html from a url
    win.loadURL('http://localhost:3000');
 
    // Open the DevTools.
    win.webContents.openDevTools()
-
->>>>>>> Stashed changes
 }
 
 // This method will be called when Electron has finished

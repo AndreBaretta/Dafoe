@@ -12,30 +12,16 @@ function Stock() {
    const [results, setResults] = useState([]);
    console.log(results)
 
-<<<<<<< Updated upstream
-  useEffect(() => {
-    const getData = async () => {
-      try{
-        const response = await fetch("http://localhost:12354/api/product/" + searchValue);
-        const data = await response.json();
-        setResults(data)
-      } catch(error) {
-        console.error(error);
-      }
-    };
-=======
    useEffect(() => {
       const getData = async () => {
          try {
-            const response = await fetch("http://localhost:12354/api/product?name=" + searchValue);
-
+            const response = await fetch("http://localhost:12354/api/product/" + searchValue);
             const data = await response.json();
             setResults(data)
          } catch (error) {
             console.error(error);
          }
       };
->>>>>>> Stashed changes
 
       getData();
    }, [searchValue])
