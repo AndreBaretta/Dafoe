@@ -20,6 +20,8 @@ class HTTPRequestHandler{
       std::string handleRetrieveProductById(int id);
       std::string handleRetrieveProductByReference(const std::string& reference);
       std::string handleRetrieveProductByBarcode(const std::string& barCode);
+      bool isNumber(const std::string& string);
+      bool handleDeleteProduct(const int id);
       bool handleCreateProduct(const std::string& body);
       ProductMNG& m_productMNG;
       HTTPResponseBuilder& m_responseBuilder;
