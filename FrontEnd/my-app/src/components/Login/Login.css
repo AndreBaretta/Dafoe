@@ -1,8 +1,15 @@
 :root {
    --glass: rgba(255, 255, 255, 0.25);
- }
+}
 
-.Login{
+.Login h1 {
+    font-size: calc(40px + 4vmin);
+    color: white;
+    text-shadow: #000 2px 2px;
+    margin-bottom: 2rem;
+}
+
+.Login {
    text-align: center;
    color: white;
    font-family: 'Inter', sans-serif;
@@ -23,45 +30,39 @@
    display: flex;
    flex-direction: column;
    width: 90%;
-   height: 90%;
+   height: 80%;
    border-radius: 2rem;
    background-color: var(--glass);
    padding: 2rem;
    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
    align-items: center;
    justify-content: center;
- }
+}
 
-.Login .input-field {
-   position: relative;
+.input-field {
    display: flex;
    align-items: center;
    width: 70%;
    height: 40px;
-   margin: 30px auto;
+   margin: 15px auto;
 }
 
 .input-field input {
    width: 100%;
    height: 100%;
    background-color: whitesmoke;
-   outline: none;
-   border: 2px solid rgba(red, green, blue, 0.15);
+   border: 2px solid rgba(0, 0, 0, 0.15);
    border-radius: 17px;
    font-size: 20px;
-   padding: 0px 10px;
-}
-
-.input-field-icon {
-   position: relative;
-   left: 15px;
+   padding: 0 10px;
+   box-sizing: border-box;
 }
 
 .Login .recall {
    display: flex;
    justify-content: center;
-   margin: -15px 0 15px;
-   font-size: calc(20px);
+   margin: 15px 0;
+   font-size: calc(14px + 1vmin);
 }
 
 .recall input {
@@ -70,10 +71,25 @@
 
 .Login button {
    width: 40%;
-   height: 30px;
+   height: 40px;
    border-radius: 40px;
    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
    font-size: 20px;
    font-weight: 500;
    margin-bottom: 15px;
+   background-color: #0059ff;
+   color: white;
+   border: none;
+   cursor: pointer;
+}
+
+.watermark {
+   position: right;
+   bottom: 1px;
+   right: 1px;
+   font-size: calc(1px + 1vmin);
+   color: rgba(255, 255, 255, 0.5);
+   text-align: right;
+   z-index: 1000;
+   opacity: 0.5;
 }
