@@ -6,16 +6,37 @@ function createWindow () {
     width: 800,
     height: 600,
     webPreferences: {
-      nodeIntegration: true
+      nodeIntegration: true,
+      webSecutiry: false,
+      allowRunningInsecureContent: true
     }
   })
+
+  win.webContents.session.webRequest.onBeforeSendHeaders(
+    (details, callback) => {
+      callback({ requestHeaders: { Origin: '*', ...details.requestHeaders } });
+    },
+  );
+
+  win.webContents.session.webRequest.onHeadersReceived((details, callback) => {
+    callback({
+      responseHeaders: {
+        'Access-Control-Allow-Origin': ['*'],
+        ...details.responseHeaders,
+      },
+    });
+  });
+
 
   //load the index.html from a url
   win.loadURL('http://localhost:3000');
 
   // Open the DevTools.
   win.webContents.openDevTools()
+
 }
+
+
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
