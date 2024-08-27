@@ -3,10 +3,10 @@
 }
 
 .Login h1 {
-    font-size: calc(40px + 4vmin);
-    color: white;
-    text-shadow: #000 2px 2px;
-    margin-bottom: 2rem;
+   font-size: calc(40px + 4vmin);
+   color: white;
+   text-shadow: #000 2px 2px;
+   margin-bottom: 2rem;
 }
 
 .Login {

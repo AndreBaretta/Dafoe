@@ -2,9 +2,9 @@ import React from "react";
 import './Daily.css'
 
 const Daily = () => {
-   return(
+   return (
       <div className="Daily">
-         
+
       </div>
    )
 };
