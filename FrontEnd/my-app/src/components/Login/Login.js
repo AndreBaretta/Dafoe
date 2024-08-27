@@ -28,7 +28,7 @@ const Login = () => {
                      Lembre de mim
                   </label>
                </div>
-               <button type="submit">Entrar</button>
+               <button onClick={()=>window.open('http://localhost:3000?home','_self')}>Entrar</button>
             </form>
          </div>
          <div className="watermark">
