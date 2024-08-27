@@ -44,6 +44,7 @@ HTTPRequest HTTPRequestParser::parseRequest(std::string request){
    
    if(division != std::string::npos){
       query = path[path.size() - 1].substr(division+1);
+      path[path.size() - 1] = path[path.size() -1].substr(0,division);
    }
 
    if(stream.peek() != EOF){
