@@ -5,8 +5,8 @@
 class Product{
    public:
       Product();
-      Product(const int id, std::string& name, std::string& barcode, const double price, const int quantity);
-      Product(const int id, std::string& name, std::string& barcode, const double price, const double cost, std::string& reference, const int quantity);
+      Product(const int id, const std::string& name, const int genericProduct, const int manufacturer, const std::string& barcode, 
+              const double price, const double cost, const std::string& reference, const int quantity);
 
       // Setters
       bool setId(int id);
@@ -30,6 +30,8 @@ class Product{
    private:
       int m_id{};
       std::string m_name{};
+      int m_genericProduct{};
+      int m_manufacturer{};
       std::string m_barcode{};
       double m_price{};
       double m_cost{};

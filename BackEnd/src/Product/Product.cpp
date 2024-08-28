@@ -2,17 +2,11 @@
 
 Product::Product(){}
 
-Product::Product(const int id, std::string& name, std::string& barcode, const double price, const int quantity)
+Product::Product(const int id, const std::string& name, const int genericProduct, const int manufacturer, const std::string& barcode, const double price, const double cost, const std::string& reference, const int quantity)
    : m_id{id}
    , m_name{name}
-   , m_barcode{barcode}
-   , m_price{price}
-   , m_quantity{quantity}
-{}
-
-Product::Product(const int id, std::string& name, std::string& barcode, const double price, const double cost, std::string& reference, const int quantity)
-   : m_id{id}
-   , m_name{name}
+   , m_genericProduct{genericProduct}
+   , m_manufacturer{manufacturer}
    , m_barcode{barcode}
    , m_price{price}
    , m_cost{cost}
