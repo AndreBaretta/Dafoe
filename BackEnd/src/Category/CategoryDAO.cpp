@@ -2,6 +2,7 @@
 #include <mariadb/conncpp/PreparedStatement.hpp>
 #include <mariadb/conncpp/ResultSet.hpp>
 #include <memory>
+#include <string>
 
 CategoryDAO::CategoryDAO(DafoeGod& dafoe) : m_theos{dafoe}
 {}
@@ -32,7 +33,7 @@ bool CategoryDAO::updateCategory(const int id, std::string name){
 }
 
 std::vector<Category> CategoryDAO::listCategories(){
-   std::unique_ptr<sql::PreparedStatement> stmt{m_theos.conn->prepareStatement("select * from product")};
+   std::unique_ptr<sql::PreparedStatement> stmt{m_theos.conn->prepareStatement("select * from category")};
    sql::ResultSet* result {stmt->executeQuery()};
    std::vector<Category> categories{};
 
@@ -41,4 +42,17 @@ std::vector<Category> CategoryDAO::listCategories(){
    }
 
    return categories;
+}
+
+Category CategoryDAO::retrieveCategory(const int id){
+   std::unique_ptr<sql::PreparedStatement> stmt{m_theos.conn->prepareStatement("select * from category where id = ?")};
+   stmt->setInt(1,id);
+   sql::ResultSet* result {stmt->executeQuery()};
+   result->next();
+   
+   int categoryId = result->getInt("id");
+   std::string categoryName = result->getString("name").c_str();
+   
+   Category category = Category(categoryId,categoryName);
+   return category;
 }

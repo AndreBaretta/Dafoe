@@ -184,7 +184,80 @@ HTTPRequest Test::testRetrieveProductByBarcode(const std::string& barcode){
    return request;
 }
 
+HTTPRequest Test::testRetrieveAllCategories(){
+   std::vector<std::string> path;
+   path.push_back("api");
+   path.push_back("category");
 
+   HTTPRequest request = HTTPRequest();
+   request.setPath(path);
+   request.setMethod("GET");
+   request.setVersion("HTTP/1.1");
+   return request;
+}
 
+HTTPRequest Test::testRetrieveCategory(const int id){
+   std::vector<std::string> path;
+   path.push_back("api");
+   path.push_back("category");
+   path.push_back(std::to_string(id));
+
+   HTTPRequest request = HTTPRequest();
+   request.setPath(path);
+   request.setMethod("GET");
+   request.setVersion("HTTP/1.1");
+   return request;
+}
+
+HTTPRequest Test::testCreateCategory(const std::string& name){
+   std::vector<std::string> path;
+   path.push_back("api");
+   path.push_back("category");
+
+   json jsonbody;
+   jsonbody["name"] = name;
+   std::string body = jsonbody.dump();
+
+   HTTPRequest request = HTTPRequest();
+   request.setPath(path);
+   request.setBody(body);
+   request.setMethod("POST");
+   request.setVersion("HTTP/1.1");
+
+   return request;
+}
+
+HTTPRequest Test::testUpdateCategory(const int id, const std::string& name){
+   std::vector<std::string> path;
+   path.push_back("api");
+   path.push_back("category");
+   path.push_back(std::to_string(id));
+
+   json jsonbody;
+   jsonbody["name"] = name;
+   std::string body = jsonbody.dump();
+
+   HTTPRequest request = HTTPRequest();
+   request.setPath(path);
+   request.setBody(body);
+   request.setMethod("PUT");
+   request.setVersion("HTTP/1.1");
+
+   return request;
+}
+
+HTTPRequest Test::testDeleteCategory(const int id){
+   std::vector<std::string> path;
+   path.push_back("api");
+   path.push_back("category");
+   path.push_back(std::to_string(id));
+
+   HTTPRequest request = HTTPRequest();
+   request.setPath(path);
+   request.setMethod("DELETE");
+   request.setVersion("HTTP/1.1");
+
+   return request;
+}
 
 

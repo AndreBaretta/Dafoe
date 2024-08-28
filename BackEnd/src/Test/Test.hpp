@@ -28,6 +28,12 @@ class Test{
       HTTPRequest testRetrieveProductByBarcode(const std::string& barcode);
       HTTPRequest testQueryProductByName(const std::string& name);
 
+      HTTPRequest testRetrieveAllCategories();
+      HTTPRequest testRetrieveCategory(const int id);
+      HTTPRequest testCreateCategory(const std::string& name);
+      HTTPRequest testUpdateCategory(const int id, const std::string& name);
+      HTTPRequest testDeleteCategory(const int id);
+
    private:
       int m_commandCounter{};
       int m_errorCounter{};

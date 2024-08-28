@@ -1,8 +1,9 @@
 #include "HTTPRequestHandler.hpp"
 #include <iostream>
 
-HTTPRequestHandler::HTTPRequestHandler(ProductMNG& productMNG, HTTPResponseBuilder& responseBuilder)
+HTTPRequestHandler::HTTPRequestHandler(HTTPResponseBuilder& responseBuilder, ProductMNG& productMNG, CategoryMNG& categoryMNG)
 : m_productMNG{productMNG}
+, m_categoryMNG{categoryMNG}
 , m_responseBuilder{responseBuilder}
 {}
 
@@ -26,11 +27,11 @@ std::string HTTPRequestHandler::handleRequest(HTTPRequest& request){
       // Product
       if(path.size() == 2 && path[0] == "api" && path[1] == "product"){
 	 if(query.empty()) {
-	    responseBody = handleRetrieveAll();
+	    responseBody = handleRetrieveAllProduct();
 	    headers["Content-Type"] = "application/json";
 	    statusCode = "200";
 	    statusMessage = "OK";
-	    HTTPResponse response = HTTPResponse(version,statusCode,statusMessage,headers,responseBody);
+	    HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
 	    stringResponse = this->m_responseBuilder.buildResponseString(response);
 	    return stringResponse;
 
@@ -40,7 +41,7 @@ std::string HTTPRequestHandler::handleRequest(HTTPRequest& request){
 	    headers["Content-Type"] = "application/json";
 	    statusCode = "200";
 	    statusMessage = "OK";
-	    HTTPResponse response = HTTPResponse(version,statusCode,statusMessage,headers,responseBody);
+	    HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
 	    stringResponse = this->m_responseBuilder.buildResponseString(response);
 	    return stringResponse;
 
@@ -50,7 +51,7 @@ std::string HTTPRequestHandler::handleRequest(HTTPRequest& request){
 	    headers["Content-Type"] = "application/json";
 	    statusCode = "200";
 	    statusMessage = "OK";
-	    HTTPResponse response = HTTPResponse(version,statusCode,statusMessage,headers,responseBody);
+	    HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
 	    stringResponse = this->m_responseBuilder.buildResponseString(response);
 	    return stringResponse;
 
@@ -60,7 +61,7 @@ std::string HTTPRequestHandler::handleRequest(HTTPRequest& request){
 	    headers["Content-Type"] = "application/json";
 	    statusCode = "200";
 	    statusMessage = "OK";
-	    HTTPResponse response = HTTPResponse(version,statusCode,statusMessage,headers,responseBody);
+	    HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
 	    stringResponse = this->m_responseBuilder.buildResponseString(response);
 	    return stringResponse;
 	 }
@@ -79,13 +80,41 @@ std::string HTTPRequestHandler::handleRequest(HTTPRequest& request){
 	 headers["Content-Type"] = "application/json";
 	 statusCode = "200";
 	 statusMessage = "OK";
-	 HTTPResponse response = HTTPResponse(version,statusCode,statusMessage,headers,responseBody);
+	 HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
 	 stringResponse = this->m_responseBuilder.buildResponseString(response);
 	 return stringResponse;
       }
+
+      // Category
+      if(path.size() == 2 && path[0] == "api" && path[1] == "category"){
+	 responseBody = handleRetrieveAllCategory();
+	 headers["Content-Type"] = "application/json";
+	 statusCode = "200";
+	 statusMessage = "OK";
+	 HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+	 stringResponse = this->m_responseBuilder.buildResponseString(response);
+	 return stringResponse;
+      }
+      if(path.size() == 3 && path[0] == "api" && path[1] == "category"){
+	 if(!isNumber(path[2])){
+	    statusCode = "400";
+	    statusMessage = "Bad Request";
+	    HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+	    stringResponse = this->m_responseBuilder.buildResponseString(response);
+	    return stringResponse;
+	 }
+	 int temp = std::stoi(path[2]);
+	 responseBody = handleRetrieveCategory(temp);
+	 statusCode = "200";
+	 statusMessage = "OK";
+	 HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+	 stringResponse = this->m_responseBuilder.buildResponseString(response);
+	 return stringResponse;
+      }
+
       statusCode = "404";
       statusMessage = "Not Found";
-      HTTPResponse response = HTTPResponse(version,statusCode,statusMessage,headers,responseBody);
+      HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
       stringResponse = this->m_responseBuilder.buildResponseString(response);
       return stringResponse;
    }
@@ -114,6 +143,14 @@ std::string HTTPRequestHandler::handleRequest(HTTPRequest& request){
       }
       if(path[1] == "product"){
 	 handleCreateProduct(requestBody);
+	 statusCode = "204";
+	 statusMessage = "No Content";
+	 HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+	 stringResponse = this->m_responseBuilder.buildResponseString(response);
+	 return stringResponse;
+      }
+      if(path[1] == "category"){
+	 handleCreateCategory(requestBody);
 	 statusCode = "204";
 	 statusMessage = "No Content";
 	 HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
@@ -156,6 +193,15 @@ std::string HTTPRequestHandler::handleRequest(HTTPRequest& request){
 	 stringResponse = this->m_responseBuilder.buildResponseString(response);
 	 return stringResponse;
       }
+      if(path[1] == "category"){
+	 int id = std::stoi(path[2]);
+	 handleDeleteCategory(id);
+	 statusCode = "200";
+	 statusMessage = "OK";
+	 HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+	 stringResponse = this->m_responseBuilder.buildResponseString(response);
+	 return stringResponse;
+      }
       statusCode = "404";
       statusMessage = "Not Found";
       HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
@@ -192,14 +238,21 @@ std::string HTTPRequestHandler::handleRequest(HTTPRequest& request){
 	 stringResponse = this->m_responseBuilder.buildResponseString(response);
 	 return stringResponse;
       }
+      if(path[1] == "category"){
+	 int id = std::stoi(path[2]);
+	 handleUpdateCategory(id,requestBody);
+	 statusCode = "200";
+	 statusMessage = "OK";
+	 HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+	 stringResponse = this->m_responseBuilder.buildResponseString(response);
+	 return stringResponse;
+      }
       statusCode = "404";
       statusMessage = "Not Found";
       HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
       stringResponse = this->m_responseBuilder.buildResponseString(response);
       return stringResponse;
    }
-
-
 
    statusCode = "400";
    statusMessage = "Bad Request";
@@ -208,7 +261,7 @@ std::string HTTPRequestHandler::handleRequest(HTTPRequest& request){
    return stringResponse;
 }
 
-std::string HTTPRequestHandler::handleRetrieveAll(){
+std::string HTTPRequestHandler::handleRetrieveAllProduct(){
    std::string response = this->m_productMNG.retrieveAll().dump();
    return response;
 }
@@ -228,9 +281,19 @@ std::string HTTPRequestHandler::handleRetrieveProductByBarcode(const std::string
    return response;
 }
 
-std::string HTTPRequestHandler::handleRetrieveProductById(int id){
+std::string HTTPRequestHandler::handleRetrieveProductById(const int id){
    std::string response = this->m_productMNG.retrieveProductByID(id).dump();
    return response; 
+}
+
+std::string HTTPRequestHandler::handleRetrieveAllCategory(){
+   std::string response = this->m_categoryMNG.retrieveAllCategories().dump();
+   return response;
+}
+
+std::string HTTPRequestHandler::handleRetrieveCategory(const int id){
+   std::string response = this->m_categoryMNG.retrieveCategory(id).dump();
+   return response;
 }
 
 bool HTTPRequestHandler::handleCreateProduct(const std::string& body){
@@ -261,6 +324,20 @@ bool HTTPRequestHandler::handleUpdateProduct(const int id, const std::string& bo
    return response;
 }
 
+bool HTTPRequestHandler::handleCreateCategory(const std::string& body){
+   json json = json::parse(body);
+   std::string name = json["name"];
+   bool response = this->m_categoryMNG.createCategory(name);
+   return response;
+}
+
+bool HTTPRequestHandler::handleUpdateCategory(const int id, const std::string& body){
+   json json = json::parse(body);
+   std::string name = json["name"];
+   bool response = this->m_categoryMNG.updateCategory(id,name);
+   return response;
+}
+
 bool HTTPRequestHandler::isNumber(const std::string& string){
    for(int i = 0; i < string.size(); i++){
       if(!std::isdigit(string[i])){
@@ -272,6 +349,11 @@ bool HTTPRequestHandler::isNumber(const std::string& string){
 
 bool HTTPRequestHandler::handleDeleteProduct(const int id){
    bool response = this->m_productMNG.deleteProduct(id);
+   return response;
+}
+
+bool HTTPRequestHandler::handleDeleteCategory(const int id){
+   bool response = this->m_categoryMNG.deleteCategory(id);
    return response;
 }
 

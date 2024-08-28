@@ -2,9 +2,9 @@ FROM ubuntu:22.04
 
 WORKDIR /app
 
-RUN apt-get update && apt-get install -y g++ cmake
+RUN apt-get update && apt-get install -y g++ cmake 
 
 COPY . .
 
-EXPOSE 12345
+EXPOSE 12354
 

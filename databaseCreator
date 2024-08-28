@@ -1,3 +1,5 @@
+USE Dafoe;
+
 CREATE TABLE employee(
    id int PRIMARY KEY AUTO_INCREMENT,
    name VARCHAR(100) NOT NULL,
