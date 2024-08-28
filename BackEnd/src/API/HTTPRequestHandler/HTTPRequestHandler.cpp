@@ -185,7 +185,7 @@ std::string HTTPRequestHandler::handleRequest(HTTPRequest& request){
       }
       if(path[1] == "product"){
 	 int id = std::stoi(path[2]);
-	 handleUpdateProduct(id);
+	 handleUpdateProduct(id,requestBody);
 	 statusCode = "200";
 	 statusMessage = "OK";
 	 HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
@@ -247,7 +247,7 @@ bool HTTPRequestHandler::handleCreateProduct(const std::string& body){
    return response;
 };
 
-bool HTTPRequestHandler::HandleUpdateProduct(const int id, const std::string& body){
+bool HTTPRequestHandler::handleUpdateProduct(const int id, const std::string& body){
    json json = json::parse(body);
    std::string name = json["name"];
    int genericProduct = json["genericProduct"];
