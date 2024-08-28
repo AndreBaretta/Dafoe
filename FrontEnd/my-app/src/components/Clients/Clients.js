@@ -25,7 +25,6 @@ function Clients() {
 
    return (
       <div className="Clients">
-         <div className="Clients-glass">
             <header className='Menu-header'>
                <Sidebar />
                <Menu />
@@ -40,7 +39,6 @@ function Clients() {
                   </tr>
                ))}
             </div>
-         </div>
       </div>
    );
 }

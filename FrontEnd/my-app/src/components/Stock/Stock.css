@@ -44,7 +44,7 @@
 .SideBarHeader {
    align-self: end;
    position: relative;
-   margin-right: 10%;
+   margin-right: 20%;
    background-color: transparent;
    font-size: calc(20px + 2vmin);
 }

@@ -28,7 +28,6 @@ function Stock() {
 
    return (
       <div className="Stock">
-         <div className="Stock-glass">
             <header className='Menu-header'>
                <Sidebar />
                <Menu />
@@ -47,7 +46,6 @@ function Stock() {
                   </tr>
                ))}
             </div>
-         </div>
       </div>
    );
 }

@@ -12,7 +12,7 @@ const Login = () => {
 
    return (
       <div className="Login">
-         <div className="Login-glass">
+        
             <h1>Dafoe</h1> {/* Texto grande e centralizado */}
             <form onSubmit={handleSubmit}>
                <div className="input-field">
@@ -30,7 +30,7 @@ const Login = () => {
                </div>
                <button onClick={() => window.open('http://localhost:3000?home', '_self')}>Entrar</button>
             </form>
-         </div>
+         
          <div className="watermark">
             ©dafoeformation - 2024
          </div>
