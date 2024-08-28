@@ -15,8 +15,6 @@ std::string HTTPRequestHandler::handleRequest(HTTPRequest& request){
    std::string statusMessage{};
    std::string stringResponse{};
    std::map<std::string,std::string> headers{};
-   headers["Access-Control-Allow-Origin"] = "*";
-   headers["Access-Control-Allow-Headers"] = "*";
 
    std::string method = request.getMethod();
    std::vector<std::string> path = request.getPath();
