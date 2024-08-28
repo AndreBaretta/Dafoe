@@ -1,21 +1,21 @@
 CREATE TABLE employee(
-   id int PRIMARY KEY,
+   id int PRIMARY KEY AUTO_INCREMENT,
    name VARCHAR(100) NOT NULL,
    cargo VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE status(
-   id int PRIMARY KEY,
+   id int PRIMARY KEY AUTO_INCREMENT,
    name VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE paymentMethod(
-   id int PRIMARY KEY,
+   id int PRIMARY KEY AUTO_INCREMENT,
    name VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE client(
-   id int PRIMARY KEY,
+   id int PRIMARY KEY AUTO_INCREMENT,
    name VARCHAR(100) NOT NULL,
    phoneNumber CHAR(11) NOT NULL,
    address VARCHAR(100),
@@ -23,7 +23,7 @@ CREATE TABLE client(
 );
 
 CREATE TABLE sellOrder(
-   id int PRIMARY KEY,
+   id int PRIMARY KEY AUTO_INCREMENT,
    client int NOT NULL,
    seller int,
    deliveredBy int,
@@ -39,24 +39,24 @@ CREATE TABLE sellOrder(
 );
 
 CREATE TABLE category(
-   id int PRIMARY KEY,
+   id int PRIMARY KEY AUTO_INCREMENT,
    name VARCHAR(100)
 );
 
 CREATE TABLE manufacturer(
-   id int PRIMARY KEY,
+   id int PRIMARY KEY AUTO_INCREMENT,
    name VARCHAR(100)
 );
 
 CREATE TABLE genericProduct(
-   id int PRIMARY KEY,
+   id int PRIMARY KEY AUTO_INCREMENT,
    name VARCHAR(100),
    category int NOT NULL,
    FOREIGN KEY(category) REFERENCES category(id)
 );
 
 CREATE TABLE product(
-   id int PRIMARY KEY,
+   id int PRIMARY KEY AUTO_INCREMENT,
    genericProduct int,
    manufacturer int,
    name VARCHAR(100) NOT NULL,
