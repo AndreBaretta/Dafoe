@@ -13,8 +13,8 @@ class ProductMNG{
       ProductMNG(ProductDAO& productDAO, JsonBuilder& jsonBuilder);
       ~ProductMNG();
       // Create
-      bool createProduct(const std::string& name, const int genericProduct, const int manufacturerId, 
-                         const std::string& barCode, const double price, const double cost, 
+      bool createProduct(const std::string& name, const int genericProduct, const int manufacturer, 
+                         const std::string& barcode, const double price, const double cost, 
                          const std::string& reference, const int quantity);
 
       // Read
@@ -25,9 +25,9 @@ class ProductMNG{
       json retrieveProductByBarCode(const std::string& barCode);
 
       // Update
-      bool updateProduct(const int id, const std::string& name, const int manufacturerId,
-                    const int quantity, const int category, const std::string& barCode,
-                    const std::string& reference, const double cost, const double price);
+      bool updateProduct(const int id, const std::string& name, const int genericProduct, const int manufacturer,
+                         const std::string& barcode, const double price, const double cost, const std::string& reference,
+                         const int quantity);
       bool updateCategoryPriceByNumber(const int category, const double price);
       bool updateCategoryPriceByPercentage(const int category, const double percentage);
 

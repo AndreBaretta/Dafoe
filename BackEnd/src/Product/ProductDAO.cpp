@@ -137,7 +137,7 @@ bool ProductDAO::createProduct(const std::string& name, const int genericProduct
 }
 
 bool ProductDAO::deleteProduct(const int id){
-    std::unique_ptr<sql::PreparedStatement> state(m_theos.conn->prepareStatement("delete from genericProduct where id = ?"));
+    std::unique_ptr<sql::PreparedStatement> state(m_theos.conn->prepareStatement("delete from product where id = ?"));
     state->setInt(1, id);
     state->executeQuery();
 

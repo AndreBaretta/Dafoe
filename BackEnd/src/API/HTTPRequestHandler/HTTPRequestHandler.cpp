@@ -15,8 +15,6 @@ std::string HTTPRequestHandler::handleRequest(HTTPRequest& request){
    std::string statusMessage{};
    std::string stringResponse{};
    std::map<std::string,std::string> headers{};
-   headers["Access-Control-Allow-Origin"] = "*";
-   headers["Access-Control-Allow-Headers"] = "*";
 
    std::string method = request.getMethod();
    std::vector<std::string> path = request.getPath();
@@ -163,6 +161,42 @@ std::string HTTPRequestHandler::handleRequest(HTTPRequest& request){
       HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
       stringResponse = this->m_responseBuilder.buildResponseString(response);
       return stringResponse;
+   }else if(method == "PUT"){
+      if(path.size() != 3){
+	 statusCode = "400";
+	 statusMessage = "Bad Request";
+	 HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+	 stringResponse = this->m_responseBuilder.buildResponseString(response);
+	 return stringResponse;
+      }
+      if(path[0] != "api"){
+	 statusCode = "404";
+	 statusMessage = "Not Found";
+	 HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+	 stringResponse = this->m_responseBuilder.buildResponseString(response);
+	 return stringResponse;
+      }
+      if(!isNumber(path[2])){
+	 statusCode = "404";
+	 statusMessage = "Not Found";
+	 HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+	 stringResponse = this->m_responseBuilder.buildResponseString(response);
+	 return stringResponse;
+      }
+      if(path[1] == "product"){
+	 int id = std::stoi(path[2]);
+	 handleUpdateProduct(id,requestBody);
+	 statusCode = "200";
+	 statusMessage = "OK";
+	 HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+	 stringResponse = this->m_responseBuilder.buildResponseString(response);
+	 return stringResponse;
+      }
+      statusCode = "404";
+      statusMessage = "Not Found";
+      HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+      stringResponse = this->m_responseBuilder.buildResponseString(response);
+      return stringResponse;
    }
 
 
@@ -212,6 +246,20 @@ bool HTTPRequestHandler::handleCreateProduct(const std::string& body){
    bool response = this->m_productMNG.createProduct(name,genericProduct,manufacturer,barcode,price,cost,reference,quantity);
    return response;
 };
+
+bool HTTPRequestHandler::handleUpdateProduct(const int id, const std::string& body){
+   json json = json::parse(body);
+   std::string name = json["name"];
+   int genericProduct = json["genericProduct"];
+   int manufacturer = json["manufacturer"];
+   std::string barcode = json["barcode"];
+   double price = json["price"];
+   double cost = json["cost"];
+   std::string reference = json["reference"];
+   int quantity = json["quantity"];
+   bool response = this->m_productMNG.updateProduct(id,name,genericProduct,manufacturer,barcode,price,cost,reference,quantity);
+   return response;
+}
 
 bool HTTPRequestHandler::isNumber(const std::string& string){
    for(int i = 0; i < string.size(); i++){

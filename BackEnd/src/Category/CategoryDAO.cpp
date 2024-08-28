@@ -7,9 +7,8 @@ CategoryDAO::CategoryDAO(DafoeGod& dafoe) : m_theos{dafoe}
 {}
 
 bool CategoryDAO::createCategory(std::string name){
-   std::unique_ptr<sql::PreparedStatement> stmt{m_theos.conn->prepareStatement("insert into category (id, name) values (?,?)")};
-   stmt->setInt(1, s_id++);
-   stmt->setString(2, name);
+   std::unique_ptr<sql::PreparedStatement> stmt{m_theos.conn->prepareStatement("insert into category (name) values (?)")};
+   stmt->setString(1, name);
    stmt->executeQuery();
 
    return true;

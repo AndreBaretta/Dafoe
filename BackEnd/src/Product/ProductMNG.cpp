@@ -8,10 +8,10 @@ ProductMNG::ProductMNG(ProductDAO& productDAO,JsonBuilder& jsonBuilder)
 ProductMNG::~ProductMNG(){}
 
 // Create
-bool ProductMNG::createProduct(const std::string& name, const int genericProduct, const int manufacturerId, 
-                               const std::string& barCode, const double price, const double cost, 
+bool ProductMNG::createProduct(const std::string& name, const int genericProduct, const int manufacturer, 
+                               const std::string& barcode, const double price, const double cost, 
                                const std::string& reference, const int quantity){
-   return this->m_productDAO.createProduct(name,genericProduct,manufacturerId,barCode,price,cost,reference,quantity);
+   return this->m_productDAO.createProduct(name,genericProduct,manufacturer,barcode,price,cost,reference,quantity);
 }
 
 
@@ -34,8 +34,8 @@ json ProductMNG::retrieveProductByID(const int id){
    return json;
 }
 
-json ProductMNG::retrieveProductByBarCode(const std::string& barCode){
-   Product product = this->m_productDAO.retrieveByBarCode(barCode);
+json ProductMNG::retrieveProductByBarCode(const std::string& barcode){
+   Product product = this->m_productDAO.retrieveByBarcode(barcode);
    json json = this->m_jsonBuilder.productToJson(product);
    return json;
 }
@@ -47,10 +47,10 @@ json ProductMNG::retrieveProductByReference(const std::string& reference){
 }
 
 // Update
-bool ProductMNG::updateProduct(const int id, const std::string& name, const int manufacturerId, const int quantity,
-                   const int category, const std::string& barCode, const std::string& reference,
-                   const double cost, const double price){
-   return this->m_productDAO.updateProduct(id,name,manufacturerId,quantity,category,barCode,reference,cost,price);
+bool ProductMNG::updateProduct(const int id, const std::string& name, const int genericProduct, const int manufacturer,
+                   const std::string& barcode, const double price, const double cost, const std::string& reference,
+                   const int quantity){
+   return this->m_productDAO.updateProduct(id,name,genericProduct,manufacturer,barcode,price,cost,reference,quantity);
 }
 
 bool ProductMNG::updateCategoryPriceByNumber(const int category, const double price){

@@ -1,4 +1,5 @@
 #include "Test.hpp"
+#include <iostream>
 
 
 Test::Test(){}
@@ -62,8 +63,8 @@ HTTPRequest Test::testCreateProduct(const std::string& name, const int genericPr
                                     const std::string& barcode, const double price, const double cost,
                                     const std::string& reference, const int quantity){
    std::vector<std::string> path;
-   path[0] = "api";
-   path[1] = "product";
+   path.push_back("api");
+   path.push_back("product");
    
    json jsonbody;
    jsonbody["name"] = name;
@@ -87,9 +88,9 @@ HTTPRequest Test::testCreateProduct(const std::string& name, const int genericPr
 
 HTTPRequest Test::testDeleteProduct(const int id){
    std::vector<std::string> path;
-   path[0] = "api";
-   path[1] = "product";
-   path[2] = std::to_string(id);
+   path.push_back("api");
+   path.push_back("product");
+   path.push_back(std::to_string(id));
 
    HTTPRequest request = HTTPRequest();
    request.setMethod("DELETE");
@@ -103,13 +104,25 @@ HTTPRequest Test::testUpdateProduct(const int id, const std::string& name, const
                                     const int manufacturer, const std::string& barcode, const double price,
                                     const double cost, const std::string& reference, const int quantity){
    std::vector<std::string> path;
-   path[0] = "api";
-   path[1] = "product";
-   path[2] = std::to_string(id);
+   path.push_back("api");
+   path.push_back("product");
+   path.push_back(std::to_string(id));
+   
+   json jsonbody;
+   jsonbody["name"] = name;
+   jsonbody["genericProduct"] = genericProduct;
+   jsonbody["manufacturer"] = manufacturer;
+   jsonbody["barcode"] = barcode;
+   jsonbody["price"] = price;
+   jsonbody["cost"] = cost;
+   jsonbody["reference"] = reference;
+   jsonbody["quantity"] = quantity;
+   std::string body = jsonbody.dump();
 
    HTTPRequest request = HTTPRequest();
    request.setMethod("PUT");
    request.setPath(path);
+   request.setBody(body);
    request.setVersion("HTTP/1.1");
 
    return request;
@@ -117,9 +130,9 @@ HTTPRequest Test::testUpdateProduct(const int id, const std::string& name, const
 
 HTTPRequest Test::testRetrieveProductById(const int id){
    std::vector<std::string> path;
-   path[0] = "api";
-   path[1] = "product";
-   path[2] = std::to_string(id);
+   path.push_back("api");
+   path.push_back("product");
+   path.push_back(std::to_string(id));
 
    HTTPRequest request = HTTPRequest();
    request.setMethod("GET");
@@ -131,8 +144,8 @@ HTTPRequest Test::testRetrieveProductById(const int id){
 
 HTTPRequest Test::testQueryProductByName(const std::string& name){
    std::vector<std::string> path;
-   path[0] = "api";
-   path[1] = "product";
+   path.push_back("api");
+   path.push_back("product");
    
    HTTPRequest request = HTTPRequest();
    request.setPath(path);
@@ -145,8 +158,8 @@ HTTPRequest Test::testQueryProductByName(const std::string& name){
 
 HTTPRequest Test::testRetrieveProductByReference(const std::string& reference){
    std::vector<std::string> path;
-   path[0] = "api";
-   path[1] = "product";
+   path.push_back("api");
+   path.push_back("product");
    
    HTTPRequest request = HTTPRequest();
    request.setPath(path);
@@ -159,8 +172,8 @@ HTTPRequest Test::testRetrieveProductByReference(const std::string& reference){
 
 HTTPRequest Test::testRetrieveProductByBarcode(const std::string& barcode){
    std::vector<std::string> path;
-   path[0] = "api";
-   path[1] = "product";
+   path.push_back("api");
+   path.push_back("product");
    
    HTTPRequest request = HTTPRequest();
    request.setPath(path);

@@ -14,7 +14,6 @@ public:
     std::vector<Category> listCategories();
 private:
     DafoeGod& m_theos;
-    static inline int s_id{0};
 
 };
 

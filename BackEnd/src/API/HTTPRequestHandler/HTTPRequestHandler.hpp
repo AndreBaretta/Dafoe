@@ -23,6 +23,7 @@ class HTTPRequestHandler{
       bool isNumber(const std::string& string);
       bool handleDeleteProduct(const int id);
       bool handleCreateProduct(const std::string& body);
+      bool handleUpdateProduct(const int id, const std::string& body);
       ProductMNG& m_productMNG;
       HTTPResponseBuilder& m_responseBuilder;
 
