@@ -11,6 +11,8 @@ class Product{
       // Setters
       bool setId(int id);
       bool setName(std::string name);
+      bool setGenericProduct(int genericProduct);
+      bool setManufacturer(int manufacturer);
       bool setBarcode(std::string barcode);
       bool setPrice(double price);
       bool setCost(double cost);
@@ -20,6 +22,8 @@ class Product{
       // Getters
       int getId();
       std::string getName();
+      int getGenericProduct();
+      int getManufacturer();
       std::string getBarcode();
       double getPrice();
       double getCost();

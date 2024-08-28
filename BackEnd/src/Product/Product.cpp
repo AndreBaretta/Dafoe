@@ -25,6 +25,16 @@ bool Product::setName(std::string name){
    return true;
 }
 
+bool Product::setManufacturer(int manufacturer){
+   this->m_manufacturer = manufacturer;
+   return true;
+}
+
+bool Product::setGenericProduct(int genericProduct){
+   this->m_genericProduct = genericProduct;
+   return true;
+}
+
 bool Product::setBarcode(std::string barcode){
    this->m_barcode = barcode;
    return true;
@@ -52,6 +62,8 @@ bool Product::setQuantity(int quantity){
 
 int Product::getId(){return this->m_id;}
 std::string Product::getName(){return this->m_name;}
+int Product::getManufacturer(){return this->m_manufacturer;}
+int Product::getGenericProduct(){return this->m_genericProduct;}
 std::string Product::getBarcode(){return this->m_barcode;}
 double Product::getPrice(){return this->m_price;}
 double Product::getCost(){return this->m_cost;}
