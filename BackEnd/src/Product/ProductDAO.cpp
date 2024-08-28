@@ -1,4 +1,5 @@
 #include "ProductDAO.hpp"
+#include <iostream>
 //NEED TO ADD TRY CATCHES TO ALL SQL QUERIES
 
 
@@ -34,6 +35,7 @@ Product ProductDAO::retrieveByID(const int id){
     std::unique_ptr<sql::PreparedStatement> state{m_theos.conn->prepareStatement("select * from product where id = ?")};
     state->setInt(1,id);
     sql::ResultSet* result {state->executeQuery()};
+    result->next();
 
     Product product{};
     int productId = result->getInt("id");
@@ -54,6 +56,7 @@ Product ProductDAO::retrieveByBarcode(const std::string& barcode){
     std::unique_ptr<sql::PreparedStatement> state{m_theos.conn->prepareStatement("select * from product where barcode = ?")};
     state->setString(1,barcode);
     sql::ResultSet* result {state->executeQuery()};
+    result->next();
 
     Product product{};
     int productId = result->getInt("id");
@@ -147,7 +150,7 @@ bool ProductDAO::deleteProduct(const int id){
 bool ProductDAO::updateProduct(const int id, const std::string& name, const int genericProduct, 
                                const int manufacturer, const std::string& barcode, const double price,
                                const double cost, const std::string& reference, const int quantity){
-    std::unique_ptr<sql::PreparedStatement> statement(m_theos.conn->prepareStatement("update product set name = ?, genericProduct = ?, manufacturer = ?, barcode = ?, price = ?, cost = ?, reference = ?, quantity = ?,  where id = ?"));
+    std::unique_ptr<sql::PreparedStatement> statement(m_theos.conn->prepareStatement("update product set name = ?, genericProduct = ?, manufacturer = ?, barcode = ?, price = ?, cost = ?, reference = ?, quantity = ? where id = ?"));
     statement->setString(1, name);
     statement->setInt(2, genericProduct);
     statement->setInt(3, manufacturer);
@@ -157,6 +160,7 @@ bool ProductDAO::updateProduct(const int id, const std::string& name, const int 
     statement->setString(7, reference);
     statement->setInt(8, quantity);
     statement->setInt(9, id);
+
     statement->executeQuery();
 
     return true;
