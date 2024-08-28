@@ -35,4 +35,24 @@ json JsonBuilder::productVectorToJson(std::vector<Product>& products){
    return jsonProductArray;
 }
 
+json JsonBuilder::categoryToJson(Category& category){
+   json jsonCategory;
+   jsonCategory["id"]   = category.getId();
+   jsonCategory["name"] = category.getName();
+   return jsonCategory;
+}
+
+json JsonBuilder::categoryVectorToJson(std::vector<Category>& categories){
+   json jsonCategoryArray;
+   for(int i = 0; i < categories.size(); i++){
+      json jsonCategory;
+      jsonCategory["id"]   = categories[i].getId();
+      jsonCategory["name"] = categories[i].getName();
+      jsonCategoryArray.push_back(jsonCategory);
+   }
+   return jsonCategoryArray;
+}
+
+
+
 
