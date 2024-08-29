@@ -1,0 +1,36 @@
+.SearchBar {
+   padding: 12px;
+   border-radius: 8px;
+   border: 1px solid #ccc;
+   width: 300px;
+   display: flex;
+   justify-content: start;
+   gap: 0.5em;
+   align-items: center;
+   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+   position: absolute;
+   left: 50%;
+   transform: translateX(-50%);
+   top: 0.5rem;
+}
+
+.SearchBarHeader {
+   position: absolute;
+   align-items: center;
+   top: 0.5rem;
+   left: 50%;
+   transform: translateX(-50%);
+}
+
+.SearchBar input {
+   width: 100%;
+   border: none;
+   z-index: 1;
+   border-radius: 10px;
+   padding: 0px 10px;
+}
+
+.SearchBar .icon {
+   height: 16px;
+   width: 16px;
+}
