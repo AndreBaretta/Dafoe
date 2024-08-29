@@ -10,25 +10,24 @@ PaymentMethodDAO::PaymentMethodDAO(DafoeGod& dafoe)
 : m_theos{dafoe}
 {}
 
-bool PaymentMethodDAO::createPaymentMethodDAO(const std::string& name){
-   std::unique_ptr<sql::PreparedStatement> stmt{m_theos.conn->prepareStatement("insert into manufacturer (id, name) values (?,?)")};
-   stmt->setInt(1, s_id++);
-   stmt->setString(2, name);
+bool PaymentMethodDAO::createPaymentMethod(const std::string& name){
+   std::unique_ptr<sql::PreparedStatement> stmt{m_theos.conn->prepareStatement("insert into paymentMethod (name) values (?)")};
+   stmt->setString(1, name);
    stmt->executeQuery();
 
    return true;
 }
 
-bool PaymentMethodDAO::deletePaymentMethodDAO(const int id){
-   std::unique_ptr<sql::PreparedStatement> stmt{m_theos.conn->prepareStatement("delete from manufacturer where id = ?")};
+bool PaymentMethodDAO::deletePaymentMethod(const int id){
+   std::unique_ptr<sql::PreparedStatement> stmt{m_theos.conn->prepareStatement("delete from paymentMethod where id = ?")};
    stmt->setInt(1, id);
    stmt->executeQuery();
 
    return true;
 }
 
-bool PaymentMethodDAO::updatePaymentMethodDAO(const int id, const std::string& name){
-   std::unique_ptr<sql::PreparedStatement> stmt{m_theos.conn->prepareStatement("update manufacturer set name = ? where id = ?")};
+bool PaymentMethodDAO::updatePaymentMethod(const int id, const std::string& name){
+   std::unique_ptr<sql::PreparedStatement> stmt{m_theos.conn->prepareStatement("update paymentMethod set name = ? where id = ?")};
 
    stmt->setString(1, name);
    stmt->setInt(2, id);
@@ -48,3 +47,13 @@ std::vector<PaymentMethod> PaymentMethodDAO::listPayment(){
 
    return vec;
 }
+
+PaymentMethod PaymentMethodDAO::retrievePaymentMethod(const int id){
+   std::unique_ptr<sql::PreparedStatement> stmt{m_theos.conn->prepareStatement("select * from paymentMethod where id = ?")};
+   stmt->setInt(1, id);
+   sql::ResultSet* result{stmt->executeQuery()};
+
+   PaymentMethod response = PaymentMethod(result->getInt("id"), static_cast<std::string>(result->getString("name")));
+   return response;
+}
+

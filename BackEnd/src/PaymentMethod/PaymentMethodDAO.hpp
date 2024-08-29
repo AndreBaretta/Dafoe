@@ -8,13 +8,13 @@ class PaymentMethodDAO{
 public:
 
    PaymentMethodDAO(DafoeGod& dafoe);
-   bool createPaymentMethodDAO(const std::string& name);
-   bool deletePaymentMethodDAO(const int id);
-   bool updatePaymentMethodDAO(const int id, const std::string& name);
+   bool createPaymentMethod(const std::string& name);
+   bool deletePaymentMethod(const int id);
+   bool updatePaymentMethod(const int id, const std::string& name);
    std::vector<PaymentMethod> listPayment();
+   PaymentMethod retrievePaymentMethod(const int id);
 private:
    DafoeGod& m_theos;
-   static inline int s_id{0};
 
 };
 
