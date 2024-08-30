@@ -1,6 +1,7 @@
 #include "StatusDAO.hpp"
 #include <mariadb/conncpp.hpp>
 #include <mariadb/conncpp/PreparedStatement.hpp>
+#include <mariadb/conncpp/ResultSet.hpp>
 
 StatusDAO::StatusDAO(DafoeGod& dafoe)
 : m_theos{dafoe}
@@ -23,3 +24,18 @@ bool StatusDAO::updateStatus(const int id,const std::string& name){
 
    return true;
 }
+
+Status StatusDAO::retriveStatus(const int id){
+   std::unique_ptr<sql::PreparedStatement> stmt{m_theos.conn->prepareStatement("select * from status where id = ?")};
+   stmt->setInt(1, id);
+   sql::ResultSet* result{stmt->executeQuery()};
+   result->next();
+   return Status(result->getInt("id"), result->getString("name").c_str());
+}
+
+bool StatusDAO::deleteStatus(const int id){
+   std::unique_ptr<sql::PreparedStatement> stmt{m_theos.conn->prepareStatement("delete from status where id = ?")};
+   stmt->setInt(1, id);
+   stmt->executeQuery();
+   return true;
+} 

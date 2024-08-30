@@ -17,4 +17,3 @@ bool PaymentMethod::setName(const std::string& name){
 
 int PaymentMethod::getId(){ return this->m_id; }
 std::string PaymentMethod::getName(){ return this->m_name; }
-

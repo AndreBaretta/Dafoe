@@ -1,13 +1,27 @@
 #include "Manufacturer.hpp"
 
-Manufacturer::Manufacturer(int id, std::string name)
-: m_id{id}
-, m_name{name}
+Manufacturer::Manufacturer(int id, const std::string& name)
+: m_id(id)
+, m_name(name) 
 {}
 
-Manufacturer::Manufacturer(int id)
-: m_id{id}
-, m_name{"template"}
-{}
+// Setters
+bool Manufacturer::setId(int id) {
+   m_id = id;
+   return true;
+}
 
-int Manufacturer::getId(){return this->m_id;}
+bool Manufacturer::setName(const std::string& name) {
+   m_name = name;
+   return true;
+}
+
+// Getters
+int Manufacturer::getId() const {
+   return m_id;
+}
+
+const std::string& Manufacturer::getName() const {
+   return m_name;
+}
+

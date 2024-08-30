@@ -3,17 +3,9 @@
 }
 
 .Register {
-   text-align: center;
-   color: white;
-   font-family: 'Inter', sans-serif;
-   font-size: calc(20px + 2vmin);
-   background-color: #2f1624;
-   height: 100vh;
    display: flex;
-   flex-direction: column;
-   justify-content: center;
-   align-items: center;
-   text-shadow: #000 1px 1px;
+   min-height: 100vh;
+   background-color: #2f1624;
    background-image: url(../../assets/background.jpg);
    background-size: cover;
    background-position: center;

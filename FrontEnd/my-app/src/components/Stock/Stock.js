@@ -4,8 +4,6 @@ import SearchBar from '../SearchBar/SearchBar';
 import Menu from '../Menu/Menuu';
 import React, { useState, useEffect } from 'react';
 
-
-
 function Stock() {
 
    const [searchValue, setSearchValue] = useState("");
