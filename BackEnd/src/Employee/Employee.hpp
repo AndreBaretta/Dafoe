@@ -1,24 +1,27 @@
 #ifndef EMPLOYEE_2329
 #define EMPLOYEE_2329
+
 #include <string>
 #include <string_view>
 
-class Employee{
+class Employee {
 public:
-   Employee(const int id, const std::string& name, const std::string& cargo);
+    // Constructor
+    Employee(int id, const std::string& name, const std::string& cargo);
 
-   //Setters
-   bool setName(std::string name);
-   bool setCargo(std::string cargo);
+    // Setters
+    bool setName(const std::string& name);
+    bool setCargo(const std::string& cargo);
 
-   //Getters
-   std::string_view getName();
-   std::string_view getCargo();
+    // Getters
+    std::string_view getName() const;
+    std::string_view getCargo() const;
 
 private:
-   int m_id{};
-   std::string m_name{};
-   std::string m_cargo{};
-   
+    int m_id{};
+    std::string m_name{};
+    std::string m_cargo{};
 };
+
 #endif
+

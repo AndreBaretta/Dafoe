@@ -1,25 +1,25 @@
 #ifndef GENERICPRODUCT_0108
 #define GENERICPRODUCT_0108
+
 #include <string>
 #include <string_view>
 
-class GenericProduct{
+class GenericProduct {
 public:
-    GenericProduct(const int id, const std::string& name, const int quantity, const int category, const std::string& reference);
+    GenericProduct(int id, const std::string& name, int quantity, int category, const std::string& reference);
 
-    //Setters
+    // Setters
     bool setName(const std::string& name);
-    bool setQuantity(const int quantity);
-    bool setCategory(const int category);
+    bool setQuantity(int quantity);
+    bool setCategory(int category);
     bool setReference(const std::string& reference);
 
-    //Getters
-
-    int getId();
-    std::string_view getName();
-    int getQuantity();
-    int getCategory();
-    std::string_view getReference();
+    // Getters
+    int getId() const;
+    std::string_view getName() const;
+    int getQuantity() const;
+    int getCategory() const;
+    std::string_view getReference() const;
 
 private:
     int m_id{};
@@ -30,3 +30,4 @@ private:
 };
 
 #endif
+

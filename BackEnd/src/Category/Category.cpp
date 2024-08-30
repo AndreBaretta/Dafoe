@@ -1,20 +1,27 @@
 #include "Category.hpp"
 
-Category::Category(int id, std::string name)
-: m_name(name)
-, m_id(id)
+Category::Category(int id, const std::string& name)
+: m_id(id)
+, m_name(name) 
 {}
 
-int Category::getId(){return this->m_id;}
-std::string Category::getName(){return this->m_name;}
-
-bool Category::setId(const int id){
-   this->m_id = id;
+// Setters
+bool Category::setId(int id) {
+   m_id = id;
    return true;
 }
 
-bool Category::setName(const std::string& name){
-   this->m_name = name;
+bool Category::setName(const std::string& name) {
+   m_name = name;
    return true;
+}
+
+// Getters
+int Category::getId() const {
+   return m_id;
+}
+
+std::string Category::getName() const {
+   return m_name;
 }
 
