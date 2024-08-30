@@ -1,4 +1,4 @@
-#include "CategoryMNG.hpp"
+
 
 CategoryMNG::CategoryMNG(CategoryDAO& categoryDAO, JsonBuilder& jsonBuilder)
 : m_categoryDAO{categoryDAO}
@@ -31,6 +31,4 @@ bool CategoryMNG::deleteCategory(const int id){
    bool response = this->m_categoryDAO.deleteCategory(id);
    return response;
 }
-
-
 

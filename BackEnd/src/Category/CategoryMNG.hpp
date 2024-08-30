@@ -1,3 +1,4 @@
+
 #ifndef CATEGORYMNG_0107
 #define CATEGORYMNG_0107
 #include "CategoryDAO.hpp"
@@ -19,6 +20,7 @@ class CategoryMNG{
    private:
       CategoryDAO& m_categoryDAO;
       JsonBuilder& m_jsonBuilder;
+
 };
 
 #endif
