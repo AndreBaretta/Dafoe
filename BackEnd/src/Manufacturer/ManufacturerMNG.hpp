@@ -8,18 +8,18 @@
 using json = nlohmann::json;
 
 class ManufacturerMNG{
-   public:
-      ManufacturerMNG(ManufacturerDAO& manufacturerDAO, JsonBuilder& jsonBuilder);
-      json retrieveAllManufacturer();
-      json retrieveManufacturer(const int id);
-      json retrieveManufacturerByName(const std::string& name);
-      bool createManufacturer(const std::string& name);
-      bool deleteManufacturer(const int id);
-      bool updateManufacturer(const int id, const std::string& name);
+public:
+   ManufacturerMNG(ManufacturerDAO& manufacturerDAO, JsonBuilder& jsonBuilder);
+   json retrieveAllManufacturer();
+   json retrieveManufacturer(const int id);
+   json retrieveManufacturerByName(const std::string& name);
+   bool createManufacturer(const std::string& name);
+   bool deleteManufacturer(const int id);
+   bool updateManufacturer(const int id, const std::string& name);
 
-   private:
-      ManufacturerDAO& m_manufacturerDAO;
-      JsonBuilder& m_jsonBuilder;
+private:
+   ManufacturerDAO& m_manufacturerDAO;
+   JsonBuilder& m_jsonBuilder;
 };
 
 #endif

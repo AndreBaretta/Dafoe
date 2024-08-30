@@ -8,18 +8,18 @@
 using json = nlohmann::json;
 
 class EmployeeMNG{
-   public:
-      EmployeeMNG(EmployeeDAO& employeeDAO, JsonBuilder& jsonBuilder);
-      json retrieveEmployeeByName(const std::string& name);
-      json retrieveAllEmployees();
-      json retrieveEmployee(const int id);
-      bool createEmployee(const std::string& name, const std::string& cargo);
-      bool deleteEmployee(const int id);
-      bool updateEmployee(const int id, const std::string& name, const std::string& cargo);
+public:
+   EmployeeMNG(EmployeeDAO& employeeDAO, JsonBuilder& jsonBuilder);
+   json retrieveEmployeeByName(const std::string& name);
+   json retrieveAllEmployees();
+   json retrieveEmployee(const int id);
+   bool createEmployee(const std::string& name, const std::string& cargo);
+   bool deleteEmployee(const int id);
+   bool updateEmployee(const int id, const std::string& name, const std::string& cargo);
 
-   private:
-      EmployeeDAO& m_employeeDAO;
-      JsonBuilder& m_jsonBuilder;
+private:
+   EmployeeDAO& m_employeeDAO;
+   JsonBuilder& m_jsonBuilder;
 };
 
 #endif

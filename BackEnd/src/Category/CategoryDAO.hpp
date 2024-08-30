@@ -7,15 +7,15 @@
 
 class CategoryDAO{
 public:
-    CategoryDAO(DafoeGod& dafoe);
-    bool createCategory(std::string name);
-    bool deleteCategory(const int id);
-    bool updateCategory(const int id, std::string name);
-    std::vector<Category> listCategories();
-    Category retrieveCategory(const int id);
-private:
-    DafoeGod& m_theos;
+   CategoryDAO(DafoeGod& dafoe);
+   bool createCategory(std::string name);
+   bool deleteCategory(const int id);
+   bool updateCategory(const int id, std::string name);
+   std::vector<Category> listCategories();
+   Category retrieveCategory(const int id);
 
+private:
+   DafoeGod& m_theos;
 };
 
 #endif

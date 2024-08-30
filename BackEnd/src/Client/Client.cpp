@@ -10,34 +10,34 @@ Client::Client(int id, const std::string& name, const std::string& phoneNumber, 
 
 // Setters
 bool Client::setName(const std::string& name) {
-    m_name = name;
-    return true;
+   m_name = name;
+   return true;
 }
 
 bool Client::setAddress(const std::string& address) {
-    m_address = address;
-    return true;
+   m_address = address;
+   return true;
 }
 
 bool Client::setBill(double bill) {
-    m_bill = bill;
-    return true;
+   m_bill = bill;
+   return true;
 }
 
 // Getters
 int Client::getId() const {
-    return m_id;
+   return m_id;
 }
 
 std::string_view Client::getName() const {
-    return m_name;
+   return m_name;
 }
 
 std::string_view Client::getAddress() const {
-    return m_address;
+   return m_address;
 }
 
 double Client::getBill() const {
-    return m_bill;
+   return m_bill;
 }
 

@@ -10,6 +10,6 @@ bool ProductOrderDAO::createProductOrder(const int sellOrder, const int product,
    std::unique_ptr<sql::PreparedStatement> stmt{m_theos.conn->prepareStatement("insert into productOrder (sellOrder, product, quantity, discount, price) values (?,?,?,?,?,?)")};  
    stmt->setInt(1, sellOrder);
    stmt->setInt(2, product);
-   stmt->setInt(3, quantity)'
+   stmt->setInt(3, quantity);
    
 }

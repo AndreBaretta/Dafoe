@@ -9,7 +9,6 @@
 
 class ProductDAO{
 public:
-
    ProductDAO(DafoeGod& zeus);
    std::vector<Product> retrieveByName(const std::string& name);
    Product retrieveByID(const int id);
@@ -29,6 +28,7 @@ public:
 
    bool updateCategoryPriceByNumber(const int category, const double price);
    bool updateCategoryPriceByPercentage(const int category, const double percentage);
+
 private:
    DafoeGod& m_theos;
 };
