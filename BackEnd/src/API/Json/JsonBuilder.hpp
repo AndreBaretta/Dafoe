@@ -5,6 +5,7 @@
 #include "../../PaymentMethod/PaymentMethod.hpp"
 #include "../../Employee/Employee.hpp"
 #include "../../Manufacturer/Manufacturer.hpp"
+#include "../../Status/Status.hpp"
 #include <vector>
 #include <map>
 #include <nlohmann/json.hpp>
@@ -24,6 +25,8 @@ class JsonBuilder{
       json employeeVectorToJson(std::vector<Employee>& employees);
       json manufacturerToJson(Manufacturer& manufacturer);
       json manufacturerVectorToJson(std::vector<Manufacturer>& manufacturers);
+      json statusToJson(Status& status);
+      json statusVectorToJson(std::vector<Status>& statuses);
       
 };
 

@@ -8,9 +8,8 @@ StatusDAO::StatusDAO(DafoeGod& dafoe)
 {};
 
 bool StatusDAO::createStatus(const std::string& name){
-   std::unique_ptr<sql::PreparedStatement> stmt{m_theos.conn->prepareStatement("insert into status (id, name) values (?,?)")};
-   stmt->setInt(1, s_id++);
-   stmt->setString(2, name);
+   std::unique_ptr<sql::PreparedStatement> stmt{m_theos.conn->prepareStatement("insert into status (name) values (?)")};
+   stmt->setString(1, name);
    stmt->executeQuery();
 
    return true;
@@ -25,12 +24,22 @@ bool StatusDAO::updateStatus(const int id,const std::string& name){
    return true;
 }
 
-Status StatusDAO::retriveStatus(const int id){
+Status StatusDAO::retrieveStatus(const int id){
    std::unique_ptr<sql::PreparedStatement> stmt{m_theos.conn->prepareStatement("select * from status where id = ?")};
    stmt->setInt(1, id);
    sql::ResultSet* result{stmt->executeQuery()};
    result->next();
    return Status(result->getInt("id"), result->getString("name").c_str());
+}
+
+std::vector<Status> StatusDAO::listAllStatus(){
+   std::unique_ptr<sql::PreparedStatement> stmt{m_theos.conn->prepareStatement("select * from status")};
+   sql::ResultSet* result{stmt->executeQuery()};
+   std::vector<Status> statuses{};
+   while(result->next()){
+      statuses.push_back(Status(result->getInt("id"), result->getString("name").c_str()));
+   }
+   return statuses;
 }
 
 bool StatusDAO::deleteStatus(const int id){
