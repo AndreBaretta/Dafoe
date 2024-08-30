@@ -5,7 +5,6 @@ import Menu from '../Menu/Menuu';
 import SearchBar from '../SearchBar/SearchBar';
 
 function Clients() {
-
    const [searchValue, setSearchValue] = useState("");
    const [results, setResults] = useState([]);
 
@@ -14,31 +13,40 @@ function Clients() {
          try {
             const response = await fetch("http://localhost:12354/api/client?name=" + searchValue);
             const data = await response.json();
-            setResults(data)
+            setResults(data);
          } catch (error) {
             console.error(error);
          }
       };
 
       getData();
-   }, [searchValue])
+   }, [searchValue]);
 
    return (
       <div className="Clients">
-            <header className='Menu-header'>
-               <Sidebar />
-               <Menu />
-            </header>
-            <header className='SearchBarHeader'>
-               <SearchBar results={searchValue} setResults={setSearchValue} />
-            </header>
-            <div>
-               {results.map((item) => (
+         <header className='Menu-header'>
+            <Sidebar />
+            <Menu />
+         </header>
+         <header className='SearchBarHeader'>
+            <SearchBar results={searchValue} setResults={setSearchValue} />
+         </header>
+         <div className="Clients-table-container">
+            <table className="Clients-table">
+               <thead>
                   <tr>
-                     <td>{item.name}</td>
+                     <th>Nome</th>
                   </tr>
-               ))}
-            </div>
+               </thead>
+               <tbody>
+                  {results.map((item) => (
+                     <tr key={item.id}>
+                        <td>{item.name}</td>
+                     </tr>
+                  ))}
+               </tbody>
+            </table>
+         </div>
       </div>
    );
 }
