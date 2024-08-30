@@ -13,7 +13,7 @@ function Stock() {
    useEffect(() => {
       const getData = async () => {
          try {
-            const response = await fetch("http://localhost:12354/api/product?name=" + searchValue);
+            const response = await fetch("http://localhost:12354/api/product/" + searchValue);
             const data = await response.json();
             setResults(data)
          } catch (error) {
@@ -26,27 +26,39 @@ function Stock() {
 
    return (
       <div className="Stock">
-            <header className='Menu-header'>
-               <Sidebar />
-               <Menu />
-            </header>
-            <header className='SearchBarHeader'>
-               <SearchBar results={searchValue} setResults={setSearchValue} />
-            </header>
-            <div>
-               {results.map((item) => (
+         <header className='Menu-header'>
+            <Sidebar />
+            <Menu />
+         </header>
+         <header className='SearchBarHeader'>
+            <SearchBar results={searchValue} setResults={setSearchValue} />
+         </header>
+         <div className="Stock-table-container">
+            <table className="Stock-table">
+               <thead>
                   <tr>
-                     <td>{item.name}</td>
-                     <td>{item.manufacturer}</td>
-                     <td>{item.price}</td>
-                     <td>{item.cost}</td>
-                     <td>{item.quantity}</td>
+                     <th>Nome</th>
+                     <th>Fabricante</th>
+                     <th>Preço</th>
+                     <th>Custo</th>
+                     <th>Quantidade</th>
                   </tr>
-               ))}
-            </div>
+               </thead>
+               <tbody>
+                  {results.map((item) => (
+                     <tr key={item.id}>
+                        <td>{item.name}</td>
+                        <td>{item.manufacturer}</td>
+                        <td>{item.price}</td>
+                        <td>{item.cost}</td>
+                        <td>{item.quantity}</td>
+                     </tr>
+                  ))}
+               </tbody>
+            </table>
+         </div>
       </div>
    );
 }
 
 export default Stock;
-
