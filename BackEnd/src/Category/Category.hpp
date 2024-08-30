@@ -2,22 +2,23 @@
 #define CATEGORY_0048
 
 #include <string>
-class Category{
+
+class Category {
 public:
-   Category(int id, std::string name);
+    Category(int id, const std::string& name);
 
-   // Setters
-   bool setId(const int id);
-   bool setName(const std::string& name);
+    // Setters
+    bool setId(int id);
+    bool setName(const std::string& name);
 
-   // Getters
-   std::string getName();
-   int getId();
+    // Getters
+    int getId() const;
+    std::string getName() const;
 
 private:
-   std::string m_name{};
-   int m_id{};
-
+    int m_id{};
+    std::string m_name{};
 };
 
 #endif
+
