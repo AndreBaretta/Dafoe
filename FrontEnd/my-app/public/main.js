@@ -6,29 +6,30 @@ function createWindow() {
       width: 800,
       height: 600,
       webPreferences: {
-         nodeIntegration: true
+         nodeIntegration: true,
+         webSecurity: false
       }
    })
 
    //load the index.html from a url
    win.loadURL('http://localhost:3000');
-   win.webContents.session.webRequest.onBeforeSendHeaders(
+
+  win.webContents.session.webRequest.onBeforeSendHeaders(
       (details, callback) => {
-         const { requestHeaders } = details;
-         UpsertKeyValue(requestHeaders, 'Access-Control-Allow-Origin', ['*']);
-         callback({ requestHeaders });
+         callback({ requestHeaders: { Origin: '*', ...details.requestHeaders } });
       },
    );
 
    win.webContents.session.webRequest.onHeadersReceived((details, callback) => {
-      const { responseHeaders } = details;
-      UpsertKeyValue(responseHeaders, 'Access-Control-Allow-Origin', ['*']);
-      UpsertKeyValue(responseHeaders, 'Access-Control-Allow-Headers', ['*']);
       callback({
-         responseHeaders,
+         responseHeaders: {
+            'Access-Control-Allow-Origin': ['*'],
+            ...details.responseHeaders,
+         },
       });
    });
-   // Open the DevTools.
+
+  // Open the DevTools.
    win.webContents.openDevTools()
 }
 
