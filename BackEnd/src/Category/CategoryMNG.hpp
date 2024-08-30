@@ -1,18 +1,25 @@
-#ifndef CATEGORYMNG_0126
-#define CATEGORYMNG_0126
+
+#ifndef CATEGORYMNG_0107
+#define CATEGORYMNG_0107
 #include "CategoryDAO.hpp"
+#include "Category.hpp"
+#include "../API/Json/JsonBuilder.hpp"
+#include <vector>
+#include <nlohmann/json.hpp>
+using json = nlohmann::json;
 
 class CategoryMNG{
-public:
-    CategoryMNG(CategoryDAO& cDAO);
-    bool createCategory(const std::string& name);
-    bool deleteCatagory(const int id);
-    bool updateCategory(const int id, const std::string& name);
-    std::vector<Category> listAllCategories();
-    Category retrieveCategory(const int id);
+   public:
+      CategoryMNG(CategoryDAO& categoryDAO, JsonBuilder& jsonBuilder);
+      json retrieveAllCategories();
+      json retrieveCategory(const int id);
+      bool createCategory(const std::string& name);
+      bool deleteCategory(const int id);
+      bool updateCategory(const int id, const std::string& name);
 
-private:
-    CategoryDAO& m_cDAO;
+   private:
+      CategoryDAO& m_categoryDAO;
+      JsonBuilder& m_jsonBuilder;
 
 };
 

@@ -1,18 +1,13 @@
 #include "EmployeeDAO.hpp"
-#include <mariadb/conncpp.hpp>
-#include <mariadb/conncpp/PreparedStatement.hpp>
-#include <mariadb/conncpp/ResultSet.hpp>
-#include <memory>
 
 EmployeeDAO::EmployeeDAO( DafoeGod& dafoe)
 : m_theos{dafoe}
 {}
 
 bool EmployeeDAO::createEmployee(const std::string& name, const std::string& cargo){
-   std::unique_ptr<sql::PreparedStatement> stmt{m_theos.conn->prepareStatement("insert into employee (id, name, cargo) values (?,?,?)")};
-   stmt->setInt(1, s_id++);
-   stmt->setString(2, name);
-   stmt->setString(3, cargo);
+   std::unique_ptr<sql::PreparedStatement> stmt{m_theos.conn->prepareStatement("insert into employee (name, cargo) values (?,?)")};
+   stmt->setString(1, name);
+   stmt->setString(2, cargo);
    stmt->executeQuery();
 
    return true;
@@ -37,22 +32,60 @@ bool EmployeeDAO::updateEmployee(const int id, const std::string& name, const st
    return true;
 }
 
-std::vector<std::map<std::string, std::string>> EmployeeDAO::retrieveEmployeeByName(const std::string& name){
+std::vector<Employee> EmployeeDAO::retrieveEmployeeByName(const std::string& name){
    std::unique_ptr<sql::PreparedStatement> stmt{m_theos.conn->prepareStatement("select * from employee where name like ?")};
    stmt->setString(1, '%' + name + '%');
-
    sql::ResultSet* result{stmt->executeQuery()};
 
-   std::vector<std::map<std::string, std::string>> vectores{};
-   std::map<std::string, std::string> maps{};
+   std::vector<Employee> employees{};
 
    while(result->next()){
-      maps["id"] = std::to_string(result->getInt("id"));
-      maps["name"] = result->getString("name");
-      maps["cargo"] = result->getString("cargo");
-      vectores.push_back(maps);
+      int id = result->getInt("id");
+      std::string name = result->getString("name").c_str();
+      std::string occupation = result->getString("cargo").c_str();
+      Employee employee = Employee(id,name,occupation);
+      employees.push_back(employee);
 
    }
 
-   return vectores;
+   return employees;
 }
+
+Employee EmployeeDAO::retrieveEmployee(const int id){
+   std::unique_ptr<sql::PreparedStatement> stmt{m_theos.conn->prepareStatement("select * from employee where id = ?")};
+   stmt->setInt(1, id);
+   sql::ResultSet* result{stmt->executeQuery()};
+   result->next();
+
+   int employeeId = result->getInt("id");
+   std::string name = result->getString("name").c_str();
+   std::string cargo = result->getString("cargo").c_str();
+
+   Employee employee = Employee(employeeId,name,cargo);
+
+   return employee;
+}
+
+std::vector<Employee> EmployeeDAO::listEmployees(){
+    std::unique_ptr<sql::PreparedStatement> stmt{m_theos.conn->prepareStatement("select * from employee")};
+   sql::ResultSet* result{stmt->executeQuery()};
+   result->next();
+   
+   std::vector<Employee> employees{};
+
+   while(result->next()){
+      int employeeId = result->getInt("id");
+      std::string name = result->getString("name").c_str();
+      std::string cargo = result->getString("cargo").c_str();
+      Employee employee = Employee(employeeId,name,cargo);
+      employees.push_back(employee);
+   }
+
+   return employees;
+}  
+
+
+
+
+
+

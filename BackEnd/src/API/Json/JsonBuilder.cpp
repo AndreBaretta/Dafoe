@@ -71,5 +71,44 @@ json JsonBuilder::paymentMethodVectorToJson(std::vector<PaymentMethod>& paymentM
    return jsonPaymentMethodArray;
 }
 
+json JsonBuilder::employeeToJson(Employee& employee){
+   json jsonEmployee;
+   jsonEmployee["id"]   = employee.getId();
+   jsonEmployee["name"] = employee.getName();
+   return jsonEmployee;
+}
+
+json JsonBuilder::employeeVectorToJson(std::vector<Employee>& employees){
+   json jsonEmployeeArray;
+   for(int i = 0; i < employees.size(); i++){
+      json jsonEmployee;
+      jsonEmployee["id"]   = employees[i].getId();
+      jsonEmployee["name"] = employees[i].getName();
+      jsonEmployeeArray.push_back(jsonEmployee);
+   }
+   return jsonEmployeeArray;
+}
+
+json JsonBuilder::manufacturerToJson(Manufacturer& manufacturer){
+   json jsonManufacturer;
+   jsonManufacturer["id"]   = manufacturer.getId();
+   jsonManufacturer["name"] = manufacturer.getName();
+   return jsonManufacturer;
+}
+
+json JsonBuilder::manufacturerVectorToJson(std::vector<Manufacturer>& manufacturers){
+   json jsonManufacturerArray;
+   for(int i = 0; i < manufacturers.size(); i++){
+      json jsonManufacturer;
+      jsonManufacturer["id"]   = manufacturers[i].getId();
+      jsonManufacturer["name"] = manufacturers[i].getName();
+      jsonManufacturerArray.push_back(jsonManufacturer);
+   }
+   return jsonManufacturerArray;
+}
+
+
+
+
 
 

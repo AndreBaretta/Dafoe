@@ -1,30 +1,34 @@
-#include "CategoryMNG.hpp"
-#include "Category.hpp"
-#include "CategoryDAO.hpp"
 
-CategoryMNG::CategoryMNG(CategoryDAO& cDAO)
-: m_cDAO{cDAO}
+
+CategoryMNG::CategoryMNG(CategoryDAO& categoryDAO, JsonBuilder& jsonBuilder)
+: m_categoryDAO{categoryDAO}
+, m_jsonBuilder{jsonBuilder}
 {}
 
-bool CategoryMNG::createCategory(const std::string& name){
-   m_cDAO.createCategory(name);
-   return true;
+json CategoryMNG::retrieveAllCategories(){
+   std::vector<Category> categories = this->m_categoryDAO.listCategories();
+   json json = this->m_jsonBuilder.categoryVectorToJson(categories);
+   return json;
 }
 
-bool CategoryMNG::deleteCatagory(const int id){
-   m_cDAO.deleteCategory(id);
-   return true;
+json CategoryMNG::retrieveCategory(const int id){
+   Category category = this->m_categoryDAO.retrieveCategory(id);
+   json json = this->m_jsonBuilder.categoryToJson(category);
+   return json;
+}
+
+bool CategoryMNG::createCategory(const std::string& name){
+   bool response = this->m_categoryDAO.createCategory(name);
+   return response;
 }
 
 bool CategoryMNG::updateCategory(const int id, const std::string& name){
-   m_cDAO.updateCategory(id, name);
-   return true;
+   bool response = this->m_categoryDAO.updateCategory(id,name);
+   return response;
 }
 
-std::vector<Category> CategoryMNG::listAllCategories(){
-   return m_cDAO.listCategories();
+bool CategoryMNG::deleteCategory(const int id){
+   bool response = this->m_categoryDAO.deleteCategory(id);
+   return response;
 }
 
-Category CategoryMNG::retrieveCategory(const int id){
-   return m_cDAO.retrieveCategory(id);
-}
