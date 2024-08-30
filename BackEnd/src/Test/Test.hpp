@@ -34,6 +34,12 @@ class Test{
       HTTPRequest testUpdateCategory(const int id, const std::string& name);
       HTTPRequest testDeleteCategory(const int id);
 
+      HTTPRequest testRetrieveAllPaymentMethod();
+      HTTPRequest testRetrievePaymentMethod(const int id);
+      HTTPRequest testCreatePaymentMethod(const std::string& name);
+      HTTPRequest testUpdatePaymentMethod(const int id, const std::string& name);
+      HTTPRequest testDeletePaymentMethod(const int id);
+
    private:
       int m_commandCounter{};
       int m_errorCounter{};
