@@ -107,6 +107,23 @@ json JsonBuilder::manufacturerVectorToJson(std::vector<Manufacturer>& manufactur
    return jsonManufacturerArray;
 }
 
+json JsonBuilder::statusToJson(Status& status){
+   json jsonStatus;
+   jsonStatus["id"]   = status.getId();
+   jsonStatus["name"] = status.getName();
+   return jsonStatus;
+}
+
+json JsonBuilder::statusVectorToJson(std::vector<Status>& statuses){
+   json jsonStatusArray;
+   for(int i = 0; i < statuses.size(); i++){
+      json jsonStatus;
+      jsonStatus["id"]   = statuses[i].getId();
+      jsonStatus["name"] = statuses[i].getName();
+      jsonStatusArray.push_back(jsonStatus);
+   }
+   return jsonStatusArray;
+}
 
 
 
