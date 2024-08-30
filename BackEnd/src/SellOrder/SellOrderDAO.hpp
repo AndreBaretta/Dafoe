@@ -24,7 +24,6 @@ public:
    std::vector<SellOrder> retrieveOrderByProduct(const int id);
    
 private:
-   static inline int s_id{0};
    DafoeGod& m_theos;
 };
 
