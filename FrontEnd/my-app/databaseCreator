@@ -1,0 +1,99 @@
+USE Dafoe;
+
+CREATE TABLE employee(
+   id int PRIMARY KEY AUTO_INCREMENT,
+   name VARCHAR(100) NOT NULL,
+   cargo VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE status(
+   id int PRIMARY KEY AUTO_INCREMENT,
+   name VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE paymentMethod(
+   id int PRIMARY KEY AUTO_INCREMENT,
+   name VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE client(
+   id int PRIMARY KEY AUTO_INCREMENT,
+   name VARCHAR(100) NOT NULL,
+   phoneNumber CHAR(11) NOT NULL,
+   address VARCHAR(100),
+   bill REAL NOT NULL
+);
+
+CREATE TABLE sellOrder(
+   id int PRIMARY KEY AUTO_INCREMENT,
+   client int NOT NULL,
+   seller int,
+   deliveredBy int,
+   status int NOT NULL,
+   paymentMethod int NOT NULL,
+   date date NOT NULL,
+   price REAL NOT NULL,
+   FOREIGN KEY(client) REFERENCES client(id),
+   FOREIGN KEY(seller) REFERENCES employee(id),
+   FOREIGN KEY(deliveredBy) REFERENCES employee(id),
+   FOREIGN KEY(status) REFERENCES status(id),
+   FOREIGN KEY(paymentMethod) REFERENCES paymentMethod(id)
+);
+
+CREATE TABLE category(
+   id int PRIMARY KEY AUTO_INCREMENT,
+   name VARCHAR(100)
+);
+
+CREATE TABLE manufacturer(
+   id int PRIMARY KEY AUTO_INCREMENT,
+   name VARCHAR(100)
+);
+
+CREATE TABLE genericProduct(
+   id int PRIMARY KEY AUTO_INCREMENT,
+   name VARCHAR(100),
+   category int NOT NULL,
+   FOREIGN KEY(category) REFERENCES category(id)
+);
+
+CREATE TABLE product(
+   id int PRIMARY KEY AUTO_INCREMENT,
+   genericProduct int,
+   manufacturer int,
+   name VARCHAR(100) NOT NULL,
+   barcode VARCHAR(14) NOT NULL,
+   price REAL NOT NULL,
+   cost REAL,
+   reference VARCHAR(100),
+   quantity int NOT NULL,
+   FOREIGN KEY(genericProduct) REFERENCES genericProduct(id),
+   FOREIGN KEY(manufacturer) REFERENCES manufacturer(id)
+);
+
+CREATE TABLE productOrder(
+   sellOrder int,
+   product int,
+   quantity int NOT NULL,
+   discount REAL,
+   price REAL NOT NULL,
+   FOREIGN KEY(sellOrder) REFERENCES sellOrder(id),
+   FOREIGN KEY(product) REFERENCES product(id),
+   PRIMARY KEY(sellOrder,product)
+);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
