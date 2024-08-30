@@ -1,4 +1,4 @@
-
+#include "CategoryMNG.hpp"
 
 CategoryMNG::CategoryMNG(CategoryDAO& categoryDAO, JsonBuilder& jsonBuilder)
 : m_categoryDAO{categoryDAO}
