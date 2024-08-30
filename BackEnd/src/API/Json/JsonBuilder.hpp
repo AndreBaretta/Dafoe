@@ -4,6 +4,7 @@
 #include "../../Category/Category.hpp"
 #include "../../PaymentMethod/PaymentMethod.hpp"
 #include "../../Employee/Employee.hpp"
+#include "../../Manufacturer/Manufacturer.hpp"
 #include <vector>
 #include <map>
 #include <nlohmann/json.hpp>
@@ -16,11 +17,13 @@ class JsonBuilder{
       json productToJson(Product& product);
       json productVectorToJson(std::vector<Product>& products);
       json categoryToJson(Category& category);
-      json categoryVectorToJson(std::vector<Category>& category);
+      json categoryVectorToJson(std::vector<Category>& categories);
       json paymentMethodToJson(PaymentMethod& paymentMethod);
-      json paymentMethodVectorToJson(std::vector<PaymentMethod>& paymentMethod);
+      json paymentMethodVectorToJson(std::vector<PaymentMethod>& paymentMethods);
       json employeeToJson(Employee& employee);
-      json employeeVectorToJson(std::vector<Employee>& employee);
+      json employeeVectorToJson(std::vector<Employee>& employees);
+      json manufacturerToJson(Manufacturer& manufacturer);
+      json manufacturerVectorToJson(std::vector<Manufacturer>& manufacturers);
       
 };
 
