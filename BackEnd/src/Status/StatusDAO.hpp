@@ -12,7 +12,6 @@ public:
    bool deleteStatus(const int id);
 private:
    DafoeGod& m_theos;
-   static inline int s_id{0};
 };
 
 #endif
