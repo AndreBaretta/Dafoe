@@ -131,11 +131,11 @@ int main(){
    // Teste atualizar metodo de pagamento
 
    /**/
-   request = tester.testRetrievePaymentMethod(3);
-   std::cout << "\nretrievePaymentMethod(3);\n:" << httpHandler.handleRequest(request) << '\n';
+   //request = tester.testRetrievePaymentMethod(3);
+   //std::cout << "\nretrievePaymentMethod(3);\n:" << httpHandler.handleRequest(request) << '\n';
 
-   request = tester.testUpdatePaymentMethod(3,"pme3");
-   httpHandler.handleRequest(request);
+   //request = tester.testUpdatePaymentMethod(3,"pme3");
+   //httpHandler.handleRequest(request);
    /**/
 
    // Teste GET produto
@@ -173,22 +173,22 @@ int main(){
 
    // Teste GET categoria
    /**/
-   request = tester.testRetrieveAllPaymentMethod();
-   std::cout << "\nRetrieveAll:\n" << httpHandler.handleRequest(request) << '\n';
+   //request = tester.testRetrieveAllPaymentMethod();
+   //std::cout << "\nRetrieveAll:\n" << httpHandler.handleRequest(request) << '\n';
 
-   request = tester.testRetrievePaymentMethod(3);
-   std::cout << "\nretrievePaymentMethod(3);\n:" << httpHandler.handleRequest(request) << '\n';
+   //request = tester.testRetrievePaymentMethod(3);
+   //std::cout << "\nretrievePaymentMethod(3);\n:" << httpHandler.handleRequest(request) << '\n';
    /**/
 
-   /* server.startListen();
+   server.startListen();
    while(true){
       server.acceptConnection();
       requestString  = server.readRequest();
-      *request       = httpParser.parseRequest(requestString);
-      response       = httpHandler.handleRequest(*request);
+      request       = httpParser.parseRequest(requestString);
+      response       = httpHandler.handleRequest(request);
       server.setResponse(response);
       server.writeResponse();
-   }*/
+   }
    return 1;
 }
 

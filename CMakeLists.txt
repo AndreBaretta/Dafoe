@@ -21,6 +21,15 @@ set(SOURCES
    BackEnd/src/Product/ProductDAO.cpp
    BackEnd/src/Product/ProductMNG.cpp
    BackEnd/src/Product/Product.cpp
+   BackEnd/src/PaymentMethod/PaymentMethod.cpp
+   BackEnd/src/PaymentMethod/PaymentMethodMNG.cpp
+   BackEnd/src/PaymentMethod/PaymentMethodDAO.cpp
+   BackEnd/src/Employee/Employee.cpp
+   BackEnd/src/Manufacturer/Manufacturer.cpp
+   BackEnd/src/Category/Category.cpp
+   BackEnd/src/Category/CategoryDAO.cpp
+   BackEnd/src/Category/CategoryMNG.cpp
+   BackEnd/src/Test/Test.cpp
    )
 # Add an executable target
 add_executable(teste.out ${SOURCES})
