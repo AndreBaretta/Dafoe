@@ -9,17 +9,17 @@
 using json = nlohmann::json;
 
 class CategoryMNG{
-   public:
-      CategoryMNG(CategoryDAO& categoryDAO, JsonBuilder& jsonBuilder);
-      json retrieveAllCategories();
-      json retrieveCategory(const int id);
-      bool createCategory(const std::string& name);
-      bool deleteCategory(const int id);
-      bool updateCategory(const int id, const std::string& name);
+public:
+   CategoryMNG(CategoryDAO& categoryDAO, JsonBuilder& jsonBuilder);
+   json retrieveAllCategories();
+   json retrieveCategory(const int id);
+   bool createCategory(const std::string& name);
+   bool deleteCategory(const int id);
+   bool updateCategory(const int id, const std::string& name);
 
-   private:
-      CategoryDAO& m_categoryDAO;
-      JsonBuilder& m_jsonBuilder;
+private:
+   CategoryDAO& m_categoryDAO;
+   JsonBuilder& m_jsonBuilder;
 
 };
 

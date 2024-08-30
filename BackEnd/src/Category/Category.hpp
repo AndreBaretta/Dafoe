@@ -5,19 +5,19 @@
 
 class Category {
 public:
-    Category(int id, const std::string& name);
+   Category(int id, const std::string& name);
 
-    // Setters
-    bool setId(int id);
-    bool setName(const std::string& name);
+   // Setters
+   bool setId(int id);
+   bool setName(const std::string& name);
 
-    // Getters
-    int getId() const;
-    std::string getName() const;
+   // Getters
+   int getId() const;
+   std::string getName() const;
 
 private:
-    int m_id{};
-    std::string m_name{};
+   int m_id{};
+   std::string m_name{};
 };
 
 #endif

@@ -4,7 +4,8 @@
 #include "../DafoeGod/DafoeGod.hpp"
 
 class GenericProductDAO{
-
+    public:
+    
 
     private:
 

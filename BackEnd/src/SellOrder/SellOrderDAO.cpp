@@ -15,16 +15,15 @@ bool SellOrderDAO::createOrder(const int clientId, const int sellerId,
                                const int deliveredBy, const int status, 
                                const int paymentMethod, const std::string& date, 
                                const double price){
-   std::unique_ptr<sql::PreparedStatement> stmt{m_theos.conn->prepareStatement("insert into sellOrder (id, client, seller, deliveredBy, status, paymentMethod, date, price) values (?,?,?,?,?,?,?,?)")};
+   std::unique_ptr<sql::PreparedStatement> stmt{m_theos.conn->prepareStatement("insert into sellOrder (client, seller, deliveredBy, status, paymentMethod, date, price) values (?,?,?,?,?,?,?)")};
 
-   stmt->setInt(1, s_id++);
-   stmt->setInt(2, clientId);
-   stmt->setInt(3, sellerId);
-   stmt->setInt(4, deliveredBy);
-   stmt->setInt(5, status);
-   stmt->setInt(6, paymentMethod);
-   stmt->setString(7, date);
-   stmt->setDouble(8, price);
+   stmt->setInt(1, clientId);
+   stmt->setInt(2, sellerId);
+   stmt->setInt(3, deliveredBy);
+   stmt->setInt(4, status);
+   stmt->setInt(5, paymentMethod);
+   stmt->setString(6, date);
+   stmt->setDouble(7, price);
    stmt->executeQuery();
 
    return true;

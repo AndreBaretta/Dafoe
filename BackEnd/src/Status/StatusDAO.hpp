@@ -11,6 +11,7 @@ public:
    Status retrieveStatus(const int id);
    std::vector<Status> listAllStatus();
    bool deleteStatus(const int id);
+
 private:
    DafoeGod& m_theos;
 };

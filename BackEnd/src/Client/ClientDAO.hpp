@@ -5,9 +5,7 @@
 #include <vector>
 
 class ClientDAO{
-
 public:
-
    ClientDAO(DafoeGod& dafoe);
    bool createClient(const std::string& name, const std::string& phoneNumber, const std::string& address, const double bill);
    bool deleteClient(const int id);
@@ -17,7 +15,6 @@ public:
    bool updateClient(const int id, const std::string& name, const std::string& phoneNumber, const std::string& address, const double bill);
 
 private:
-
    DafoeGod& m_theos;   
 };
 
