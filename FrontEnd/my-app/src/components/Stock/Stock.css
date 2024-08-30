@@ -56,28 +56,42 @@
 
 .Stock-table-container {
    width: 80%;
+   max-width: 2600px;
    background-color: var(--glass);
    border-radius: 1rem;
-   padding: 1rem;
+   padding: 0.75rem;
    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+   margin-top: 65px;
+   margin-left: 1%;
+   margin-right: 0.5%;
 }
 
 .Stock-table {
    width: 100%;
    border-collapse: collapse;
    text-align: left;
-   font-size: calc(12px + 1vmin);
+   font-size: calc(10px + 1vmin);
    color: white;
+   background-color: rgba(0, 0, 0, 0.5);
+   border-radius: 8px;
+   overflow: hidden;
 }
 
 .Stock-table th, .Stock-table td {
-   padding: 0.75rem;
+   padding: 0.5rem;
    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .Stock-table th {
-   background-color: rgba(255, 255, 255, 0.1);
+   background-color: rgba(255, 255, 255, 0.2);
    font-weight: bold;
+   color: #ffd700;
+   text-transform: uppercase;
+   text-align: center; 
+}
+
+.Stock-table tr {
+   transition: background-color 0.3s ease;
 }
 
 .Stock-table tr:hover {
@@ -85,7 +99,7 @@
 }
 
 .Stock-table td {
-   font-size: calc(10px + 1vmin);
+   font-size: calc(8px + 1vmin);
    white-space: nowrap;
 }
 
@@ -96,7 +110,6 @@
 
    .Stock-table th, .Stock-table td {
      padding: 0.5rem;
-     font-size: calc(10px + 1vmin);
+     font-size: calc(8px + 1vmin);
    }
 }
-
