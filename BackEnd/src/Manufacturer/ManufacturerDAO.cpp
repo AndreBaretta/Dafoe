@@ -11,9 +11,8 @@ ManufacturerDAO::ManufacturerDAO(DafoeGod& dafoe)
 {}
 
 bool ManufacturerDAO::createManufacturer(const std::string& name){
-   std::unique_ptr<sql::PreparedStatement> stmt{m_theos.conn->prepareStatement("insert into manufacturer (id, name) values (?,?)")};
-   stmt->setInt(1, this->s_id++);
-   stmt->setString(2, name);
+   std::unique_ptr<sql::PreparedStatement> stmt{m_theos.conn->prepareStatement("insert into manufacturer (name) values (?)")};
+   stmt->setString(1, name);
    stmt->executeQuery();
 
    return true;
@@ -36,17 +35,40 @@ bool ManufacturerDAO::deleteManufacturer(const int id){
    return true;
 }
 
-std::vector<Manufacturer> ManufacturerDAO::retriveByManufacturerName(const std::string& name){
+std::vector<Manufacturer> ManufacturerDAO::retriveManufacturerByName(const std::string& name){
    std::unique_ptr<sql::PreparedStatement> stmt{m_theos.conn->prepareStatement("select * from manufacturer where name like ?")};
-
    stmt->setString(1, '%'+ name +'%');
    sql::ResultSet* result {stmt->executeQuery()};
 
-   std::vector<Manufacturer> vec{};
+   std::vector<Manufacturer> manufacturers{};
 
    while(result->next()){
-      vec.push_back(Manufacturer(result->getInt("id"), static_cast<std::string>(result->getString("name"))));
+      manufacturers.push_back(Manufacturer(result->getInt("id"), static_cast<std::string>(result->getString("name"))));
    }
 
-   return vec;
+   return manufacturers;
 }
+
+Manufacturer ManufacturerDAO::retrieveManufacturer(const int id){
+   std::unique_ptr<sql::PreparedStatement> stmt{m_theos.conn->prepareStatement("select * from manufacturer where id = ?")};
+   stmt->setInt(1, id);
+   sql::ResultSet* result {stmt->executeQuery()};
+   result->next();
+
+   Manufacturer manufacturer = Manufacturer(result->getInt("id"), result->getString("name").c_str());
+   
+   return manufacturer;
+}
+
+std::vector<Manufacturer> ManufacturerDAO::listAllManufacturer(){
+   std::unique_ptr<sql::PreparedStatement> stmt{m_theos.conn->prepareStatement("select * from manufacturer")};
+   sql::ResultSet* result {stmt->executeQuery()};
+   std::vector<Manufacturer> manufacturers{};
+   
+   while(result->next()){
+      manufacturers.push_back(Manufacturer(result->getInt("id"), result->getString("name").c_str()));
+   }
+   return manufacturers;
+}
+
+
