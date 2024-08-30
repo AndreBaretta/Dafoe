@@ -13,6 +13,8 @@
 #include "../Product/ProductMNG.hpp"
 #include "../Category/CategoryDAO.hpp"
 #include "../Category/CategoryMNG.hpp"
+#include "../PaymentMethod/PaymentMethodDAO.hpp"
+#include "../PaymentMethod/PaymentMethodMNG.hpp"
 #include "HTTPResponse/HTTPResponse.hpp"
 #include "HTTPResponseBuilder/HTTPResponseBuilder.hpp"
 #include <nlohmann/json.hpp>
@@ -22,14 +24,16 @@ int main(){
    Test tester = Test();
    HTTPResponseBuilder httpResponseBuilder = HTTPResponseBuilder();
    DafoeGod dafoeGod                       = DafoeGod();
+   JsonBuilder jsonBuilder                 = JsonBuilder();
    CategoryDAO categoryDAO                 = CategoryDAO(dafoeGod);
    ProductDAO productDAO                   = ProductDAO(dafoeGod);
-   JsonBuilder jsonBuilder                 = JsonBuilder();
+   PaymentMethodDAO paymentMethodDAO       = PaymentMethodDAO(dafoeGod);
    ProductMNG productMNG                   = ProductMNG(productDAO, jsonBuilder);
    CategoryMNG categoryMNG                 = CategoryMNG(categoryDAO, jsonBuilder);
+   PaymentMethodMNG paymentMethodMNG       = PaymentMethodMNG(paymentMethodDAO, jsonBuilder);
    TCPServer server                        = TCPServer("127.0.0.1",12354);
    HTTPRequestParser httpParser            = HTTPRequestParser();
-   HTTPRequestHandler httpHandler          = HTTPRequestHandler(httpResponseBuilder, productMNG, categoryMNG);
+   HTTPRequestHandler httpHandler          = HTTPRequestHandler(httpResponseBuilder, productMNG, categoryMNG, paymentMethodMNG);
    HTTPRequest request                     = HTTPRequest();
    HTTPResponse httpResponse               = HTTPResponse();
    std::string requestString{};
@@ -64,6 +68,19 @@ int main(){
    httpHandler.handleRequest(request);
    */
 
+   // Teste criar metodo de pagamento
+
+   /*
+   request = tester.testCreatePaymentMethod("pmethod1");
+   httpHandler.handleRequest(request);
+   
+   request = tester.testCreatePaymentMethod("pmethod3");
+   httpHandler.handleRequest(request);
+
+   request = tester.testCreatePaymentMethod("pmethod92");
+   httpHandler.handleRequest(request);
+   */
+
    // Teste deletar produto
    
    /*
@@ -84,6 +101,19 @@ int main(){
    httpHandler.handleRequest(request);
    */
 
+   // Teste deletar metodo de pagamento
+  
+   /*
+   request = tester.testDeletePaymentMethod(5);
+   httpHandler.handleRequest(request);
+   
+   request = tester.testDeletePaymentMethod(6);
+   httpHandler.handleRequest(request);
+   
+   request = tester.testDeletePaymentMethod(7);
+   httpHandler.handleRequest(request);
+   */
+
    // Teste atualizar produto
    
    /*
@@ -93,8 +123,20 @@ int main(){
 
    // Teste atualizar categoria
 
-//   request = tester.testUpdateCategory(2,"Categoria7");
-  // httpHandler.handleRequest(request);
+   /*
+   request = tester.testUpdateCategory(2,"Categoria7");
+   httpHandler.handleRequest(request);
+   */
+
+   // Teste atualizar metodo de pagamento
+
+   /**/
+   request = tester.testRetrievePaymentMethod(3);
+   std::cout << "\nretrievePaymentMethod(3);\n:" << httpHandler.handleRequest(request) << '\n';
+
+   request = tester.testUpdatePaymentMethod(3,"pme3");
+   httpHandler.handleRequest(request);
+   /**/
 
    // Teste GET produto
 
@@ -128,6 +170,15 @@ int main(){
    request = tester.testRetrieveCategory(2);
    httpHandler.handleRequest(request);
    */
+
+   // Teste GET categoria
+   /**/
+   request = tester.testRetrieveAllPaymentMethod();
+   std::cout << "\nRetrieveAll:\n" << httpHandler.handleRequest(request) << '\n';
+
+   request = tester.testRetrievePaymentMethod(3);
+   std::cout << "\nretrievePaymentMethod(3);\n:" << httpHandler.handleRequest(request) << '\n';
+   /**/
 
    /* server.startListen();
    while(true){

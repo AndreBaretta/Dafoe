@@ -1,27 +1,19 @@
 #include "PaymentMethod.hpp"
 
-PaymentMethod::PaymentMethod(int id, const std::string& name)
-: m_id(id)
-, m_name(name) 
+PaymentMethod::PaymentMethod(const int id, const std::string& name)
+: m_id{id}
+, m_name{name}
 {}
 
-// Setters
-bool PaymentMethod::setId(int id) {
-   m_id = id;
+bool PaymentMethod::setId(const int id){
+   this->m_id = id;
    return true;
 }
 
-bool PaymentMethod::setName(const std::string& name) {
-   m_name = name;
+bool PaymentMethod::setName(const std::string& name){
+   this->m_name = name;
    return true;
 }
 
-// Getters
-int PaymentMethod::getId() const {
-   return m_id;
-}
-
-const std::string& PaymentMethod::getName() const {
-   return m_name;
-}
-
+int PaymentMethod::getId(){ return this->m_id; }
+std::string PaymentMethod::getName(){ return this->m_name; }

@@ -3,6 +3,7 @@
 #include "../HTTPRequest/HTTPRequest.hpp"
 #include "../../Product/ProductMNG.hpp"
 #include "../../Category/CategoryMNG.hpp"
+#include "../../PaymentMethod/PaymentMethodMNG.hpp"
 #include "../HTTPResponse/HTTPResponse.hpp"
 #include "../HTTPResponseBuilder/HTTPResponseBuilder.hpp"
 #include <nlohmann/json.hpp>
@@ -11,7 +12,7 @@ using json = nlohmann::json;
 
 class HTTPRequestHandler{
    public:
-      HTTPRequestHandler(HTTPResponseBuilder& responseBuilder, ProductMNG& productMNG, CategoryMNG& categoryMNG);
+      HTTPRequestHandler(HTTPResponseBuilder& responseBuilder, ProductMNG& productMNG, CategoryMNG& categoryMNG, PaymentMethodMNG& paymentMethodMNG);
       ~HTTPRequestHandler();
       std::string handleRequest(HTTPRequest& request);
 
@@ -28,10 +29,16 @@ class HTTPRequestHandler{
       bool handleCreateCategory(const std::string& body);
       bool handleUpdateCategory(const int id, const std::string& body);
       bool handleDeleteCategory(const int id);
+      bool handleCreatePaymentMethod(const std::string& body);
+      bool handleUpdatePaymentMethod(const int id, const std::string& body);
+      bool handleDeletePaymentMethod(const int id);
       std::string handleRetrieveAllCategory();
       std::string handleRetrieveCategory(int id);
-      ProductMNG& m_productMNG;
+      std::string handleRetrieveAllPaymentMethod();
+      std::string handleRetrievePaymentMethod(int id);
       HTTPResponseBuilder& m_responseBuilder;
+      ProductMNG& m_productMNG;
+      PaymentMethodMNG& m_paymentMethodMNG;
       CategoryMNG& m_categoryMNG;
 };
 

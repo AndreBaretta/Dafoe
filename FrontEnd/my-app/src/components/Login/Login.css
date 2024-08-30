@@ -2,13 +2,6 @@
    --glass: rgba(255, 255, 255, 0.25);
 }
 
-.Login h1 {
-   font-size: calc(40px + 4vmin);
-   color: white;
-   text-shadow: #000 2px 2px;
-   margin-bottom: 2rem;
-}
-
 .Login {
    text-align: center;
    color: white;
@@ -26,6 +19,20 @@
    background-position: center;
 }
 
+.Login button {
+   width: 40%;
+   height: 40px;
+   border-radius: 40px;
+   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+   font-size: 20px;
+   font-weight: 500;
+   margin-bottom: 15px;
+   background-color: #0059ff;
+   color: white;
+   border: none;
+   cursor: pointer;
+}
+
 .Login-glass {
    display: flex;
    flex-direction: column;
@@ -37,6 +44,13 @@
    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
    align-items: center;
    justify-content: center;
+}
+
+.Login h1 {
+   font-size: calc(40px + 4vmin);
+   color: white;
+   text-shadow: #000 2px 2px;
+   margin-bottom: 2rem;
 }
 
 .input-field {
@@ -67,20 +81,6 @@
 
 .recall input {
    margin-right: 7px;
-}
-
-.Login button {
-   width: 40%;
-   height: 40px;
-   border-radius: 40px;
-   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-   font-size: 20px;
-   font-weight: 500;
-   margin-bottom: 15px;
-   background-color: #0059ff;
-   color: white;
-   border: none;
-   cursor: pointer;
 }
 
 .watermark {
