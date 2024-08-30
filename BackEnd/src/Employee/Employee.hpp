@@ -10,10 +10,12 @@ public:
     Employee(int id, const std::string& name, const std::string& cargo);
 
     // Setters
+    bool setId(const int id);
     bool setName(const std::string& name);
     bool setCargo(const std::string& cargo);
 
     // Getters
+    int getId() const;
     std::string_view getName() const;
     std::string_view getCargo() const;
 

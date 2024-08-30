@@ -7,6 +7,11 @@ Employee::Employee(int id, const std::string& name, const std::string& cargo)
 {}
 
 // Setters
+bool Employee::setId(const int id) {
+   m_id = id;
+   return true;
+}
+
 bool Employee::setName(const std::string& name) {
    m_name = name;
    return true;
@@ -18,6 +23,10 @@ bool Employee::setCargo(const std::string& cargo) {
 }
 
 // Getters
+int Employee::getId() const {
+   return m_id;
+}
+
 std::string_view Employee::getName() const {
    return m_name;
 }
