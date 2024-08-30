@@ -113,3 +113,13 @@
      font-size: calc(8px + 1vmin);
    }
 }
+
+.newProduct {
+   display: flex;
+   flex-direction: column;
+}
+
+.addStock {
+   display: flex;
+   flex-direction: column;
+}
