@@ -16,7 +16,6 @@ public:
 
 private:
 
-   static inline int s_id{};
    DafoeGod& m_theos;   
 };
 
