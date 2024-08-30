@@ -14,8 +14,6 @@ public:
    std::vector<PaymentMethod> listPayment();
 private:
    DafoeGod& m_theos;
-   static inline int s_id{0};
-
 };
 
 #endif
