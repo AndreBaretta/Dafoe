@@ -1,9 +1,10 @@
 #include "HTTPRequestHandler.hpp"
 #include <iostream>
 
-HTTPRequestHandler::HTTPRequestHandler(HTTPResponseBuilder& responseBuilder, ProductMNG& productMNG, CategoryMNG& categoryMNG)
+HTTPRequestHandler::HTTPRequestHandler(HTTPResponseBuilder& responseBuilder, ProductMNG& productMNG, CategoryMNG& categoryMNG, PaymentMethodMNG& paymentMethodMNG)
 : m_productMNG{productMNG}
 , m_categoryMNG{categoryMNG}
+, m_paymentMethodMNG{paymentMethodMNG}
 , m_responseBuilder{responseBuilder}
 {}
 
@@ -95,6 +96,7 @@ std::string HTTPRequestHandler::handleRequest(HTTPRequest& request){
 	 stringResponse = this->m_responseBuilder.buildResponseString(response);
 	 return stringResponse;
       }
+
       if(path.size() == 3 && path[0] == "api" && path[1] == "category"){
 	 if(!isNumber(path[2])){
 	    statusCode = "400";
@@ -105,6 +107,34 @@ std::string HTTPRequestHandler::handleRequest(HTTPRequest& request){
 	 }
 	 int temp = std::stoi(path[2]);
 	 responseBody = handleRetrieveCategory(temp);
+	 statusCode = "200";
+	 statusMessage = "OK";
+	 HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+	 stringResponse = this->m_responseBuilder.buildResponseString(response);
+	 return stringResponse;
+      }
+
+      // PaymentMethod
+      if(path.size() == 2 && path[0] == "api" && path[1] == "payment-method"){
+	 responseBody = handleRetrieveAllPaymentMethod();
+	 headers["Content-Type"] = "application/json";
+	 statusCode = "200";
+	 statusMessage = "OK";
+	 HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+	 stringResponse = this->m_responseBuilder.buildResponseString(response);
+	 return stringResponse;
+      }
+
+      if(path.size() == 3 && path[0] == "api" && path[1] == "payment-method"){
+	 if(!isNumber(path[2])){
+	    statusCode = "400";
+	    statusMessage = "Bad Request";
+	    HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+	    stringResponse = this->m_responseBuilder.buildResponseString(response);
+	    return stringResponse;
+	 }
+	 int temp = std::stoi(path[2]);
+	 responseBody = handleRetrievePaymentMethod(temp);
 	 statusCode = "200";
 	 statusMessage = "OK";
 	 HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
@@ -157,6 +187,14 @@ std::string HTTPRequestHandler::handleRequest(HTTPRequest& request){
 	 stringResponse = this->m_responseBuilder.buildResponseString(response);
 	 return stringResponse;
       }
+      if(path[1] == "payment-method"){
+	 handleCreatePaymentMethod(requestBody);
+	 statusCode = "204";
+	 statusMessage = "No Content";
+	 HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+	 stringResponse = this->m_responseBuilder.buildResponseString(response);
+	 return stringResponse;
+      }
       statusCode = "404";
       statusMessage = "Not Found";
       HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
@@ -202,6 +240,15 @@ std::string HTTPRequestHandler::handleRequest(HTTPRequest& request){
 	 stringResponse = this->m_responseBuilder.buildResponseString(response);
 	 return stringResponse;
       }
+      if(path[1] == "payment-method"){
+	 int id = std::stoi(path[2]);
+	 handleDeletePaymentMethod(id);
+	 statusCode = "200";
+	 statusMessage = "OK";
+	 HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+	 stringResponse = this->m_responseBuilder.buildResponseString(response);
+	 return stringResponse;
+      }
       statusCode = "404";
       statusMessage = "Not Found";
       HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
@@ -241,6 +288,15 @@ std::string HTTPRequestHandler::handleRequest(HTTPRequest& request){
       if(path[1] == "category"){
 	 int id = std::stoi(path[2]);
 	 handleUpdateCategory(id,requestBody);
+	 statusCode = "200";
+	 statusMessage = "OK";
+	 HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+	 stringResponse = this->m_responseBuilder.buildResponseString(response);
+	 return stringResponse;
+      }
+      if(path[1] == "payment-method"){
+	 int id = std::stoi(path[2]);
+	 handleUpdatePaymentMethod(id,requestBody);
 	 statusCode = "200";
 	 statusMessage = "OK";
 	 HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
@@ -357,7 +413,34 @@ bool HTTPRequestHandler::handleDeleteCategory(const int id){
    return response;
 }
 
+bool HTTPRequestHandler::handleDeletePaymentMethod(const int id){
+   bool response = this->m_paymentMethodMNG.deletePaymentMethod(id);
+   return response;
+}
 
+bool HTTPRequestHandler::handleCreatePaymentMethod(const std::string& body){
+   json json = json::parse(body);
+   std::string name = json["name"];
+   bool response = this->m_paymentMethodMNG.createPaymentMethod(name);
+   return response;
+}
+
+bool HTTPRequestHandler::handleUpdatePaymentMethod(const int id, const std::string& body){
+   json json = json::parse(body);
+   std::string name = json["name"];
+   bool response = this->m_paymentMethodMNG.updatePaymentMethod(id,name);
+   return response;
+}
+
+std::string HTTPRequestHandler::handleRetrieveAllPaymentMethod(){
+   std::string response = this->m_paymentMethodMNG.retrieveAllPaymentMethod().dump();
+   return response;
+}
+
+std::string HTTPRequestHandler::handleRetrievePaymentMethod(const int id){
+   std::string response = this->m_paymentMethodMNG.retrievePaymentMethod(id).dump();
+   return response;
+}
 
 
 

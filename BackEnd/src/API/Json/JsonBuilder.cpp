@@ -53,6 +53,23 @@ json JsonBuilder::categoryVectorToJson(std::vector<Category>& categories){
    return jsonCategoryArray;
 }
 
+json JsonBuilder::paymentMethodToJson(PaymentMethod& paymentMethod){
+   json jsonPaymentMethod;
+   jsonPaymentMethod["id"]   = paymentMethod.getId();
+   jsonPaymentMethod["name"] = paymentMethod.getName();
+   return jsonPaymentMethod;
+}
+
+json JsonBuilder::paymentMethodVectorToJson(std::vector<PaymentMethod>& paymentMethods){
+   json jsonPaymentMethodArray;
+   for(int i = 0; i < paymentMethods.size(); i++){
+      json jsonPaymentMethod;
+      jsonPaymentMethod["id"]   = paymentMethods[i].getId();
+      jsonPaymentMethod["name"] = paymentMethods[i].getName();
+      jsonPaymentMethodArray.push_back(jsonPaymentMethod);
+   }
+   return jsonPaymentMethodArray;
+}
 
 
 

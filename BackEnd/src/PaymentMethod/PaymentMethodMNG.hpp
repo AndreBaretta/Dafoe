@@ -10,8 +10,8 @@ class PaymentMethodMNG{
       bool createPaymentMethod(const std::string& name);
       bool updatePaymentMethod(const int id, const std::string& name);
       bool deletePaymentMethod(const int id);
-      std::string retrieveAllPaymentMethod();
-      std::string retrievePaymentMethod(int id);
+      json retrieveAllPaymentMethod();
+      json retrievePaymentMethod(int id);
 
    private:
       PaymentMethodDAO& m_paymentMethodDAO;

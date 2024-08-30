@@ -4,11 +4,19 @@
 
 class PaymentMethod{
 public:
-   PaymentMethod(int id, const std::string& name);
+   PaymentMethod(const int id, const std::string& name);
+
+   // Setters
+   bool setId(const int id);
+   bool setName(const std::string& name);
+
+   // Getters
+   int getId();
+   std::string getName();
 
 private:
    int m_id{};
-   std::string m_name{};
+   std::string m_name;
 };  
 
 #endif

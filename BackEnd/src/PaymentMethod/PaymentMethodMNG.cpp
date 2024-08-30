@@ -20,11 +20,16 @@ bool PaymentMethodMNG::deletePaymentMethod(const int id){
    return response;
 }
 
-std::string PaymentMethodMNG::retrievePaymentMethod(const int id){
-   json response = this->m_paymentMethodDAO.retrievePaymentMethod(id).dump();
+json PaymentMethodMNG::retrievePaymentMethod(const int id){
+   PaymentMethod pMethod = this->m_paymentMethodDAO.retrievePaymentMethod(id);
+   json response = this->m_jsonBuilder.paymentMethodToJson(pMethod);
    return response;
 }
 
-std::string 
+json PaymentMethodMNG::retrieveAllPaymentMethod(){
+   std::vector<PaymentMethod> pMethod = this->m_paymentMethodDAO.listPayment();
+   json response = this->m_jsonBuilder.paymentMethodVectorToJson(pMethod);
+   return response;
+}
 
 
