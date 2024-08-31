@@ -20,8 +20,11 @@ public:
                     const int paymentMethod, const std::string& date, const double price);
 
    SellOrder retrieveOrderById(const int id);
-   std::vector<SellOrder> retrieveOrderByClient(const int id);
-   std::vector<SellOrder> retrieveOrderByProduct(const int id);
+   std::vector<SellOrder> retrieveOrderByClient(const int clientId);
+   std::vector<SellOrder> retrieveOrderByProduct(const int productId);
+   std::vector<SellOrder> retrieveOrderByStatus(const int statusId);
+   std::vector<SellOrder> retrieveOrderBySeller(const int sellerId);
+   std::vector<SellOrder> listAllSellOrder();
    
 private:
    DafoeGod& m_theos;

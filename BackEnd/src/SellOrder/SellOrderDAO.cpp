@@ -58,9 +58,9 @@ SellOrder SellOrderDAO::retrieveOrderById(const int id){
    return SellOrder(result->getInt("id"), result->getInt("client"), result->getInt("seller"), result->getInt("deliveredBy"), result->getInt("status"), result->getInt("paymentMethod"), static_cast<std::string>(result->getString("date")), result->getDouble("price"));
 }
 
-std::vector<SellOrder> SellOrderDAO::retrieveOrderByClient(const int id){
+std::vector<SellOrder> SellOrderDAO::retrieveOrderByClient(const int clientId){
    std::unique_ptr<sql::PreparedStatement> stmt{m_theos.conn->prepareStatement("select * from sellOrder where client = ?")};
-   stmt->setInt(1, id);
+   stmt->setInt(1, clientId);
    sql::ResultSet* result{stmt->executeQuery()};
    std::vector<SellOrder> vec{};
    while(result->next()){
@@ -70,9 +70,9 @@ std::vector<SellOrder> SellOrderDAO::retrieveOrderByClient(const int id){
    return vec;
 }
 
-std::vector<SellOrder> SellOrderDAO::retrieveOrderByProduct(const int id){
+std::vector<SellOrder> SellOrderDAO::retrieveOrderByProduct(const int productId){
    std::unique_ptr<sql::PreparedStatement> stmt{m_theos.conn->prepareStatement("select * from sellOrder where product = ?")};
-   stmt->setInt(1, id);
+   stmt->setInt(1, productId);
    sql::ResultSet* result{stmt->executeQuery()};
    std::vector<SellOrder> vec{};
    while(result->next()){
@@ -81,4 +81,41 @@ std::vector<SellOrder> SellOrderDAO::retrieveOrderByProduct(const int id){
 
    return vec;
 }
+
+std::vector<SellOrder> SellOrderDAO::retrieveOrderByStatus(const int statusId){
+   std::unique_ptr<sql::PreparedStatement> stmt{m_theos.conn->prepareStatement("select * from sellOrder where status = ?")};
+   stmt->setInt(1, statusId);
+   sql::ResultSet* result{stmt->executeQuery()};
+   std::vector<SellOrder> vec{};
+   while(result->next()){
+   vec.push_back(SellOrder(result->getInt("id"), result->getInt("client"), result->getInt("seller"), result->getInt("delivereBy"), result->getInt("status"), result->getInt("paymentMethod"), static_cast<std::string>(result->getString("date")), result->getDouble("price")));
+   }
+
+   return vec;
+}
+
+std::vector<SellOrder> SellOrderDAO::retrieveOrderBySeller(const int sellerId){
+   std::unique_ptr<sql::PreparedStatement> stmt{m_theos.conn->prepareStatement("select * from sellOrder where seller = ?")};
+   stmt->setInt(1, sellerId);
+   sql::ResultSet* result{stmt->executeQuery()};
+   std::vector<SellOrder> vec{};
+   while(result->next()){
+      vec.push_back(SellOrder(result->getInt("id"), result->getInt("client"), result->getInt("seller"), result->getInt("delivereBy"), result->getInt("status"), 
+                              result->getInt("paymentMethod"), static_cast<std::string>(result->getString("date")), result->getDouble("price")));
+   }
+
+   return vec;
+}
+
+std::vector<SellOrder> SellOrderDAO::listAllSellOrder(){
+   std::unique_ptr<sql::PreparedStatement> stmt{m_theos.conn->prepareStatement("select * from sellOrder")};
+   sql::ResultSet* result{stmt->executeQuery()};
+   std::vector<SellOrder> vec{};
+   while(result->next()){
+      vec.push_back(SellOrder(result->getInt("id"), result->getInt("client"), result->getInt("seller"), result->getInt("deliveredBy"), result->getInt("status"),
+                    result->getInt("paymentMethod"), result->getString("date").c_str(), result->getDouble("price")));
+   }
+   return vec;
+}
+
 

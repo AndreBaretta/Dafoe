@@ -12,12 +12,15 @@ public:
    bool setName(const std::string& name);
    bool setAddress(const std::string& address);
    bool setBill(double bill);
+   bool setPhoneNumber(std::string phoneNumber);
+   bool setId(int id);
 
    // Getters
    int getId() const;
    std::string_view getName() const;
    std::string_view getAddress() const;
    double getBill() const;
+   std::string getPhoneNumber();
 
 private:
    int m_id{};

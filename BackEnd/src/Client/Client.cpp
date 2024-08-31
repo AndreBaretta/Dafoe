@@ -24,6 +24,16 @@ bool Client::setBill(double bill) {
    return true;
 }
 
+bool Client::setId(int id){
+   m_id = id;
+   return true;
+}
+
+bool Client::setPhoneNumber(std::string phoneNumber){
+   m_phoneNumber = phoneNumber;
+   return true;
+}
+
 // Getters
 int Client::getId() const {
    return m_id;
@@ -39,5 +49,9 @@ std::string_view Client::getAddress() const {
 
 double Client::getBill() const {
    return m_bill;
+}
+
+std::string Client::getPhoneNumber() {
+   return this->m_phoneNumber;
 }
 

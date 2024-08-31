@@ -6,6 +6,10 @@
 #include "../../Employee/Employee.hpp"
 #include "../../Manufacturer/Manufacturer.hpp"
 #include "../../Status/Status.hpp"
+#include "../../SellOrder/SellOrder.hpp"
+#include "../../GenericProduct/GenericProduct.hpp"
+#include "../../ProductOrder/ProductOrder.hpp"
+#include "../../Client/Client.hpp"
 #include <vector>
 #include <map>
 #include <nlohmann/json.hpp>
@@ -27,6 +31,14 @@ class JsonBuilder{
       json manufacturerVectorToJson(std::vector<Manufacturer>& manufacturers);
       json statusToJson(Status& status);
       json statusVectorToJson(std::vector<Status>& statuses);
+      json sellOrderToJson(SellOrder& sellOrder);
+      json sellOrderVectorToJson(std::vector<SellOrder>& sellOrders);
+      json genericProductToJson(GenericProduct& genericProduct);
+      json genericProductVectorToJson(std::vector<GenericProduct>& genericProducts);
+      json productOrderToJson(ProductOrder& productOrder);
+      json productOrderVectorToJson(std::vector<ProductOrder>& productOrders);
+      json clientToJson(Client& client);
+      json clientVectorToJson(std::vector<Client>& clients);
       
 };
 
