@@ -18,6 +18,7 @@ class StatusDAO;
 class PaymentMethodDAO;
 class GenericProductDAO;
 class ProductOrderDAO;
+class UserDAO;
 
 class DafoeGod{
 public:
@@ -42,7 +43,7 @@ public:
     friend class PaymentMethodDAO;
     friend class GenericProductDAO;
     friend class ProductOrderDAO;
-
+    friend class UserDAO;
 };
 
 #endif
