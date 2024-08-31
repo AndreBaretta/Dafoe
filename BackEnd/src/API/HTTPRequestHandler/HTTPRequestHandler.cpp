@@ -150,6 +150,269 @@ std::string HTTPRequestHandler::handleRequest(HTTPRequest& request){
 	 return stringResponse;
       }
 
+      // PaymentMethod
+      if(path.size() == 2 && path[0] == "api" && path[1] == "client"){
+	 if(query.empty()) {
+	    responseBody = handleRetrieveAllClient();
+	    headers["Content-Type"] = "application/json";
+	    statusCode = "200";
+	    statusMessage = "OK";
+	    HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+	    stringResponse = this->m_responseBuilder.buildResponseString(response);
+	    return stringResponse;
+
+	 }else if (query.find("name=") == 0) {
+	    std::string name = query.substr(5);
+	    responseBody = handleRetrieveClientByName(name);
+	    headers["Content-Type"] = "application/json";
+	    statusCode = "200";
+	    statusMessage = "OK";
+	    HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+	    stringResponse = this->m_responseBuilder.buildResponseString(response);
+	    return stringResponse;
+	 }
+      }
+
+      if(path.size() == 3 && path[0] == "api" && path[1] == "client"){
+	 if(!isNumber(path[2])){
+	    statusCode = "400";
+	    statusMessage = "Bad Request";
+	    HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+	    stringResponse = this->m_responseBuilder.buildResponseString(response);
+	    return stringResponse;
+	 }
+	 int temp = std::stoi(path[2]);
+	 responseBody = handleRetrieveClient(temp);
+	 statusCode = "200";
+	 statusMessage = "OK";
+	 HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+	 stringResponse = this->m_responseBuilder.buildResponseString(response);
+	 return stringResponse;
+      }
+
+      // Employee
+      if(path.size() == 2 && path[0] == "api" && path[1] == "employee"){
+	 if(query.empty()){
+	    responseBody = handleRetrieveAllEmployee();
+	    headers["Content-Type"] = "application/json";
+	    statusCode = "200";
+	    statusMessage = "OK";
+	    HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+	    stringResponse = this->m_responseBuilder.buildResponseString(response);
+	    return stringResponse;
+	 }else if (query.find("name=") == 0) {
+	    std::string name = query.substr(5);
+	    responseBody = handleRetrieveEmployeeByName(name);
+	    headers["Content-Type"] = "application/json";
+	    statusCode = "200";
+	    statusMessage = "OK";
+	    HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+	    stringResponse = this->m_responseBuilder.buildResponseString(response);
+	    return stringResponse;
+	 }
+	 statusCode = "400";
+	 statusMessage = "Bad Request";
+	 HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+	 stringResponse = this->m_responseBuilder.buildResponseString(response);
+	 return stringResponse;
+      }
+
+      if(path.size() == 3 && path[0] == "api" && path[1] == "employee"){
+	 if(!isNumber(path[2])){
+	    statusCode = "400";
+	    statusMessage = "Bad Request";
+	    HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+	    stringResponse = this->m_responseBuilder.buildResponseString(response);
+	    return stringResponse;
+	 }
+	 int temp = std::stoi(path[2]);
+	 responseBody = handleRetrieveEmployee(temp);
+	 statusCode = "200";
+	 statusMessage = "OK";
+	 HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+	 stringResponse = this->m_responseBuilder.buildResponseString(response);
+	 return stringResponse;
+      }
+
+      // Manufacturer
+      if(path.size() == 2 && path[0] == "api" && path[1] == "manufacturer"){
+	 if(query.empty()){
+	    responseBody = handleRetrieveAllManufacturer();
+	    headers["Content-Type"] = "application/json";
+	    statusCode = "200";
+	    statusMessage = "OK";
+	    HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+	    stringResponse = this->m_responseBuilder.buildResponseString(response);
+	    return stringResponse;
+	 }else if (query.find("name=") == 0) {
+	    std::string name = query.substr(5);
+	    responseBody = handleRetrieveManufacturerByName(name);
+	    headers["Content-Type"] = "application/json";
+	    statusCode = "200";
+	    statusMessage = "OK";
+	    HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+	    stringResponse = this->m_responseBuilder.buildResponseString(response);
+	    return stringResponse;
+	 }
+	 statusCode = "400";
+	 statusMessage = "Bad Request";
+	 HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+	 stringResponse = this->m_responseBuilder.buildResponseString(response);
+	 return stringResponse;
+      }
+
+      if(path.size() == 3 && path[0] == "api" && path[1] == "manufacturer"){
+	 if(!isNumber(path[2])){
+	    statusCode = "400";
+	    statusMessage = "Bad Request";
+	    HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+	    stringResponse = this->m_responseBuilder.buildResponseString(response);
+	    return stringResponse;
+	 }
+	 int temp = std::stoi(path[2]);
+	 responseBody = handleRetrieveEmployee(temp);
+	 statusCode = "200";
+	 statusMessage = "OK";
+	 HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+	 stringResponse = this->m_responseBuilder.buildResponseString(response);
+	 return stringResponse;
+      }
+
+      // Order
+      if(path.size() == 2 && path[0] == "api" && path[1] == "order"){
+	 if(query.empty()){
+	    responseBody = handleRetrieveAllOrder();
+	    headers["Content-Type"] = "application/json"; 
+	    statusCode = "200";
+	    statusMessage = "OK";
+	    HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+	    stringResponse = this->m_responseBuilder.buildResponseString(response);
+	    return stringResponse;
+	 }else if (query.find("client=") == 0) {
+	    if(!isNumber(query.substr(7))){
+	       statusCode = "400";
+	       statusMessage = "Bad Request";
+	       HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+	       stringResponse = this->m_responseBuilder.buildResponseString(response);
+	       return stringResponse;
+	    }
+	    int clientId = std::stoi(query.substr(7));
+	    responseBody = handleRetrieveOrderByClient(clientId);
+	    headers["Content-Type"] = "application/json";
+	    statusCode = "200";
+	    statusMessage = "OK";
+	    HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+	    stringResponse = this->m_responseBuilder.buildResponseString(response);
+	    return stringResponse;
+	 }else if (query.find("product=") == 0) {
+	    if(!isNumber(query.substr(8))){
+	       statusCode = "400";
+	       statusMessage = "Bad Request";
+	       HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+	       stringResponse = this->m_responseBuilder.buildResponseString(response);
+	       return stringResponse;
+	    }
+	    int productId = std::stoi(query.substr(8));
+	    responseBody = handleRetrieveOrderByProduct(productId);
+	    headers["Content-Type"] = "application/json";
+	    statusCode = "200";
+	    statusMessage = "OK";
+	    HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+	    stringResponse = this->m_responseBuilder.buildResponseString(response);
+	    return stringResponse;
+	 }else if (query.find("seller=") == 0) {
+	    if(!isNumber(query.substr(7))){
+	       statusCode = "400";
+	       statusMessage = "Bad Request";
+	       HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+	       stringResponse = this->m_responseBuilder.buildResponseString(response);
+	       return stringResponse;
+	    }
+	    int sellerId = std::stoi(query.substr(7));
+	    responseBody = handleRetrieveOrderBySeller(sellerId);
+	    headers["Content-Type"] = "application/json";
+	    statusCode = "200";
+	    statusMessage = "OK";
+	    HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+	    stringResponse = this->m_responseBuilder.buildResponseString(response);
+	    return stringResponse;
+	 }else if (query.find("status=") == 0) {
+	    if(!isNumber(query.substr(7))){
+	       statusCode = "400";
+	       statusMessage = "Bad Request";
+	       HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+	       stringResponse = this->m_responseBuilder.buildResponseString(response);
+	       return stringResponse;
+	    }
+	    int statusId = std::stoi(query.substr(7));
+	    responseBody = handleRetrieveOrderByStatus(statusId);
+	    headers["Content-Type"] = "application/json";
+	    statusCode = "200";
+	    statusMessage = "OK";
+	    HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+	    stringResponse = this->m_responseBuilder.buildResponseString(response);
+	    return stringResponse;
+	 }
+
+	 // Status
+	 if(path.size() == 2 && path[0] == "api" && path[1] == "status"){
+	    if(query.empty()){
+	       responseBody = handleRetrieveAllStatus();
+	       headers["Content-Type"] = "application/json";
+	       statusCode = "200";
+	       statusMessage = "OK";
+	       HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+	       stringResponse = this->m_responseBuilder.buildResponseString(response);
+	       return stringResponse;
+	    }
+	    statusCode = "400";
+	    statusMessage = "Bad Request";
+	    HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+	    stringResponse = this->m_responseBuilder.buildResponseString(response);
+	    return stringResponse;
+	 }
+
+	 if(path.size() == 3 && path[0] == "api" && path[1] == "status"){
+	    if(!isNumber(path[2])){
+	       statusCode = "400";
+	       statusMessage = "Bad Request";
+	       HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+	       stringResponse = this->m_responseBuilder.buildResponseString(response);
+	       return stringResponse;
+	    }
+	    int temp = std::stoi(path[2]);
+	    responseBody = handleRetrieveStatus(temp);
+	    statusCode = "200";
+	    statusMessage = "OK";
+	    HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+	    stringResponse = this->m_responseBuilder.buildResponseString(response);
+	    return stringResponse;
+	 }
+
+	 statusCode = "400";
+	 statusMessage = "Bad Request";
+	 HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+	 stringResponse = this->m_responseBuilder.buildResponseString(response);
+	 return stringResponse;
+      }
+
+      if(path.size() == 3 && path[0] == "api" && path[1] == "order"){
+	 if(!isNumber(path[2])){
+	    statusCode = "400";
+	    statusMessage = "Bad Request";
+	    HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+	    stringResponse = this->m_responseBuilder.buildResponseString(response);
+	    return stringResponse;
+	 }
+	 int temp = std::stoi(path[2]);
+	 responseBody = handleRetrieveOrder(temp);
+	 statusCode = "200";
+	 statusMessage = "OK";
+	 HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+	 stringResponse = this->m_responseBuilder.buildResponseString(response);
+	 return stringResponse;
+      }
+
       statusCode = "404";
       statusMessage = "Not Found";
       HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
@@ -197,6 +460,54 @@ std::string HTTPRequestHandler::handleRequest(HTTPRequest& request){
       }
       if(path[1] == "payment-method"){
 	 handleCreatePaymentMethod(requestBody);
+	 statusCode = "204";
+	 statusMessage = "No Content";
+	 HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+	 stringResponse = this->m_responseBuilder.buildResponseString(response);
+	 return stringResponse;
+      }
+      if(path[1] == "client"){
+	 handleCreateClient(requestBody);
+	 statusCode = "204";
+	 statusMessage = "No Content";
+	 HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+	 stringResponse = this->m_responseBuilder.buildResponseString(response);
+	 return stringResponse;
+      }
+      if(path[1] == "employee"){
+	 handleCreateEmployee(requestBody);
+	 statusCode = "204";
+	 statusMessage = "No Content";
+	 HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+	 stringResponse = this->m_responseBuilder.buildResponseString(response);
+	 return stringResponse;
+      }
+      if(path[1] == "manufacturer"){
+	 handleCreateManufacturer(requestBody);
+	 statusCode = "204";
+	 statusMessage = "No Content";
+	 HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+	 stringResponse = this->m_responseBuilder.buildResponseString(response);
+	 return stringResponse;
+      }
+      if(path[1] == "order"){
+	 handleCreateOrder(requestBody);
+	 statusCode = "204";
+	 statusMessage = "No Content";
+	 HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+	 stringResponse = this->m_responseBuilder.buildResponseString(response);
+	 return stringResponse;
+      }
+      if(path[1] == "status"){
+	 handleCreateStatus(requestBody);
+	 statusCode = "204";
+	 statusMessage = "No Content";
+	 HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+	 stringResponse = this->m_responseBuilder.buildResponseString(response);
+	 return stringResponse;
+      }
+      if(path[1] == "generic-product"){
+	 handleCreateGenericProduct(requestBody);
 	 statusCode = "204";
 	 statusMessage = "No Content";
 	 HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
@@ -257,6 +568,51 @@ std::string HTTPRequestHandler::handleRequest(HTTPRequest& request){
 	 stringResponse = this->m_responseBuilder.buildResponseString(response);
 	 return stringResponse;
       }
+      if(path[1] == "client"){
+	 int id = std::stoi(path[2]);
+	 handleDeleteClient(id);
+	 statusCode = "200";
+	 statusMessage = "OK";
+	 HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+	 stringResponse = this->m_responseBuilder.buildResponseString(response);
+	 return stringResponse;
+      }
+      if(path[1] == "employee"){
+	 int id = std::stoi(path[2]);
+	 handleDeleteEmployee(id);
+	 statusCode = "200";
+	 statusMessage = "OK";
+	 HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+	 stringResponse = this->m_responseBuilder.buildResponseString(response);
+	 return stringResponse;
+      }
+      if(path[1] == "manufacturer"){
+	 int id = std::stoi(path[2]);
+	 handleDeleteManufacturer(id);
+	 statusCode = "200";
+	 statusMessage = "OK";
+	 HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+	 stringResponse = this->m_responseBuilder.buildResponseString(response);
+	 return stringResponse;
+      }
+      if(path[1] == "status"){
+	 int id = std::stoi(path[2]);
+	 handleDeleteStatus(id);
+	 statusCode = "200";
+	 statusMessage = "OK";
+	 HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+	 stringResponse = this->m_responseBuilder.buildResponseString(response);
+	 return stringResponse;
+      }
+      if(path[1] == "generic-product"){
+	 int id = std::stoi(path[2]);
+	 handleDeleteGenericProduct(id);
+	 statusCode = "200";
+	 statusMessage = "OK";
+	 HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+	 stringResponse = this->m_responseBuilder.buildResponseString(response);
+	 return stringResponse;
+      }
       statusCode = "404";
       statusMessage = "Not Found";
       HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
@@ -278,8 +634,8 @@ std::string HTTPRequestHandler::handleRequest(HTTPRequest& request){
 	 return stringResponse;
       }
       if(!isNumber(path[2])){
-	 statusCode = "404";
-	 statusMessage = "Not Found";
+	 statusCode = "400";
+	 statusMessage = "Bad Request";
 	 HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
 	 stringResponse = this->m_responseBuilder.buildResponseString(response);
 	 return stringResponse;
@@ -305,6 +661,60 @@ std::string HTTPRequestHandler::handleRequest(HTTPRequest& request){
       if(path[1] == "payment-method"){
 	 int id = std::stoi(path[2]);
 	 handleUpdatePaymentMethod(id,requestBody);
+	 statusCode = "200";
+	 statusMessage = "OK";
+	 HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+	 stringResponse = this->m_responseBuilder.buildResponseString(response);
+	 return stringResponse;
+      }
+      if(path[1] == "client"){
+	 int id = std::stoi(path[2]);
+	 handleUpdateClient(id,requestBody);
+	 statusCode = "200";
+	 statusMessage = "OK";
+	 HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+	 stringResponse = this->m_responseBuilder.buildResponseString(response);
+	 return stringResponse;
+      }
+      if(path[1] == "employee"){
+	 int id = std::stoi(path[2]);
+	 handleUpdateEmployee(id,requestBody);
+	 statusCode = "200";
+	 statusMessage = "OK";
+	 HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+	 stringResponse = this->m_responseBuilder.buildResponseString(response);
+	 return stringResponse;
+      }
+      if(path[1] == "manufacturer"){
+	 int id = std::stoi(path[2]);
+	 handleUpdateManufacturer(id,requestBody);
+	 statusCode = "200";
+	 statusMessage = "OK";
+	 HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+	 stringResponse = this->m_responseBuilder.buildResponseString(response);
+	 return stringResponse;
+      }
+      if(path[1] == "order"){
+	 int id = std::stoi(path[2]);
+	 handleUpdateOrder(id,requestBody);
+	 statusCode = "200";
+	 statusMessage = "OK";
+	 HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+	 stringResponse = this->m_responseBuilder.buildResponseString(response);
+	 return stringResponse;
+      }
+      if(path[1] == "status"){
+	 int id = std::stoi(path[2]);
+	 handleUpdateStatus(id,requestBody);
+	 statusCode = "200";
+	 statusMessage = "OK";
+	 HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
+	 stringResponse = this->m_responseBuilder.buildResponseString(response);
+	 return stringResponse;
+      }
+      if(path[1] == "generic-product"){
+	 int id = std::stoi(path[2]);
+	 handleUpdateGenericProduct(id,requestBody);
 	 statusCode = "200";
 	 statusMessage = "OK";
 	 HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
