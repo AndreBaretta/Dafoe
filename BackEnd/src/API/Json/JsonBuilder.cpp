@@ -126,6 +126,109 @@ json JsonBuilder::statusVectorToJson(std::vector<Status>& statuses){
 }
 
 
+json sellOrderToJson(SellOrder& sellOrder){
+   json jsonSellOrder;
+   jsonSellOrder["id"]            = sellOrder.getId();
+   jsonSellOrder["clientId"]      = sellOrder.getClientId();
+   jsonSellOrder["sellerId"]      = sellOrder.getSellerId();
+   jsonSellOrder["deliveredBy"]   = sellOrder.getDeliveredBy();
+   jsonSellOrder["statusId"]      = sellOrder.getStatusId();
+   jsonSellOrder["paymentMethod"] = sellOrder.getPaymentMethod();
+   jsonSellOrder["date"]          = sellOrder.getDate();
+   jsonSellOrder["price"]         = sellOrder.getPrice();
+   return jsonSellOrder;
+}
+
+json sellOrderVectorToJson(std::vector<SellOrder>& sellOrders){
+   json jsonSellOrderArray;
+   for(int i = 0; i < sellOrders.size(); i++){
+      json jsonSellOrder;
+      jsonSellOrder["id"]            = sellOrders[i].getId();
+      jsonSellOrder["clientId"]      = sellOrders[i].getClientId();
+      jsonSellOrder["sellerId"]      = sellOrders[i].getSellerId();
+      jsonSellOrder["deliveredBy"]   = sellOrders[i].getDeliveredBy();
+      jsonSellOrder["statusId"]      = sellOrders[i].getStatusId();
+      jsonSellOrder["paymentMethod"] = sellOrders[i].getPaymentMethod();
+      jsonSellOrder["date"]          = sellOrders[i].getDate();
+      jsonSellOrder["price"]         = sellOrders[i].getPrice();
+      jsonSellOrderArray.push_back(jsonSellOrder);
+   }
+   return jsonSellOrderArray;
+}
+
+json genericProductToJson(GenericProduct& genericProduct){
+   json jsonGenericProduct;
+   jsonGenericProduct["id"]        = genericProduct.getId();
+   jsonGenericProduct["name"]      = genericProduct.getName();
+   jsonGenericProduct["quantity"]  = genericProduct.getQuantity();
+   jsonGenericProduct["category"]  = genericProduct.getCategory();
+   jsonGenericProduct["reference"] = genericProduct.getReference();
+   return jsonGenericProduct;
+}
+
+json genericProductVectorToJson(std::vector<GenericProduct>& genericProducts){
+   json jsonGenericProductArray;
+   for(int i = 0; i < genericProducts.size(); i++){
+      json jsonGenericProduct;
+      jsonGenericProduct["id"]        = genericProducts[i].getId();
+      jsonGenericProduct["name"]      = genericProducts[i].getName();
+      jsonGenericProduct["quantity"]  = genericProducts[i].getQuantity();
+      jsonGenericProduct["category"]  = genericProducts[i].getCategory();
+      jsonGenericProduct["reference"] = genericProducts[i].getReference();
+      jsonGenericProduct.push_back(jsonGenericProduct);
+   }
+   return jsonGenericProductArray;
+}
+
+
+
+json productOrderToJson(ProductOrder& productOrder){
+   json jsonProductOrder;
+   jsonProductOrder["sellOrder"] = productOrder.getSellOrder();
+   jsonProductOrder["product"]   = productOrder.getProduct();
+   jsonProductOrder["quantity"]  = productOrder.getQuantity();
+   jsonProductOrder["discount"]  = productOrder.getDiscount();
+   jsonProductOrder["price"]     = productOrder.getPrice();
+   return jsonProductOrder;
+}
+
+json productOrderVectorToJson(std::vector<ProductOrder>& productOrders){
+   json jsonProductOrderArray;
+   for(int i = 0; i < productOrders.size(); i++){
+      json jsonProductOrder;
+      jsonProductOrder["sellOrder"] = productOrders[i].getSellOrder();
+      jsonProductOrder["product"]   = productOrders[i].getProduct();
+      jsonProductOrder["quantity"]  = productOrders[i].getQuantity();
+      jsonProductOrder["discount"]  = productOrders[i].getDiscount();
+      jsonProductOrder["price"]     = productOrders[i].getPrice();     
+      jsonProductOrderArray.push_back(jsonProductOrder);
+   }
+   return jsonProductOrderArray;
+}
+
+json clientToJson(Client& client){
+   json jsonClient;
+   jsonClient["id"]          = client.getId();
+   jsonClient["name"]        = client.getName();
+   jsonClient["bill"]        = client.getBill();
+   jsonClient["address"]     = client.getAddress();
+   jsonClient["phoneNumber"] = client.getPhoneNumber(); 
+   return jsonClient;
+}
+
+json clientVectorToJson(std::vector<Client>& clients){
+   json jsonClientArray;
+   for(int i = 0; i < clients.size(); i++){
+      json jsonClient;
+      jsonClient["id"]           = clients[i].getId();
+      jsonClient["name"]         = clients[i].getName();
+      jsonClient["bill"]         = clients[i].getBill();
+      jsonClient["address"]      = clients[i].getAddress();
+      jsonClient["phoneNumber"]  = clients[i].getPhoneNumber();
+      jsonClientArray.push_back(jsonClient);
+   }
+   return jsonClientArray;
+}
 
 
 

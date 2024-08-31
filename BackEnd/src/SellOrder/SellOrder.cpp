@@ -4,7 +4,7 @@ SellOrder::SellOrder(int id, int clientId, int sellerId, int deliveredBy, int st
 , m_clientId(clientId)
 , m_sellerId(sellerId)
 , m_deliveredBy(deliveredBy)
-, m_status(status)
+, m_statusId(status)
 , m_paymentMethod(paymentMethod)
 , m_date(date)
 , m_price(price) 
@@ -40,6 +40,11 @@ bool SellOrder::setDate(const std::string& date){
    return true;
 }
 
+bool SellOrder::setStatusId(int id){
+   this->m_statusId = id;
+   return true;
+}
+
 int SellOrder::getId() const{
    return m_id;
 }
@@ -56,8 +61,8 @@ int SellOrder::getDeliveredBy() const{
    return m_deliveredBy;
 }
 
-int SellOrder::getStatus() const{
-   return m_status;
+int SellOrder::getStatusId() const{
+   return m_statusId;
 }
 
 int SellOrder::getPaymentMethod() const{

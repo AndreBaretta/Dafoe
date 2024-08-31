@@ -15,6 +15,7 @@ public:
    bool setClient(int id);
    bool setSeller(int id);
    bool setDeliveredBy(int id);
+   bool setStatusId(int id);
    bool setPrice(double price);
    bool setDate(const std::string& date);
 
@@ -23,7 +24,7 @@ public:
    int getClientId() const;
    int getSellerId() const;
    int getDeliveredBy() const;
-   int getStatus() const;
+   int getStatusId() const;
    int getPaymentMethod() const;
    double getPrice() const;
    const std::string& getDate() const;
@@ -33,7 +34,7 @@ private:
    int m_clientId{};
    int m_sellerId{};
    int m_deliveredBy{};
-   int m_status{};
+   int m_statusId{};
    int m_paymentMethod{};
    std::string m_date{};
    double m_price{};
