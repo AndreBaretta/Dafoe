@@ -11,13 +11,32 @@ function Stock() {
    const [results, setResults] = useState([]);
    const [newProductScreen, setNewProductScreen] = useState(false)
    const [addStockScreen, setAddStockScreen] = useState(false)
+   const [queryType, setQueryType] = useState(0)
 
    useEffect(() => {
       const getData = async () => {
          try {
-            const response = await fetch("http://localhost:12354/api/product?name=" + searchValue);
-            const data = await response.json();
-            setResults(data)
+            if(queryType === 0){
+               const response = await fetch("http://localhost:12354/api/product?name=" + searchValue);
+               const data = await response.json();
+               setResults(data)
+            }else if(queryType === 1){
+               const response = await fetch("http://localhost:12354/api/product?name=" + searchValue);
+               const data = await response.json();
+               setResults(data)
+            }else if(queryType === 2){
+               const response = await fetch("http://localhost:12354/api/product?name=" + searchValue);
+               const data = await response.json();
+               setResults(data)
+            }else if(queryType === 3){
+               const response = await fetch("http://localhost:12354/api/product?name=" + searchValue);
+               const data = await response.json();
+               setResults(data)
+            }else if(queryType === 4){
+               const response = await fetch("http://localhost:12354/api/product?name=" + searchValue);
+               const data = await response.json();
+               setResults(data)
+            }
          } catch (error) {
             console.error(error);
          }
@@ -41,11 +60,11 @@ function Stock() {
             <table className="Stock-table">
                <thead>
                   <tr>
-                     <th>Nome</th>
-                     <th>Fabricante</th>
-                     <th>Preço</th>
-                     <th>Custo</th>
-                     <th>Quantidade</th>
+                     <th>Nome <button onClick={() => setQueryType(0)}></button></th>
+                     <th>Fabricante <button onClick={() => setQueryType(1)}></button></th>
+                     <th>Preço <button onClick={() => setQueryType(2)}></button></th>
+                     <th>Custo <button onClick={() => setQueryType(3)}></button></th>
+                     <th>Quantidade <button onClick={() => setQueryType(4)}></button></th>
                   </tr>
                </thead>
                <tbody>
