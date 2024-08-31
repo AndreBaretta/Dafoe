@@ -44,9 +44,5 @@
 
     - Interface intuitiva e fácil de usar, permitindo que a equipe adote rapidamente o sistema e maximize sua eficiência.
 
-- **Suporte Técnico Especializado**
-
-    - Equipe de suporte pronta para ajudar com qualquer dúvida ou problema, garantindo que o sistema funcione perfeitamente em todas as etapas.
-
 ---
 
