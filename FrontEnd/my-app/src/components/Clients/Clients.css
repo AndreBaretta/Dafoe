@@ -5,7 +5,7 @@
 .Clients {
    display: flex;
    min-height: 100vh;
-   background-color: #2f1624;
+   background-color: #aeaeae;
    background-image: url(../../assets/background.jpg);
    background-size: cover;
    background-position: center;
@@ -30,7 +30,7 @@
 .Clients-table-container {
    width: 90%;
    max-width: 2600px;
-   background-color: var(--glass);
+   background-color: #4a50ef; 
    border-radius: 1rem;
    padding: 0.75rem;
    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -38,6 +38,7 @@
    margin-left: 1%;
    margin-right: 0.5%;
 }
+
 
 .Clients-table {
    width: 100%;
@@ -48,6 +49,7 @@
    background-color: rgba(0, 0, 0, 0.5);
    border-radius: 8px;
    overflow: hidden;
+   background: #000000;
 }
 
 .Clients-table th, .Clients-table td {
@@ -56,9 +58,9 @@
 }
 
 .Clients-table th {
-   background-color: rgba(255, 255, 255, 0.2);
+   background-color: rgba(0, 0, 0, 0.2);
    font-weight: bold;
-   color: #ffd700;
+   color: #ffffff;
    text-transform: uppercase;
    text-align: center;
 }
@@ -68,7 +70,7 @@
 }
 
 .Clients-table tr:hover {
-   background-color: rgba(255, 255, 255, 0.1);
+   background-color: rgba(25, 26, 118, 0.1);
 }
 
 .Clients-table td {
@@ -100,7 +102,7 @@
    padding: 8px 12px;
    font-size: calc(10px + 1vmin);
    color: white;
-   background-color: #aa0dbc50; 
+   background-color: #4a50ef; 
    border: none;
    border-radius: 4px;
    cursor: pointer;
