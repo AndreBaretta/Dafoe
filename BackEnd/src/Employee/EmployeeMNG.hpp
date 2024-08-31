@@ -11,7 +11,7 @@ class EmployeeMNG{
 public:
    EmployeeMNG(EmployeeDAO& employeeDAO, JsonBuilder& jsonBuilder);
    json retrieveEmployeeByName(const std::string& name);
-   json retrieveAllEmployees();
+   json retrieveAllEmployee();
    json retrieveEmployee(const int id);
    bool createEmployee(const std::string& name, const std::string& cargo);
    bool deleteEmployee(const int id);
