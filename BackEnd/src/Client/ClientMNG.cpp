@@ -1,7 +1,8 @@
 #include "ClientMNG.hpp"
 
-ClientMNG::ClientMNG(ClientDAO& cDAO)
+ClientMNG::ClientMNG(ClientDAO& cDAO, JsonBuilder& jsonBuilder)
 : m_clientDAO{cDAO}
+, m_jsonBuilder{jsonBuilder}
 {}
 
 bool ClientMNG::createClient(const std::string& name, const std::string& phoneNumber, 
@@ -16,16 +17,22 @@ bool ClientMNG::deleteClient(const int id){
    return true;
 }
 
-std::vector<Client> ClientMNG::retrieveClientByName(const std::string& name){
-   return m_clientDAO.retrieveClientByName(name);
+json ClientMNG::retrieveClientByName(const std::string& name){
+   std::vector<Client> clients = this->m_clientDAO.retrieveClientByName(name);
+   json response = this->m_jsonBuilder.clientVectorToJson(clients);
+   return response;
 }
 
-std::vector<Client> ClientMNG::retrieveAllClient(){
-   return m_clientDAO.listAllClient();
+json ClientMNG::retrieveAllClient(){
+   std::vector<Client> clients = this->m_clientDAO.listAllClient();
+   json response = this->m_jsonBuilder.clientVectorToJson(clients);
+   return response;
 }
 
-Client ClientMNG::retrieveClient(const int id){
-   return m_clientDAO.retrieveClient(id);
+json ClientMNG::retrieveClient(const int id){
+   Client client = m_clientDAO.retrieveClient(id);
+   json response = this->m_jsonBuilder.clientToJson(client);
+   return response;
 }
 
 

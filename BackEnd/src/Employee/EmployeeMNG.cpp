@@ -11,7 +11,7 @@ json EmployeeMNG::retrieveEmployeeByName(const std::string& name){
    return json;
 }
 
-json EmployeeMNG::retrieveAllEmployees(){
+json EmployeeMNG::retrieveAllEmployee(){
    std::vector<Employee> employees = this->m_employeeDAO.listEmployees();
    json json = this->m_jsonBuilder.employeeVectorToJson(employees);
    return json;

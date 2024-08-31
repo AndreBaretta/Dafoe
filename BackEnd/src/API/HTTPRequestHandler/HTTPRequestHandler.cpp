@@ -1,10 +1,18 @@
 #include "HTTPRequestHandler.hpp"
 #include <iostream>
 
-HTTPRequestHandler::HTTPRequestHandler(HTTPResponseBuilder& responseBuilder, ProductMNG& productMNG, CategoryMNG& categoryMNG, PaymentMethodMNG& paymentMethodMNG)
+HTTPRequestHandler::HTTPRequestHandler(HTTPResponseBuilder& responseBuilder, ProductMNG& productMNG, CategoryMNG& categoryMNG, PaymentMethodMNG& paymentMethodMNG,
+				       ClientMNG& clientMNG, EmployeeMNG& employeeMNG, ManufacturerMNG& manufacturerMNG, SellOrderMNG& sellOrderMNG,
+				       StatusMNG& statusMNG, GenericProductMNG& genericProductMNG)
 : m_productMNG{productMNG}
 , m_categoryMNG{categoryMNG}
 , m_paymentMethodMNG{paymentMethodMNG}
+, m_clientMNG{clientMNG}
+, m_employeeMNG{employeeMNG}
+, m_manufacturerMNG{manufacturerMNG}
+, m_sellOrderMNG{sellOrderMNG}
+, m_statusMNG{statusMNG}
+, m_genericProductMNG{genericProductMNG}
 , m_responseBuilder{responseBuilder}
 {}
 
@@ -442,5 +450,212 @@ std::string HTTPRequestHandler::handleRetrievePaymentMethod(const int id){
    return response;
 }
 
+bool HTTPRequestHandler::handleCreateClient(const std::string& body){
+   json json = json::parse(body);
+   std::string name	   = json["name"];
+   std::string phoneNumber = json["phoneNumber"];
+   std::string address	   = json["address"];
+   double bill		   = json["bill"];
+   return this->m_clientMNG.createClient(name,phoneNumber,address,bill);
+}
+
+bool HTTPRequestHandler::handleUpdateClient(const int id, const std::string& body){
+   json json = json::parse(body);
+   std::string name	   = json["name"];
+   std::string phoneNumber = json["phoneNumber"];
+   std::string address	   = json["address"];
+   double bill		   = json["bill"];
+   return this->m_clientMNG.updateClient(id,name,phoneNumber,address,bill);
+}
+
+bool HTTPRequestHandler::handleDeleteClient(const int id){
+   return this->m_clientMNG.deleteClient(id);
+}
+
+bool HTTPRequestHandler::handleCreateEmployee(const std::string& body){
+   json json = json::parse(body);
+   std::string name	   = json["name"];
+   std::string cargo       = json["cargo"];
+   return this->m_employeeMNG.createEmployee(name,cargo);
+}
+
+bool HTTPRequestHandler::handleUpdateEmployee(const int id, const std::string& body){
+   json json = json::parse(body);
+   std::string name	   = json["name"];
+   std::string cargo       = json["cargo"];
+   return this->m_employeeMNG.updateEmployee(id,name,cargo);
+}
+
+bool HTTPRequestHandler::handleDeleteEmployee(const int id){
+   return this->m_employeeMNG.deleteEmployee(id);
+}
+
+bool HTTPRequestHandler::handleCreateManufacturer(const std::string& body){
+   json json = json::parse(body);
+   std::string name	   = json["name"];
+   return this->m_manufacturerMNG.createManufacturer(name);
+}
+
+bool HTTPRequestHandler::handleUpdateManufacturer(const int id, const std::string& body){
+   json json = json::parse(body);
+   std::string name	   = json["name"];
+   return this->m_manufacturerMNG.updateManufacturer(id,name);
+}
+
+bool HTTPRequestHandler::handleDeleteManufacturer(const int id){
+   return this->m_manufacturerMNG.deleteManufacturer(id);
+}
+
+bool HTTPRequestHandler::handleCreateOrder(const std::string& body){
+   json json = json::parse(body);
+   int clientId		= json["clientId"];
+   int sellerId		= json["sellerId"];
+   int deliveredBy	= json["deliveredBy"];
+   int statusId		= json["statusId"];
+   int paymentMethod	= json["paymentMethod"];
+   std::string date     = json["date"];
+   double price   	= json["price"];
+   return this->m_sellOrderMNG.createOrder(clientId,sellerId,deliveredBy,statusId,paymentMethod,date,price);
+}
+
+bool HTTPRequestHandler::handleUpdateOrder(const int id, const std::string& body){
+   json json = json::parse(body);
+   int clientId		= json["clientId"];
+   int sellerId		= json["sellerId"];
+   int deliveredBy	= json["deliveredBy"];
+   int statusId		= json["statusId"];
+   int paymentMethod	= json["paymentMethod"];
+   std::string date     = json["date"];
+   double price   	= json["price"];
+   return this->m_sellOrderMNG.updateOrder(id, clientId,sellerId,deliveredBy,statusId,paymentMethod,date,price);
+}
+
+bool HTTPRequestHandler::handleCreateStatus(const std::string& body){
+   json json = json::parse(body);
+   std::string name = json["name"];
+   return this->m_statusMNG.createStatus(name);
+}
+
+bool HTTPRequestHandler::handleUpdateStatus(const int id, const std::string& body){
+   json json = json::parse(body);
+   std::string name = json["name"];
+   return this->m_statusMNG.updateStatus(id, name);
+}
+
+bool HTTPRequestHandler::handleDeleteStatus(const int id){
+   return this->m_statusMNG.deleteStatus(id);
+}
+
+bool HTTPRequestHandler::handleCreateGenericProduct(const std::string& body){
+   json json = json::parse(body);
+   std::string name	 = json["name"];
+   int quantity		 = json["quantity"];
+   int category		 = json["category"];
+   std::string reference = json["reference"];
+   return this->m_genericProductMNG.createGenericProduct(name,quantity,category,reference);
+}
+
+bool HTTPRequestHandler::handleUpdateGenericProduct(const int id, const std::string& body){
+   json json = json::parse(body);
+   std::string name	 = json["name"];
+   int quantity		 = json["quantity"];
+   int category		 = json["category"];
+   std::string reference = json["reference"];
+   return this->m_genericProductMNG.updateGenericProduct(id, name,quantity,category,reference);
+}
+
+bool HTTPRequestHandler::handleDeleteGenericProduct(const int id){
+   return this->m_genericProductMNG.deleteGenericProduct(id);
+}
+
+std::string HTTPRequestHandler::handleRetrieveAllClient(){
+   std::string response = this->m_clientMNG.retrieveAllClient().dump();
+   return response;
+}
+
+std::string HTTPRequestHandler::handleRetrieveClient(const int id){
+   std::string response = this->m_clientMNG.retrieveClient(id).dump();
+   return response;
+}
+
+std::string HTTPRequestHandler::handleRetrieveClientByName(const std::string& name){
+   std::string response = this->m_clientMNG.retrieveClientByName(name).dump();
+   return response;
+}
+
+std::string HTTPRequestHandler::handleRetrieveEmployeeByName(const std::string& name){
+   std::string response = this->m_employeeMNG.retrieveEmployeeByName(name).dump();
+   return response;
+}
+
+std::string HTTPRequestHandler::handleRetrieveEmployee(const int id){
+   std::string response = this->m_employeeMNG.retrieveEmployee(id).dump();
+   return response;
+}
+
+std::string HTTPRequestHandler::handleRetrieveAllEmployee(){
+   std::string response = this->m_employeeMNG.retrieveAllEmployee().dump();
+   return response;
+}
+
+std::string HTTPRequestHandler::handleRetrieveAllManufacturer(){
+   std::string response = this->m_manufacturerMNG.retrieveAllManufacturer().dump();
+   return response;
+}
+
+std::string HTTPRequestHandler::handleRetrieveManufacturer(const int id){
+   std::string response = this->m_manufacturerMNG.retrieveManufacturer(id).dump();
+   return response;
+}
+
+std::string HTTPRequestHandler::handleRetrieveManufacturerByName(const std::string& name){
+   std::string response = this->m_manufacturerMNG.retrieveManufacturerByName(name).dump();
+   return response;
+}
+
+std::string HTTPRequestHandler::handleRetrieveOrder(const int id){
+   std::string response = this->m_sellOrderMNG.retrieveOrder(id).dump();
+   return response;
+}
+
+std::string HTTPRequestHandler::handleRetrieveOrderByClient(const int clientId){
+   std::string response = this->m_sellOrderMNG.retrieveOrderByClient(clientId).dump();
+   return response;
+}
+
+std::string HTTPRequestHandler::handleRetrieveOrderByProduct(const int productId){
+   std::string response = this->m_sellOrderMNG.retrieveOrderByProduct(productId).dump();
+   return response;
+}
+
+std::string HTTPRequestHandler::handleRetrieveOrderBySeller(const int sellerId){
+   std::string response = this->m_sellOrderMNG.retrieveOrderBySeller(sellerId).dump();
+   return response;
+}
+
+std::string HTTPRequestHandler::handleRetrieveOrderByStatus(const int statusId){
+   std::string response = this->m_sellOrderMNG.retrieveOrderByStatus(statusId).dump();
+   return response;
+}
+
+std::string HTTPRequestHandler::handleRetrieveAllOrder(){
+   std::string response = this->m_sellOrderMNG.retrieveAllSellOrder().dump();
+   return response;
+}
+
+std::string HTTPRequestHandler::handleRetrieveAllStatus(){
+   std::string response = this->m_statusMNG.retrieveAllStatus().dump();
+   return response;
+}
+
+std::string HTTPRequestHandler::handleRetrieveStatus(const int id){
+   std::string response = this->m_statusMNG.retrieveStatus(id).dump();
+   return response;
+}
+
+std::string HTTPRequestHandler::handleRetrieveGenericProductByName(const std::string& name){
+   std::string response = this->m_genericProductMNG.retrieveGenericProductByName(name);
+   return response;
+}
 
 
