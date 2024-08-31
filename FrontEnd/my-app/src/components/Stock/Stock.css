@@ -58,7 +58,7 @@
 .Stock-table-container {
    width: 90%;
    max-width: 2600px;
-   background-color: #b83939; 
+   background: linear-gradient(to bottom, #212020, #222121); 
    border-radius: 1rem;
    padding: 0.75rem;
    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -152,7 +152,7 @@
    padding: 8px 12px;
    font-size: calc(10px + 1vmin);
    color: white;
-   background-color: #b83939; 
+   background-color: #393838; 
    border: none;
    border-radius: 4px;
    cursor: pointer;
@@ -160,7 +160,7 @@
 
 .newProductButton:hover,
 .addStockButton:hover {
-   background-color: #c14d4d;
+   background-color: #ac8888;
 }
 
 .ReactModal__Overlay {
