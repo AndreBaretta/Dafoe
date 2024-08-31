@@ -30,7 +30,7 @@
 .Clients-table-container {
    width: 90%;
    max-width: 2600px;
-   background-color: #4a50ef; 
+   background: linear-gradient(to bottom, #212020, #222121); 
    border-radius: 1rem;
    padding: 0.75rem;
    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -102,7 +102,7 @@
    padding: 8px 12px;
    font-size: calc(10px + 1vmin);
    color: white;
-   background-color: #4a50ef; 
+   background-color: #262626; 
    border: none;
    border-radius: 4px;
    cursor: pointer;
@@ -111,5 +111,5 @@
 .newProductButton:hover,
 .addStockButton:hover,
 .newClientButton:hover { 
-   background-color: #8316e9; 
+   background-color: #262626; 
 }
