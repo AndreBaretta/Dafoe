@@ -58,7 +58,7 @@
 .Stock-table-container {
    width: 90%;
    max-width: 2600px;
-   background-color: var(--glass);
+   background-color: #b83939; 
    border-radius: 1rem;
    padding: 0.75rem;
    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -74,6 +74,7 @@
    font-size: calc(10px + 1vmin);
    color: white;
    background-color: rgba(0, 0, 0, 0.5);
+   background: #000000;
    border-radius: 8px;
    overflow: hidden;
 }
@@ -85,9 +86,9 @@
 
 .Stock-table th {
    position: relative;
-   background-color: rgba(255, 255, 255, 0.2);
+   background-color: rgba(0, 0, 0, 0.2);
    font-weight: bold;
-   color: #ffd700;
+   color: #ffffff;
    text-transform: uppercase;
    text-align: center; 
 }
@@ -151,7 +152,7 @@
    padding: 8px 12px;
    font-size: calc(10px + 1vmin);
    color: white;
-   background-color: #aa0dbc50;
+   background-color: #b83939; 
    border: none;
    border-radius: 4px;
    cursor: pointer;
@@ -159,7 +160,7 @@
 
 .newProductButton:hover,
 .addStockButton:hover {
-   background-color: #501d7f;
+   background-color: #c14d4d;
 }
 
 .ReactModal__Overlay {
