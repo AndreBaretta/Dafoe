@@ -3,10 +3,12 @@ import React, { useState, useEffect } from 'react';
 import Sidebar from '../Sidebar/sidebar';
 import Menu from '../Menu/Menuu';
 import SearchBar from '../SearchBar/SearchBar';
+import ReactModal from 'react-modal';
 
 function Clients() {
    const [searchValue, setSearchValue] = useState("");
    const [results, setResults] = useState([]);
+   const [newClientScreen, setNewClientScreen] = useState(false);
 
    useEffect(() => {
       const getData = async () => {
@@ -30,6 +32,9 @@ function Clients() {
          </header>
          <header className='SearchBarHeader'>
             <SearchBar results={searchValue} setResults={setSearchValue} />
+            <div className="button-container">
+               <button className="newClientButton" onClick={() => setNewClientScreen(true)}>Novo Cliente</button>
+            </div>
          </header>
          <div className="Clients-table-container">
             <table className="Clients-table">
@@ -47,6 +52,17 @@ function Clients() {
                </tbody>
             </table>
          </div>
+         <ReactModal 
+            isOpen={newClientScreen} 
+            onRequestClose={() => setNewClientScreen(false)}
+            className="ReactModal__Content"
+            overlayClassName="ReactModal__Overlay"
+         >
+            <button className="ReactModal__Close" onClick={() => setNewClientScreen(false)}>X</button>
+            <div>
+               Nome: <input type='text'></input>
+            </div>
+         </ReactModal>
       </div>
    );
 }

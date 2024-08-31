@@ -6,45 +6,26 @@ import React, { useState, useEffect } from 'react';
 import Model from 'react-modal';
 
 function Stock() {
-
    const [searchValue, setSearchValue] = useState("");
    const [results, setResults] = useState([]);
-   const [newProductScreen, setNewProductScreen] = useState(false)
-   const [addStockScreen, setAddStockScreen] = useState(false)
-   const [queryType, setQueryType] = useState(0)
+   const [newProductScreen, setNewProductScreen] = useState(false);
+   const [addStockScreen, setAddStockScreen] = useState(false);
+   const [queryType, setQueryType] = useState(0);
 
    useEffect(() => {
       const getData = async () => {
          try {
-            if(queryType === 0){
-               const response = await fetch("http://localhost:12354/api/product?name=" + searchValue);
-               const data = await response.json();
-               setResults(data)
-            }else if(queryType === 1){
-               const response = await fetch("http://localhost:12354/api/product?name=" + searchValue);
-               const data = await response.json();
-               setResults(data)
-            }else if(queryType === 2){
-               const response = await fetch("http://localhost:12354/api/product?name=" + searchValue);
-               const data = await response.json();
-               setResults(data)
-            }else if(queryType === 3){
-               const response = await fetch("http://localhost:12354/api/product?name=" + searchValue);
-               const data = await response.json();
-               setResults(data)
-            }else if(queryType === 4){
-               const response = await fetch("http://localhost:12354/api/product?name=" + searchValue);
-               const data = await response.json();
-               setResults(data)
-            }
+            const response = await fetch(`http://localhost:12354/api/product?name=${searchValue}&type=${queryType}`);
+            const data = await response.json();
+            setResults(data);
          } catch (error) {
             console.error(error);
          }
       };
 
       getData();
-   }, [searchValue])
-   
+   }, [searchValue, queryType]); // Inclui 'queryType' como dependência para evitar aviso do ESLint
+
    return (
       <div className="Stock">
          <header className='Menu-header'>
@@ -52,8 +33,10 @@ function Stock() {
             <Menu />
          </header>
          <header className='SearchBarHeader'>
-            <button onClick={() => setNewProductScreen(true)}>novo produto</button> 
-            <button onClick={() => setAddStockScreen(true)}>Adicionar estoque</button>
+            <div className="button-container">
+               <button className="newProductButton" onClick={() => setNewProductScreen(true)}>Novo Produto</button>
+               <button className="addStockButton" onClick={() => setAddStockScreen(true)}>Adicionar Estoque</button>
+            </div>
             <SearchBar results={searchValue} setResults={setSearchValue} />
          </header>
          <div className="Stock-table-container">
