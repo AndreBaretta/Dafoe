@@ -11,6 +11,13 @@ function Stock() {
    const [newProductScreen, setNewProductScreen] = useState(false);
    const [addStockScreen, setAddStockScreen] = useState(false);
    const [queryType, setQueryType] = useState(0);
+   const [productDetails, setProductDetails] = useState({
+      name: '',
+      manufacturer: '',
+      price: '',
+      cost: '',
+      quantity: ''
+   });
 
    useEffect(() => {
       const getData = async () => {
@@ -24,7 +31,15 @@ function Stock() {
       };
 
       getData();
-   }, [searchValue, queryType]); // Inclui 'queryType' como dependência para evitar aviso do ESLint
+   }, [searchValue, queryType]);
+
+   const handleInputChange = (e) => {
+      const { name, value } = e.target;
+      setProductDetails(prevState => ({
+         ...prevState,
+         [name]: value
+      }));
+   };
 
    return (
       <div className="Stock">
@@ -63,15 +78,91 @@ function Stock() {
                </tbody>
             </table>
          </div>
-         <Model isOpen={newProductScreen}>
+         <Model
+            isOpen={newProductScreen}
+            onRequestClose={() => setNewProductScreen(false)}
+            className="ReactModal__Content"
+         >
             <div className='newProduct'>
-               <button onClick={() => setNewProductScreen(false)}>X</button>
-               Nome: <input type='text'></input>
+               <span className='ReactModal__Close' onClick={() => setNewProductScreen(false)}>X</span>
+               <h2>Adicionar Novo Produto</h2>
+               <form>
+                  <label>Nome:
+                     <input 
+                        type='text' 
+                        name='name'
+                        value={productDetails.name}
+                        onChange={handleInputChange} 
+                        placeholder="Digite o nome do produto"
+                     />
+                  </label>
+                  <label>Fabricante:
+                     <input 
+                        type='text' 
+                        name='manufacturer'
+                        value={productDetails.manufacturer}
+                        onChange={handleInputChange} 
+                        placeholder="Digite o fabricante"
+                     />
+                  </label>
+                  <label>Preço:
+                     <input 
+                        type='text' 
+                        name='price'
+                        value={productDetails.price}
+                        onChange={handleInputChange} 
+                        placeholder="Digite o preço"
+                     />
+                  </label>
+                  <label>Custo:
+                     <input 
+                        type='text' 
+                        name='cost'
+                        value={productDetails.cost}
+                        onChange={handleInputChange} 
+                        placeholder="Digite o custo"
+                     />
+                  </label>
+                  <label>Quantidade:
+                     <input 
+                        type='text' 
+                        name='quantity'
+                        value={productDetails.quantity}
+                        onChange={handleInputChange} 
+                        placeholder="Digite a quantidade"
+                     />
+                  </label>
+                  <button type="button" onClick={() => setNewProductScreen(false)}>Salvar</button>
+               </form>
             </div>
          </Model>
-         <Model isOpen={addStockScreen}>
+         <Model
+            isOpen={addStockScreen}
+            onRequestClose={() => setAddStockScreen(false)}
+            className="ReactModal__Content"
+         >
             <div className='addStock'>
-               <button onClick={() => setAddStockScreen(false)}>X</button>
+               <span className='ReactModal__Close' onClick={() => setAddStockScreen(false)}>X</span>
+               <h2>Adicionar Estoque</h2>
+               <form>
+                  <label>Nome do Produto:
+                     <input 
+                        type='text' 
+                        name='name'
+                        onChange={handleInputChange} 
+                        placeholder="Digite o nome do produto"
+                     />
+                  </label>
+                  <label>Quantidade:
+                     <input 
+                        type='text' 
+                        name='quantity'
+                        onChange={handleInputChange} 
+                        placeholder="Digite a quantidade"
+                     />
+                  </label>
+                  <button type="button" onClick={() => setAddStockScreen(false)}>Salvar</button>
+               </form>
             </div>
          </Model>
       </div>
