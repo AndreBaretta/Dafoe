@@ -19,7 +19,7 @@ public:
                     const int deliveredBy, const int status, 
                     const int paymentMethod, const std::string& date, const double price);
 
-   SellOrder retrieveOrderById(const int id);
+   std::vector<SellOrder> retrieveOrderById(const int id);
    std::vector<SellOrder> retrieveOrderByClient(const int clientId);
    std::vector<SellOrder> retrieveOrderByProduct(const int productId);
    std::vector<SellOrder> retrieveOrderByStatus(const int statusId);

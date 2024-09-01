@@ -11,7 +11,7 @@ public:
    bool deleteClient(const int id);
    std::vector<Client> retrieveClientByName(const std::string& name);
    std::vector<Client> listAllClient();
-   Client retrieveClient(const int id);
+   std::vector<Client> retrieveClient(const int id);
    bool updateClient(const int id, const std::string& name, const std::string& phoneNumber = "", const std::string& address = "", const double bill = 0);
 
 private:

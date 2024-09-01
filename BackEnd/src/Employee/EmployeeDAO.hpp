@@ -15,7 +15,7 @@ public:
    bool deleteEmployee(const int id);
    std::vector<Employee> retrieveEmployeeByName(const std::string& name); 
    std::vector<Employee> listEmployees();
-   Employee retrieveEmployee(const int id);
+   std::vector<Employee> retrieveEmployee(const int id);
 
 private:
    DafoeGod& m_theos;

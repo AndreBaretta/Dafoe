@@ -14,7 +14,7 @@ public:
    bool updateManufacturer(const int id, const std::string& name);
    bool deleteManufacturer(const int id);
    std::vector<Manufacturer> listAllManufacturer();
-   Manufacturer retrieveManufacturer(const int id);
+   std::vector<Manufacturer> retrieveManufacturer(const int id);
 
 private:
    DafoeGod& m_theos;

@@ -48,13 +48,14 @@ std::vector<PaymentMethod> PaymentMethodDAO::listPayment(){
    return vec;
 }
 
-PaymentMethod PaymentMethodDAO::retrievePaymentMethod(const int id){
+std::vector<PaymentMethod> PaymentMethodDAO::retrievePaymentMethod(const int id){
    std::unique_ptr<sql::PreparedStatement> stmt{m_theos.conn->prepareStatement("select * from paymentMethod where id = ?")};
    stmt->setInt(1, id);
    sql::ResultSet* result{stmt->executeQuery()};
-   result->next();
-
-   PaymentMethod response = PaymentMethod(result->getInt("id"), static_cast<std::string>(result->getString("name")));
-   return response;
+   std::vector<PaymentMethod> pMethod{};
+   if(!result->next())
+      return pMethod;
+   pMethod.push_back(PaymentMethod(result->getInt("id"), static_cast<std::string>(result->getString("name"))));
+   return pMethod;
 }
 

@@ -24,12 +24,15 @@ bool StatusDAO::updateStatus(const int id,const std::string& name){
    return true;
 }
 
-Status StatusDAO::retrieveStatus(const int id){
+std::vector<Status> StatusDAO::retrieveStatus(const int id){
    std::unique_ptr<sql::PreparedStatement> stmt{m_theos.conn->prepareStatement("select * from status where id = ?")};
    stmt->setInt(1, id);
    sql::ResultSet* result{stmt->executeQuery()};
-   result->next();
-   return Status(result->getInt("id"), result->getString("name").c_str());
+   std::vector<Status> status{};
+   if(!result->next())
+      return status;
+   status.push_back(Status(result->getInt("id"), result->getString("name").c_str()));
+   return status;
 }
 
 std::vector<Status> StatusDAO::listAllStatus(){

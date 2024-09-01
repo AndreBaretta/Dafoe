@@ -12,8 +12,8 @@ json CategoryMNG::retrieveAllCategories(){
 }
 
 json CategoryMNG::retrieveCategory(const int id){
-   Category category = this->m_categoryDAO.retrieveCategory(id);
-   json json = this->m_jsonBuilder.categoryToJson(category);
+   std::vector<Category> category = this->m_categoryDAO.retrieveCategory(id);
+   json json = this->m_jsonBuilder.categoryVectorToJson(category);
    return json;
 }
 

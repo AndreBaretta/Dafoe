@@ -11,7 +11,7 @@ class ProductDAO{
 public:
    ProductDAO(DafoeGod& zeus);
    std::vector<Product> retrieveByName(const std::string& name);
-   Product retrieveByID(const int id);
+   std::vector<Product> retrieveByID(const int id);
    std::vector<Product> retrieveByReference(const std::string& reference);
    std::vector<Product> retrieveByManufacturer(const std::string& manufacturer);
    Product retrieveByBarcode(const std::string& barcode);

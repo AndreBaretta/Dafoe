@@ -8,7 +8,7 @@ public:
    StatusDAO(DafoeGod& dafoe);
    bool createStatus(const std::string& name);
    bool updateStatus(const int id, const std::string& name);
-   Status retrieveStatus(const int id);
+   std::vector<Status> retrieveStatus(const int id);
    std::vector<Status> listAllStatus();
    bool deleteStatus(const int id);
 

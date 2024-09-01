@@ -49,14 +49,14 @@ std::vector<Manufacturer> ManufacturerDAO::retrieveManufacturerByName(const std:
    return manufacturers;
 }
 
-Manufacturer ManufacturerDAO::retrieveManufacturer(const int id){
+std::vector<Manufacturer> ManufacturerDAO::retrieveManufacturer(const int id){
    std::unique_ptr<sql::PreparedStatement> stmt{m_theos.conn->prepareStatement("select * from manufacturer where id = ?")};
    stmt->setInt(1, id);
    sql::ResultSet* result {stmt->executeQuery()};
-   result->next();
-
-   Manufacturer manufacturer = Manufacturer(result->getInt("id"), result->getString("name").c_str());
-   
+   std::vector<Manufacturer> manufacturer{};
+   if(!result->next())
+      return manufacturer;
+   manufacturer.push_back(Manufacturer(result->getInt("id"), result->getString("name").c_str()));
    return manufacturer;
 }
 

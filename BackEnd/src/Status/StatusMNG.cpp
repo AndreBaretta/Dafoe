@@ -12,8 +12,8 @@ json StatusMNG::retrieveAllStatus(){
 }
 
 json StatusMNG::retrieveStatus(const int id){
-   Status status = this->m_statusDAO.retrieveStatus(id);
-   json json = this->m_jsonBuilder.statusToJson(status);
+   std::vector<Status> status = this->m_statusDAO.retrieveStatus(id);
+   json json = this->m_jsonBuilder.statusVectorToJson(status);
    return json;
 }
 

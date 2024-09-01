@@ -15,6 +15,18 @@
 #include "../Category/CategoryMNG.hpp"
 #include "../PaymentMethod/PaymentMethodDAO.hpp"
 #include "../PaymentMethod/PaymentMethodMNG.hpp"
+#include "../Client/ClientDAO.hpp"
+#include "../Client/ClientMNG.hpp"
+#include "../Manufacturer/ManufacturerDAO.hpp"
+#include "../Manufacturer/ManufacturerMNG.hpp"
+#include "../Employee/EmployeeDAO.hpp"
+#include "../Employee/EmployeeMNG.hpp"
+#include "../SellOrder/SellOrderDAO.hpp"
+#include "../SellOrder/SellOrderMNG.hpp"
+#include "../Status/StatusDAO.hpp"
+#include "../Status/StatusMNG.hpp"
+#include "../GenericProduct/GenericProductDAO.hpp"
+#include "../GenericProduct/GenericProductMNG.hpp"
 #include "HTTPResponse/HTTPResponse.hpp"
 #include "HTTPResponseBuilder/HTTPResponseBuilder.hpp"
 #include <nlohmann/json.hpp>
@@ -25,19 +37,39 @@ int main(){
    HTTPResponseBuilder httpResponseBuilder = HTTPResponseBuilder();
    DafoeGod dafoeGod                       = DafoeGod();
    JsonBuilder jsonBuilder                 = JsonBuilder();
+   
+   // DAOs
    CategoryDAO categoryDAO                 = CategoryDAO(dafoeGod);
    ProductDAO productDAO                   = ProductDAO(dafoeGod);
    PaymentMethodDAO paymentMethodDAO       = PaymentMethodDAO(dafoeGod);
+   ClientDAO clientDAO                     = ClientDAO(dafoeGod);
+   EmployeeDAO employeeDAO                 = EmployeeDAO(dafoeGod);
+   ManufacturerDAO manufacturerDAO         = ManufacturerDAO(dafoeGod);
+   SellOrderDAO sellOrderDAO               = SellOrderDAO(dafoeGod);
+   StatusDAO statusDAO                     = StatusDAO(dafoeGod);
+   GenericProductDAO genericProductDAO     = GenericProductDAO(dafoeGod);
+   
+   // MNGs
    ProductMNG productMNG                   = ProductMNG(productDAO, jsonBuilder);
    CategoryMNG categoryMNG                 = CategoryMNG(categoryDAO, jsonBuilder);
    PaymentMethodMNG paymentMethodMNG       = PaymentMethodMNG(paymentMethodDAO, jsonBuilder);
-   TCPServer server                        = TCPServer("127.0.0.1",12354);
+   ClientMNG clientMNG                     = ClientMNG(clientDAO, jsonBuilder);
+   EmployeeMNG employeeMNG                 = EmployeeMNG(employeeDAO, jsonBuilder);
+   ManufacturerMNG manufacturerMNG         = ManufacturerMNG(manufacturerDAO, jsonBuilder);
+   SellOrderMNG sellOrderMNG               = SellOrderMNG(sellOrderDAO, jsonBuilder);
+   StatusMNG statusMNG                     = StatusMNG(statusDAO, jsonBuilder);
+   GenericProductMNG genericProductMNG     = GenericProductMNG(genericProductDAO, jsonBuilder);
+
+   TCPServer server                        = TCPServer("127.0.0.1",12345);
    HTTPRequestParser httpParser            = HTTPRequestParser();
-   HTTPRequestHandler httpHandler          = HTTPRequestHandler(httpResponseBuilder, productMNG, categoryMNG, paymentMethodMNG);
+   HTTPRequestHandler httpHandler          = HTTPRequestHandler(httpResponseBuilder, productMNG, categoryMNG, paymentMethodMNG, clientMNG, employeeMNG, manufacturerMNG,
+                                                                sellOrderMNG, statusMNG, genericProductMNG);
    HTTPRequest request                     = HTTPRequest();
    HTTPResponse httpResponse               = HTTPResponse();
    std::string requestString{};
    std::string response{};
+
+   
 
    // Teste criar produto
 
@@ -184,7 +216,7 @@ int main(){
    while(true){
       server.acceptConnection();
       requestString  = server.readRequest();
-      request       = httpParser.parseRequest(requestString);
+      request        = httpParser.parseRequest(requestString);
       response       = httpHandler.handleRequest(request);
       server.setResponse(response);
       server.writeResponse();

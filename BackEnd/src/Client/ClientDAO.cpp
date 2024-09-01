@@ -71,14 +71,16 @@ std::vector<Client> ClientDAO::listAllClient(){
    return clients;
 }
 
-Client ClientDAO::retrieveClient(const int id){
+std::vector<Client> ClientDAO::retrieveClient(const int id){
    std::unique_ptr<sql::PreparedStatement> stmt{m_theos.conn->prepareStatement("select * from client where id = ?")};
    stmt->setInt(1,id);
    sql::ResultSet* result = stmt->executeQuery();
-   result->next();
+   std::vector<Client> client{};
+   if(!result->next())
+      return client;
 
-   Client client = Client(result->getInt("id"), result->getString("name").c_str(), result->getString("phoneNumber").c_str(),
-                          result->getString("address").c_str(), result->getDouble("bill"));
+   client.push_back(Client(result->getInt("id"), result->getString("name").c_str(), result->getString("phoneNumber").c_str(),
+                           result->getString("address").c_str(), result->getDouble("bill")));
    return client;
 }
 

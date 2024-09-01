@@ -44,15 +44,16 @@ std::vector<Category> CategoryDAO::listCategories(){
    return categories;
 }
 
-Category CategoryDAO::retrieveCategory(const int id){
+std::vector<Category> CategoryDAO::retrieveCategory(const int id){
    std::unique_ptr<sql::PreparedStatement> stmt{m_theos.conn->prepareStatement("select * from category where id = ?")};
    stmt->setInt(1,id);
    sql::ResultSet* result {stmt->executeQuery()};
-   result->next();
-   
+   std::vector<Category> category{};
+   if(!result->next()){
+      return category;
+   }
    int categoryId = result->getInt("id");
    std::string categoryName = result->getString("name").c_str();
-   
-   Category category = Category(categoryId,categoryName);
+   category.push_back(Category(categoryId, categoryName));
    return category;
 }

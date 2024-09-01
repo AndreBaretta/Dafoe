@@ -29,8 +29,8 @@ json ProductMNG::retrieveAll(){
 }
 
 json ProductMNG::retrieveProductByID(const int id){
-   Product product = this->m_productDAO.retrieveByID(id);
-   json json = this->m_jsonBuilder.productToJson(product);
+   std::vector<Product> products = this->m_productDAO.retrieveByID(id);
+   json json = this->m_jsonBuilder.productVectorToJson(products);
    return json;
 }
 
