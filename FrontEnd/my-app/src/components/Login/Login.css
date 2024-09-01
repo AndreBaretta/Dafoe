@@ -6,18 +6,17 @@
    text-align: center;
    color: white;
    font-size: calc(20px + 2vmin);
-   background-color: #2f1624;
+   background-color: #0d1117; 
    height: 100vh;
    display: flex;
    flex-direction: column;
    justify-content: center;
    align-items: center;
    text-shadow: #000 1px 1px;
-   background-image: url(../../assets/background.jpg);
-   background-size: cover;
-   background-position: center;
+   background-image: none; 
    position: relative; 
 }
+
 
 .Login .logo-container {
    display: flex;
