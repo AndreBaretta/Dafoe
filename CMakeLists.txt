@@ -9,26 +9,56 @@ set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 set(SOURCES
-   BackEnd/src/API/teste.cpp
-   BackEnd/src/API/HTTPRequest/HTTPRequest.cpp 
-   BackEnd/src/API/HTTPRequestHandler/HTTPRequestHandler.cpp
-   BackEnd/src/API/HTTPRequestParser/HTTPRequestParser.cpp
-   BackEnd/src/API/HTTPResponse/HTTPResponse.cpp
-   BackEnd/src/API/HTTPResponseBuilder/HTTPResponseBuilder.cpp
    BackEnd/src/API/TCPServer/TCPServer.cpp
    BackEnd/src/API/Json/JsonBuilder.cpp
    BackEnd/src/DafoeGod/DafoeGod.cpp
+   # HTTP
+   BackEnd/src/API/HTTPRequestHandler/HTTPRequestHandler.cpp
+   BackEnd/src/API/HTTPRequestParser/HTTPRequestParser.cpp
+   BackEnd/src/API/HTTPRequest/HTTPRequest.cpp 
+   BackEnd/src/API/HTTPResponseBuilder/HTTPResponseBuilder.cpp
+   BackEnd/src/API/HTTPResponse/HTTPResponse.cpp
+   # Product
+   BackEnd/src/Product/Product.cpp
    BackEnd/src/Product/ProductDAO.cpp
    BackEnd/src/Product/ProductMNG.cpp
-   BackEnd/src/Product/Product.cpp
-   BackEnd/src/PaymentMethod/PaymentMethod.cpp
-   BackEnd/src/PaymentMethod/PaymentMethodMNG.cpp
-   BackEnd/src/PaymentMethod/PaymentMethodDAO.cpp
-   BackEnd/src/Employee/Employee.cpp
-   BackEnd/src/Manufacturer/Manufacturer.cpp
+   # Category
    BackEnd/src/Category/Category.cpp
    BackEnd/src/Category/CategoryDAO.cpp
    BackEnd/src/Category/CategoryMNG.cpp
+   # PaymentMethod
+   BackEnd/src/PaymentMethod/PaymentMethod.cpp
+   BackEnd/src/PaymentMethod/PaymentMethodDAO.cpp
+   BackEnd/src/PaymentMethod/PaymentMethodMNG.cpp
+   # Client
+   BackEnd/src/Client/Client.cpp
+   BackEnd/src/Client/ClientDAO.cpp
+   BackEnd/src/Client/ClientMNG.cpp
+   # Employee
+   BackEnd/src/Employee/Employee.cpp
+   BackEnd/src/Employee/EmployeeDAO.cpp
+   BackEnd/src/Employee/EmployeeMNG.cpp
+   # Manufacturer
+   BackEnd/src/Manufacturer/Manufacturer.cpp
+   BackEnd/src/Manufacturer/ManufacturerDAO.cpp
+   BackEnd/src/Manufacturer/ManufacturerMNG.cpp
+   # SellOrder
+   BackEnd/src/SellOrder/SellOrder.cpp
+   BackEnd/src/SellOrder/SellOrderDAO.cpp
+   BackEnd/src/SellOrder/SellOrderMNG.cpp
+   # Status
+   BackEnd/src/Status/Status.cpp
+   BackEnd/src/Status/StatusDAO.cpp
+   BackEnd/src/Status/StatusMNG.cpp
+   # GenericProduct
+   BackEnd/src/GenericProduct/GenericProduct.cpp
+   BackEnd/src/GenericProduct/GenericProductDAO.cpp
+   BackEnd/src/GenericProduct/GenericProductMNG.cpp
+   # ProductOrder
+   BackEnd/src/ProductOrder/ProductOrder.cpp
+   # BackEnd/src/ProductOrder/ProductOrderDAO.cpp
+   # Teste
+   BackEnd/src/API/teste.cpp
    BackEnd/src/Test/Test.cpp
    )
 # Add an executable target
