@@ -5,10 +5,7 @@
 .Stock {
    display: flex;
    min-height: 100vh;
-   background-color: #2f1624;
-   background-image: url(../../assets/background.jpg);
-   background-size: cover;
-   background-position: center;
+   background-color: #0d1117; 
 }
 
 .Sidebar {
@@ -161,10 +158,6 @@
 .newProductButton:hover,
 .addStockButton:hover {
    background-color:  #393838;
-}
-
-:root {
-   --glass: rgba(255, 255, 255, 0.25);
 }
 
 .ReactModal__Overlay {
