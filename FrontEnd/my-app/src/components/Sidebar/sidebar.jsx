@@ -5,7 +5,6 @@ import './Sidebar.css'
 const Sidebar = () => {
    return (
       <div className="Sidebar">
-         {/*logo*/}
          <div className="logo">
             <img src={Image} alt="" />
             <span>
