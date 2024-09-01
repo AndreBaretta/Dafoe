@@ -5,8 +5,8 @@ ClientDAO::ClientDAO(DafoeGod& dafoe)
 : m_theos{dafoe}
 {}
 
-bool ClientDAO::createClient(const std::string& name, const std::string& phoneNumber=nullptr,
-                             const std::string& address=nullptr, const double bill=0){
+bool ClientDAO::createClient(const std::string& name, const std::string& phoneNumber,
+                             const std::string& address, const double bill){
 
    std::unique_ptr<sql::PreparedStatement> stmt{m_theos.conn->prepareStatement("insert into client (name, phone, address, bill) values (?,?,?,?)")};
    stmt->setString(1, name);
@@ -28,7 +28,7 @@ bool ClientDAO::deleteClient(const int id){
    return true;
 }
 
-bool ClientDAO::updateClient(const int id, const std::string& name, const std::string& phoneNumber=nullptr, const std::string& address=nullptr, const double bill=0){
+bool ClientDAO::updateClient(const int id, const std::string& name, const std::string& phoneNumber, const std::string& address, const double bill){
 
    std::unique_ptr<sql::PreparedStatement> stmt{m_theos.conn->prepareStatement("update cliente name = ?, phone = ?, address = ?, bill = ? where id = ?")};
 

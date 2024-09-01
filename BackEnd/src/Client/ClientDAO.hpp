@@ -7,12 +7,12 @@
 class ClientDAO{
 public:
    ClientDAO(DafoeGod& dafoe);
-   bool createClient(const std::string& name, const std::string& phoneNumber, const std::string& address, const double bill);
+   bool createClient(const std::string& name, const std::string& phoneNumber = "", const std::string& address = "", const double bill = 0);
    bool deleteClient(const int id);
    std::vector<Client> retrieveClientByName(const std::string& name);
    std::vector<Client> listAllClient();
    Client retrieveClient(const int id);
-   bool updateClient(const int id, const std::string& name, const std::string& phoneNumber, const std::string& address, const double bill);
+   bool updateClient(const int id, const std::string& name, const std::string& phoneNumber = "", const std::string& address = "", const double bill = 0);
 
 private:
    DafoeGod& m_theos;   
