@@ -39,7 +39,6 @@
    margin-right: 0.5%;
 }
 
-
 .Clients-table {
    width: 100%;
    border-collapse: collapse;
@@ -98,18 +97,110 @@
    gap: 10px; 
 }
 
-.newClientButton { 
+.newClientButton {
    padding: 8px 12px;
    font-size: calc(10px + 1vmin);
    color: white;
-   background-color: #262626; 
+   background-color: #262626;
    border: none;
    border-radius: 4px;
    cursor: pointer;
 }
 
-.newProductButton:hover,
-.addStockButton:hover,
-.newClientButton:hover { 
-   background-color: #262626; 
+.newClientButton:hover {
+   background-color: #3a3a3a; 
 }
+
+.newClientButton:focus {
+   outline: none; 
+}
+
+.ReactModal__Overlay {
+   z-index: 1000; 
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   background-color: rgba(0, 0, 0, 0.5); 
+}
+
+.ReactModal__Overlay {
+   z-index: 1000; 
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   background-color: rgba(0, 0, 0, 0.5); 
+}
+
+.ReactModal__Content {
+   margin-top: 0; 
+   width: 400px;
+   max-width: 80%;
+   background-color: rgba(255, 255, 255, 0.9); 
+   border-radius: 20px;
+   padding: 20px;
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+   overflow: auto;
+   display: flex;
+   flex-direction: column;
+   text-align: left; 
+}
+
+.ReactModal__Header {
+   text-align: center;
+   margin-top: 10px; 
+   margin-bottom: 10px; 
+}
+
+.ReactModal__Close {
+   position: absolute;
+   top: 10px;
+   right: 10px;
+   font-size: 24px;
+   cursor: pointer;
+   background: none;
+   border: none;
+   color: #333;
+}
+
+.ReactModal__Close:hover {
+   color: #666;
+}
+
+.newClient {
+   display: flex;
+   flex-direction: column;
+   align-items: flex-start; 
+}
+
+.newClient label {
+   display: block;
+   margin-bottom: 10px;
+   font-weight: bold;
+   color: #333;
+}
+
+.newClient input {
+   width: calc(100% - 20px); 
+   margin: 10px 0;
+   border-radius: 4px;
+   border: 1px solid #ccc;
+   padding: 8px;
+}
+
+.newClient button {
+   width: calc(100% - 20px); 
+   padding: 12px;
+   font-size: calc(12px + 1vmin);
+   background-color: #4caf50;
+   color: white;
+   border: none;
+   border-radius: 4px;
+   cursor: pointer;
+   margin-top: 20px;
+   text-align: center;
+}
+
+.newClient button:hover {
+   background-color: #45a049;
+}
+
