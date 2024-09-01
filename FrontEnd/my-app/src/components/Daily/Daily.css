@@ -1,11 +1,13 @@
 .Daily {
-   background-color: #30096e;
-   background-image: linear-gradient(to bottom, #30096e 0%, #30096e 10%, #5f10aa 100%);
-   width: 95.5%;
-   height: 99.5%;
-   margin-left: 2%;
-   margin-right: 2%;
-   border-radius: 3rem;
+   background-color:  #262626;
+   background-image: #262626;
+   width: 100%;
+   height: 98%;
+   margin-top: 2% ;
+   margin-bottom: 2% ;
+   margin-left: 1%;
+   margin-right: 0.5%;
+   border-radius: 1.5rem;
 }
 
 .Daily-header {
