@@ -126,7 +126,7 @@ json JsonBuilder::statusVectorToJson(std::vector<Status>& statuses){
 }
 
 
-json sellOrderToJson(SellOrder& sellOrder){
+json JsonBuilder::sellOrderToJson(SellOrder& sellOrder){
    json jsonSellOrder;
    jsonSellOrder["id"]            = sellOrder.getId();
    jsonSellOrder["clientId"]      = sellOrder.getClientId();
@@ -139,7 +139,7 @@ json sellOrderToJson(SellOrder& sellOrder){
    return jsonSellOrder;
 }
 
-json sellOrderVectorToJson(std::vector<SellOrder>& sellOrders){
+json JsonBuilder::sellOrderVectorToJson(std::vector<SellOrder>& sellOrders){
    json jsonSellOrderArray;
    for(int i = 0; i < sellOrders.size(); i++){
       json jsonSellOrder;
@@ -156,7 +156,7 @@ json sellOrderVectorToJson(std::vector<SellOrder>& sellOrders){
    return jsonSellOrderArray;
 }
 
-json genericProductToJson(GenericProduct& genericProduct){
+json JsonBuilder::genericProductToJson(GenericProduct& genericProduct){
    json jsonGenericProduct;
    jsonGenericProduct["id"]        = genericProduct.getId();
    jsonGenericProduct["name"]      = genericProduct.getName();
@@ -166,7 +166,7 @@ json genericProductToJson(GenericProduct& genericProduct){
    return jsonGenericProduct;
 }
 
-json genericProductVectorToJson(std::vector<GenericProduct>& genericProducts){
+json JsonBuilder::genericProductVectorToJson(std::vector<GenericProduct>& genericProducts){
    json jsonGenericProductArray;
    for(int i = 0; i < genericProducts.size(); i++){
       json jsonGenericProduct;
@@ -180,9 +180,7 @@ json genericProductVectorToJson(std::vector<GenericProduct>& genericProducts){
    return jsonGenericProductArray;
 }
 
-
-
-json productOrderToJson(ProductOrder& productOrder){
+json JsonBuilder::productOrderToJson(ProductOrder& productOrder){
    json jsonProductOrder;
    jsonProductOrder["sellOrder"] = productOrder.getSellOrder();
    jsonProductOrder["product"]   = productOrder.getProduct();
@@ -192,7 +190,7 @@ json productOrderToJson(ProductOrder& productOrder){
    return jsonProductOrder;
 }
 
-json productOrderVectorToJson(std::vector<ProductOrder>& productOrders){
+json JsonBuilder::productOrderVectorToJson(std::vector<ProductOrder>& productOrders){
    json jsonProductOrderArray;
    for(int i = 0; i < productOrders.size(); i++){
       json jsonProductOrder;
@@ -206,7 +204,7 @@ json productOrderVectorToJson(std::vector<ProductOrder>& productOrders){
    return jsonProductOrderArray;
 }
 
-json clientToJson(Client& client){
+json JsonBuilder::clientToJson(Client& client){
    json jsonClient;
    jsonClient["id"]          = client.getId();
    jsonClient["name"]        = client.getName();
@@ -216,7 +214,7 @@ json clientToJson(Client& client){
    return jsonClient;
 }
 
-json clientVectorToJson(std::vector<Client>& clients){
+json JsonBuilder::clientVectorToJson(std::vector<Client>& clients){
    json jsonClientArray;
    for(int i = 0; i < clients.size(); i++){
       json jsonClient;
