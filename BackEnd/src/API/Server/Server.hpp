@@ -1,13 +1,13 @@
-#ifndef TCPSERVER_2208
-#define TCPSERVER_2208
+#ifndef SERVER_2208
+#define SERVER_2208
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <string>
 
-class TCPServer{
+class Server{
    public:
-      TCPServer(std::string ipAddress, int port);
-      ~TCPServer();
+      Server(std::string ipAddress, int port);
+      ~Server();
       int startListen();
       int acceptConnection();
       std::string readRequest();
