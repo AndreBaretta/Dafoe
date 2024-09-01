@@ -77,7 +77,7 @@ int Server::writeResponse(){
       return 0;
    }
    std::cout << "Erro enviando resposta para o cliente.\n";
-   close(m_newSocket);
+   close(this->m_newSocket);
    return -1;
 }
 

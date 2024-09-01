@@ -9,7 +9,7 @@ set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 set(SOURCES
-   BackEnd/src/API/TCPServer/TCPServer.cpp
+   BackEnd/src/API/Server/Server.cpp
    BackEnd/src/API/Json/JsonBuilder.cpp
    BackEnd/src/DafoeGod/DafoeGod.cpp
    # HTTP
@@ -63,5 +63,5 @@ set(SOURCES
    )
 # Add an executable target
 add_executable(teste.out ${SOURCES})
-target_link_libraries(teste.out mariadbcpp)
+target_link_libraries(teste.out mariadbcpp ssl crypto)
 
