@@ -1,21 +1,21 @@
-#include "TCPServer.hpp"
+#include "Server.hpp"
 #include <unistd.h>
 #include <iostream>
 #include <cstring>
 
-TCPServer::TCPServer(std::string ipAddress, int port)
+Server::Server(std::string ipAddress, int port)
 : m_ipAddress{ipAddress}
 , m_port{port}
 {
    this->startServer();
 }
 
-TCPServer::~TCPServer(){
+Server::~Server(){
    close(this->m_socket);
    close(this->m_newSocket);
 }
 
-int TCPServer::startServer(){
+int Server::startServer(){
    this->m_socket = socket(AF_INET, SOCK_STREAM, 0);
    this->m_socketAddress.sin_family = AF_INET;
    this->m_socketAddress.sin_port = htons(this->m_port);
@@ -33,12 +33,12 @@ int TCPServer::startServer(){
    return 0;
 }
 
-void TCPServer::closeServer(){
+void Server::closeServer(){
    shutdown(this->m_socket,SHUT_RDWR);
    shutdown(this->m_newSocket,SHUT_RDWR);
 }
 
-int TCPServer::startListen(){
+int Server::startListen(){
    if(listen(this->m_socket, 5) < 0){
       std::cout << "Erro ao escutar o socket.\n";
       return -1;
@@ -47,7 +47,7 @@ int TCPServer::startListen(){
    return 0;
 }
 
-int TCPServer::acceptConnection(){
+int Server::acceptConnection(){
    this->m_newSocket = accept(this->m_socket, (sockaddr*)&this->m_socketAddress, (socklen_t*)&this->m_socketAddressSize);
    if(this->m_newSocket < 0){
       std::cout << "Erro ao aceitar conexão do ip: " << inet_ntoa(m_socketAddress.sin_addr) <<
@@ -57,7 +57,7 @@ int TCPServer::acceptConnection(){
    return 0;
 }
 
-std::string TCPServer::readRequest(){
+std::string Server::readRequest(){
    std::string request{};
    char buffer[this->m_bufferSize];
    ssize_t bytesReceived = read(this->m_newSocket, buffer, this->m_bufferSize);
@@ -69,7 +69,7 @@ std::string TCPServer::readRequest(){
    return request;
 }
 
-int TCPServer::writeResponse(){
+int Server::writeResponse(){
    long bytesSent = write(this->m_newSocket, this->m_serverMessage.c_str(), this->m_serverMessage.size());
    if(bytesSent == m_serverMessage.size()){
       std::cout << "Mensagem enviada ao cliente.\n";
@@ -77,15 +77,15 @@ int TCPServer::writeResponse(){
       return 0;
    }
    std::cout << "Erro enviando resposta para o cliente.\n";
-   close(m_newSocket);
+   close(this->m_newSocket);
    return -1;
 }
 
-void TCPServer::setBSize(int bSize){
+void Server::setBSize(int bSize){
    this->m_bufferSize = bSize;
 }
 
-void TCPServer::setResponse(std::string response){
+void Server::setResponse(std::string response){
    this->m_serverMessage = response;
 }
 
