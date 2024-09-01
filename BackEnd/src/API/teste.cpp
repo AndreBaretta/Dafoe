@@ -4,7 +4,7 @@
 #include <string>
 #include <iostream>
 #include "../Test/Test.hpp"
-#include "TCPServer/TCPServer.hpp"
+#include "Server/Server.hpp"
 #include "HTTPRequest/HTTPRequest.hpp"
 #include "HTTPRequestParser/HTTPRequestParser.hpp"
 #include "HTTPRequestHandler/HTTPRequestHandler.hpp"
@@ -60,7 +60,7 @@ int main(){
    StatusMNG statusMNG                     = StatusMNG(statusDAO, jsonBuilder);
    GenericProductMNG genericProductMNG     = GenericProductMNG(genericProductDAO, jsonBuilder);
 
-   TCPServer server                        = TCPServer("127.0.0.1",12345);
+   Server server                           = Server("127.0.0.1",12345);
    HTTPRequestParser httpParser            = HTTPRequestParser();
    HTTPRequestHandler httpHandler          = HTTPRequestHandler(httpResponseBuilder, productMNG, categoryMNG, paymentMethodMNG, clientMNG, employeeMNG, manufacturerMNG,
                                                                 sellOrderMNG, statusMNG, genericProductMNG);
