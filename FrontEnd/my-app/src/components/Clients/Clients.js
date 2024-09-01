@@ -59,8 +59,15 @@ function Clients() {
             overlayClassName="ReactModal__Overlay"
          >
             <button className="ReactModal__Close" onClick={() => setNewClientScreen(false)}>X</button>
-            <div>
-               Nome: <input type='text'></input>
+            <div className="ReactModal__Header">
+               Adicionar Novo Cliente
+            </div>
+            <div className="newClient">
+               <label htmlFor="name">Nome:</label>
+               <input id="name" type='text'></input>
+               <label htmlFor="phone">Telefone:</label>
+               <input id="phone" type='text'></input>
+               <button>Salvar</button>
             </div>
          </ReactModal>
       </div>
