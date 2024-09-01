@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import './Login.css';
+import Image from '../../assets/images.jpg'; 
 
 const Login = () => {
    const [username, setUsername] = useState("");
@@ -12,25 +13,31 @@ const Login = () => {
 
    return (
       <div className="Login">
-        
-            <h1>Dafoe</h1> {/* Texto grande e centralizado */}
-            <form onSubmit={handleSubmit}>
-               <div className="input-field">
-                  <input type="text" placeholder="Usuário" onChange={(e) => setUsername(e.target.value)} />
-               </div>
-               <div className="input-field">
-                  <input type="password" placeholder="Senha" onChange={(e) => setPassword(e.target.value)} />
-               </div>
+         <div className="logo-container">
+            <div className="logo">
+               <img src={Image} alt="Logo" />
+               <span>
+                  DA<span>FO</span>E
+               </span>
+            </div>
+         </div>
 
-               <div className="recall">
-                  <label>
-                     <input type="checkbox" />
-                     Lembre de mim
-                  </label>
-               </div>
-               <button onClick={() => window.open('http://localhost:3000?home', '_self')}>Entrar</button>
-            </form>
-         
+         <form onSubmit={handleSubmit}>
+            <div className="input-field">
+               <input type="text" placeholder="Usuário" onChange={(e) => setUsername(e.target.value)} />
+            </div>
+            <div className="input-field">
+               <input type="password" placeholder="Senha" onChange={(e) => setPassword(e.target.value)} />
+            </div>
+            <div className="recall">
+               <label>
+                  <input type="checkbox" />
+                  Lembrar de mim
+               </label>
+            </div>
+            <button type="submit">Entrar</button>
+         </form>
+
          <div className="watermark">
             ©dafoeformation - 2024
          </div>
