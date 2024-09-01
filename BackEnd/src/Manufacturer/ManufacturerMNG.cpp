@@ -17,6 +17,12 @@ json ManufacturerMNG::retrieveManufacturer(const int id){
    return json;
 }
 
+json ManufacturerMNG::retrieveManufacturerByName(const std::string& name){
+   std::vector<Manufacturer> manufacturers = this->m_manufacturerDAO.retrieveManufacturerByName(name);
+   json json = this->m_jsonBuilder.manufacturerVectorToJson(manufacturers);
+   return json;
+}
+
 bool ManufacturerMNG::createManufacturer(const std::string& name){
    bool response = this->m_manufacturerDAO.createManufacturer(name);
    return response;

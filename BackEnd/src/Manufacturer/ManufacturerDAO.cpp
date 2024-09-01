@@ -35,7 +35,7 @@ bool ManufacturerDAO::deleteManufacturer(const int id){
    return true;
 }
 
-std::vector<Manufacturer> ManufacturerDAO::retriveManufacturerByName(const std::string& name){
+std::vector<Manufacturer> ManufacturerDAO::retrieveManufacturerByName(const std::string& name){
    std::unique_ptr<sql::PreparedStatement> stmt{m_theos.conn->prepareStatement("select * from manufacturer where name like ?")};
    stmt->setString(1, '%'+ name +'%');
    sql::ResultSet* result {stmt->executeQuery()};
