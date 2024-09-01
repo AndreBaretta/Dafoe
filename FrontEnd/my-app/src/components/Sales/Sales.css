@@ -3,12 +3,9 @@
 }
 
 .Sales {
-      display: flex;
-      min-height: 100vh;
-      background-color: #2f1624;
-      background-image: url(../../assets/background.jpg);
-      background-size: cover;
-      background-position: center;
+   display: flex;
+   min-height: 100vh;
+   background-color: #0d1117; 
 }
 
 .Sales-logo {
