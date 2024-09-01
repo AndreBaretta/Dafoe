@@ -16,7 +16,7 @@
    transition: background-color 0.3s ease;
    width: 99.5%;
    height: 10%;
-   font-size: small;
+   font-size: medium;
    max-width: 250px;
 }
 
@@ -39,17 +39,17 @@
    height: 100%;
 }
 .MenuItem:hover {
-   background-color: #5a3e5b;
+   background-color:#393838;
 }
 .Menu-icon {
    margin-right: 0.4rem;
-   color: #890090;
-   font-size: 1rem;
+   color: #fb02ff;
+   font-size: 1.5rem;
 }
 .Menu-header {
    align-self: start;
    position: relative;
-   margin-left: 1%;
+   margin-left: 0.5%;
    background-color: transparent;
    font-size: calc(20px + 2vmin);
 }
