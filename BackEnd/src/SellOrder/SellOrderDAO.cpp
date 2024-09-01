@@ -50,12 +50,16 @@ bool SellOrderDAO::updateOrder(const int id, const int clientId, const int selle
    return true;
 }
 
-SellOrder SellOrderDAO::retrieveOrderById(const int id){
+std::vector<SellOrder> SellOrderDAO::retrieveOrderById(const int id){
    std::unique_ptr<sql::PreparedStatement> stmt{m_theos.conn->prepareStatement("select * from sellOrder where id = ?")};
    stmt->setInt(1, id);
    sql::ResultSet* result{stmt->executeQuery()};
-   result->next();
-   return SellOrder(result->getInt("id"), result->getInt("client"), result->getInt("seller"), result->getInt("deliveredBy"), result->getInt("status"), result->getInt("paymentMethod"), static_cast<std::string>(result->getString("date")), result->getDouble("price"));
+   std::vector<SellOrder> sellOrder{};
+   if(!result->next())
+      return sellOrder;
+   sellOrder.push_back(SellOrder(result->getInt("id"), result->getInt("client"), result->getInt("seller"), result->getInt("deliveredBy"), result->getInt("status"), 
+                                 result->getInt("paymentMethod"), static_cast<std::string>(result->getString("date")), result->getDouble("price")));
+   return sellOrder;
 }
 
 std::vector<SellOrder> SellOrderDAO::retrieveOrderByClient(const int clientId){

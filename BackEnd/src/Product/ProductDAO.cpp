@@ -11,7 +11,7 @@ std::vector<Product> ProductDAO::retrieveByName(const std::string& name){
    std::unique_ptr<sql::PreparedStatement> state{m_theos.conn->prepareStatement("select * from product where name like ?")};
    state->setString(1, '%' + name + '%');
    sql::ResultSet* result {state->executeQuery()};
-
+   
    Product product{};
    std::vector<Product> products{};
    while(result->next()){
@@ -31,13 +31,16 @@ std::vector<Product> ProductDAO::retrieveByName(const std::string& name){
    return products;
 }
 
-Product ProductDAO::retrieveByID(const int id){
+std::vector<Product> ProductDAO::retrieveByID(const int id){
    std::unique_ptr<sql::PreparedStatement> state{m_theos.conn->prepareStatement("select * from product where id = ?")};
    state->setInt(1,id);
    sql::ResultSet* result {state->executeQuery()};
-   result->next();
 
+   std::vector<Product> products{};
    Product product{};
+   if(!result->next())
+      return products;
+
    int productId = result->getInt("id");
    std::string productName = result->getString("name").c_str();
    int productGenericProduct = result->getInt("genericProduct");
@@ -48,8 +51,9 @@ Product ProductDAO::retrieveByID(const int id){
    std::string productReference = result->getString("reference").c_str();
    int productQuantity = result->getInt("quantity");
    product = Product(productId, productName, productGenericProduct,productManufacturer,productBarcode,productPrice,productCost,productReference,productQuantity);
+   products.push_back(product);
 
-   return product;
+   return products;
 }
 
 Product ProductDAO::retrieveByBarcode(const std::string& barcode){

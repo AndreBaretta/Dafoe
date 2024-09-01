@@ -18,8 +18,8 @@ json EmployeeMNG::retrieveAllEmployee(){
 }
 
 json EmployeeMNG::retrieveEmployee(const int id){
-   Employee employee = this->m_employeeDAO.retrieveEmployee(id);
-   json json = this->m_jsonBuilder.employeeToJson(employee);
+   std::vector<Employee> employee = this->m_employeeDAO.retrieveEmployee(id);
+   json json = this->m_jsonBuilder.employeeVectorToJson(employee);
    return json;
 }
 

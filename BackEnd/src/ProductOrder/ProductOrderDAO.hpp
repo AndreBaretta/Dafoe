@@ -9,7 +9,7 @@ public:
    bool createProductOrder( const int sellOrder, const int product, const int quantity, const double discount, const double price);
    bool deleteProductOrder(const int sellOrder);
    bool updateProductOrder(const int sellOrder, const int product, const int quantity, const double discount, const double price);
-   ProductOrder retrieveProductOrderById(const int id);
+   std::vector<ProductOrder> retrieveProductOrderById(const int id);
 
 private:
    DafoeGod& m_theos;

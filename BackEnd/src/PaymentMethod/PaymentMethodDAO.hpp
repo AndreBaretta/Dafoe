@@ -11,7 +11,7 @@ public:
    bool deletePaymentMethod(const int id);
    bool updatePaymentMethod(const int id, const std::string& name);
    std::vector<PaymentMethod> listPayment();
-   PaymentMethod retrievePaymentMethod(const int id);
+   std::vector<PaymentMethod> retrievePaymentMethod(const int id);
 
 private:
    DafoeGod& m_theos;

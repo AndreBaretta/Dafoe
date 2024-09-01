@@ -12,8 +12,14 @@ json ManufacturerMNG::retrieveAllManufacturer(){
 }
 
 json ManufacturerMNG::retrieveManufacturer(const int id){
-   Manufacturer manufacturer = this->m_manufacturerDAO.retrieveManufacturer(id);
-   json json = this->m_jsonBuilder.manufacturerToJson(manufacturer);
+   std::vector<Manufacturer> manufacturer = this->m_manufacturerDAO.retrieveManufacturer(id);
+   json json = this->m_jsonBuilder.manufacturerVectorToJson(manufacturer);
+   return json;
+}
+
+json ManufacturerMNG::retrieveManufacturerByName(const std::string& name){
+   std::vector<Manufacturer> manufacturers = this->m_manufacturerDAO.retrieveManufacturerByName(name);
+   json json = this->m_jsonBuilder.manufacturerVectorToJson(manufacturers);
    return json;
 }
 

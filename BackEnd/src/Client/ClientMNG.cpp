@@ -30,8 +30,8 @@ json ClientMNG::retrieveAllClient(){
 }
 
 json ClientMNG::retrieveClient(const int id){
-   Client client = m_clientDAO.retrieveClient(id);
-   json response = this->m_jsonBuilder.clientToJson(client);
+   std::vector<Client> client = m_clientDAO.retrieveClient(id);
+   json response = this->m_jsonBuilder.clientVectorToJson(client);
    return response;
 }
 

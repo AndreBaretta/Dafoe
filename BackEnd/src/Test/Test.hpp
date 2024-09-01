@@ -2,6 +2,7 @@
 #define TEST_2208
 #include <vector>
 #include "../API/HTTPRequest/HTTPRequest.hpp"
+#include "../API/HTTPRequestHandler/HTTPRequestHandler.hpp"
 #include <string>
 #include <nlohmann/json.hpp>
 using json = nlohmann::json;

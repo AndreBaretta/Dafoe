@@ -5,8 +5,8 @@ ClientDAO::ClientDAO(DafoeGod& dafoe)
 : m_theos{dafoe}
 {}
 
-bool ClientDAO::createClient(const std::string& name, const std::string& phoneNumber=nullptr,
-                             const std::string& address=nullptr, const double bill=0){
+bool ClientDAO::createClient(const std::string& name, const std::string& phoneNumber,
+                             const std::string& address, const double bill){
 
    std::unique_ptr<sql::PreparedStatement> stmt{m_theos.conn->prepareStatement("insert into client (name, phone, address, bill) values (?,?,?,?)")};
    stmt->setString(1, name);
@@ -28,7 +28,7 @@ bool ClientDAO::deleteClient(const int id){
    return true;
 }
 
-bool ClientDAO::updateClient(const int id, const std::string& name, const std::string& phoneNumber=nullptr, const std::string& address=nullptr, const double bill=0){
+bool ClientDAO::updateClient(const int id, const std::string& name, const std::string& phoneNumber, const std::string& address, const double bill){
 
    std::unique_ptr<sql::PreparedStatement> stmt{m_theos.conn->prepareStatement("update cliente name = ?, phone = ?, address = ?, bill = ? where id = ?")};
 
@@ -71,14 +71,16 @@ std::vector<Client> ClientDAO::listAllClient(){
    return clients;
 }
 
-Client ClientDAO::retrieveClient(const int id){
+std::vector<Client> ClientDAO::retrieveClient(const int id){
    std::unique_ptr<sql::PreparedStatement> stmt{m_theos.conn->prepareStatement("select * from client where id = ?")};
    stmt->setInt(1,id);
    sql::ResultSet* result = stmt->executeQuery();
-   result->next();
+   std::vector<Client> client{};
+   if(!result->next())
+      return client;
 
-   Client client = Client(result->getInt("id"), result->getString("name").c_str(), result->getString("phoneNumber").c_str(),
-                          result->getString("address").c_str(), result->getDouble("bill"));
+   client.push_back(Client(result->getInt("id"), result->getString("name").c_str(), result->getString("phoneNumber").c_str(),
+                           result->getString("address").c_str(), result->getDouble("bill")));
    return client;
 }
 

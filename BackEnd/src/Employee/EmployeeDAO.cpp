@@ -51,17 +51,19 @@ std::vector<Employee> EmployeeDAO::retrieveEmployeeByName(const std::string& nam
    return employees;
 }
 
-Employee EmployeeDAO::retrieveEmployee(const int id){
+std::vector<Employee> EmployeeDAO::retrieveEmployee(const int id){
    std::unique_ptr<sql::PreparedStatement> stmt{m_theos.conn->prepareStatement("select * from employee where id = ?")};
    stmt->setInt(1, id);
    sql::ResultSet* result{stmt->executeQuery()};
-   result->next();
+   std::vector<Employee> employee{};
+   if(!result->next())
+      return employee;
 
    int employeeId = result->getInt("id");
    std::string name = result->getString("name").c_str();
    std::string cargo = result->getString("cargo").c_str();
 
-   Employee employee = Employee(employeeId,name,cargo);
+   employee.push_back(Employee(employeeId,name,cargo));
 
    return employee;
 }

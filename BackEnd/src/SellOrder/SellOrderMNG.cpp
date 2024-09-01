@@ -16,8 +16,8 @@ bool SellOrderMNG::updateOrder(const int id, const int clientId, const int selle
 }
 
 json SellOrderMNG::retrieveOrder(const int id){
-   SellOrder sellOrder = this->m_sellOrderDAO.retrieveOrderById(id);
-   json response = this->m_jsonBuilder.sellOrderToJson(sellOrder);
+   std::vector<SellOrder> sellOrder = this->m_sellOrderDAO.retrieveOrderById(id);
+   json response = this->m_jsonBuilder.sellOrderVectorToJson(sellOrder);
    return response;
 }
 
