@@ -14,7 +14,7 @@ public:
    std::vector<Product> retrieveByID(const int id);
    std::vector<Product> retrieveByReference(const std::string& reference);
    std::vector<Product> retrieveByManufacturer(const std::string& manufacturer);
-   Product retrieveByBarcode(const std::string& barcode);
+   std::vector<Product> retrieveByBarcode(const std::string& barcode);
 
    bool createProduct(const std::string& name, const int genericProduct, const int manufacturer,
                       const std::string& barcode, const double price, const double cost, 

@@ -10,7 +10,7 @@ import History from './components/History/History';
 
 function App() {
 
-   const [page, setPage] = useState(0)
+   const [page, setPage] = useState('login')
 
    useEffect(
       () => {
