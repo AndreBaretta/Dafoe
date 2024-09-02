@@ -49,7 +49,7 @@ HTTPRequest HTTPRequestParser::parseRequest(std::string request){
    }
 
    if(stream.peek() != EOF)
-      std::getline(stream, body);
+      std::getline(stream, body,'\0');
 
    HTTPRequest req = HTTPRequest(method,path,version,headers);
    req.setBody(body);
