@@ -10,6 +10,7 @@
 #include "../../SellOrder/SellOrderMNG.hpp"
 #include "../../Status/StatusMNG.hpp"
 #include "../../GenericProduct/GenericProductMNG.hpp"
+#include "../../User/UserMNG.hpp"
 #include "../HTTPResponse/HTTPResponse.hpp"
 #include "../HTTPResponseBuilder/HTTPResponseBuilder.hpp"
 #include <nlohmann/json.hpp>
@@ -18,8 +19,9 @@ using json = nlohmann::json;
 
 class HTTPRequestHandler{
 public:
-   HTTPRequestHandler(HTTPResponseBuilder& responseBuilder, ProductMNG& productMNG, CategoryMNG& categoryMNG, PaymentMethodMNG& paymentMethodMNG, ClientMNG& clientMNG,
-                      EmployeeMNG& employeeMNG, ManufacturerMNG& manufacturerMNG, SellOrderMNG& sellOrderMNG, StatusMNG& statusMNG, GenericProductMNG& genericProductMNG);
+   HTTPRequestHandler(HTTPResponseBuilder& responseBuilder, ProductMNG& productMNG, CategoryMNG& categoryMNG, PaymentMethodMNG& paymentMethodMNG,
+                      ClientMNG& clientMNG, EmployeeMNG& employeeMNG, ManufacturerMNG& manufacturerMNG, SellOrderMNG& sellOrderMNG, 
+                      StatusMNG& statusMNG, GenericProductMNG& genericProductMNG, UserMNG& userMNG);
    ~HTTPRequestHandler();
    std::string handleRequest(HTTPRequest& request);
 
@@ -56,6 +58,10 @@ private:
    bool handleCreateGenericProduct(const std::string& body);
    bool handleUpdateGenericProduct(const int id, const std::string& body);
    bool handleDeleteGenericProduct(const int id);
+   bool handleCreateUser(const int id, const std::string& name, const std::string& password);
+   bool handleUpdateUsername(const int id, const std::string& name);
+   bool handleUpdateUserPassword(const int id, const std::string& password, const std::string& newPassword);
+   bool handleDeleteUser(const int id, const std::string& name, const std::string& password);
    std::string handleRetrieveAllCategory();
    std::string handleRetrieveCategory(const int id);
    std::string handleRetrieveAllPaymentMethod();
@@ -78,7 +84,13 @@ private:
    std::string handleRetrieveAllStatus();
    std::string handleRetrieveStatus(const int id);
    std::string handleRetrieveGenericProductByName(const std::string& name);
+   std::string handleRetrieveUsername(const int id);
 
+   // Autentication
+   std::string handleLogin(const int id, const std::string& password);
+   bool handleLogout(const int id);
+   std::string handleSignup(const std::string& name, const std::string& password);
+   bool validate(const int id, const std::string& password);
 
    HTTPResponseBuilder& m_responseBuilder;
    ProductMNG& m_productMNG;
@@ -90,6 +102,7 @@ private:
    SellOrderMNG& m_sellOrderMNG;
    StatusMNG& m_statusMNG;
    GenericProductMNG& m_genericProductMNG;
+   UserMNG& m_userMNG;
 };
 
 #endif

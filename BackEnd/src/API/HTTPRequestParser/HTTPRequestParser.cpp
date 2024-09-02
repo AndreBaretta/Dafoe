@@ -1,6 +1,7 @@
 #include "HTTPRequestParser.hpp"
 #include <sstream>
 #include <string>
+#include <iostream>
 #include <vector>
 
 HTTPRequestParser::HTTPRequestParser(){}
@@ -25,7 +26,7 @@ HTTPRequest HTTPRequestParser::parseRequest(std::string request){
    std::string buffer;
    std::string::size_type division;
    
-   while(std::getline(stream,line) && !line.empty()){
+   while(std::getline(stream,line) && line.find(':') != std::string::npos){
       division = line.find(':');
       if(division != std::string::npos){
          std::string key = line.substr(0, division);
@@ -33,9 +34,9 @@ HTTPRequest HTTPRequestParser::parseRequest(std::string request){
          headers[key] = value;
       }
    }
-
+   
    if(!(tempPath == "/")){
-      while(getline(pathStream,buffer,'/')){
+      while(std::getline(pathStream,buffer,'/')){
          if(buffer != ""){
             path.push_back(buffer);
          }
@@ -47,10 +48,9 @@ HTTPRequest HTTPRequestParser::parseRequest(std::string request){
       }
    }
 
-   if(stream.peek() != EOF){
-      std::getline(stream,body, '\0');
-   }
-   
+   if(stream.peek() != EOF)
+      std::getline(stream, body);
+
    HTTPRequest req = HTTPRequest(method,path,version,headers);
    req.setBody(body);
    req.setQuery(query);
