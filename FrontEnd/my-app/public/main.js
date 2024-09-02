@@ -1,5 +1,6 @@
 const { app, BrowserWindow } = require('electron')
-
+app.commandLine.appendArgument('ignore-certificate-errors')
+app.commandLine.appendSwitch('allow-insecure-localhost', 'true')
 function createWindow() {
    // Create the browser window.
    const win = new BrowserWindow({
