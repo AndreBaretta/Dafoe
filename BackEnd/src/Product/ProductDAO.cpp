@@ -100,9 +100,9 @@ std::vector<Product> ProductDAO::retrieveByReference(const std::string& referenc
 
    return products;
 }
-std::vector<Product> ProductDAO::retrieveByManufacturer(const std::string& manufacturer){
-   std::unique_ptr<sql::PreparedStatement> state{m_theos.conn->prepareStatement("select id from manufacturer where name like ?")};
-   state->setString(1,'%' + manufacturer + '%');
+std::vector<Product> ProductDAO::retrieveByManufacturer(const int manufacturer){
+   std::unique_ptr<sql::PreparedStatement> state{m_theos.conn->prepareStatement("select * from product where manufacturer = ?")};
+   state->setInt(1,manufacturer);
    sql::ResultSet* result {state->executeQuery()};
 
    Product product{};
@@ -122,6 +122,31 @@ std::vector<Product> ProductDAO::retrieveByManufacturer(const std::string& manuf
    }
 
    return products;
+}
+
+std::vector<Product> ProductDAO::retrieveByPrice(const double cost){
+   std::unique_ptr<sql::PreparedStatement> state{m_theos.conn->prepareStatement("select * product where cost = ?")};
+   state->setDouble(1, cost);
+   sql::ResultSet* result {state->executeQuery()};
+
+   Product product{};
+   std::vector<Product> products{};
+   while(result->next()){
+      int productId = result->getInt("id");
+      std::string productName = result->getString("name").c_str();
+      int productGenericProduct = result->getInt("genericProduct");
+      int productManufacturer = result->getInt("manufacturer");
+      std::string productBarcode = result->getString("barcode").c_str();
+      double productPrice = result->getDouble("price");
+      double productCost = result->getDouble("cost");
+      std::string productReference = result->getString("reference").c_str();
+      int productQuantity = result->getInt("quantity");
+      product = Product(productId, productName, productGenericProduct,productManufacturer,productBarcode,productPrice,productCost,productReference,productQuantity);
+      products.push_back(product);
+   }
+
+   return products;  
+
 }
 
 bool ProductDAO::createProduct(const std::string& name, const int genericProduct, const int manufacturer,
