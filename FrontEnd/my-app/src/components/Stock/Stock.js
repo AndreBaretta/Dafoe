@@ -10,19 +10,44 @@ function Stock() {
    const [results, setResults] = useState([]);
    const [newProductScreen, setNewProductScreen] = useState(false);
    const [addStockScreen, setAddStockScreen] = useState(false);
-   const [queryType, setQueryType] = useState(0);
+   const [queryOrder, setQueryOrder] = useState("name");
+   const [isPendind, setIsPending] = useState(false)
    const [productDetails, setProductDetails] = useState({
-      name: '',
+      id: '5',
       manufacturer: '',
+      genericProduct: '',
+      name: '',
+      barCode: '',
       price: '',
       cost: '',
+      reference: '',
       quantity: ''
    });
+
+   const submitData = () => {
+      try {
+         setIsPending(true)
+
+         fetch('http://localhost:12345/api/product?', {
+            method: 'POST',
+            headers: {"Content-Type" : "application/json"},
+            body: JSON.stringify(productDetails)
+         }).then(() => {
+            console.log("produto adicionado")
+            isPendind(false)
+         })
+      } catch (error) {
+         console.error(error);
+         setNewProductScreen(false);
+      }
+   }
+   //implementar assincronismo
+   //colocar uma tela extra informando o usuário de que o produto foi adicionado com sucesso
 
    useEffect(() => {
       const getData = async () => {
          try {
-            const response = await fetch(`http://localhost:12354/api/product?name=${searchValue}&type=${queryType}`);
+            const response = await fetch(`http://localhost:12345/api/product?name=${searchValue}`);
             const data = await response.json();
             setResults(data);
          } catch (error) {
@@ -31,7 +56,7 @@ function Stock() {
       };
 
       getData();
-   }, [searchValue, queryType]);
+   }, [searchValue, queryOrder]);
 
    const handleInputChange = (e) => {
       const { name, value } = e.target;
@@ -58,11 +83,11 @@ function Stock() {
             <table className="Stock-table">
                <thead>
                   <tr>
-                     <th>Nome <button onClick={() => setQueryType(0)}></button></th>
-                     <th>Fabricante <button onClick={() => setQueryType(1)}></button></th>
-                     <th>Preço <button onClick={() => setQueryType(2)}></button></th>
-                     <th>Custo <button onClick={() => setQueryType(3)}></button></th>
-                     <th>Quantidade <button onClick={() => setQueryType(4)}></button></th>
+                     <th>Nome <button onClick={() => setQueryOrder('name')}></button></th>
+                     <th>Fabricante <button onClick={() => setQueryOrder('name')}></button></th>
+                     <th>Preço <button onClick={() => setQueryOrder('name')}></button></th>
+                     <th>Custo <button onClick={() => setQueryOrder('name')}></button></th>
+                     <th>Quantidade <button onClick={() => setQueryOrder('name')}></button></th>
                   </tr>
                </thead>
                <tbody>
@@ -132,7 +157,35 @@ function Stock() {
                         placeholder="Digite a quantidade"
                      />
                   </label>
-                  <button type="button" onClick={() => setNewProductScreen(false)}>Salvar</button>
+                  <label>Código de barras:
+                     <input 
+                        type='text' 
+                        name='barCode'
+                        value={productDetails.barCode}
+                        onChange={handleInputChange} 
+                        placeholder="Digite o código de barras"
+                     />
+                  </label>
+                  <label>Referencia:
+                     <input 
+                        type='text' 
+                        name='reference'
+                        value={productDetails.reference}
+                        onChange={handleInputChange} 
+                        placeholder="Digite a referencia"
+                     />
+                  </label>
+                  <label>Produto generico:
+                     <input 
+                        type='text' 
+                        name='genericProduct'
+                        value={productDetails.genericProduct}
+                        onChange={handleInputChange} 
+                        placeholder="Digite o produto generico"
+                     />
+                  </label>
+                  { !isPendind && <button type="button" onClick={() => submitData()}>Salvar</button> }
+                  { isPendind && <button disabled>Salvando...</button>}
                </form>
             </div>
          </Model>
