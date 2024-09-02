@@ -8,6 +8,12 @@ project(Dafoe)
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g")
+set(CERT_PATH "${CMAKE_SOURCE_DIR}/BackEnd/src/API/Server/cert.pem")
+set(KEY_PATH "${CMAKE_SOURCE_DIR}/BackEnd/src/API/Server/key.pem")
+add_definitions(-DCERT_PATH="${CERT_PATH}")
+add_definitions(-DKEY_PATH="${KEY_PATH}")
+
 set(SOURCES
    BackEnd/src/API/Server/Server.cpp
    BackEnd/src/API/Json/JsonBuilder.cpp

@@ -7,15 +7,15 @@ HTTPRequestParser::HTTPRequestParser(){}
 HTTPRequestParser::~HTTPRequestParser(){}
 
 HTTPRequest HTTPRequestParser::parseRequest(std::string request){
-   std::string method;
-   std::string tempPath;
-   std::vector<std::string> path;
-   std::string query;
-   std::string version;
-   std::map<std::string, std::string> headers;
-   std::string body;
+   std::string method{};
+   std::string tempPath{};
+   std::vector<std::string> path{};
+   std::string query{};
+   std::string version{};
+   std::map<std::string, std::string> headers{};
+   std::string body{};
    std::istringstream stream{request};
-   std::string line;
+   std::string line{};
    if(std::getline(stream,line)){
       std::istringstream lineStream(line);
       lineStream >> method >> tempPath >> version;
@@ -34,17 +34,17 @@ HTTPRequest HTTPRequestParser::parseRequest(std::string request){
       }
    }
 
-   while(getline(pathStream,buffer,'/')){
-      if(buffer != ""){
-         path.push_back(buffer);
+   if(!(tempPath == "/")){
+      while(getline(pathStream,buffer,'/')){
+         if(buffer != ""){
+            path.push_back(buffer);
+         }
       }
-   }
-   
-   division = path[path.size() - 1].find('?');
-   
-   if(division != std::string::npos){
-      query = path[path.size() - 1].substr(division+1);
-      path[path.size() - 1] = path[path.size() -1].substr(0,division);
+      division = path[path.size() - 1].find('?');
+      if(division != std::string::npos){
+         query = path[path.size() - 1].substr(division+1);
+         path[path.size() - 1] = path[path.size() -1].substr(0,division);
+      }
    }
 
    if(stream.peek() != EOF){

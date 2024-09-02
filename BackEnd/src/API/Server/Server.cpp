@@ -3,16 +3,21 @@
 #include <iostream>
 #include <cstring>
 
-Server::Server(std::string ipAddress, int port)
+Server::Server(std::string ipAddress, int port, bool TLS)
 : m_ipAddress{ipAddress}
 , m_port{port}
+, m_tls{TLS}
 {
    this->startServer();
+   this->createContext();
+   this->configureContext();
 }
 
 Server::~Server(){
    close(this->m_socket);
    close(this->m_newSocket);
+   if(this->m_tls)
+      SSL_CTX_free(this->m_context);
 }
 
 int Server::startServer(){
@@ -39,7 +44,7 @@ void Server::closeServer(){
 }
 
 int Server::startListen(){
-   if(listen(this->m_socket, 5) < 0){
+   if(listen(this->m_socket, 20) < 0){
       std::cout << "Erro ao escutar o socket.\n";
       return -1;
    }
@@ -54,15 +59,32 @@ int Server::acceptConnection(){
          "; porta: " << ntohs(m_socketAddress.sin_port) << "\n";
       return -1;
    }
+   if(this->m_tls){
+      this->m_ssl = SSL_new(this->m_context);
+      SSL_set_fd(this->m_ssl, this->m_newSocket);
+      int ret = SSL_accept(this->m_ssl);
+      if(ret <= 0){
+         int error = SSL_get_error(m_ssl, ret);
+         ERR_print_errors_fp(stderr);
+         SSL_shutdown(this->m_ssl);
+         SSL_free(this->m_ssl);
+         close(this->m_newSocket);
+         return -1;
+      }
+   }
    return 0;
 }
 
 std::string Server::readRequest(){
    std::string request{};
    char buffer[this->m_bufferSize];
-   ssize_t bytesReceived = read(this->m_newSocket, buffer, this->m_bufferSize);
-   if(bytesReceived < 0){
-      return request;
+   if(!this->m_tls){
+      ssize_t bytesReceived = read(this->m_newSocket, buffer, this->m_bufferSize);
+      if(bytesReceived < 0){
+         return request;
+      }
+   }else{
+      SSL_read(this->m_ssl, buffer, this->m_bufferSize);
    }
    std::string stringBuffer = buffer;
    request = stringBuffer;
@@ -70,15 +92,21 @@ std::string Server::readRequest(){
 }
 
 int Server::writeResponse(){
-   long bytesSent = write(this->m_newSocket, this->m_serverMessage.c_str(), this->m_serverMessage.size());
-   if(bytesSent == m_serverMessage.size()){
-      std::cout << "Mensagem enviada ao cliente.\n";
-      close(m_newSocket);
-      return 0;
+   if(!this->m_tls){
+      long bytesSent = write(this->m_newSocket, this->m_serverMessage.c_str(), this->m_serverMessage.size());
+      if(bytesSent == this->m_serverMessage.size()){
+         std::cout << "Mensagem enviada ao cliente.\n";
+         close(this->m_newSocket);
+         return 0;
+      }
+      std::cerr << "Erro ao enviar mensagem ao cliente" << '\n';
+      return -1;
    }
-   std::cout << "Erro enviando resposta para o cliente.\n";
+   SSL_write(this->m_ssl, this->m_serverMessage.c_str(), this->m_serverMessage.size());
+   SSL_shutdown(this->m_ssl);
+   SSL_free(this->m_ssl);
    close(this->m_newSocket);
-   return -1;
+   return 0;
 }
 
 void Server::setBSize(int bSize){
@@ -89,4 +117,27 @@ void Server::setResponse(std::string response){
    this->m_serverMessage = response;
 }
 
+void Server::createContext(){
+   if(!this->m_tls)
+      return;
+   this->m_context = SSL_CTX_new(TLS_server_method());
+   if(!this->m_context){
+      perror("Erro ao criar contexto SSL");
+      ERR_print_errors_fp(stderr);
+      exit(EXIT_FAILURE);
+   }
+}
+
+void Server::configureContext(){
+   if(!this->m_tls)
+      return;
+   if(SSL_CTX_use_certificate_file(this->m_context, CERT_PATH, SSL_FILETYPE_PEM) <= 0){
+      ERR_print_errors_fp(stderr);
+      exit(EXIT_FAILURE);
+   }
+   if(SSL_CTX_use_PrivateKey_file(this->m_context, KEY_PATH, SSL_FILETYPE_PEM) <= 0){
+      ERR_print_errors_fp(stderr);
+      exit(EXIT_FAILURE);
+   }
+}
 
