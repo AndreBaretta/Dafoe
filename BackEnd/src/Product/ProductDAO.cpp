@@ -56,11 +56,14 @@ std::vector<Product> ProductDAO::retrieveByID(const int id){
    return products;
 }
 
-Product ProductDAO::retrieveByBarcode(const std::string& barcode){
+std::vector<Product> ProductDAO::retrieveByBarcode(const std::string& barcode){
    std::unique_ptr<sql::PreparedStatement> state{m_theos.conn->prepareStatement("select * from product where barcode = ?")};
    state->setString(1,barcode);
    sql::ResultSet* result {state->executeQuery()};
-   result->next();
+   
+   std::vector<Product> products;
+   if(!result->next())
+      return products;
 
    Product product{};
    int productId = result->getInt("id");
@@ -73,8 +76,9 @@ Product ProductDAO::retrieveByBarcode(const std::string& barcode){
    std::string productReference = result->getString("reference").c_str();
    int productQuantity = result->getInt("quantity");
    product = Product(productId, productName, productGenericProduct,productManufacturer,productBarcode,productPrice,productCost,productReference,productQuantity);
+   products.push_back(product);
 
-   return product;
+   return products;
 }
 
 std::vector<Product> ProductDAO::retrieveByReference(const std::string& reference){

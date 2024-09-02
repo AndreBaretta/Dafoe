@@ -15,8 +15,8 @@ bool ProductOrderDAO::createProductOrder(const int sellOrder, const int product,
    stmt->setDouble(4, discount);
    stmt->setDouble(5, price);
    stmt->executeQuery();
-   return true;
    
+   return true;
 }
 
 bool ProductOrderDAO::deleteProductOrder(const int sellOrder){
@@ -47,7 +47,6 @@ std::vector<ProductOrder> ProductOrderDAO::retrieveProductOrderById(const int id
       vec.push_back(ProductOrder(result->getInt("sellOrder"), result->getInt("product"), result->getInt("quantity"), 
                                  result->getDouble("discount"), result->getDouble("price")));
    }
-   
-   return vec;
+
 }
 

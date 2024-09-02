@@ -150,7 +150,7 @@ std::string HTTPRequestHandler::handleRequest(HTTPRequest& request){
 	 return stringResponse;
       }
 
-      // PaymentMethod
+      // Client
       if(path.size() == 2 && path[0] == "api" && path[1] == "client"){
 	 if(query.empty()) {
 	    responseBody = handleRetrieveAllClient();
