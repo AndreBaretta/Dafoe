@@ -33,5 +33,18 @@ json UserMNG::retrieveUsername(const int id){
    return json;
 }
 
+std::string UserMNG::loginUser(const int id, const std::string& password){
+   
+}
+
+bool UserMNG::logoutUser(const int id){
+
+}
+
+bool UserMNG::validateSession(const std::string& token){
+
+}
+
+
 
 

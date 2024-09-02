@@ -25,6 +25,11 @@ public:
    // Delete
    bool deleteUser(const int id, const std::string& password);
 
+   // Authentication
+   std::string loginUser(const int id, const std::string& password);
+   bool logoutUser(const int id);
+   bool validateSession(const std::string& token);
+
 private:
    UserDAO& m_userDAO;
 };
