@@ -3,6 +3,8 @@
 
 #include <string>
 #include <iostream>
+#include <csignal>
+#include <atomic>
 #include "../Test/Test.hpp"
 #include "Server/Server.hpp"
 #include "HTTPRequest/HTTPRequest.hpp"
@@ -60,7 +62,8 @@ int main(){
    StatusMNG statusMNG                     = StatusMNG(statusDAO, jsonBuilder);
    GenericProductMNG genericProductMNG     = GenericProductMNG(genericProductDAO, jsonBuilder);
 
-   Server server                           = Server("127.0.0.1",12345);
+   Server server                           = Server("127.0.0.1", 12354, true);
+
    HTTPRequestParser httpParser            = HTTPRequestParser();
    HTTPRequestHandler httpHandler          = HTTPRequestHandler(httpResponseBuilder, productMNG, categoryMNG, paymentMethodMNG, clientMNG, employeeMNG, manufacturerMNG,
                                                                 sellOrderMNG, statusMNG, genericProductMNG);
@@ -212,14 +215,22 @@ int main(){
    //std::cout << "\nretrievePaymentMethod(3);\n:" << httpHandler.handleRequest(request) << '\n';
    /**/
 
+   
+   // requestString = "GET / HTTP/1.1\r\nHost: 127.0.0.1:12345\r\nUser-Agent: curl/8.9.1\r\nAccept: */*\r\n";
+   // request = httpParser.parseRequest(requestString);
+   // response = httpHandler.handleRequest(request);
+   // std::cout << response << '\n';
+
+
    server.startListen();
    while(true){
-      server.acceptConnection();
-      requestString  = server.readRequest();
-      request        = httpParser.parseRequest(requestString);
-      response       = httpHandler.handleRequest(request);
-      server.setResponse(response);
-      server.writeResponse();
+      if(server.acceptConnection() == 0){
+         requestString  = server.readRequest();
+         request        = httpParser.parseRequest(requestString);
+         response       = httpHandler.handleRequest(request);
+         server.setResponse(response);
+         server.writeResponse();
+      }
    }
    return 1;
 }
