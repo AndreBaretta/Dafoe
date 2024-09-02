@@ -23,7 +23,7 @@ function Clients() {
       const getData = async () => {
          try {
             const response = await fetch(
-               `http://localhost:12345/api/clients?name=${searchValue}`
+               `https://localhost:12354/api/client?name=${searchValue}`
             );
             const data = await response.json();
             setResults(data);
@@ -104,7 +104,7 @@ function Clients() {
                         ></button>
                      </th>
                      <th>
-                        Endereço{' '}
+                        Divida{' '}
                         <button
                            onClick={() => console.log('Ordenar por Endereço')}
                         ></button>
@@ -115,8 +115,8 @@ function Clients() {
                   {results.map((client) => (
                      <tr key={client.id}>
                         <td>{client.name}</td>
-                        <td>{client.phone}</td>
-                        <td>{client.address}</td>
+                        <td>{client.phoneNumber}</td>
+                        <td>{client.bill}</td>
                      </tr>
                   ))}
                </tbody>
