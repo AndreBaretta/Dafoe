@@ -8,68 +8,212 @@
    background-color: #0d1117; 
 }
 
-.Sales-logo {
-   height: 50vmin;
-   pointer-events: none;
+.Sidebar {
+   width: 230px;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   padding: 20px;
+   background-color: rgba(0, 0, 0, 0.7);
 }
 
 .Name-header {
-   background-color: #2f1624;
-   font-size: calc(40px + 2vmin);
-   color: white;
-}
-
-.Sales-header {
-   background-color: #2f1624;
-   min-height: 80vh;
    display: flex;
-   flex-direction: column;
    align-items: center;
-   justify-content: center;
-   font-size: calc(20px + 2vmin);
-   color: white;
-}
-
-.Sales-link {
-   color: #0059ff;
-   font-size: calc(5px + 2vmin);
-}
-
-.Sales-glass {
-   display: flex;
-   flex-direction: column;
-   width: 90%;
-   height: 90%;
-   border-radius: 2rem;
-   background-color: var(--glass);
-   padding: 2rem;
-   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-   align-items: center;
-   overflow: hidden;
-}
-
-.main-content {
-   display: flex;
-   flex-direction: column;
-   justify-content: center;
-   align-items: center;
-   width: 100%;
-   height: 100%;
-}
-
-.header {
-   text-align: center;
-   margin-bottom: 2rem;
+   margin-bottom: 20px;
 }
 
 .logo {
-   width: 150px;
-   height: auto;
-   margin-bottom: 1rem;
+   width: 50px;
+   height: 50px;
+   margin-right: 10px;
 }
 
 .company-name {
    font-size: calc(24px + 1vmin);
-   margin: 0;
    color: white;
+   margin: 0;
+}
+
+.Content {
+   flex-grow: 1;
+   padding: 40px;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: flex-start;
+}
+
+.SearchBarHeader {
+   width: 80%;
+   margin-bottom: 20px;
+   display: flex;
+   justify-content: center;
+   position: relative;
+}
+
+.Sales-table-container {
+   width: 90%;
+   max-width: 2600px;
+   background: linear-gradient(to bottom, #212020, #222121); 
+   border-radius: 1rem;
+   padding: 0.75rem;
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+   margin-top: 65px;
+   margin-left: 1%;
+   margin-right: 0.5%;
+}
+
+.Sales-table {
+   width: 100%;
+   border-collapse: collapse;
+   text-align: left;
+   font-size: calc(10px + 1vmin);
+   color: white;
+   background-color: rgba(0, 0, 0, 0.5);
+   background: #000000;
+   border-radius: 8px;
+   overflow: hidden;
+}
+
+.Sales-table th, .Sales-table td {
+   padding: 0.5rem;
+   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.Sales-table th {
+   position: relative;
+   background-color: rgba(0, 0, 0, 0.2);
+   font-weight: bold;
+   color: #ffffff;
+   text-transform: uppercase;
+   text-align: center; 
+}
+
+.Sales-table th button {
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   background: transparent;
+   border: none;
+   cursor: pointer;
+   opacity: 0; 
+}
+
+.Sales-table th button:focus {
+   outline: none; 
+}
+
+.Sales-table th:hover button {
+   opacity: 1; 
+   background: rgba(184, 40, 184, 0.1); 
+}
+
+.Sales-table tr {
+   transition: background-color 0.3s ease;
+}
+
+.Sales-table tr:hover {
+   background-color: rgba(255, 255, 255, 0.1);
+}
+
+.Sales-table td {
+   font-size: calc(8px + 1vmin);
+   white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+   .SearchBarHeader, .Sales-table-container {
+     width: 95%;
+   }
+
+   .Sales-table th, .Sales-table td {
+     padding: 0.5rem;
+     font-size: calc(8px + 1vmin);
+   }
+}
+
+.button-container {
+   position: absolute;
+   top: 10px; 
+   right: 10px; 
+   display: flex;
+   flex-direction: row;
+   gap: 10px; 
+}
+
+.newSaleButton {
+   padding: 8px 12px;
+   font-size: calc(10px + 1vmin);
+   color: white;
+   background-color: #262626; 
+   border: none;
+   border-radius: 4px;
+   cursor: pointer;
+}
+
+.newSaleButton:hover {
+   background-color: #393838;
+}
+
+.ReactModal__Content {
+   width: 400px;
+   max-width: 90%;
+   background-color: rgba(255, 255, 255, 0.9);
+   border-radius: 20px;
+   padding: 20px;
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+   overflow: auto;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   position: relative;
+}
+
+.ReactModal__Close {
+   position: absolute;
+   top: 10px;
+   right: 10px;
+   font-size: 30px;
+   cursor: pointer;
+}
+
+.newSale {
+   width: 100%;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+}
+
+.newSale label {
+   width: 100%;
+   margin-bottom: 10px;
+   font-weight: bold;
+   color: #333;
+}
+
+.newSale input {
+   width: calc(100% - 16px);
+   padding: 8px;
+   margin-top: 5px;
+   border-radius: 4px;
+   border: 1px solid #ccc;
+}
+
+.newSale button {
+   width: 100%;
+   padding: 10px;
+   background-color: #4caf50;
+   color: white;
+   border: none;
+   border-radius: 4px;
+   cursor: pointer;
+   margin-top: 20px;
+   text-align: center;
+}
+
+.newSale button:hover {
+   background-color: #45a049;
 }

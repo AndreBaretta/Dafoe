@@ -1,9 +1,8 @@
 #include "HTTPRequestHandler.hpp"
-#include <iostream>
 
 HTTPRequestHandler::HTTPRequestHandler(HTTPResponseBuilder& responseBuilder, ProductMNG& productMNG, CategoryMNG& categoryMNG, PaymentMethodMNG& paymentMethodMNG,
 				       ClientMNG& clientMNG, EmployeeMNG& employeeMNG, ManufacturerMNG& manufacturerMNG, SellOrderMNG& sellOrderMNG,
-				       StatusMNG& statusMNG, GenericProductMNG& genericProductMNG)
+				       StatusMNG& statusMNG, GenericProductMNG& genericProductMNG, UserMNG& userMNG)
 : m_productMNG{productMNG}
 , m_categoryMNG{categoryMNG}
 , m_paymentMethodMNG{paymentMethodMNG}
@@ -13,6 +12,7 @@ HTTPRequestHandler::HTTPRequestHandler(HTTPResponseBuilder& responseBuilder, Pro
 , m_sellOrderMNG{sellOrderMNG}
 , m_statusMNG{statusMNG}
 , m_genericProductMNG{genericProductMNG}
+, m_userMNG{userMNG}
 , m_responseBuilder{responseBuilder}
 {}
 
@@ -514,6 +514,9 @@ std::string HTTPRequestHandler::handleRequest(HTTPRequest& request){
 	 stringResponse = this->m_responseBuilder.buildResponseString(response);
 	 return stringResponse;
       }
+      /*if(path[1] == "login"){
+	 handle
+      }*/
       statusCode = "404";
       statusMessage = "Not Found";
       HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, responseBody);
@@ -1068,4 +1071,10 @@ std::string HTTPRequestHandler::handleRetrieveGenericProductByName(const std::st
    return response;
 }
 
+std::string HTTPRequestHandler::handleLogin(const int id, const std::string& password){
+   //s
+   std::string response = "a";
+   //std::string response = this->m_userMNG.
+   return response;
+}
 

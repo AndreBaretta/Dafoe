@@ -3,8 +3,6 @@
 
 #include <string>
 #include <iostream>
-#include <csignal>
-#include <atomic>
 #include "../Test/Test.hpp"
 #include "Server/Server.hpp"
 #include "HTTPRequest/HTTPRequest.hpp"
@@ -29,6 +27,8 @@
 #include "../Status/StatusMNG.hpp"
 #include "../GenericProduct/GenericProductDAO.hpp"
 #include "../GenericProduct/GenericProductMNG.hpp"
+#include "../User/UserDAO.hpp"
+#include "../User/UserMNG.hpp"
 #include "HTTPResponse/HTTPResponse.hpp"
 #include "HTTPResponseBuilder/HTTPResponseBuilder.hpp"
 #include <nlohmann/json.hpp>
@@ -37,6 +37,7 @@ using json = nlohmann::json;
 int main(){
    Test tester = Test();
    HTTPResponseBuilder httpResponseBuilder = HTTPResponseBuilder();
+   
    DafoeGod dafoeGod                       = DafoeGod();
    JsonBuilder jsonBuilder                 = JsonBuilder();
    
@@ -50,6 +51,7 @@ int main(){
    SellOrderDAO sellOrderDAO               = SellOrderDAO(dafoeGod);
    StatusDAO statusDAO                     = StatusDAO(dafoeGod);
    GenericProductDAO genericProductDAO     = GenericProductDAO(dafoeGod);
+   UserDAO userDAO                         = UserDAO(dafoeGod);
    
    // MNGs
    ProductMNG productMNG                   = ProductMNG(productDAO, jsonBuilder);
@@ -61,12 +63,13 @@ int main(){
    SellOrderMNG sellOrderMNG               = SellOrderMNG(sellOrderDAO, jsonBuilder);
    StatusMNG statusMNG                     = StatusMNG(statusDAO, jsonBuilder);
    GenericProductMNG genericProductMNG     = GenericProductMNG(genericProductDAO, jsonBuilder);
+   UserMNG userMNG                         = UserMNG(userDAO);
 
    Server server                           = Server("127.0.0.1", 12354, true);
 
    HTTPRequestParser httpParser            = HTTPRequestParser();
    HTTPRequestHandler httpHandler          = HTTPRequestHandler(httpResponseBuilder, productMNG, categoryMNG, paymentMethodMNG, clientMNG, employeeMNG, manufacturerMNG,
-                                                                sellOrderMNG, statusMNG, genericProductMNG);
+                                                                sellOrderMNG, statusMNG, genericProductMNG, userMNG);
    HTTPRequest request                     = HTTPRequest();
    HTTPResponse httpResponse               = HTTPResponse();
    std::string requestString{};
@@ -220,8 +223,6 @@ int main(){
    // request = httpParser.parseRequest(requestString);
    // response = httpHandler.handleRequest(request);
    // std::cout << response << '\n';
-
-
    server.startListen();
    while(true){
       if(server.acceptConnection() == 0){
