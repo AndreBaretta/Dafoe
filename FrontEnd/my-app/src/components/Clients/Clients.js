@@ -13,7 +13,7 @@ function Clients() {
    useEffect(() => {
       const getData = async () => {
          try {
-            const response = await fetch("http://localhost:12354/api/client?name=" + searchValue);
+            const response = await fetch("http://localhost:12345/api/client?name=" + searchValue);
             const data = await response.json();
             setResults(data);
          } catch (error) {
