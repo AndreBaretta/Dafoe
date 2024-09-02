@@ -63,6 +63,10 @@ set(SOURCES
    # ProductOrder
    BackEnd/src/ProductOrder/ProductOrder.cpp
    # BackEnd/src/ProductOrder/ProductOrderDAO.cpp
+   # User
+   BackEnd/src/User/User.cpp
+   BackEnd/src/User/UserDAO.cpp
+   BackEnd/src/User/UserMNG.cpp
    # Teste
    BackEnd/src/API/teste.cpp
    BackEnd/src/Test/Test.cpp
