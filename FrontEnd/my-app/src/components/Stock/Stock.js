@@ -13,11 +13,10 @@ function Stock() {
    const [queryOrder, setQueryOrder] = useState("name");
    const [isPendind, setIsPending] = useState(false)
    const [productDetails, setProductDetails] = useState({
-      id: '5',
       manufacturer: '',
       genericProduct: '',
       name: '',
-      barCode: '',
+      barcode: '',
       price: '',
       cost: '',
       reference: '',
@@ -28,7 +27,7 @@ function Stock() {
       try {
          setIsPending(true)
 
-         fetch('http://localhost:12345/api/product?', {
+         fetch('https://localhost:12354/api/product', {
             method: 'POST',
             headers: {"Content-Type" : "application/json"},
             body: JSON.stringify(productDetails)
@@ -42,12 +41,12 @@ function Stock() {
       }
    }
    //implementar assincronismo
-   //colocar uma tela extra informando o usuário de que o produto foi adicionado com sucesso
+
 
    useEffect(() => {
       const getData = async () => {
          try {
-            const response = await fetch(`http://localhost:12345/api/product?name=${searchValue}`);
+            const response = await fetch(`https://localhost:12354/api/product?name=${searchValue}`);
             const data = await response.json();
             setResults(data);
          } catch (error) {
@@ -160,8 +159,8 @@ function Stock() {
                   <label>Código de barras:
                      <input 
                         type='text' 
-                        name='barCode'
-                        value={productDetails.barCode}
+                        name='barcode'
+                        value={productDetails.barcode}
                         onChange={handleInputChange} 
                         placeholder="Digite o código de barras"
                      />
