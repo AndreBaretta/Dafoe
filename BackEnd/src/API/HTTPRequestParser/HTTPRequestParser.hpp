@@ -6,12 +6,15 @@
 #include <map>
 
 class HTTPRequestParser {
-   public:
-      HTTPRequestParser();
-   
-      ~HTTPRequestParser();
+public:
+   HTTPRequestParser();
 
-      HTTPRequest parseRequest(std::string request);
+   ~HTTPRequestParser();
+
+   HTTPRequest parseRequest(std::string request);
+private:
+   bool isNumber(const std::string& string);
+
 };
 
 #endif
