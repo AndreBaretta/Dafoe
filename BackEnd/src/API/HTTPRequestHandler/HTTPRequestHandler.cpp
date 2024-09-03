@@ -1,4 +1,5 @@
 #include "HTTPRequestHandler.hpp"
+#include <iostream>
 
 HTTPRequestHandler::HTTPRequestHandler(HTTPResponseBuilder& responseBuilder, ProductMNG& productMNG, CategoryMNG& categoryMNG, PaymentMethodMNG& paymentMethodMNG,
 				       ClientMNG& clientMNG, EmployeeMNG& employeeMNG, ManufacturerMNG& manufacturerMNG, SellOrderMNG& sellOrderMNG,
@@ -26,6 +27,7 @@ std::string HTTPRequestHandler::handleRequest(HTTPRequest& request){
    std::string stringResponse{};
    std::map<std::string,std::string> headers{};
 
+   headers["Access-Controll-Allow-Origin"] = "*";
    std::string method = request.getMethod();
    std::vector<std::string> path = request.getPath();
    std::string query = request.getQuery();
@@ -775,14 +777,14 @@ std::string HTTPRequestHandler::handleRetrieveCategory(const int id){
 
 bool HTTPRequestHandler::handleCreateProduct(const std::string& body){
    json json = json::parse(body);
-   std::string name = json["name"];
-   int genericProduct = json["genericProduct"];
-   int manufacturer = json["manufacturer"];
-   std::string barcode = json["barcode"];
-   double price = json["price"];
-   double cost = json["cost"];
-   std::string reference = json["reference"];
-   int quantity = json["quantity"];
+   std::string name = json["name"].get<std::string>();
+   int genericProduct = std::stoi(json["genericProduct"].get<std::string>());
+   int manufacturer = std::stoi(json["manufacturer"].get<std::string>());
+   std::string barcode = json["barcode"].get<std::string>();
+   double price = std::stod(json["price"].get<std::string>());
+   double cost = std::stod(json["cost"].get<std::string>());
+   std::string reference = json["reference"].get<std::string>();
+   int quantity = std::stoi(json["quantity"].get<std::string>());
    bool response = this->m_productMNG.createProduct(name,genericProduct,manufacturer,barcode,price,cost,reference,quantity);
    return response;
 };
