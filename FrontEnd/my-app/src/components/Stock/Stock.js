@@ -33,7 +33,8 @@ function Stock() {
             body: JSON.stringify(productDetails)
          }).then(() => {
             console.log("produto adicionado")
-            isPendind(false)
+            setIsPending(false)
+            setNewProductScreen(false);
          })
       } catch (error) {
          console.error(error);
@@ -74,7 +75,7 @@ function Stock() {
          <header className='SearchBarHeader'>
             <div className="button-container">
                <button className="newProductButton" onClick={() => setNewProductScreen(true)}>Novo Produto</button>
-               <button className="addStockButton" onClick={() => setAddStockScreen(true)}>Adicionar Estoque</button>
+               <button className="addStockButton" onClick={() => setAddStockScreen(true)}>Atualizar Produto</button>
             </div>
             <SearchBar results={searchValue} setResults={setSearchValue} />
          </header>
@@ -82,16 +83,16 @@ function Stock() {
             <table className="Stock-table">
                <thead>
                   <tr>
-                     <th>Nome <button onClick={() => setQueryOrder('name')}></button></th>
-                     <th>Fabricante <button onClick={() => setQueryOrder('name')}></button></th>
-                     <th>Preço <button onClick={() => setQueryOrder('name')}></button></th>
-                     <th>Custo <button onClick={() => setQueryOrder('name')}></button></th>
-                     <th>Quantidade <button onClick={() => setQueryOrder('name')}></button></th>
+                     <th>Nome <button onClick={() => setQueryOrder("name")}></button></th>
+                     <th>Fabricante <button onClick={() => setQueryOrder("manufacturer")}></button></th>
+                     <th>Preço <button onClick={() => setQueryOrder("price")}></button></th>
+                     <th>Custo <button onClick={() => setQueryOrder("cost")}></button></th>
+                     <th>Quantidade <button onClick={() => setQueryOrder("quantity")}></button></th>
                   </tr>
                </thead>
                <tbody>
                   {results.map((item) => (
-                     <tr key={item.id}>
+                     <tr key={item.name}>
                         <td>{item.name}</td>
                         <td>{item.manufacturer}</td>
                         <td>{item.price}</td>
@@ -195,7 +196,7 @@ function Stock() {
          >
             <div className='addStock'>
                <span className='ReactModal__Close' onClick={() => setAddStockScreen(false)}>X</span>
-               <h2>Adicionar Estoque</h2>
+               <h2>Atualizar produto</h2>
                <form>
                   <label>Nome do Produto:
                      <input 
@@ -205,7 +206,15 @@ function Stock() {
                         placeholder="Digite o nome do produto"
                      />
                   </label>
-                  <label>Quantidade:
+                  <label>Atributo:
+                     <input 
+                        type='text' 
+                        name='quantity'
+                        onChange={handleInputChange} 
+                        placeholder="Digite a quantidade"
+                     />
+                  </label>
+                  <label>Novo Atributo:
                      <input 
                         type='text' 
                         name='quantity'
