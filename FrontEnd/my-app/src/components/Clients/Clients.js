@@ -11,6 +11,7 @@ function Clients() {
    const [searchValue, setSearchValue] = useState('');
    const [results, setResults] = useState([]);
    const [newClientScreen, setNewClientScreen] = useState(false);
+<<<<<<< HEAD
    const [clientDetails, setClientDetails] = useState({
       name: '',
       email: '',
@@ -18,6 +19,18 @@ function Clients() {
       address: '',
    });
    const [isPending, setIsPending] = useState(false);
+=======
+<<<<<<< Updated upstream
+=======
+   const [clientDetails, setClientDetails] = useState({
+      name: '',
+      phoneNumber: '',
+      address: '',
+      bill: '',
+   });
+   const [isPending, setIsPending] = useState(false);
+>>>>>>> Stashed changes
+>>>>>>> maganbranch
 
    useEffect(() => {
       const getData = async () => {
@@ -35,6 +48,11 @@ function Clients() {
       getData();
    }, [searchValue]);
 
+<<<<<<< HEAD
+=======
+<<<<<<< Updated upstream
+=======
+>>>>>>> maganbranch
    const handleInputChange = (e) => {
       const { name, value } = e.target;
       setClientDetails((prevState) => ({
@@ -46,7 +64,11 @@ function Clients() {
    const submitClientData = async () => {
       setIsPending(true);
       try {
+<<<<<<< HEAD
          const response = await fetch('http://localhost:12345/api/clients', {
+=======
+         const response = await fetch('https://localhost:12354/api/client', {
+>>>>>>> maganbranch
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(clientDetails),
@@ -56,9 +78,15 @@ function Clients() {
             console.log('Cliente adicionado com sucesso');
             setClientDetails({
                name: '',
+<<<<<<< HEAD
                email: '',
                phone: '',
                address: '',
+=======
+               phoneNumber: '',
+               address: '',
+               bill: '',
+>>>>>>> maganbranch
             });
             setNewClientScreen(false);
             setSearchValue('');
@@ -72,6 +100,10 @@ function Clients() {
       }
    };
 
+<<<<<<< HEAD
+=======
+>>>>>>> Stashed changes
+>>>>>>> maganbranch
    return (
       <div className="Clients">
          <header className="Menu-header">
@@ -128,6 +160,72 @@ function Clients() {
             className="ReactModal__Content"
             ariaHideApp={false}
          >
+<<<<<<< HEAD
+=======
+<<<<<<< Updated upstream
+            <button className="ReactModal__Close" onClick={() => setNewClientScreen(false)}>X</button>
+            <div className="ReactModal__Header">
+               Adicionar Novo Cliente
+=======
+            <div className="newClient">
+               <span
+                  className="ReactModal__Close"
+                  onClick={() => setNewClientScreen(false)}
+               >
+                  X
+               </span>
+               <h2>Adicionar Novo Cliente</h2>
+               <form>
+                  <label>
+                     Nome:
+                     <input
+                        type="text"
+                        name="name"
+                        value={clientDetails.name}
+                        onChange={handleInputChange}
+                        placeholder="Digite o nome do cliente"
+                     />
+                  </label>
+                  <label>
+                     Telefone:
+                     <input
+                        type="tel"
+                        name="phoneNumber"
+                        value={clientDetails.phoneNumber}
+                        onChange={handleInputChange}
+                        placeholder="Digite o telefone do cliente"
+                     />
+                  </label>
+                  <label>
+                     Endereço:
+                     <input
+                        type="text"
+                        name="address"
+                        value={clientDetails.address}
+                        onChange={handleInputChange}
+                        placeholder="Digite o endereço do cliente"
+                     />
+                  </label>
+                  <label>
+                     Dívida:
+                     <input
+                        type="number"
+                        name="bill"
+                        value={clientDetails.bill}
+                        onChange={handleInputChange}
+                        placeholder="Digite a dívida do cliente"
+                     />
+                  </label>
+                  {!isPending && (
+                     <button type="button" onClick={submitClientData}>
+                        Salvar
+                     </button>
+                  )}
+                  {isPending && <button disabled>Salvando...</button>}
+               </form>
+>>>>>>> Stashed changes
+            </div>
+>>>>>>> maganbranch
             <div className="newClient">
                <span
                   className="ReactModal__Close"
