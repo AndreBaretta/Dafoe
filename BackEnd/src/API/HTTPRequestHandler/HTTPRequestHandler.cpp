@@ -1,4 +1,5 @@
 #include "HTTPRequestHandler.hpp"
+#include <iostream>
 
 HTTPRequestHandler::HTTPRequestHandler(HTTPResponseBuilder& responseBuilder, ProductMNG& productMNG, CategoryMNG& categoryMNG, PaymentMethodMNG& paymentMethodMNG,
 				       ClientMNG& clientMNG, EmployeeMNG& employeeMNG, ManufacturerMNG& manufacturerMNG, SellOrderMNG& sellOrderMNG,
@@ -26,6 +27,7 @@ std::string HTTPRequestHandler::handleRequest(HTTPRequest& request){
    std::string stringResponse{};
    std::map<std::string,std::string> headers{};
 
+   headers["Access-Controll-Allow-Origin"] = "*";
    std::string method = request.getMethod();
    std::vector<std::string> path = request.getPath();
    std::string query = request.getQuery();
@@ -775,42 +777,42 @@ std::string HTTPRequestHandler::handleRetrieveCategory(const int id){
 
 bool HTTPRequestHandler::handleCreateProduct(const std::string& body){
    json json = json::parse(body);
-   std::string name = json["name"];
-   int genericProduct = json["genericProduct"];
-   int manufacturer = json["manufacturer"];
-   std::string barcode = json["barcode"];
-   double price = json["price"];
-   double cost = json["cost"];
-   std::string reference = json["reference"];
-   int quantity = json["quantity"];
+   std::string name = json["name"].get<std::string>();
+   int genericProduct = std::stoi(json["genericProduct"].get<std::string>());
+   int manufacturer = std::stoi(json["manufacturer"].get<std::string>());
+   std::string barcode = json["barcode"].get<std::string>();
+   double price = std::stod(json["price"].get<std::string>());
+   double cost = std::stod(json["cost"].get<std::string>());
+   std::string reference = json["reference"].get<std::string>();
+   int quantity = std::stoi(json["quantity"].get<std::string>());
    bool response = this->m_productMNG.createProduct(name,genericProduct,manufacturer,barcode,price,cost,reference,quantity);
    return response;
 };
 
 bool HTTPRequestHandler::handleUpdateProduct(const int id, const std::string& body){
    json json = json::parse(body);
-   std::string name = json["name"];
-   int genericProduct = json["genericProduct"];
-   int manufacturer = json["manufacturer"];
-   std::string barcode = json["barcode"];
-   double price = json["price"];
-   double cost = json["cost"];
-   std::string reference = json["reference"];
-   int quantity = json["quantity"];
+   std::string name = json["name"].get<std::string>();
+   int genericProduct = std::stoi(json["genericProduct"].get<std::string>());
+   int manufacturer = std::stoi(json["manufacturer"].get<std::string>());
+   std::string barcode = json["barcode"].get<std::string>();
+   double price = std::stod(json["price"].get<std::string>());
+   double cost = std::stod(json["cost"].get<std::string>());
+   std::string reference = json["reference"].get<std::string>();
+   int quantity = std::stoi(json["quantity"].get<std::string>());
    bool response = this->m_productMNG.updateProduct(id,name,genericProduct,manufacturer,barcode,price,cost,reference,quantity);
    return response;
 }
 
 bool HTTPRequestHandler::handleCreateCategory(const std::string& body){
    json json = json::parse(body);
-   std::string name = json["name"];
+   std::string name = json["name"].get<std::string>();
    bool response = this->m_categoryMNG.createCategory(name);
    return response;
 }
 
 bool HTTPRequestHandler::handleUpdateCategory(const int id, const std::string& body){
    json json = json::parse(body);
-   std::string name = json["name"];
+   std::string name = json["name"].get<std::string>();
    bool response = this->m_categoryMNG.updateCategory(id,name);
    return response;
 }
@@ -841,14 +843,14 @@ bool HTTPRequestHandler::handleDeletePaymentMethod(const int id){
 
 bool HTTPRequestHandler::handleCreatePaymentMethod(const std::string& body){
    json json = json::parse(body);
-   std::string name = json["name"];
+   std::string name = json["name"].get<std::string>();
    bool response = this->m_paymentMethodMNG.createPaymentMethod(name);
    return response;
 }
 
 bool HTTPRequestHandler::handleUpdatePaymentMethod(const int id, const std::string& body){
    json json = json::parse(body);
-   std::string name = json["name"];
+   std::string name = json["name"].get<std::string>();
    bool response = this->m_paymentMethodMNG.updatePaymentMethod(id,name);
    return response;
 }
@@ -865,19 +867,19 @@ std::string HTTPRequestHandler::handleRetrievePaymentMethod(const int id){
 
 bool HTTPRequestHandler::handleCreateClient(const std::string& body){
    json json = json::parse(body);
-   std::string name	   = json["name"];
-   std::string phoneNumber = json["phoneNumber"];
-   std::string address	   = json["address"];
-   double bill		   = json["bill"];
+   std::string name	   = json["name"].get<std::string>();
+   std::string phoneNumber = json["phoneNumber"].get<std::string>();
+   std::string address	   = json["address"].get<std::string>();
+   double bill		   = std::stod(json["bill"].get<std::string>());
    return this->m_clientMNG.createClient(name,phoneNumber,address,bill);
 }
 
 bool HTTPRequestHandler::handleUpdateClient(const int id, const std::string& body){
    json json = json::parse(body);
-   std::string name	   = json["name"];
-   std::string phoneNumber = json["phoneNumber"];
-   std::string address	   = json["address"];
-   double bill		   = json["bill"];
+   std::string name	   = json["name"].get<std::string>();
+   std::string phoneNumber = json["phoneNumber"].get<std::string>();
+   std::string address	   = json["address"].get<std::string>();
+   double bill		   = std::stod(json["bill"].get<std::string>());
    return this->m_clientMNG.updateClient(id,name,phoneNumber,address,bill);
 }
 
@@ -887,15 +889,15 @@ bool HTTPRequestHandler::handleDeleteClient(const int id){
 
 bool HTTPRequestHandler::handleCreateEmployee(const std::string& body){
    json json = json::parse(body);
-   std::string name	   = json["name"];
-   std::string cargo       = json["cargo"];
+   std::string name	   = json["name"].get<std::string>();
+   std::string cargo       = json["cargo"].get<std::string>();
    return this->m_employeeMNG.createEmployee(name,cargo);
 }
 
 bool HTTPRequestHandler::handleUpdateEmployee(const int id, const std::string& body){
    json json = json::parse(body);
-   std::string name	   = json["name"];
-   std::string cargo       = json["cargo"];
+   std::string name	   = json["name"].get<std::string>();
+   std::string cargo       = json["cargo"].get<std::string>();
    return this->m_employeeMNG.updateEmployee(id,name,cargo);
 }
 
@@ -905,13 +907,13 @@ bool HTTPRequestHandler::handleDeleteEmployee(const int id){
 
 bool HTTPRequestHandler::handleCreateManufacturer(const std::string& body){
    json json = json::parse(body);
-   std::string name	   = json["name"];
+   std::string name	   = json["name"].get<std::string>();
    return this->m_manufacturerMNG.createManufacturer(name);
 }
 
 bool HTTPRequestHandler::handleUpdateManufacturer(const int id, const std::string& body){
    json json = json::parse(body);
-   std::string name	   = json["name"];
+   std::string name	   = json["name"].get<std::string>();
    return this->m_manufacturerMNG.updateManufacturer(id,name);
 }
 
@@ -921,37 +923,37 @@ bool HTTPRequestHandler::handleDeleteManufacturer(const int id){
 
 bool HTTPRequestHandler::handleCreateOrder(const std::string& body){
    json json = json::parse(body);
-   int clientId		= json["clientId"];
-   int sellerId		= json["sellerId"];
-   int deliveredBy	= json["deliveredBy"];
-   int statusId		= json["statusId"];
-   int paymentMethod	= json["paymentMethod"];
-   std::string date     = json["date"];
-   double price   	= json["price"];
+   int clientId		= std::stoi(json["clientId"].get<std::string>());
+   int sellerId		= std::stoi(json["sellerId"].get<std::string>());
+   int deliveredBy	= std::stoi(json["deliveredBy"].get<std::string>());
+   int statusId		= std::stoi(json["statusId"].get<std::string>());
+   int paymentMethod	= std::stoi(json["paymentMethod"].get<std::string>());
+   std::string date     = json["date"].get<std::string>();
+   double price   	= std::stod(json["price"].get<std::string>());
    return this->m_sellOrderMNG.createOrder(clientId,sellerId,deliveredBy,statusId,paymentMethod,date,price);
 }
 
 bool HTTPRequestHandler::handleUpdateOrder(const int id, const std::string& body){
    json json = json::parse(body);
-   int clientId		= json["clientId"];
-   int sellerId		= json["sellerId"];
-   int deliveredBy	= json["deliveredBy"];
-   int statusId		= json["statusId"];
-   int paymentMethod	= json["paymentMethod"];
-   std::string date     = json["date"];
-   double price   	= json["price"];
+   int clientId		= std::stoi(json["clientId"].get<std::string>());
+   int sellerId		= std::stoi(json["sellerId"].get<std::string>());
+   int deliveredBy	= std::stoi(json["deliveredBy"].get<std::string>());
+   int statusId		= std::stoi(json["statusId"].get<std::string>());
+   int paymentMethod	= std::stoi(json["paymentMethod"].get<std::string>());
+   std::string date     = json["date"].get<std::string>();
+   double price   	= std::stod(json["price"].get<std::string>());
    return this->m_sellOrderMNG.updateOrder(id, clientId,sellerId,deliveredBy,statusId,paymentMethod,date,price);
 }
 
 bool HTTPRequestHandler::handleCreateStatus(const std::string& body){
    json json = json::parse(body);
-   std::string name = json["name"];
+   std::string name = json["name"].get<std::string>();
    return this->m_statusMNG.createStatus(name);
 }
 
 bool HTTPRequestHandler::handleUpdateStatus(const int id, const std::string& body){
    json json = json::parse(body);
-   std::string name = json["name"];
+   std::string name = json["name"].get<std::string>();
    return this->m_statusMNG.updateStatus(id, name);
 }
 
@@ -961,19 +963,19 @@ bool HTTPRequestHandler::handleDeleteStatus(const int id){
 
 bool HTTPRequestHandler::handleCreateGenericProduct(const std::string& body){
    json json = json::parse(body);
-   std::string name	 = json["name"];
-   int quantity		 = json["quantity"];
-   int category		 = json["category"];
-   std::string reference = json["reference"];
+   std::string name	 = json["name"].get<std::string>();
+   int quantity		 = std::stoi(json["quantity"].get<std::string>());
+   int category		 = std::stoi(json["category"].get<std::string>());
+   std::string reference = json["reference"].get<std::string>();
    return this->m_genericProductMNG.createGenericProduct(name,quantity,category,reference);
 }
 
 bool HTTPRequestHandler::handleUpdateGenericProduct(const int id, const std::string& body){
    json json = json::parse(body);
-   std::string name	 = json["name"];
-   int quantity		 = json["quantity"];
-   int category		 = json["category"];
-   std::string reference = json["reference"];
+   std::string name	 = json["name"].get<std::string>();
+   int quantity		 = std::stoi(json["quantity"].get<std::string>());
+   int category		 = std::stoi(json["category"].get<std::string>());
+   std::string reference = json["reference"].get<std::string>();
    return this->m_genericProductMNG.updateGenericProduct(id, name,quantity,category,reference);
 }
 

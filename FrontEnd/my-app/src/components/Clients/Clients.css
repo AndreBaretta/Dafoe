@@ -8,33 +8,6 @@
    background-color: #0d1117;
 }
 
-.Sidebar {
-   width: 230px;
-   display: flex;
-   flex-direction: column;
-   align-items: center;
-   padding: 20px;
-   background-color: rgba(0, 0, 0, 0.7);
-}
-
-.Name-header {
-   display: flex;
-   align-items: center;
-   margin-bottom: 20px;
-}
-
-.logo {
-   width: 50px;
-   height: 50px;
-   margin-right: 10px;
-}
-
-.company-name {
-   font-size: calc(24px + 1vmin);
-   color: white;
-   margin: 0;
-}
-
 .Content {
    flex-grow: 1;
    padding: 40px;
@@ -44,18 +17,10 @@
    justify-content: flex-start;
 }
 
-.SearchBarHeader {
-   width: 80%;
-   margin-bottom: 20px;
-   display: flex;
-   justify-content: center;
-   position: relative;
-}
-
 .Clients-table-container {
    width: 90%;
    max-width: 2600px;
-   background: linear-gradient(to bottom, #212020, #222121);
+   background: linear-gradient(to bottom, #212020, #222121); 
    border-radius: 1rem;
    padding: 0.75rem;
    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -122,17 +87,6 @@
 .Clients-table td {
    font-size: calc(8px + 1vmin);
    white-space: nowrap;
-}
-
-@media (max-width: 768px) {
-   .SearchBarHeader, .Clients-table-container {
-     width: 95%;
-   }
-
-   .Clients-table th, .Clients-table td {
-     padding: 0.5rem;
-     font-size: calc(8px + 1vmin);
-   }
 }
 
 .button-container {
