@@ -6,7 +6,7 @@ function Menu() {
          <div className="MenuItem">
             <button onClick={() => window.open('http://localhost:3000?home', '_self')}></button>
             <div className="Menu-icon">☰</div>
-            <span>Diário</span>
+            <span>Home</span>
          </div>
          <div className="MenuItem">
             <button onClick={() => window.open('http://localhost:3000?sales', '_self')}></button>
@@ -26,7 +26,7 @@ function Menu() {
          <div className="MenuItem">
             <button onClick={() => window.open('http://localhost:3000?history', '_self')}></button>
             <div className="Menu-icon">🕒</div>
-            <span>Registro</span>
+            <span>Histórico</span>
          </div>
       </div>
    )

@@ -4,12 +4,11 @@ import Menu from '../Menu/Menuu';
 
 function Home() {
    return (
-      <div className="Register">
+      <div className="Home">
             <header className='Menu-header'>
                <Sidebar />
                <Menu />
             </header>
-         
       </div>
    );
 }
