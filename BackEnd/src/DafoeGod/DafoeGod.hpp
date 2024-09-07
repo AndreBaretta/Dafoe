@@ -25,15 +25,17 @@ class DafoeGod{
 public:
     DafoeGod();
     ~DafoeGod();
-    sql::ResultSet* query(std::shared_ptr<sql::PreparedStatement> queryArgument, TypeOfTransaction type);
-    std::shared_ptr<sql::Statement> getStatement();
+    void query(TypeOfTransaction type);
     sql::Connection* getConnection();
+    sql::PreparedStatement* getStatement();
+    sql::ResultSet* getResult();
+    bool prepareStatement(const std::string& stmt);
     private:
     sql::Driver* m_driver{};
     sql::SQLString m_url{};
     sql::Properties m_properties{};
     sql::Connection* m_conn{};
-    std::shared_ptr<sql::PreparedStatement> m_statement{};
+    sql::PreparedStatement* m_statement{};
     sql::ResultSet* m_res{};
 
     friend class ProductDAO;

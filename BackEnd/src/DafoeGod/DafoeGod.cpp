@@ -26,17 +26,15 @@ DafoeGod::~DafoeGod(){
 }
 
 
-sql::ResultSet* DafoeGod::query(std::shared_ptr<sql::PreparedStatement> queryArgument, TypeOfTransaction type){
+void DafoeGod::query(TypeOfTransaction type){
 
    try{ 
    switch(type){
-   RETRIEVE:
-      this->m_statement = std::move(queryArgument);
+   case RETRIEVE:
       this->m_res = m_statement->executeQuery();
-      return m_res;
+         break;
 
       default:
-         this->m_statement = std::move(queryArgument);
          this->m_statement->executeQuery();
          break;
       }
@@ -44,9 +42,12 @@ sql::ResultSet* DafoeGod::query(std::shared_ptr<sql::PreparedStatement> queryArg
       throw;
    }
 
-   return nullptr;
 }
 
-
+bool DafoeGod::prepareStatement(const std::string& stmt){
+   this->m_statement = this->m_conn->prepareStatement(stmt);
+   return true;
+}
+sql::ResultSet* DafoeGod::getResult(){return this->m_res;}
+sql::PreparedStatement* DafoeGod::getStatement(){return this->m_statement;}
 sql::Connection* DafoeGod::getConnection(){return this->m_conn;}
-std::shared_ptr<sql::Statement> DafoeGod::getStatement(){return this->m_statement;}
