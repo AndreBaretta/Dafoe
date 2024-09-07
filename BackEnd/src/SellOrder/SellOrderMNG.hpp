@@ -10,8 +10,6 @@ public:
                     const int paymentMethod, const std::string& date, const double price);
    bool updateOrder(const int id, const int clientId, const int sellerId, const int deliveredBy, const int statusId,
                     const int paymentMethod, const std::string& date, const double price);
-   bool addProductToOrder(const int sellOrder, const int product, const int quantity, const double discount, const double price);
-   bool removeProductFromOrder(const int sellOrder, const int product);
    json retrieveOrder(const int id);
    json retrieveOrderByClient(const int clientId);
    json retrieveOrderByProduct(const int productId);

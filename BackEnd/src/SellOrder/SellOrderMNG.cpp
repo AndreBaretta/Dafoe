@@ -15,14 +15,6 @@ bool SellOrderMNG::updateOrder(const int id, const int clientId, const int selle
    return this->m_sellOrderDAO.updateOrder(id,clientId,sellerId,deliveredBy,statusId,paymentMethod,date,price);
 }
 
-bool SellOrderMNG::addProductToOrder(const int sellOrder, const int product, const int quantity, const double discount, const double price){
-   return this->m_sellOrderDAO.addProductOrder(sellOrder, product, quantity, discount, price);
-}
-
-bool SellOrderMNG::removeProductFromOrder(const int sellOrder, const int product){
-   return this->m_sellOrderDAO.removeProductOrder(sellOrder, product);
-}
-
 json SellOrderMNG::retrieveOrder(const int id){
    std::vector<SellOrder> sellOrder = this->m_sellOrderDAO.retrieveOrderById(id);
    json response = this->m_jsonBuilder.sellOrderVectorToJson(sellOrder);
