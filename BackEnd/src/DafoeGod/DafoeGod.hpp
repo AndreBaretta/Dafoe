@@ -1,12 +1,13 @@
 #ifndef DAFOEGOD_2013
 #define DAFOEGOD_2013
-
+#include <optional>
 #include <mariadb/conncpp.hpp>
 #include <mariadb/conncpp/Connection.hpp>
 #include <mariadb/conncpp/ResultSet.hpp>
 #include <mariadb/conncpp/SQLString.hpp>
 #include <mariadb/conncpp/Statement.hpp>
 #include <mariadb/conncpp/jdbccompat.hpp>
+#include "../Type/Enum.hpp"
 
 class ProductDAO;
 class ClientDAO;
@@ -24,14 +25,16 @@ class DafoeGod{
 public:
     DafoeGod();
     ~DafoeGod();
-    sql::ResultSet* query(const std::string& queryArgument);
+    sql::ResultSet* query(std::shared_ptr<sql::PreparedStatement> queryArgument, TypeOfTransaction type);
+    std::shared_ptr<sql::Statement> getStatement();
+    sql::Connection* getConnection();
     private:
-    sql::Driver* driver{};
-    sql::SQLString url{};
-    sql::Properties properties{};
-    sql::Connection* conn{};
-    sql::Statement* statement{};
-    sql::ResultSet* res{};
+    sql::Driver* m_driver{};
+    sql::SQLString m_url{};
+    sql::Properties m_properties{};
+    sql::Connection* m_conn{};
+    std::shared_ptr<sql::PreparedStatement> m_statement{};
+    sql::ResultSet* m_res{};
 
     friend class ProductDAO;
     friend class ClientDAO;
