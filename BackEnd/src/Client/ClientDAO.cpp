@@ -14,13 +14,13 @@ bool ClientDAO::createClient(const std::string& name, const std::string& phoneNu
       m_theos.getStatement()->setString(3, address);
       m_theos.getStatement()->setDouble(4, bill);
       m_theos.query(INSERT);
+      return true;
 
    }catch(std::exception& e){
       std::cerr << e.what() << '\n';
-      return false;
+      throw;
    }
 
-   return true;
 }
 
 bool ClientDAO::deleteClient(const int id){
@@ -29,30 +29,29 @@ bool ClientDAO::deleteClient(const int id){
       m_theos.prepareStatement("delete from client where id = ?");
       m_theos.getStatement()->setInt(1, id);
       m_theos.query(DELETE);
+      return true;
 
    }catch(std::exception& e){
       std::cerr << e.what() << '\n';
-      return false;
+      throw;
    }
-   return true;
 }
 
 bool ClientDAO::updateClient(const int id, const std::string& name, const std::string& phoneNumber, const std::string& address, const double bill){
    try{
       m_theos.prepareStatement("update client set name = ?, phoneNumber = ?, address = ?, bill = ? where id = ?");
-
       m_theos.getStatement()->setString(1, name);
       m_theos.getStatement()->setString(2, phoneNumber);
       m_theos.getStatement()->setString(3, address);
       m_theos.getStatement()->setDouble(4, bill);
       m_theos.getStatement()->setInt(5, id);
       m_theos.query(UPDATE);
+      return true;
 
    }catch(sql::SQLException& e){
       std::cerr << e.what() << '\n';
-      return false;
+      throw;
    }
-   return true;
 }
 
 std::vector<Client> ClientDAO::retrieveClientByName(const std::string& name){
@@ -75,7 +74,7 @@ std::vector<Client> ClientDAO::retrieveClientByName(const std::string& name){
 
    }catch(std::exception& e){
       std::cerr << e.what() << '\n';
-      throw e;
+      throw;
    }
 
 }
@@ -93,9 +92,10 @@ std::vector<Client> ClientDAO::listAllClient(){
       }
 
       return clients;
+
    }catch(std::exception& e){
       std::cerr << e.what() << '\n';
-      throw e;
+      throw;
    }
 }
 
@@ -113,8 +113,9 @@ std::vector<Client> ClientDAO::retrieveClient(const int id){
                               m_theos.getResult()->getString("phoneNumber").c_str(),
                               m_theos.getResult()->getString("address").c_str(), m_theos.getResult()->getDouble("bill")));
       return client;
+
    }catch(std::exception& e){
       std::cerr << e.what() << '\n';
-      throw e;
+      throw;
    }
 }
