@@ -4,8 +4,9 @@
 #include <iostream>
 
 
-SellOrderDAO::SellOrderDAO(DafoeGod& zeus)
+SellOrderDAO::SellOrderDAO(DafoeGod& zeus, ProductDAO& pdao)
 : m_theos{zeus}
+, m_pDAO{pdao}
 {}
 
 
@@ -15,7 +16,6 @@ bool SellOrderDAO::createOrder(const int clientId, const int sellerId,
                                const double price){
    try{
       m_theos.prepareStatement("insert into sellOrder (client, seller, deliveredBy, status, paymentMethod, date, price) values (?,?,?,?,?,?,?)");
-
       m_theos.getStatement()->setInt(1, clientId);
       m_theos.getStatement()->setInt(2, sellerId);
       m_theos.getStatement()->setInt(3, deliveredBy);
@@ -33,6 +33,63 @@ bool SellOrderDAO::createOrder(const int clientId, const int sellerId,
    }
 }
 
+bool SellOrderDAO::addProductOrder(const int sellOrder, const int product, const int quantity, const double discount, const double price){
+  try{
+      m_theos.prepareStatement("insert into productOrder (sellOrder, product, quantity, discount, price) values (?,?,?,?,?)");
+      m_theos.getStatement()->setInt(1, sellOrder);
+      m_theos.getStatement()->setInt(2, product);
+      m_theos.getStatement()->setInt(3, quantity);
+      m_theos.getStatement()->setDouble(4, discount);
+      m_theos.getStatement()->setDouble(5, price);
+      m_theos.query(CREATE);
+      
+      return true;
+
+   }catch(std::exception& e){
+      std::cerr << e.what() << '\n';
+      throw;
+   } 
+
+   return false;
+}
+
+bool SellOrderDAO::updateProductOrder(const int sellOrder, const int product, const int quantity, const double discount, const double price){
+   try{
+      m_theos.prepareStatement("update productOrder set quantity=?, discount=?, price=? where sellOrder = ? and product = ?");
+      m_theos.getStatement()->setInt(1, quantity);
+      m_theos.getStatement()->setDouble(2, discount);
+      m_theos.getStatement()->setDouble(3, price);
+      m_theos.getStatement()->setInt(4, sellOrder);
+      m_theos.getStatement()->setInt(5, product);
+      m_theos.query(UPDATE);
+
+      return true;
+
+   }catch(std::exception& e){
+      std::cerr << e.what() << '\n';
+      throw;
+   }
+
+   return false;
+}
+
+bool SellOrderDAO::removeProductOrder(const int sellOrder, const int product){
+   try{
+      m_theos.prepareStatement("delete from productOrder where sellOrder = ? and producct = ?");
+      m_theos.getStatement()->setInt(1, sellOrder);
+      m_theos.getStatement()->setInt(2, product);
+      m_theos.query(DELETE);
+
+      return true;
+      
+   }catch(std::exception& e){
+      std::cerr << e.what() << '\n';
+      throw;
+   }
+
+   return false;
+}
+
 
 bool SellOrderDAO::updateOrder(const int id, const int clientId, const int sellerId,
                                const int deliveredBy, const int status, 
@@ -40,7 +97,6 @@ bool SellOrderDAO::updateOrder(const int id, const int clientId, const int selle
                                const double price){
    try{
       m_theos.prepareStatement("update sellOrder set client = ?, seller = ?, deliveredBy = ?, status = ?, paymentMethod = ?, date = ?, price = ? where id = ?");
-
       m_theos.getStatement()->setInt(1, id);
       m_theos.getStatement()->setInt(2, clientId);
       m_theos.getStatement()->setInt(3, sellerId);
