@@ -5,7 +5,7 @@ function Menu() {
       <div className="Menu">
          <div className="MenuItem">
             <button onClick={() => window.open('http://localhost:3000?home', '_self')}></button>
-            <div className="Menu-icon">☰</div>
+            <div className="Menu-icon">🏠</div>
             <span>Home</span>
          </div>
          <div className="MenuItem">

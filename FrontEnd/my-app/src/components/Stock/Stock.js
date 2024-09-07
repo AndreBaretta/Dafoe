@@ -41,8 +41,6 @@ function Stock() {
          setNewProductScreen(false);
       }
    }
-   //implementar assincronismo
-
 
    useEffect(() => {
       const getData = async () => {
@@ -83,7 +81,7 @@ function Stock() {
             <table className="Stock-table">
                <thead>
                   <tr>
-                     <th>Nome <button onClick={() => setQueryOrder("name")}></button></th>
+                     <th>Item <button onClick={() => setQueryOrder("name")}></button></th>
                      <th>Fabricante <button onClick={() => setQueryOrder("manufacturer")}></button></th>
                      <th>Preço <button onClick={() => setQueryOrder("price")}></button></th>
                      <th>Custo <button onClick={() => setQueryOrder("cost")}></button></th>
