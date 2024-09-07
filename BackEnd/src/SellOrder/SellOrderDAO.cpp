@@ -1,9 +1,7 @@
 #include <mariadb/conncpp/PreparedStatement.hpp>
-#include <mariadb/conncpp/ResultSet.hpp>
 #include "SellOrderDAO.hpp"
 #include "SellOrder.hpp"
-#include <memory>
-
+#include <iostream>
 
 
 SellOrderDAO::SellOrderDAO(DafoeGod& zeus)
@@ -15,18 +13,24 @@ bool SellOrderDAO::createOrder(const int clientId, const int sellerId,
                                const int deliveredBy, const int status, 
                                const int paymentMethod, const std::string& date, 
                                const double price){
-   std::unique_ptr<sql::PreparedStatement> stmt{m_theos.conn->prepareStatement("insert into sellOrder (client, seller, deliveredBy, status, paymentMethod, date, price) values (?,?,?,?,?,?,?)")};
+   try{
+      m_theos.prepareStatement("insert into sellOrder (client, seller, deliveredBy, status, paymentMethod, date, price) values (?,?,?,?,?,?,?)");
 
-   stmt->setInt(1, clientId);
-   stmt->setInt(2, sellerId);
-   stmt->setInt(3, deliveredBy);
-   stmt->setInt(4, status);
-   stmt->setInt(5, paymentMethod);
-   stmt->setString(6, date);
-   stmt->setDouble(7, price);
-   stmt->executeQuery();
+      m_theos.getStatement()->setInt(1, clientId);
+      m_theos.getStatement()->setInt(2, sellerId);
+      m_theos.getStatement()->setInt(3, deliveredBy);
+      m_theos.getStatement()->setInt(4, status);
+      m_theos.getStatement()->setInt(5, paymentMethod);
+      m_theos.getStatement()->setString(6, date);
+      m_theos.getStatement()->setDouble(7, price);
+      m_theos.query(CREATE);
 
-   return true;
+      return true;
+
+   }catch(std::exception& e){
+      std::cerr << e.what() << '\n';
+      throw;
+   }
 }
 
 
@@ -34,92 +38,153 @@ bool SellOrderDAO::updateOrder(const int id, const int clientId, const int selle
                                const int deliveredBy, const int status, 
                                const int paymentMethod, const std::string& date, 
                                const double price){
+   try{
+      m_theos.prepareStatement("update sellOrder set client = ?, seller = ?, deliveredBy = ?, status = ?, paymentMethod = ?, date = ?, price = ? where id = ?");
 
-   std::unique_ptr<sql::PreparedStatement> stmt{m_theos.conn->prepareStatement("update sellOrder set client = ?, seller = ?, deliveredBy = ?, status = ?, paymentMethod = ?, date = ?, price = ? where id = ?")};
+      m_theos.getStatement()->setInt(1, id);
+      m_theos.getStatement()->setInt(2, clientId);
+      m_theos.getStatement()->setInt(3, sellerId);
+      m_theos.getStatement()->setInt(4, deliveredBy);
+      m_theos.getStatement()->setInt(5, status);
+      m_theos.getStatement()->setInt(6, paymentMethod);
+      m_theos.getStatement()->setString(7, date);
+      m_theos.getStatement()->setDouble(8, price);
+      m_theos.query(UPDATE);
 
-   stmt->setInt(1, id);
-   stmt->setInt(2, clientId);
-   stmt->setInt(3, sellerId);
-   stmt->setInt(4, deliveredBy);
-   stmt->setInt(5, status);
-   stmt->setInt(6, paymentMethod);
-   stmt->setString(7, date);
-   stmt->setDouble(8, price);
-   stmt->executeQuery();
+      return true;
 
-   return true;
+   }catch(std::exception& e){
+      std::cerr << e.what() << '\n';
+      throw;
+   }
 }
 
 std::vector<SellOrder> SellOrderDAO::retrieveOrderById(const int id){
-   std::unique_ptr<sql::PreparedStatement> stmt{m_theos.conn->prepareStatement("select * from sellOrder where id = ?")};
-   stmt->setInt(1, id);
-   sql::ResultSet* result{stmt->executeQuery()};
-   std::vector<SellOrder> sellOrder{};
-   if(!result->next())
+   try{
+      m_theos.prepareStatement("select * from sellOrder where id = ?");
+      m_theos.getStatement()->setInt(1, id);
+      m_theos.query(RETRIEVE);
+
+      std::vector<SellOrder> sellOrder{};
+      if(!m_theos.getResult()->next())
+         return sellOrder;
+      sellOrder.push_back(SellOrder(m_theos.getResult()->getInt("id"), m_theos.getResult()->getInt("client"), 
+                                    m_theos.getResult()->getInt("seller"), m_theos.getResult()->getInt("deliveredBy"), 
+                                    m_theos.getResult()->getInt("status"), m_theos.getResult()->getInt("paymentMethod"), 
+                                    m_theos.getResult()->getString("date").c_str(), m_theos.getResult()->getDouble("price")));
       return sellOrder;
-   sellOrder.push_back(SellOrder(result->getInt("id"), result->getInt("client"), result->getInt("seller"), result->getInt("deliveredBy"), result->getInt("status"), 
-                                 result->getInt("paymentMethod"), static_cast<std::string>(result->getString("date")), result->getDouble("price")));
-   return sellOrder;
+
+   }catch(std::exception& e){
+      std::cerr << e.what() << '\n';
+      throw;
+   }
 }
 
 std::vector<SellOrder> SellOrderDAO::retrieveOrderByClient(const int clientId){
-   std::unique_ptr<sql::PreparedStatement> stmt{m_theos.conn->prepareStatement("select * from sellOrder where client = ?")};
-   stmt->setInt(1, clientId);
-   sql::ResultSet* result{stmt->executeQuery()};
-   std::vector<SellOrder> vec{};
-   while(result->next()){
-   vec.push_back(SellOrder(result->getInt("id"), result->getInt("client"), result->getInt("seller"), result->getInt("delivereBy"), result->getInt("status"), result->getInt("paymentMethod"), static_cast<std::string>(result->getString("date")), result->getDouble("price")));
-   }
+   try{
+      m_theos.prepareStatement("select * from sellOrder where client = ?");
+      m_theos.getStatement()->setInt(1, clientId);
+      m_theos.query(RETRIEVE);
 
-   return vec;
+      std::vector<SellOrder> vec{};
+      while(m_theos.getResult()->next()){
+         vec.push_back(SellOrder(m_theos.getResult()->getInt("id"), m_theos.getResult()->getInt("client"), 
+                                 m_theos.getResult()->getInt("seller"), m_theos.getResult()->getInt("delivereBy"), 
+                                 m_theos.getResult()->getInt("status"), m_theos.getResult()->getInt("paymentMethod"), 
+                                 m_theos.getResult()->getString("date").c_str(), m_theos.getResult()->getDouble("price")));
+      }
+
+      return vec;
+
+   }catch(std::exception& e){
+      std::cerr << e.what() << '\n';
+      throw;
+   }
 }
 
 std::vector<SellOrder> SellOrderDAO::retrieveOrderByProduct(const int productId){
-   std::unique_ptr<sql::PreparedStatement> stmt{m_theos.conn->prepareStatement("select * from sellOrder where product = ?")};
-   stmt->setInt(1, productId);
-   sql::ResultSet* result{stmt->executeQuery()};
-   std::vector<SellOrder> vec{};
-   while(result->next()){
-      vec.push_back(SellOrder(result->getInt("id"), result->getInt("client"), result->getInt("seller"), result->getInt("delivereBy"), result->getInt("status"), result->getInt("paymentMethod"), static_cast<std::string>(result->getString("date")), result->getDouble("price")));
-   }
+   try{
+      m_theos.prepareStatement("select * from sellOrder where product = ?");
+      m_theos.getStatement()->setInt(1, productId);
+      m_theos.query(RETRIEVE);
 
-   return vec;
+      std::vector<SellOrder> vec{};
+      while(m_theos.getResult()->next()){
+         vec.push_back(SellOrder(m_theos.getResult()->getInt("id"), m_theos.getResult()->getInt("client"), 
+                                 m_theos.getResult()->getInt("seller"), m_theos.getResult()->getInt("delivereBy"), 
+                                 m_theos.getResult()->getInt("status"), m_theos.getResult()->getInt("paymentMethod"), 
+                                 m_theos.getResult()->getString("date").c_str(), m_theos.getResult()->getDouble("price")));
+      }
+
+      return vec;
+
+   }catch(std::exception& e){
+      std::cerr << e.what() << '\n';
+      throw;
+   }
 }
 
 std::vector<SellOrder> SellOrderDAO::retrieveOrderByStatus(const int statusId){
-   std::unique_ptr<sql::PreparedStatement> stmt{m_theos.conn->prepareStatement("select * from sellOrder where status = ?")};
-   stmt->setInt(1, statusId);
-   sql::ResultSet* result{stmt->executeQuery()};
-   std::vector<SellOrder> vec{};
-   while(result->next()){
-   vec.push_back(SellOrder(result->getInt("id"), result->getInt("client"), result->getInt("seller"), result->getInt("delivereBy"), result->getInt("status"), result->getInt("paymentMethod"), static_cast<std::string>(result->getString("date")), result->getDouble("price")));
-   }
+   try{
+      m_theos.prepareStatement("select * from sellOrder where status = ?");
+      m_theos.getStatement()->setInt(1, statusId);
+      m_theos.query(RETRIEVE);
 
-   return vec;
+      std::vector<SellOrder> vec{};
+      while(m_theos.getResult()->next()){
+         vec.push_back(SellOrder(m_theos.getResult()->getInt("id"), m_theos.getResult()->getInt("client"), 
+                                 m_theos.getResult()->getInt("seller"), m_theos.getResult()->getInt("delivereBy"), 
+                                 m_theos.getResult()->getInt("status"), m_theos.getResult()->getInt("paymentMethod"), 
+                                 m_theos.getResult()->getString("date").c_str(), m_theos.getResult()->getDouble("price")));
+      }
+
+      return vec;
+
+   }catch(std::exception& e){
+      std::cerr << e.what() << '\n';
+      throw;
+   }
 }
 
 std::vector<SellOrder> SellOrderDAO::retrieveOrderBySeller(const int sellerId){
-   std::unique_ptr<sql::PreparedStatement> stmt{m_theos.conn->prepareStatement("select * from sellOrder where seller = ?")};
-   stmt->setInt(1, sellerId);
-   sql::ResultSet* result{stmt->executeQuery()};
-   std::vector<SellOrder> vec{};
-   while(result->next()){
-      vec.push_back(SellOrder(result->getInt("id"), result->getInt("client"), result->getInt("seller"), result->getInt("delivereBy"), result->getInt("status"), 
-                              result->getInt("paymentMethod"), static_cast<std::string>(result->getString("date")), result->getDouble("price")));
-   }
+   try{
+      m_theos.prepareStatement("select * from sellOrder where seller = ?");
+      m_theos.getStatement()->setInt(1, sellerId);
+      m_theos.query(RETRIEVE);
 
-   return vec;
+      std::vector<SellOrder> vec{};
+      while(m_theos.getResult()->next()){
+         vec.push_back(SellOrder(m_theos.getResult()->getInt("id"), m_theos.getResult()->getInt("client"), 
+                                 m_theos.getResult()->getInt("seller"), m_theos.getResult()->getInt("delivereBy"), 
+                                 m_theos.getResult()->getInt("status"), m_theos.getResult()->getInt("paymentMethod"), 
+                                 m_theos.getResult()->getString("date").c_str(), m_theos.getResult()->getDouble("price")));
+      }
+
+      return vec;
+
+   }catch(std::exception& e){
+      std::cerr << e.what() << '\n';
+      throw;
+   }
 }
 
 std::vector<SellOrder> SellOrderDAO::listAllSellOrder(){
-   std::unique_ptr<sql::PreparedStatement> stmt{m_theos.conn->prepareStatement("select * from sellOrder")};
-   sql::ResultSet* result{stmt->executeQuery()};
-   std::vector<SellOrder> vec{};
-   while(result->next()){
-      vec.push_back(SellOrder(result->getInt("id"), result->getInt("client"), result->getInt("seller"), result->getInt("deliveredBy"), result->getInt("status"),
-                    result->getInt("paymentMethod"), result->getString("date").c_str(), result->getDouble("price")));
-   }
-   return vec;
-}
+   try{
+      m_theos.prepareStatement("select * from sellOrder");
+      m_theos.query(RETRIEVE);
 
+      std::vector<SellOrder> vec{};
+      while(m_theos.getResult()->next()){
+         vec.push_back(SellOrder(m_theos.getResult()->getInt("id"), m_theos.getResult()->getInt("client"), 
+                                 m_theos.getResult()->getInt("seller"), m_theos.getResult()->getInt("delivereBy"), 
+                                 m_theos.getResult()->getInt("status"), m_theos.getResult()->getInt("paymentMethod"), 
+                                 m_theos.getResult()->getString("date").c_str(), m_theos.getResult()->getDouble("price")));
+      }
+      return vec;
+
+   }catch(std::exception& e){
+      std::cerr << e.what() << '\n';
+      throw;
+   }
+}
 
