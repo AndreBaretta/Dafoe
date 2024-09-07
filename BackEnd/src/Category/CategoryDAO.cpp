@@ -1,59 +1,90 @@
 #include "CategoryDAO.hpp"
 #include <mariadb/conncpp/PreparedStatement.hpp>
-#include <mariadb/conncpp/ResultSet.hpp>
-#include <memory>
 #include <string>
+#include <iostream>
 
 CategoryDAO::CategoryDAO(DafoeGod& dafoe) : m_theos{dafoe}
 {}
 
 bool CategoryDAO::createCategory(std::string name){
-   std::unique_ptr<sql::PreparedStatement> stmt{m_theos.conn->prepareStatement("insert into category (name) values (?)")};
-   stmt->setString(1, name);
-   stmt->executeQuery();
+   try{
+      m_theos.prepareStatement("insert into category (name) values (?)");
+      m_theos.getStatement()->setString(1, name);
+      m_theos.query(CREATE);
+      return true;
 
-   return true;
+   }catch(std::exception& e){
+      std::cerr << e.what() << '\n';
+      throw;
+   }
 }
 
 bool CategoryDAO::deleteCategory(const int id){
-   std::unique_ptr<sql::PreparedStatement> stmt{m_theos.conn->prepareStatement("delete from category where id = ?")};
-   stmt->setInt(1, id);
-   stmt->executeQuery();
+   try{
+      m_theos.prepareStatement("delete from category where id = ?");
+      m_theos.getStatement()->setInt(1, id);
+      m_theos.query(DELETE);
+      return true;
 
-   return true;
+   }catch(std::exception& e){
+      std::cerr << e.what() << '\n';
+      throw;
+   }
 }
 
 bool CategoryDAO::updateCategory(const int id, std::string name){
-   std::unique_ptr<sql::PreparedStatement> stmt{m_theos.conn->prepareStatement("update category set name = ? where id = ?")};
-   stmt->setInt(1, id);
-   stmt->setString(2, name);
-   stmt->executeQuery();
+   try{
+      m_theos.prepareStatement("update category set name = ? where id = ?");
+      m_theos.getStatement()->setInt(1, id);
+      m_theos.getStatement()->setString(2, name);
+      m_theos.query(UPDATE); 
+      return true;
 
-   return true;
+   }catch(std::exception& e){
+      std::cerr << e.what() << '\n';
+      throw;
+   }
 }
 
 std::vector<Category> CategoryDAO::listCategories(){
-   std::unique_ptr<sql::PreparedStatement> stmt{m_theos.conn->prepareStatement("select * from category")};
-   sql::ResultSet* result {stmt->executeQuery()};
-   std::vector<Category> categories{};
+   try{
+      m_theos.prepareStatement("select * from category");
+      m_theos.query(RETRIEVE);
 
-   while(result->next()){
-      categories.push_back(Category(result->getInt("id"), static_cast<std::string>(result->getString("name"))));
+      std::vector<Category> categories{};
+
+      while(m_theos.getResult()->next()){
+         categories.push_back(Category(m_theos.getResult()->getInt("id"), 
+                                       m_theos.getResult()->getString("name").c_str()));
+      }
+
+      return categories;
+
+   }catch(std::exception& e){
+      std::cerr << e.what() << '\n';
+      throw;
    }
-
-   return categories;
 }
 
 std::vector<Category> CategoryDAO::retrieveCategory(const int id){
-   std::unique_ptr<sql::PreparedStatement> stmt{m_theos.conn->prepareStatement("select * from category where id = ?")};
-   stmt->setInt(1,id);
-   sql::ResultSet* result {stmt->executeQuery()};
-   std::vector<Category> category{};
-   if(!result->next()){
+   try{
+      m_theos.prepareStatement("select * from category where id = ?");
+      m_theos.getStatement()->setInt(1,id);
+      m_theos.query(RETRIEVE);
+
+      std::vector<Category> category{};
+      if(!m_theos.getResult()->next()){
+         return category;
+      }
+
+      int categoryId = m_theos.getResult()->getInt("id");
+      std::string categoryName = m_theos.getResult()->getString("name").c_str();
+      category.push_back(Category(categoryId, categoryName));
+
       return category;
+
+   }catch(std::exception& e){
+      std::cerr << e.what() << '\n';
+      throw;
    }
-   int categoryId = result->getInt("id");
-   std::string categoryName = result->getString("name").c_str();
-   category.push_back(Category(categoryId, categoryName));
-   return category;
 }

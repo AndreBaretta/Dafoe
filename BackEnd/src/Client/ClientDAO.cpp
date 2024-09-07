@@ -13,7 +13,7 @@ bool ClientDAO::createClient(const std::string& name, const std::string& phoneNu
       m_theos.getStatement()->setString(2, phoneNumber);
       m_theos.getStatement()->setString(3, address);
       m_theos.getStatement()->setDouble(4, bill);
-      m_theos.query(INSERT);
+      m_theos.query(CREATE);
       return true;
 
    }catch(std::exception& e){
