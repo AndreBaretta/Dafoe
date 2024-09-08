@@ -27,6 +27,7 @@
    margin-top: 65px;
    margin-left: 1%;
    margin-right: 0.5%;
+   border: 1px solid rgba(255, 255, 255, 0.3); /* Borda ao redor da tabela */
 }
 
 .Stock-table {
@@ -43,7 +44,8 @@
 
 .Stock-table th, .Stock-table td {
    padding: 0.5rem;
-   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+   border-bottom: 1px solid rgba(255, 255, 255, 0.5); /* Linha de divisão horizontal */
+   border-right: 1px solid rgba(255, 255, 255, 0.2); /* Linha de divisão vertical */
 }
 
 .Stock-table th {
@@ -87,6 +89,10 @@
 .Stock-table td {
    font-size: calc(8px + 1vmin);
    white-space: nowrap;
+}
+
+.Stock-table th:last-child, .Stock-table td:last-child {
+   border-right: none; /* Remove a borda direita da última coluna */
 }
 
 @media (max-width: 768px) {
@@ -174,8 +180,7 @@
 }
 
 .newProduct input,
-.addStock input
- {
+.addStock input {
    width: calc(100% - 16px);
    padding: 8px;
    margin-top: 5px;
@@ -184,8 +189,7 @@
 }
 
 .newProduct button,
-.addStock button 
-{
+.addStock button {
    width: 100%; 
    padding: 10px;
    background-color: #4caf50;
@@ -201,16 +205,6 @@
 .addStock button:hover {
    background-color: #45a049;
 }
-
-.deleteProduct {
-   display: flex;
-   flex-direction: column;
-   align-items: center; 
-   justify-content: center; 
-   width: 100%;
-}
-
-
 
 .deleteProduct {
    display: flex;

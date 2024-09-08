@@ -62,6 +62,7 @@
    margin-top: 65px;
    margin-left: 1%;
    margin-right: 0.5%;
+   border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .Sales-table {
@@ -78,7 +79,8 @@
 
 .Sales-table th, .Sales-table td {
    padding: 0.5rem;
-   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+   border-bottom: 1px solid rgba(255, 255, 255, 0.2); 
+   border-right: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .Sales-table th {
@@ -122,6 +124,10 @@
 .Sales-table td {
    font-size: calc(8px + 1vmin);
    white-space: nowrap;
+}
+
+.Sales-table td:last-child {
+   border-right: none; 
 }
 
 @media (max-width: 768px) {
@@ -216,4 +222,3 @@
 .newSale button:hover {
    background-color: #45a049;
 }
-

@@ -5,7 +5,7 @@
 .Employees {
   display: flex;
   min-height: 100vh;
-  background-color: #0d1117;
+  background-color: #0d1117; 
 }
 
 .Content {
@@ -20,13 +20,14 @@
 .Employees-table-container {
   width: 90%;
   max-width: 2600px;
-  background: linear-gradient(to bottom, #212020, #222121);
+  background: linear-gradient(to bottom, #212020, #222121); 
   border-radius: 1rem;
   padding: 0.75rem;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   margin-top: 65px;
   margin-left: 1%;
   margin-right: 0.5%;
+  border: 1px solid rgba(255, 255, 255, 0.3); 
 }
 
 .Employees-table {
@@ -43,7 +44,8 @@
 
 .Employees-table th, .Employees-table td {
   padding: 0.5rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5); 
+  border-right: 1px solid rgba(255, 255, 255, 0.2); 
 }
 
 .Employees-table th {
@@ -53,6 +55,27 @@
   color: #ffffff;
   text-transform: uppercase;
   text-align: center;
+}
+
+.Employees-table th button {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  opacity: 0; 
+}
+
+.Employees-table th button:focus {
+  outline: none; 
+}
+
+.Employees-table th:hover button {
+  opacity: 1; 
+  background: rgba(184, 40, 184, 0.1); 
 }
 
 .Employees-table tr {
@@ -68,6 +91,10 @@
   white-space: nowrap;
 }
 
+.Employees-table th:last-child, .Employees-table td:last-child {
+  border-right: none; 
+}
+
 @media (max-width: 768px) {
   .Employees-table-container {
     width: 95%;
@@ -81,45 +108,41 @@
 
 .button-container {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 10px; 
+  right: 10px; 
   display: flex;
   flex-direction: row;
-  gap: 10px;
+  gap: 10px; 
 }
 
-.newEmployeeButton {
-  padding: 8px 12px;
-  font-size: calc(10px + 1vmin);
-  color: white;
-  background-color: #262626;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.newEmployeeButton:hover {
-  background-color: #393838;
-}
-
+.newEmployeeButton,
 .editEmployeeButton {
   padding: 8px 12px;
   font-size: calc(10px + 1vmin);
   color: white;
-  background-color: #262626;
+  background-color: #262626; 
   border: none;
   border-radius: 4px;
   cursor: pointer;
 }
 
+.newEmployeeButton:hover,
 .editEmployeeButton:hover {
-  background-color: #393838;
+  background-color:  #393838;
+}
+
+.ReactModal__Overlay {
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .ReactModal__Content {
-  width: 400px;
-  max-width: 90%;
-  background-color: rgba(255, 255, 255, 0.9);
+  width: 400px; 
+  max-width: 90%; 
+  background-color: rgba(255, 255, 255, 0.9); 
   border-radius: 20px;
   padding: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -138,14 +161,17 @@
   cursor: pointer;
 }
 
-.newEmployee {
+.newEmployee,
+.editEmployee,
+.deleteEmployee {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.newEmployee h2 {
+.newEmployee h2,
+.editEmployee h2 {
   width: 100%;
   margin-bottom: 20px;
   text-align: center;
@@ -153,14 +179,17 @@
   color: #333;
 }
 
-.newEmployee label {
+.newEmployee label,
+.editEmployee label,
+.deleteEmployee label {
   width: 100%;
   margin-bottom: 10px;
   font-weight: bold;
   color: #333;
 }
 
-.newEmployee input {
+.newEmployee input,
+.editEmployee input {
   width: calc(100% - 16px);
   padding: 8px;
   margin-top: 5px;
@@ -168,8 +197,9 @@
   border: 1px solid #ccc;
 }
 
-.newEmployee button {
-  width: 100%;
+.newEmployee button,
+.editEmployee button {
+  width: 100%; 
   padding: 10px;
   background-color: #4caf50;
   color: white;
@@ -180,8 +210,31 @@
   text-align: center;
 }
 
-.newEmployee button:hover {
+.newEmployee button:hover,
+.editEmployee button:hover {
   background-color: #45a049;
+}
+
+.deleteEmployee {
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  justify-content: center; 
+  width: 100%;
+}
+
+.deleteEmployee label {
+  width: 100%;
+  text-align: center; 
+  margin-bottom: 10px;
+}
+
+.deleteEmployee select {
+  width: 100%; 
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  margin-bottom: 20px; 
 }
 
 .deleteEmployee button {
@@ -197,19 +250,4 @@
 
 .deleteEmployee button:hover {
   background-color: #c0392b; 
-}
-
-.updateEmployee button {
-  width: 100%; 
-  padding: 10px;
-  background-color: #103cdc; 
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  text-align: center;
-}
-
-.updateEmployee button:hover {
-  background-color: #0f1adf; 
 }

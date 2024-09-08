@@ -27,6 +27,7 @@
    margin-top: 65px;
    margin-left: 1%;
    margin-right: 0.5%;
+   border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .Clients-table {
@@ -44,6 +45,7 @@
 .Clients-table th, .Clients-table td {
    padding: 0.5rem;
    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+   background-color: #212121; 
 }
 
 .Clients-table th {
@@ -53,27 +55,22 @@
    color: #ffffff;
    text-transform: uppercase;
    text-align: center;
+   border-left: 1px solid rgba(255, 255, 255, 0.2); 
 }
 
-.Clients-table th button {
-   position: absolute;
-   top: 0;
-   left: 0;
-   width: 100%;
-   height: 100%;
-   background: transparent;
-   border: none;
-   cursor: pointer;
-   opacity: 0;
+.Clients-table th:first-child {
+   border-left: none; 
 }
 
-.Clients-table th button:focus {
-   outline: none;
+.Clients-table td {
+   font-size: calc(8px + 1vmin);
+   white-space: nowrap;
+   text-align: center;
+   border-left: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.Clients-table th:hover button {
-   opacity: 1;
-   background: rgba(184, 40, 184, 0.1);
+.Clients-table td:first-child {
+   border-left: none; 
 }
 
 .Clients-table tr {
@@ -82,11 +79,6 @@
 
 .Clients-table tr:hover {
    background-color: rgba(255, 255, 255, 0.1);
-}
-
-.Clients-table td {
-   font-size: calc(8px + 1vmin);
-   white-space: nowrap;
 }
 
 .button-container {

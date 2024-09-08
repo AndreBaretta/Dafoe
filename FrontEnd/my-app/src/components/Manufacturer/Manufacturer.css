@@ -36,11 +36,12 @@
    margin-top: 65px;
    margin-left: 1%;
    margin-right: 0.5%;
+   border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .Manufacturer-table {
    width: 100%;
-   border-collapse: collapse;
+   border-collapse: collapse; 
    text-align: left;
    font-size: calc(10px + 1vmin);
    color: white;
@@ -52,7 +53,8 @@
 
 .Manufacturer-table th, .Manufacturer-table td {
    padding: 0.5rem;
-   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+   border-bottom: 1px solid rgba(255, 255, 255, 0.2); 
+   border-right: 1px solid rgba(255, 255, 255, 0.2); 
 }
 
 .Manufacturer-table th {
@@ -188,4 +190,3 @@
 .newManufacturer button:hover {
    background-color: #45a049;
 }
-
