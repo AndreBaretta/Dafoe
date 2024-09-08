@@ -29,64 +29,70 @@ function Clients() {
       bill: 'asc',
    });
 
-   useEffect(() => {
-      const getData = async () => {
-         try {
-            const response = await fetch(`http://localhost:12354/api/client?name=${searchValue}`);
-            const data = await response.json();
-            if (Array.isArray(data)) {
-               setResults(data);
-            } else {
-               console.error('Received data is not an array:', data);
-               setResults([]);
-            }
-         } catch (error) {
-            console.error('Error fetching clients:', error);
+   // Extracting fetch logic to reuse
+   const getData = async () => {
+      try {
+         const response = await fetch(`https://localhost:12354/api/client?name=${searchValue}`);
+         const data = await response.json();
+         if (Array.isArray(data)) {
+            setResults(data);
+         } else {
+            console.error('Received data is not an array:', data);
             setResults([]);
          }
-      };
-
-      getData();
-   }, [searchValue]);
-
-   const handleInputChange = (e) => {
-      const { name, value } = e.target;
-      setClientDetails((prevState) => ({
-         ...prevState,
-         [name]: value,
-      }));
-   };
-
-   const submitClientData = async () => {
-      setIsPending(true);
-      try {
-         const response = await fetch('http://localhost:12354/api/client', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(clientDetails),
-         });
-
-         if (response.ok) {
-            console.log('Cliente adicionado com sucesso');
-            setClientDetails({
-               id: '',
-               name: '',
-               phoneNumber: '',
-               address: '',
-               bill: '',
-            });
-            setNewClientScreen(false);
-            setSearchValue('');
-         } else {
-            console.error('Erro ao adicionar cliente');
-         }
       } catch (error) {
-         console.error('Erro na requisição:', error);
-      } finally {
-         setIsPending(false);
+         console.error('Error fetching clients:', error);
+         setResults([]);
       }
    };
 
+   // Fetch clients initially and whenever searchValue changes
+   useEffect(() => {
+      getData();
+   }, [searchValue]);
+
+const handleInputChange = (e) => {
+   const { name, value } = e.target;
+
+   // Ensure bill is handled as a string
+   setClientDetails((prevState) => ({
+      ...prevState,
+      [name]: name === 'bill' ? String(value) : value, // Always store bill as a string
+   }));
+};   
+  const submitClientData = async () => {
+   setIsPending(true);
+   try {
+      const response = await fetch('https://localhost:12354/api/client', {
+         method: 'POST',
+         headers: { 'Content-Type': 'application/json' },
+         body: JSON.stringify({
+            ...clientDetails,
+            bill: String(clientDetails.bill), // Make sure bill is sent as a string
+         }),
+      });
+
+      if (response.ok) {
+         console.log('Cliente adicionado com sucesso');
+         setClientDetails({
+            id: '',
+            name: '',
+            phoneNumber: '',
+            address: '',
+            bill: '', // Reset bill to an empty string
+         });
+         setNewClientScreen(false);
+         setSearchValue('');
+         getData();
+      } else {
+         console.error('Erro ao adicionar cliente');
+      }
+   } catch (error) {
+      console.error('Erro na requisição:', error);
+   } finally {
+      setIsPending(false);
+   }
+};
    const handleSort = (key) => {
       const order = sortOrder[key] === 'asc' ? 'desc' : 'asc';
 
@@ -109,39 +115,37 @@ function Clients() {
       setEditClientScreen(true);
    };
 
-   const handleUpdateClient = async () => {
-      setIsPending(true);
-      try {
-         const updatedClientDetails = {
+  const handleUpdateClient = async () => {
+   setIsPending(true);
+   try {
+      const response = await fetch(`https://localhost:12354/api/client/${clientDetails.id}`, {
+         method: 'PUT',
+         headers: { 'Content-Type': 'application/json' },
+         body: JSON.stringify({
             ...clientDetails,
-            bill: String(clientDetails.bill),
-         };
+            bill: String(clientDetails.bill), // Make sure bill is sent as a string
+         }),
+      });
 
-         const response = await fetch(`http://localhost:12354/api/client/${clientDetails.id}`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(updatedClientDetails),
-         });
-
-         if (response.ok) {
-            console.log('Cliente atualizado com sucesso');
-            setEditMode(false);
-            setEditClientScreen(false);
-            setSearchValue('');
-         } else {
-            console.error('Erro ao atualizar cliente');
-         }
-      } catch (error) {
-         console.error('Erro na requisição:', error);
-      } finally {
-         setIsPending(false);
+      if (response.ok) {
+         console.log('Cliente atualizado com sucesso');
+         setEditMode(false);
+         setEditClientScreen(false);
+         setSearchValue('');
+         getData();
+      } else {
+         console.error('Erro ao atualizar cliente');
       }
-   };
-
+   } catch (error) {
+      console.error('Erro na requisição:', error);
+   } finally {
+      setIsPending(false);
+   }
+};
    const handleDeleteClient = async () => {
       setIsPending(true);
       try {
-         const response = await fetch(`http://localhost:12354/api/client/${clientDetails.id}`, {
+         const response = await fetch(`https://localhost:12354/api/client/${clientDetails.id}`, {
             method: 'DELETE',
          });
 
@@ -149,7 +153,8 @@ function Clients() {
             console.log('Cliente deletado com sucesso');
             setEditMode(false);
             setEditClientScreen(false);
-            setSearchValue('');
+            setSearchValue(''); // Reset search and trigger re-fetch
+            getData(); // Fetch updated list
          } else {
             console.error('Erro ao deletar cliente');
          }
@@ -173,12 +178,6 @@ function Clients() {
                   onClick={() => setNewClientScreen(true)}
                >
                   Novo Cliente
-               </button>
-               <button
-                  className="editClientButton"
-                  onClick={() => setEditClientScreen(true)}
-               >
-                  Editar Cliente
                </button>
             </div>
             <SearchBar results={searchValue} setResults={setSearchValue} />
@@ -239,7 +238,7 @@ function Clients() {
                   <label>
                      Telefone:
                      <input
-                        type="tel"
+                        type="text"
                         name="phoneNumber"
                         value={clientDetails.phoneNumber}
                         onChange={handleInputChange}
@@ -302,7 +301,7 @@ function Clients() {
                   <label>
                      Telefone:
                      <input
-                        type="tel"
+                        type="text"
                         name="phoneNumber"
                         value={clientDetails.phoneNumber}
                         onChange={handleInputChange}
