@@ -7,6 +7,9 @@ import Stock from './components/Stock/Stock';
 import Register from './components/Register/Register';
 import Clients from './components/Clients/Clients';
 import History from './components/History/History';
+import Manufacturer from './components/Manufacturer/Manufacturer';
+import General from './components/General/General';
+import Employee from './components/Employee/Employee';
 
 function App() {
 
@@ -35,6 +38,12 @@ function App() {
          return <Clients />
       } else if (page === 'history') {
          return <History />
+      } else if (page === 'manufacturer') {
+         return <Manufacturer />
+      } else if (page === 'general') {
+         return <General />
+      } else if (page === 'employee') {
+         return <Employee />
       } else {
          return <Login />
       }
