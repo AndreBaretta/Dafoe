@@ -13,11 +13,13 @@ function Sales() {
    const [price, setPrice] = useState("");
    const [seller, setSeller] = useState("");
    const [date, setDate] = useState("");
+   const [productsList, setProductsList] = useState([]);
+   const [sellersList, setSellersList] = useState([]);
 
    useEffect(() => {
       const getData = async () => {
          try {
-            const response = await fetch(`http://localhost:12345/api/order?product=${searchValue}`);
+            const response = await fetch(`https://localhost:12354/api/order?product=${searchValue}`);
             const data = await response.json();
             setResults(data);
          } catch (error) {
@@ -27,6 +29,24 @@ function Sales() {
 
       getData();
    }, [searchValue]);
+
+   useEffect(() => {
+      const fetchProductsAndSellers = async () => {
+         try {
+            const productsResponse = await fetch('https://localhost:12354/api/product?name=');
+            const productsData = await productsResponse.json();
+            setProductsList(productsData);
+
+            const sellersResponse = await fetch('https://localhost:12354/api/employee?name=');
+            const sellersData = await sellersResponse.json();
+            setSellersList(sellersData);
+         } catch (error) {
+            console.error(error);
+         }
+      };
+
+      fetchProductsAndSellers();
+   }, []);
 
    const handleSubmit = () => {
       console.log({ product, price, seller, date });
@@ -76,13 +96,23 @@ function Sales() {
                <span className='ReactModal__Close' onClick={() => setNewSaleScreen(false)}>X</span>
                <h2>Nova Venda</h2>
                <label>Produto</label>
-               <input type="text" value={product} onChange={(e) => setProduct(e.target.value)} />
+               <select value={product} onChange={(e) => setProduct(e.target.value)}>
+                  <option value="">Selecione um produto</option>
+                  {productsList.map((p) => (
+                     <option key={p.id} value={p.id}>{p.name}</option>
+                  ))}
+               </select>
                
                <label>Valor</label>
                <input type="number" value={price} onChange={(e) => setPrice(e.target.value)} />
                
                <label>Vendedor</label>
-               <input type="text" value={seller} onChange={(e) => setSeller(e.target.value)} />
+               <select value={seller} onChange={(e) => setSeller(e.target.value)}>
+                  <option value="">Selecione um vendedor</option>
+                  {sellersList.map((s) => (
+                     <option key={s.id} value={s.id}>{s.name}</option>
+                  ))}
+               </select>
                
                <label>Data</label>
                <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
