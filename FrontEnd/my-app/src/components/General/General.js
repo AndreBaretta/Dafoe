@@ -1,3 +1,4 @@
+
 import './General.css';
 import Sidebar from '../Sidebar/sidebar';
 import SearchBar from '../SearchBar/SearchBar'; 
@@ -22,15 +23,16 @@ function General() {
          try {
             let url;
             if (view === 'payment-methods') {
-               url = 'https://localhost:12354/api/payment-method';
+               url = 'https://localhost:12354/api/paymentmethod';
             } else if (view === 'categories') {
                url = 'https://localhost:12354/api/category';
             }
             const response = await fetch(url);
             const data = await response.json();
-            setResults(data);
+            setResults(data || []); // Ensure results is always an array
          } catch (error) {
             console.error('Error fetching data:', error);
+            setResults([]); // Ensure results is always an array
          }
       }
    };
@@ -52,7 +54,7 @@ function General() {
       try {
          let url, method;
          if (view === 'payment-methods') {
-            url = `https://localhost:12354/api/payment-method${editingItemId ? `/${editingItemId}` : ''}`;
+            url = `https://localhost:12354/api/paymentmethod${editingItemId ? `/${editingItemId}` : ''}`;
             method = editingItemId ? 'PUT' : 'POST';
          } else if (view === 'categories') {
             url = `https://localhost:12354/api/category${editingItemId ? `/${editingItemId}` : ''}`;
@@ -88,7 +90,7 @@ function General() {
       try {
          let url;
          if (view === 'payment-methods') {
-            url = `https://localhost:12354/api/payment-method/${editingItemId}`;
+            url = `https://localhost:12354/api/paymentmethod/${editingItemId}`;
          } else if (view === 'categories') {
             url = `https://localhost:12354/api/category/${editingItemId}`;
          } else {
@@ -112,7 +114,7 @@ function General() {
    };
 
    const handleSort = () => {
-      const sortedResults = [...results].sort((a, b) => {
+      const sortedResults = [...(results || [])].sort((a, b) => {
          if (sortOrder === 'asc') {
             return a.name.localeCompare(b.name);
          } else {
@@ -154,8 +156,8 @@ function General() {
                      </tr>
                   </thead>
                   <tbody>
-                     {results.length > 0 ? (
-                        results.map((item) => (
+                     {(results || []).length > 0 ? (
+                        (results || []).map((item) => (
                            <tr key={item.id} onClick={() => { setItemDetails(item); setEditingItemId(item.id); setNewItemModal(true); }}>
                               <td>{item.name}</td>
                            </tr>
