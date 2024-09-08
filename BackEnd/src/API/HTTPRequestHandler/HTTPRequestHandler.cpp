@@ -35,6 +35,8 @@ std::string HTTPRequestHandler::handleRequest(HTTPRequest& request){
 
    // Lidando com o metodo GET
    if(method == "GET"){
+      if(!validateSession(requestHeaders, false))
+	 return return401(version,headers,responseBody);
       // Product
       if(path.size() == 2){
 	 if(path[0].compare("api"))
@@ -155,7 +157,7 @@ std::string HTTPRequestHandler::handleRequest(HTTPRequest& request){
 	       headers["Content-Type"] = "application/json";
 	       return return200(version,headers,responseBody);
 	    }
-	    return400(version,headers,responseBody);
+	    return return400(version,headers,responseBody);
 	 }
 	 if(!path[1].compare("status")){
 	    if(query.empty()){
@@ -168,9 +170,11 @@ std::string HTTPRequestHandler::handleRequest(HTTPRequest& request){
       }
       if(path.size() == 3){
 	 if(path[0].compare("api"))
-	    return404(version,headers,responseBody);
+	    return return404(version,headers,responseBody);
 	 if(!isNumber(path[2]))
-	    return400(version,headers,responseBody);
+	    return return400(version,headers,responseBody);
+	 if(!validateSession(requestHeaders, false))
+	    return return401(version,headers,responseBody);
 	 if(!path[1].compare("product")){
 	    int temp = std::stoi(path[2]);
 	    responseBody = handleRetrieveProductById(temp);
@@ -222,9 +226,22 @@ std::string HTTPRequestHandler::handleRequest(HTTPRequest& request){
    }
 
    if(method == "POST"){
-      if(!requestHeaders.contains("Content-Length")){
-	 return return411(version,headers,responseBody);
+      if(!path[0].compare("login")){
+	 std::string token = handleLogin(requestBody);
+	 if(token.empty())
+	    return return401(version,headers,responseBody);
+	 headers["Authorization"] = token;
+	 return200(version,headers,responseBody);
       }
+      if(!path[0].compare("signup")){
+	 if(!handleSignup(requestBody))
+	    return return400(version, headers, responseBody);
+	 return return200(version,headers,responseBody);
+      }
+      if(!validateSession(requestHeaders, false))
+	 return return401(version,headers,responseBody);
+      if(!requestHeaders.contains("Content-Length"))
+	 return return411(version,headers,responseBody);
       if(path.size() != 2)
 	 return return400(version,headers,responseBody);
       if(path[0] != "api")
@@ -274,11 +291,10 @@ std::string HTTPRequestHandler::handleRequest(HTTPRequest& request){
 	    return return400(version,headers,responseBody);
 	 return return204(version,headers,responseBody);
       }
-      /*if(path[1] == "login"){
-	 handle
-      }*/
       return return404(version,headers,responseBody);
    }else if(method == "DELETE"){
+      if(!validateSession(requestHeaders, false))
+	 return return401(version,headers,responseBody);
       if(path.size() != 3)
 	 return return400(version,headers,responseBody);
       if(path[0] != "api")
@@ -335,6 +351,8 @@ std::string HTTPRequestHandler::handleRequest(HTTPRequest& request){
       }
       return return404(version,headers,responseBody);
    }else if(method == "PUT"){
+      if(!validateSession(requestHeaders, false))
+	 return return401(version,headers,responseBody);
       if(!requestHeaders.contains("Content-Length")){
 	 return return411(version,headers,responseBody);
       }
@@ -422,6 +440,14 @@ std::string HTTPRequestHandler::return204(const std::string& version, const std:
 std::string HTTPRequestHandler::return400(const std::string& version, const std::map<std::string, std::string> headers, const std::string& body){
    std::string statusCode = "400";
    std::string statusMessage = "Bad Request";
+   HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, body);
+   std::string stringResponse = this->m_responseBuilder.buildResponseString(response);
+   return stringResponse;  
+}
+
+std::string HTTPRequestHandler::return401(const std::string& version, const std::map<std::string, std::string> headers, const std::string& body){
+   std::string statusCode = "401";
+   std::string statusMessage = "Unauthorized";
    HTTPResponse response = HTTPResponse(version, statusCode, statusMessage, headers, body);
    std::string stringResponse = this->m_responseBuilder.buildResponseString(response);
    return stringResponse;  
@@ -866,10 +892,48 @@ std::string HTTPRequestHandler::handleRetrieveGenericProductByName(const std::st
    return response;
 }
 
-std::string HTTPRequestHandler::handleLogin(const int id, const std::string& password){
-   //s
-   std::string response = "a";
-   //std::string response = this->m_userMNG.
-   return response;
+std::string HTTPRequestHandler::handleLogin(const std::string& body){
+   try{
+      std::string response{};
+      json json = body;
+      int id = std::stoi(json["id"].get<std::string>());
+      std::string password = json["password"].get<std::string>();
+      if(!this->m_userMNG.loginUser(id,password))
+	 return response;
+      response = this->m_userMNG.getToken(id);
+      return response;
+   } catch(std::exception &e){
+      std::cerr << e.what() << '\n';
+      throw;
+   }
 }
+
+bool HTTPRequestHandler::validateSession(const std::map<std::string, std::string> headers, const bool adminPermission){
+   try{
+      std::string token = headers.at("token");
+      if(!this->m_userMNG.validateSession(token))
+	 return false;
+      Session session = this->m_userMNG.getSession(token);
+      if(adminPermission){
+	 return session.getAdmin();
+      }
+      return true;
+   }catch(std::exception &e){
+      return false;
+   }
+}
+
+bool HTTPRequestHandler::handleSignup(const std::string& body){
+   try{
+      json json = body;
+      int id		      = std::stoi(json["id"].get<std::string>());
+      std::string name	      = json["name"].get<std::string>();
+      std::string password    = json["password"].get<std::string>();
+      return this->m_userMNG.createUser(id,name,password);
+   } catch(std::exception &e){
+      std::cerr << e.what() << '\n';
+      return false;
+   }
+}
+
 

@@ -29,6 +29,7 @@ private:
    std::string return200(const std::string& version, const std::map<std::string, std::string> headers, const std::string& body);
    std::string return204(const std::string& version, const std::map<std::string, std::string> headers, const std::string& body);
    std::string return400(const std::string& version, const std::map<std::string, std::string> headers, const std::string& body);
+   std::string return401(const std::string& version, const std::map<std::string, std::string> headers, const std::string& body);
    std::string return404(const std::string& version, const std::map<std::string, std::string> headers, const std::string& body);
    std::string return411(const std::string& version, const std::map<std::string, std::string> headers, const std::string& body);
    std::string handleQueryProductByName(const std::string& name);
@@ -92,10 +93,11 @@ private:
    std::string handleRetrieveUsername(const int id);
 
    // Autentication
-   std::string handleLogin(const int id, const std::string& password);
+   std::string handleLogin(const std::string& body);
    bool handleLogout(const int id);
-   std::string handleSignup(const std::string& name, const std::string& password);
+   bool handleSignup(const std::string& body);
    bool validate(const int id, const std::string& password);
+   bool validateSession(std::map<std::string, std::string> headers, const bool adminPermission);
 
    HTTPResponseBuilder& m_responseBuilder;
    ProductMNG& m_productMNG;
