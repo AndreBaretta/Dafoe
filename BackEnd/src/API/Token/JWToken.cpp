@@ -1,45 +1,64 @@
 #include "JWToken.hpp"
 
-JWToken::JWToken(const std::string& secret, const std::string& issuer)
+JWToken::JWToken(const std::string& secret, const std::string& issuer, const std::chrono::seconds expireTime)
 : m_secretKey{secret}
 , m_issuer{issuer}
+, m_expireTime{expireTime}
 {}
 
-std::string JWToken::createToken(const int subject, const bool isAdmin, const std::chrono::seconds expiresIn){
+std::string JWToken::createToken(const int subject, const bool isAdmin){
    auto now = std::chrono::system_clock::now();
-   auto expiresAt = now + expiresIn;
    auto token = jwt::create()
                 .set_type("JWT")
                 .set_issuer(this->m_issuer)
                 .set_subject(std::to_string(subject))
                 .set_payload_claim("admin", jwt::claim(isAdmin))
                 .set_issued_now()
-                .set_expires_in(expiresIn)
+                .set_expires_in(this->m_expireTime)
                 .sign(jwt::algorithm::hs256(this->m_secretKey));
    return token;
 }
 
-bool JWToken::validateToken(std::string& token){
+bool JWToken::validateToken(const std::string& token){
    try {
-      auto decoded_token = jwt::decode(token);
+      auto decodedToken = jwt::decode(token);
       auto verifier = jwt::verify()
          .allow_algorithm(jwt::algorithm::hs256{this->m_secretKey})
          .with_issuer(this->m_issuer);            
 
-      verifier.verify(decoded_token);
+      verifier.verify(decodedToken);
 
-      auto exp_claim = decoded_token.get_expires_at();
-      if (std::chrono::system_clock::now() > exp_claim) {
+      auto expClaim = decodedToken.get_expires_at();
+      if (std::chrono::system_clock::now() > expClaim) {
          return false;
       }
       return true;
 
    } catch (const std::exception& e) {
-      std::cerr << "Erro ao validar o token: " << e.what() << std::endl;
+      std::cerr << "Erro ao validar o token: " << e.what() << '\n';
       return false;
    }
-
 }
+
+Session JWToken::getSession(const std::string& token){
+   try {
+      auto decodedToken = jwt::decode(token);
+      auto verifier = jwt::verify()
+                      .allow_algorithm(jwt::algorithm::hs256{this->m_secretKey})
+                      .with_issuer(this->m_issuer);
+
+      verifier.verify(decodedToken);
+
+      int id = std::stoi(decodedToken.get_subject());
+      bool admin = decodedToken.get_payload_claim("admin").as_boolean();
+      Session session = Session(id,admin);
+      return session;
+   } catch(std::exception &e){
+      std::cerr << "Erro ao validar o Token: " << e.what() << '\n';
+      throw;
+   }
+}
+
 
 
 
