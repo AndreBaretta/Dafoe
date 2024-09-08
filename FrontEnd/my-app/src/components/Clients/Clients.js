@@ -19,6 +19,13 @@ function Clients() {
    });
    const [isPending, setIsPending] = useState(false);
 
+   // State to keep track of the sort order (ascending/descending)
+   const [sortOrder, setSortOrder] = useState({
+      name: 'asc',
+      phoneNumber: 'asc',
+      bill: 'asc',
+   });
+
    useEffect(() => {
       const getData = async () => {
          try {
@@ -46,9 +53,7 @@ function Clients() {
    const submitClientData = async () => {
       setIsPending(true);
       try {
-
          const response = await fetch('https://localhost:12354/api/client', {
-
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(clientDetails),
@@ -74,6 +79,22 @@ function Clients() {
       }
    };
 
+   // Function to handle sorting
+   const handleSort = (key) => {
+      const order = sortOrder[key] === 'asc' ? 'desc' : 'asc';
+
+      const sortedResults = [...results].sort((a, b) => {
+         if (order === 'asc') {
+            return a[key] > b[key] ? 1 : -1;
+         } else {
+            return a[key] < b[key] ? 1 : -1;
+         }
+      });
+
+      setResults(sortedResults);
+      setSortOrder({ ...sortOrder, [key]: order }); // Update sort order
+   };
+
    return (
       <div className="Clients">
          <header className="Menu-header">
@@ -97,19 +118,21 @@ function Clients() {
                   <tr>
                      <th>
                         Nome{' '}
-                        <button onClick={() => console.log('Ordenar por Nome')}></button>
+                        <button onClick={() => handleSort('name')}>
+                           {sortOrder.name === 'asc' ? '↑' : '↓'}
+                        </button>
                      </th>
                      <th>
                         Telefone{' '}
-                        <button
-                           onClick={() => console.log('Ordenar por Telefone')}
-                        ></button>
+                        <button onClick={() => handleSort('phoneNumber')}>
+                           {sortOrder.phoneNumber === 'asc' ? '↑' : '↓'}
+                        </button>
                      </th>
                      <th>
-                        Divida{' '}
-                        <button
-                           onClick={() => console.log('Ordenar por Endereço')}
-                        ></button>
+                        Dívida{' '}
+                        <button onClick={() => handleSort('bill')}>
+                           {sortOrder.bill === 'asc' ? '↑' : '↓'}
+                        </button>
                      </th>
                   </tr>
                </thead>
@@ -130,15 +153,19 @@ function Clients() {
             className="ReactModal__Content"
             ariaHideApp={false}
          >
-            <button className="ReactModal__Close" onClick={() => setNewClientScreen(false)}>X</button>
+            <button
+               className="ReactModal__Close"
+               onClick={() => setNewClientScreen(false)}
+            >
+               X
+            </button>
             <div className="ReactModal__Header">
                Adicionar Novo Cliente
                <div className="newClient">
                   <span
                      className="ReactModal__Close"
                      onClick={() => setNewClientScreen(false)}
-                  >
-                  </span>
+                  ></span>
                   <h2>Adicionar Novo Cliente</h2>
                   <form>
                      <label>
