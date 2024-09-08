@@ -10,8 +10,10 @@ function Stock() {
    const [results, setResults] = useState([]);
    const [newProductScreen, setNewProductScreen] = useState(false);
    const [addStockScreen, setAddStockScreen] = useState(false);
+   const [deleteProductScreen, setDeleteProductScreen] = useState (false); 
    const [queryOrder, setQueryOrder] = useState("name");
-   const [isPendind, setIsPending] = useState(false)
+   const [isPendind, setIsPending] = useState(false);
+   const [selectedOption, setSelectedOption] = useState('');
    const [productDetails, setProductDetails] = useState({
       manufacturer: '',
       genericProduct: '',
@@ -34,11 +36,9 @@ function Stock() {
          }).then(() => {
             console.log("produto adicionado")
             setIsPending(false)
-            setNewProductScreen(false);
          })
       } catch (error) {
          console.error(error);
-         setNewProductScreen(false);
       }
    }
 
@@ -64,6 +64,22 @@ function Stock() {
       }));
    };
 
+   const openDPSceen = () => {
+      setSearchValue('')
+      setDeleteProductScreen(true)
+   }
+
+   const handleDelete = () => {
+      fetch(`https://localhost:12354/api/product/${selectedOption}`, {
+         method: 'DELETE'
+      }).then(response => {
+         console.log(response);
+      })
+         .catch(error => {
+            console.error('Error deleting:', error);
+         });
+   };
+
    return (
       <div className="Stock">
          <header className='Menu-header'>
@@ -74,6 +90,7 @@ function Stock() {
             <div className="button-container">
                <button className="newProductButton" onClick={() => setNewProductScreen(true)}>Novo Produto</button>
                <button className="addStockButton" onClick={() => setAddStockScreen(true)}>Atualizar Produto</button>
+               <button className="addStockButton" onClick={() => openDPSceen(true)}>Deletar Produto</button>
             </div>
             <SearchBar results={searchValue} setResults={setSearchValue} />
          </header>
@@ -223,6 +240,22 @@ function Stock() {
                   <button type="button" onClick={() => setAddStockScreen(false)}>Salvar</button>
                </form>
             </div>
+         </Model>
+         <Model
+            isOpen={deleteProductScreen}
+            onRequestClose={() => setDeleteProductScreen(false)}
+            className="ReactModal__Content"
+         >
+            <span className='ReactModal__Close' onClick={() => setDeleteProductScreen(false)}>X</span>
+            <input type="text" value={searchValue} onChange={(e) => setSearchValue(e.target.value)} placeholder="Search options" />
+            <select value={selectedOption} onChange={(e) => setSelectedOption(e.target.value)}>
+               <option value=''>{selectedOption.name}</option>
+               {results.filter(result => result.name)
+                  .map(result => (
+                     <option key={result.id} value={result.id}>{result.name}</option>
+               ))}
+            </select>
+            <button type="button" onClick={() => handleDelete()}>Deletar</button>
          </Model>
       </div>
    );
