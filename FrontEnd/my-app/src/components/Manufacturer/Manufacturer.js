@@ -1,3 +1,4 @@
+
 import './Manufacturer.css';
 import Sidebar from '../Sidebar/sidebar';
 import SearchBar from '../SearchBar/SearchBar';
@@ -11,32 +12,32 @@ function Manufacturer() {
    const [searchValue, setSearchValue] = useState('');
    const [results, setResults] = useState([]);
    const [newManufacturerScreen, setNewManufacturerScreen] = useState(false);
+   const [editManufacturerScreen, setEditManufacturerScreen] = useState(false);
    const [manufacturerDetails, setManufacturerDetails] = useState({
+      id: '',
       name: '',
-      contact: '',
-      address: '',
-      email: '',
    });
    const [isPending, setIsPending] = useState(false);
+   const [sortOrder, setSortOrder] = useState('asc'); // Sorting order state
 
-   useEffect(() => {
-      const getData = async () => {
-         try {
-            const response = await fetch(`https://localhost:12354/api/manufacturer?name=${searchValue}`);
-            const data = await response.json();
-            if (Array.isArray(data)) {
-               setResults(data);
-            } else {
-               console.error('Received data is not an array:', data);
-               setResults([]);
-            }
-         } catch (error) {
-            console.error('Error fetching manufacturers:', error);
+   const fetchManufacturers = async () => {
+      try {
+         const response = await fetch(`https://localhost:12354/api/manufacturer?name=${searchValue}`);
+         const data = await response.json();
+         if (Array.isArray(data)) {
+            setResults(data);
+         } else {
+            console.error('Received data is not an array:', data);
             setResults([]);
          }
-      };
+      } catch (error) {
+         console.error('Error fetching manufacturers:', error);
+         setResults([]);
+      }
+   };
 
-      getData();
+   useEffect(() => {
+      fetchManufacturers();
    }, [searchValue]);
 
    const handleInputChange = (e) => {
@@ -45,6 +46,11 @@ function Manufacturer() {
          ...prevState,
          [name]: value,
       }));
+   };
+
+   const handleRowClick = (manufacturer) => {
+      setManufacturerDetails(manufacturer);
+      setEditManufacturerScreen(true);
    };
 
    const handleSubmit = async () => {
@@ -58,14 +64,11 @@ function Manufacturer() {
 
          if (response.ok) {
             console.log('Fabricante adicionado com sucesso');
+            setNewManufacturerScreen(false);
             setManufacturerDetails({
                name: '',
-               contact: '',
-               address: '',
-               email: '',
             });
-            setNewManufacturerScreen(false);
-            setSearchValue('');
+            fetchManufacturers(); // Refresh after adding new manufacturer
          } else {
             console.error('Erro ao adicionar fabricante');
          }
@@ -74,6 +77,62 @@ function Manufacturer() {
       } finally {
          setIsPending(false);
       }
+   };
+
+   const handleUpdateManufacturer = async () => {
+      setIsPending(true);
+      try {
+         const response = await fetch(`https://localhost:12354/api/manufacturer/${manufacturerDetails.id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(manufacturerDetails),
+         });
+
+         if (response.ok) {
+            console.log('Fabricante atualizado com sucesso');
+            setEditManufacturerScreen(false);
+            fetchManufacturers(); // Refresh after updating manufacturer
+         } else {
+            console.error('Erro ao atualizar fabricante');
+         }
+      } catch (error) {
+         console.error('Erro na requisição:', error);
+      } finally {
+         setIsPending(false);
+      }
+   };
+
+   const handleDeleteManufacturer = async () => {
+      setIsPending(true);
+      try {
+         const response = await fetch(`https://localhost:12354/api/manufacturer/${manufacturerDetails.id}`, {
+            method: 'DELETE',
+         });
+
+         if (response.ok) {
+            console.log('Fabricante deletado com sucesso');
+            setEditManufacturerScreen(false);
+            fetchManufacturers(); // Refresh after deleting manufacturer
+         } else {
+            console.error('Erro ao deletar fabricante');
+         }
+      } catch (error) {
+         console.error('Erro na requisição:', error);
+      } finally {
+         setIsPending(false);
+      }
+   };
+
+   const handleSort = () => {
+      const sortedResults = [...results].sort((a, b) => {
+         if (sortOrder === 'asc') {
+            return a.name.localeCompare(b.name);
+         } else {
+            return b.name.localeCompare(a.name);
+         }
+      });
+      setResults(sortedResults);
+      setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc'); // Toggle sort order
    };
 
    return (
@@ -92,26 +151,56 @@ function Manufacturer() {
             <table className="Manufacturer-table">
                <thead>
                   <tr>
-                     <th>Nome <button onClick={() => console.log('Ordenar por Nome')}></button></th>
-                     <th>Contato <button onClick={() => console.log('Ordenar por Contato')}></button></th>
-                     <th>Endereço <button onClick={() => console.log('Ordenar por Endereço')}></button></th>
-                     <th>Email <button onClick={() => console.log('Ordenar por Email')}></button></th>
+                     <th>
+                        Nome <button onClick={handleSort}></button>
+                     </th>
                   </tr>
                </thead>
                <tbody>
-                  {results.map((item) => (
-                     <tr key={item.id}>
-                        <td>{item.name}</td>
-                        <td>{item.contact}</td>
-                        <td>{item.address}</td>
-                        <td>{item.email}</td>
+                  {results.map((manufacturer) => (
+                     <tr key={manufacturer.id} onClick={() => handleRowClick(manufacturer)}>
+                        <td>{manufacturer.name}</td>
                      </tr>
                   ))}
                </tbody>
             </table>
          </div>
 
-         {/* Modal para adicionar novo fabricante */}
+         {/* Modal to edit existing manufacturer */}
+         <Model
+            isOpen={editManufacturerScreen}
+            onRequestClose={() => setEditManufacturerScreen(false)}
+            className="ReactModal__Content"
+         >
+            <button className="ReactModal__Close" onClick={() => setEditManufacturerScreen(false)}>X</button>
+            <div className='editManufacturer'>
+               <h2>Editar Fabricante</h2>
+               <form>
+                  <label>
+                     Nome:
+                     <input
+                        type="text"
+                        name="name"
+                        value={manufacturerDetails.name}
+                        onChange={handleInputChange}
+                     />
+                  </label>
+                  {!isPending && (
+                     <>
+                        <button type="button" onClick={handleUpdateManufacturer}>
+                           Atualizar
+                        </button>
+                        <button type="button" className="deleteButton" onClick={handleDeleteManufacturer}>
+                           Deletar
+                        </button>
+                     </>
+                  )}
+                  {isPending && <button disabled>Salvando...</button>}
+               </form>
+            </div>
+         </Model>
+
+         {/* Modal to add new manufacturer */}
          <Model
             isOpen={newManufacturerScreen}
             onRequestClose={() => setNewManufacturerScreen(false)}
@@ -130,33 +219,6 @@ function Manufacturer() {
                         onChange={handleInputChange}
                      />
                   </label>
-                  <label>
-                     Contato:
-                     <input
-                        type="text"
-                        name="contact"
-                        value={manufacturerDetails.contact}
-                        onChange={handleInputChange}
-                     />
-                  </label>
-                  <label>
-                     Endereço:
-                     <input
-                        type="text"
-                        name="address"
-                        value={manufacturerDetails.address}
-                        onChange={handleInputChange}
-                     />
-                  </label>
-                  <label>
-                     Email:
-                     <input
-                        type="email"
-                        name="email"
-                        value={manufacturerDetails.email}
-                        onChange={handleInputChange}
-                     />
-                  </label>
                   {!isPending && (
                      <button type="button" onClick={handleSubmit}>
                         Salvar
@@ -171,3 +233,4 @@ function Manufacturer() {
 }
 
 export default Manufacturer;
+
