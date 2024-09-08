@@ -23,7 +23,7 @@ function General() {
          try {
             let url;
             if (view === 'payment-methods') {
-               url = 'https://localhost:12354/api/paymentmethod';
+               url = 'https://localhost:12354/api/payment-method';
             } else if (view === 'categories') {
                url = 'https://localhost:12354/api/category';
             }
@@ -54,7 +54,7 @@ function General() {
       try {
          let url, method;
          if (view === 'payment-methods') {
-            url = `https://localhost:12354/api/paymentmethod${editingItemId ? `/${editingItemId}` : ''}`;
+            url = `https://localhost:12354/api/payment-method${editingItemId ? `/${editingItemId}` : ''}`;
             method = editingItemId ? 'PUT' : 'POST';
          } else if (view === 'categories') {
             url = `https://localhost:12354/api/category${editingItemId ? `/${editingItemId}` : ''}`;
@@ -90,7 +90,7 @@ function General() {
       try {
          let url;
          if (view === 'payment-methods') {
-            url = `https://localhost:12354/api/paymentmethod/${editingItemId}`;
+            url = `https://localhost:12354/api/payment-method/${editingItemId}`;
          } else if (view === 'categories') {
             url = `https://localhost:12354/api/category/${editingItemId}`;
          } else {
