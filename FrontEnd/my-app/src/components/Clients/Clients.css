@@ -98,7 +98,8 @@
    gap: 10px;
 }
 
-.newClientButton {
+.newClientButton,
+.editClientButton {
    padding: 8px 12px;
    font-size: calc(10px + 1vmin);
    color: white;
@@ -106,9 +107,11 @@
    border: none;
    border-radius: 4px;
    cursor: pointer;
+   transition: background-color 0.3s ease;
 }
 
-.newClientButton:hover {
+.newClientButton:hover,
+.editClientButton:hover {
    background-color: #393838;
 }
 
@@ -134,6 +137,15 @@
    cursor: pointer;
 }
 
+.ReactModal__Header h2 {
+   width: 100%;
+   margin-bottom: 20px;
+   text-align: center;
+   font-size: 1.5rem;
+   color: #333;
+}
+
+.editClient,
 .newClient {
    width: 100%;
    display: flex;
@@ -141,6 +153,7 @@
    align-items: center;
 }
 
+.editClient label,
 .newClient label {
    width: 100%;
    margin-bottom: 10px;
@@ -148,14 +161,16 @@
    color: #333;
 }
 
+.editClient input,
 .newClient input {
-   width: calc(100% - 16px);
+   width: 100%;
    padding: 8px;
    margin-top: 5px;
    border-radius: 4px;
    border: 1px solid #ccc;
 }
 
+.editClient button,
 .newClient button {
    width: 100%;
    padding: 10px;
@@ -166,8 +181,10 @@
    cursor: pointer;
    margin-top: 20px;
    text-align: center;
+   transition: background-color 0.3s ease;
 }
 
+.editClient button:hover,
 .newClient button:hover {
    background-color: #45a049;
 }

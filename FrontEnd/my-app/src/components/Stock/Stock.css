@@ -205,29 +205,39 @@
 .deleteProduct {
    display: flex;
    flex-direction: column;
-   align-items: center; /* Centraliza horizontalmente */
-   justify-content: center; /* Centraliza verticalmente */
+   align-items: center; 
+   justify-content: center; 
+   width: 100%;
+}
+
+
+
+.deleteProduct {
+   display: flex;
+   flex-direction: column;
+   align-items: center; 
+   justify-content: center; 
    width: 100%;
 }
 
 .deleteProduct label {
    width: 100%;
-   text-align: center; /* Centraliza o texto dentro do label */
+   text-align: center; 
    margin-bottom: 10px;
 }
 
 .deleteProduct select {
-   width: 100%; /* Ajusta a largura do select */
+   width: 100%; 
    padding: 8px;
    border-radius: 4px;
    border: 1px solid #ccc;
-   margin-bottom: 20px; /* Espaçamento entre o select e o botão */
+   margin-bottom: 20px; 
 }
 
 .deleteProduct button {
-   width: 100%; /* Ajusta a largura do botão */
+   width: 100%; 
    padding: 10px;
-   background-color: #e74c3c; /* Cor de fundo do botão */
+   background-color: #e74c3c; 
    color: white;
    border: none;
    border-radius: 4px;
@@ -236,5 +246,5 @@
 }
 
 .deleteProduct button:hover {
-   background-color: #c0392b; /* Cor de fundo do botão ao passar o mouse */
+   background-color: #c0392b; 
 }

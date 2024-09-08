@@ -195,11 +195,10 @@
 }
 
 .newSale input {
-   width: calc(100% - 16px);
-   padding: 8px;
-   margin-top: 5px;
-   border-radius: 4px;
-   border: 1px solid #ccc;
+   width: 100%;
+   margin-bottom: 10px;
+   font-weight: bold;
+   color: #333;
 }
 
 .newSale button {
@@ -217,3 +216,4 @@
 .newSale button:hover {
    background-color: #45a049;
 }
+

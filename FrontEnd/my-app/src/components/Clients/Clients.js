@@ -9,14 +9,15 @@ Model.setAppElement('#root');
 
 function Clients() {
    const [searchValue, setSearchValue] = useState('');
-   const [results, setResults] = useState([]); // Initialized as empty array
-   const [newClientScreen, setNewClientScreen] = useState(false); // Control new client modal
+   const [results, setResults] = useState([]);
+   const [newClientScreen, setNewClientScreen] = useState(false);
+   const [editClientScreen, setEditClientScreen] = useState(false);
    const [clientDetails, setClientDetails] = useState({
       id: '',
       name: '',
       phoneNumber: '',
       address: '',
-      bill: '', // Ensure this is a string
+      bill: '',
    });
    const [isPending, setIsPending] = useState(false);
    const [selectedClient, setSelectedClient] = useState(null);
@@ -31,20 +32,17 @@ function Clients() {
    useEffect(() => {
       const getData = async () => {
          try {
-            const response = await fetch(
-               `https://localhost:12354/api/client?name=${searchValue}`
-            );
+            const response = await fetch(`http://localhost:12354/api/client?name=${searchValue}`);
             const data = await response.json();
-            // Check if data is an array before setting it to results
             if (Array.isArray(data)) {
                setResults(data);
             } else {
                console.error('Received data is not an array:', data);
-               setResults([]); // Ensure results is always an array
+               setResults([]);
             }
          } catch (error) {
             console.error('Error fetching clients:', error);
-            setResults([]); // Ensure results is always an array
+            setResults([]);
          }
       };
 
@@ -62,7 +60,7 @@ function Clients() {
    const submitClientData = async () => {
       setIsPending(true);
       try {
-         const response = await fetch('https://localhost:12354/api/client', {
+         const response = await fetch('http://localhost:12354/api/client', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(clientDetails),
@@ -75,7 +73,7 @@ function Clients() {
                name: '',
                phoneNumber: '',
                address: '',
-               bill: '', // Ensure this is a string
+               bill: '',
             });
             setNewClientScreen(false);
             setSearchValue('');
@@ -106,29 +104,30 @@ function Clients() {
 
    const handleRowClick = (client) => {
       setSelectedClient(client);
-      setClientDetails(client); // Pre-fill with client details
-      setEditMode(true); // Open the modal in edit mode
+      setClientDetails(client);
+      setEditMode(true);
+      setEditClientScreen(true);
    };
 
    const handleUpdateClient = async () => {
       setIsPending(true);
       try {
-         // Ensure bill is a string
          const updatedClientDetails = {
             ...clientDetails,
-            bill: String(clientDetails.bill), // Convert bill to string
+            bill: String(clientDetails.bill),
          };
-   
-         const response = await fetch(`https://localhost:12354/api/client/${clientDetails.id}`, {
+
+         const response = await fetch(`http://localhost:12354/api/client/${clientDetails.id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(updatedClientDetails),
          });
-   
+
          if (response.ok) {
             console.log('Cliente atualizado com sucesso');
-            setEditMode(false); // Close modal
-            setSearchValue(''); // Refetch data
+            setEditMode(false);
+            setEditClientScreen(false);
+            setSearchValue('');
          } else {
             console.error('Erro ao atualizar cliente');
          }
@@ -142,14 +141,15 @@ function Clients() {
    const handleDeleteClient = async () => {
       setIsPending(true);
       try {
-         const response = await fetch(`https://localhost:12354/api/client/${clientDetails.id}`, {
+         const response = await fetch(`http://localhost:12354/api/client/${clientDetails.id}`, {
             method: 'DELETE',
          });
 
          if (response.ok) {
             console.log('Cliente deletado com sucesso');
-            setEditMode(false); // Close modal
-            setSearchValue(''); // Refetch data
+            setEditMode(false);
+            setEditClientScreen(false);
+            setSearchValue('');
          } else {
             console.error('Erro ao deletar cliente');
          }
@@ -170,31 +170,36 @@ function Clients() {
             <div className="button-container">
                <button
                   className="newClientButton"
-                  onClick={() => setNewClientScreen(true)} // Open new client modal
+                  onClick={() => setNewClientScreen(true)}
                >
                   Novo Cliente
+               </button>
+               <button
+                  className="editClientButton"
+                  onClick={() => setEditClientScreen(true)}
+               >
+                  Editar Cliente
                </button>
             </div>
             <SearchBar results={searchValue} setResults={setSearchValue} />
          </header>
          <div className="Clients-table-container">
             <table className="Clients-table">
-            <thead>
-  <tr>
-    <th onClick={() => handleSort('name')}>
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <span>Nome</span>
-      </div>
-    </th>
-    <th onClick={() => handleSort('cargo')}>
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <span>Cargo</span>
-      </div>
-    </th>
-  </tr>
-</thead>
+               <thead>
+                  <tr>
+                     <th onClick={() => handleSort('name')}>
+                        Nome
+                     </th>
+                     <th onClick={() => handleSort('phoneNumber')}>
+                        Telefone
+                     </th>
+                     <th onClick={() => handleSort('bill')}>
+                        Dívida
+                     </th>
+                  </tr>
+               </thead>
                <tbody>
-                  {Array.isArray(results) && results.length > 0 ? (
+                  {results.length > 0 ? (
                      results.map((client) => (
                         <tr key={client.id} onClick={() => handleRowClick(client)}>
                            <td>{client.name}</td>
@@ -204,7 +209,7 @@ function Clients() {
                      ))
                   ) : (
                      <tr>
-                        <td colSpan="3">No clients found</td>
+                        <td colSpan="3">Nenhum cliente encontrado</td>
                      </tr>
                   )}
                </tbody>
@@ -213,65 +218,64 @@ function Clients() {
 
          {/* Modal for editing selected client */}
          <Model
-            isOpen={editMode}
-            onRequestClose={() => setEditMode(false)}
+            isOpen={editClientScreen}
+            onRequestClose={() => setEditClientScreen(false)}
             className="ReactModal__Content"
             ariaHideApp={false}
          >
-            <button className="ReactModal__Close" onClick={() => setEditMode(false)}>X</button>
+            <button className="ReactModal__Close" onClick={() => setEditClientScreen(false)}>X</button>
             <div className="ReactModal__Header">
-               Editar Cliente
-               <div className="editClient">
-                  <form>
-                     <label>
-                        Nome:
-                        <input
-                           type="text"
-                           name="name"
-                           value={clientDetails.name}
-                           onChange={handleInputChange}
-                        />
-                     </label>
-                     <label>
-                        Telefone:
-                        <input
-                           type="tel"
-                           name="phoneNumber"
-                           value={clientDetails.phoneNumber}
-                           onChange={handleInputChange}
-                        />
-                     </label>
-                     <label>
-                        Endereço:
-                        <input
-                           type="text"
-                           name="address"
-                           value={clientDetails.address}
-                           onChange={handleInputChange}
-                        />
-                     </label>
-                     <label>
-                        Dívida:
-                        <input
-                           type="text" // Changed from number to text
-                           name="bill"
-                           value={clientDetails.bill}
-                           onChange={handleInputChange}
-                        />
-                     </label>
-                     {!isPending && (
-                        <>
-                           <button type="button" onClick={handleUpdateClient}>
-                              Atualizar
-                           </button>
-                           <button type="button" onClick={handleDeleteClient}>
-                              Deletar
-                           </button>
-                        </>
-                     )}
-                     {isPending && <button disabled>Salvando...</button>}
-                  </form>
-               </div>
+               <h2>Editar Cliente</h2>
+               <form className="editClient">
+                  <label>
+                     Nome:
+                     <input
+                        type="text"
+                        name="name"
+                        value={clientDetails.name}
+                        onChange={handleInputChange}
+                     />
+                  </label>
+                  <label>
+                     Telefone:
+                     <input
+                        type="tel"
+                        name="phoneNumber"
+                        value={clientDetails.phoneNumber}
+                        onChange={handleInputChange}
+                     />
+                  </label>
+                  <label>
+                     Endereço:
+                     <input
+                        type="text"
+                        name="address"
+                        value={clientDetails.address}
+                        onChange={handleInputChange}
+                     />
+                  </label>
+                  <label>
+                     Dívida:
+                     <input
+                        type="text"
+                        name="bill"
+                        value={clientDetails.bill}
+                        onChange={handleInputChange}
+                     />
+                  </label>
+                  {!isPending ? (
+                     <>
+                        <button type="button" onClick={handleUpdateClient}>
+                           Atualizar
+                        </button>
+                        <button type="button" onClick={handleDeleteClient}>
+                           Deletar
+                        </button>
+                     </>
+                  ) : (
+                     <button disabled>Salvando...</button>
+                  )}
+               </form>
             </div>
          </Model>
 
@@ -284,53 +288,52 @@ function Clients() {
          >
             <button className="ReactModal__Close" onClick={() => setNewClientScreen(false)}>X</button>
             <div className="ReactModal__Header">
-               Novo Cliente
-               <div className="addClient">
-                  <form>
-                     <label>
-                        Nome:
-                        <input
-                           type="text"
-                           name="name"
-                           value={clientDetails.name}
-                           onChange={handleInputChange}
-                        />
-                     </label>
-                     <label>
-                        Telefone:
-                        <input
-                           type="tel"
-                           name="phoneNumber"
-                           value={clientDetails.phoneNumber}
-                           onChange={handleInputChange}
-                        />
-                     </label>
-                     <label>
-                        Endereço:
-                        <input
-                           type="text"
-                           name="address"
-                           value={clientDetails.address}
-                           onChange={handleInputChange}
-                        />
-                     </label>
-                     <label>
-                        Dívida:
-                        <input
-                           type="text" // Changed from number to text
-                           name="bill"
-                           value={clientDetails.bill}
-                           onChange={handleInputChange}
-                        />
-                     </label>
-                     {!isPending && (
-                        <button type="button" onClick={submitClientData}>
-                           Adicionar
-                        </button>
-                     )}
-                     {isPending && <button disabled>Salvando...</button>}
-                  </form>
-               </div>
+               <h2>Novo Cliente</h2>
+               <form className="newClient">
+                  <label>
+                     Nome:
+                     <input
+                        type="text"
+                        name="name"
+                        value={clientDetails.name}
+                        onChange={handleInputChange}
+                     />
+                  </label>
+                  <label>
+                     Telefone:
+                     <input
+                        type="tel"
+                        name="phoneNumber"
+                        value={clientDetails.phoneNumber}
+                        onChange={handleInputChange}
+                     />
+                  </label>
+                  <label>
+                     Endereço:
+                     <input
+                        type="text"
+                        name="address"
+                        value={clientDetails.address}
+                        onChange={handleInputChange}
+                     />
+                  </label>
+                  <label>
+                     Dívida:
+                     <input
+                        type="text"
+                        name="bill"
+                        value={clientDetails.bill}
+                        onChange={handleInputChange}
+                     />
+                  </label>
+                  {!isPending ? (
+                     <button type="button" onClick={submitClientData}>
+                        Adicionar
+                     </button>
+                  ) : (
+                     <button disabled>Salvando...</button>
+                  )}
+               </form>
             </div>
          </Model>
       </div>

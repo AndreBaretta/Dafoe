@@ -271,7 +271,7 @@ function Stock() {
 >
    <div className='deleteProduct'>
       <span className='ReactModal__Close' onClick={() => setDeleteProductScreen(false)}>X</span>
-      <h2>Deletar Produto</h2> {/* Título centralizado */}
+      <h2>Deletar Produto</h2> 
       <form>
                   <label>Selecione o produto a ser deletado:
                      <select onChange={(e) => setSelectedOption(e.target.value)}>

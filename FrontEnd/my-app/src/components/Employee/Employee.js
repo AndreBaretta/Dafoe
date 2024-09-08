@@ -9,22 +9,23 @@ Model.setAppElement('#root');
 
 function Employees() {
    const [searchValue, setSearchValue] = useState('');
-   const [results, setResults] = useState([]); // Initialized as empty array
+   const [results, setResults] = useState([]);
    const [newEmployeeScreen, setNewEmployeeScreen] = useState(false);
+   const [editEmployeeScreen, setEditEmployeeScreen] = useState(false); // Adicionado
    const [employeeDetails, setEmployeeDetails] = useState({
       id: '',
       name: '',
       cargo: '',
    });
    const [isPending, setIsPending] = useState(false);
-   const [selectedEmployee, setSelectedEmployee] = useState(null); // State to track selected employee
-   const [editMode, setEditMode] = useState(false); // Toggle edit modal
+   const [selectedEmployee, setSelectedEmployee] = useState(null);
+   const [editMode, setEditMode] = useState(false);
 
    const [sortOrder, setSortOrder] = useState({
       name: 'asc',
    });
 
-   const cargos = ['Manager', 'Developer', 'Designer', 'Tester']; // List of positions
+   const cargos = ['Manager', 'Developer', 'Designer', 'Tester'];
 
    useEffect(() => {
       const getData = async () => {
@@ -33,16 +34,15 @@ function Employees() {
                `https://localhost:12354/api/employee?name=${searchValue}`
             );
             const data = await response.json();
-            // Ensure data is an array before setting it to state
             if (Array.isArray(data)) {
                setResults(data);
             } else {
                console.error('Received data is not an array:', data);
-               setResults([]); // Ensure results is always an array
+               setResults([]);
             }
          } catch (error) {
             console.error('Erro ao buscar funcionários:', error);
-            setResults([]); // Ensure results is always an array
+            setResults([]);
          }
       };
 
@@ -102,8 +102,8 @@ function Employees() {
 
    const handleRowClick = (employee) => {
       setSelectedEmployee(employee);
-      setEmployeeDetails(employee); // Pre-fill with employee details
-      setEditMode(true); // Open the modal in edit mode
+      setEmployeeDetails(employee);
+      setEditMode(true);
    };
 
    const handleUpdateEmployee = async () => {
@@ -117,8 +117,8 @@ function Employees() {
 
          if (response.ok) {
             console.log('Funcionário atualizado com sucesso');
-            setEditMode(false); // Close modal
-            setSearchValue(''); // Refetch data
+            setEditMode(false);
+            setSearchValue('');
          } else {
             console.error('Erro ao atualizar funcionário');
          }
@@ -138,8 +138,8 @@ function Employees() {
 
          if (response.ok) {
             console.log('Funcionário deletado com sucesso');
-            setEditMode(false); // Close modal
-            setSearchValue(''); // Refetch data
+            setEditMode(false);
+            setSearchValue('');
          } else {
             console.error('Erro ao deletar funcionário');
          }
@@ -164,37 +164,42 @@ function Employees() {
                >
                   Novo Funcionário
                </button>
+               {/* Botão de Editar Funcionário */}
+               <button
+                  className="editEmployeeButton"
+                  onClick={() => setEditEmployeeScreen(true)}
+               >
+                  Editar Funcionário
+               </button>
             </div>
-               <SearchBar results={searchValue} setResults={setSearchValue} />
-            </header>
-            <div className="Employees-table-container">
-               <table className="Employees-table">
+            <SearchBar results={searchValue} setResults={setSearchValue} />
+         </header>
+         <div className="Employees-table-container">
+            <table className="Employees-table">
                <thead>
-               <thead>
-  <tr>
-    <th onClick={() => handleSort('name')}>Nome</th>
-    <th onClick={() => handleSort('cargo')}>Cargo</th>
-  </tr>
-</thead>
-   </thead>
-                  <tbody>
-                     {Array.isArray(results) && results.length > 0 ? (
-                        results.map((employee) => (
-                           <tr key={employee.id} onClick={() => handleRowClick(employee)}>
-                              <td>{employee.name}</td>
-                              <td>{employee.cargo}</td>
+                  <tr>
+                     <th onClick={() => handleSort('name')}>Nome</th>
+                     <th onClick={() => handleSort('cargo')}>Cargo</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  {Array.isArray(results) && results.length > 0 ? (
+                     results.map((employee) => (
+                        <tr key={employee.id} onClick={() => handleRowClick(employee)}>
+                           <td>{employee.name}</td>
+                           <td>{employee.cargo}</td>
                         </tr>
                      ))
                   ) : (
                      <tr>
-                        <td colSpan="2">No employees found</td>
+                        <td colSpan="2">Nenhum funcionário encontrado</td>
                      </tr>
                   )}
                </tbody>
             </table>
          </div>
 
-         {/* Modal for adding new employee */}
+         {/* Modal para adicionar novo funcionário */}
          <Model
             isOpen={newEmployeeScreen}
             onRequestClose={() => setNewEmployeeScreen(false)}
@@ -204,91 +209,88 @@ function Employees() {
             <button className="ReactModal__Close" onClick={() => setNewEmployeeScreen(false)}>X</button>
             <div className="ReactModal__Header">
                Novo Funcionário
-               <div className="addEmployee">
-                  <form>
-                     <label>
-                        Nome:
-                        <input
-                           type="text"
-                           name="name"
-                           value={employeeDetails.name}
-                           onChange={handleInputChange}
-                        />
-                     </label>
-                     <label>
-                        Cargo:
-                        <select
-                           name="cargo"
-                           value={employeeDetails.cargo}
-                           onChange={handleInputChange}
-                        >
-                           <option value="">Selecione</option>
-                           {cargos.map((cargo, index) => (
-                              <option key={index} value={cargo}>
-                                 {cargo}
-                              </option>
-                           ))}
-                        </select>
-                     </label>
-                     {!isPending && (
-                        <button type="button" onClick={submitEmployeeData}>
-                           Adicionar
-                        </button>
-                     )}
-                     {isPending && <button disabled>Salvando...</button>}
-                  </form>
-               </div>
+            </div>
+            <div className="newEmployee">
+               <form>
+                  <label>
+                     Nome:
+                     <input
+                        type="text"
+                        name="name"
+                        value={employeeDetails.name}
+                        onChange={handleInputChange}
+                     />
+                  </label>
+                  <label>
+                     Cargo:
+                     <select
+                        name="cargo"
+                        value={employeeDetails.cargo}
+                        onChange={handleInputChange}
+                     >
+                        <option value="">Selecione</option>
+                        {cargos.map((cargo, index) => (
+                           <option key={index} value={cargo}>
+                              {cargo}
+                           </option>
+                        ))}
+                     </select>
+                  </label>
+                  {!isPending ? (
+                     <button type="button" onClick={submitEmployeeData}>
+                        Adicionar
+                     </button>
+                  ) : (
+                     <button disabled>Salvando...</button>
+                  )}
+               </form>
             </div>
          </Model>
 
-         {/* Modal for editing selected employee */}
+         {/* Modal para editar funcionário */}
          <Model
-            isOpen={editMode}
-            onRequestClose={() => setEditMode(false)}
+            isOpen={editEmployeeScreen}
+            onRequestClose={() => setEditEmployeeScreen(false)}
             className="ReactModal__Content"
             ariaHideApp={false}
          >
-            <button className="ReactModal__Close" onClick={() => setEditMode(false)}>X</button>
+            <button className="ReactModal__Close" onClick={() => setEditEmployeeScreen(false)}>X</button>
             <div className="ReactModal__Header">
                Editar Funcionário
-               <div className="editEmployee">
-                  <form>
-                     <label>
-                        Nome:
-                        <input
-                           type="text"
-                           name="name"
-                           value={employeeDetails.name}
-                           onChange={handleInputChange}
-                        />
-                     </label>
-                     <label>
-                        Cargo:
-                        <select
-                           name="cargo"
-                           value={employeeDetails.cargo}
-                           onChange={handleInputChange}
-                        >
-                           {cargos.map((cargo, index) => (
-                              <option key={index} value={cargo}>
-                                 {cargo}
-                              </option>
-                           ))}
-                        </select>
-                     </label>
-                     {!isPending && (
-                        <>
-                           <button type="button" onClick={handleUpdateEmployee}>
-                              Atualizar
-                           </button>
-                           <button type="button" onClick={handleDeleteEmployee}>
-                              Deletar
-                           </button>
-                        </>
-                     )}
-                     {isPending && <button disabled>Salvando...</button>}
-                  </form>
-               </div>
+            </div>
+            <div className="newEmployee">
+               <form>
+                  <label>
+                     Nome:
+                     <input
+                        type="text"
+                        name="name"
+                        value={employeeDetails.name}
+                        onChange={handleInputChange}
+                     />
+                  </label>
+                  <label>
+                     Cargo:
+                     <select
+                        name="cargo"
+                        value={employeeDetails.cargo}
+                        onChange={handleInputChange}
+                     >
+                        <option value="">Selecione</option>
+                        {cargos.map((cargo, index) => (
+                           <option key={index} value={cargo}>
+                              {cargo}
+                           </option>
+                        ))}
+                     </select>
+                  </label>
+                  <button type="button" onClick={handleUpdateEmployee}>
+                     Atualizar
+                  </button>
+                  <button type="button" onClick={handleDeleteEmployee}>
+                     Deletar
+                  </button>
+               </form>
             </div>
          </Model>
       </div>
