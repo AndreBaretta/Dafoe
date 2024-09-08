@@ -43,6 +43,7 @@ function Stock() {
          }).then(() => {
             console.log("produto adicionado")
             setIsPending(false)
+            setNewProductScreen(false)
          })
       } catch (error) {
          console.error(error);
