@@ -26,11 +26,6 @@ public:
    std::string handleRequest(HTTPRequest& request);
 
 private:
-   std::string return200(const std::string& version, const std::map<std::string, std::string> headers, const std::string& body);
-   std::string return204(const std::string& version, const std::map<std::string, std::string> headers, const std::string& body);
-   std::string return400(const std::string& version, const std::map<std::string, std::string> headers, const std::string& body);
-   std::string return404(const std::string& version, const std::map<std::string, std::string> headers, const std::string& body);
-   std::string return411(const std::string& version, const std::map<std::string, std::string> headers, const std::string& body);
    std::string handleQueryProductByName(const std::string& name);
    std::string handleRetrieveAllProduct();
    std::string handleRetrieveProductById(int id);

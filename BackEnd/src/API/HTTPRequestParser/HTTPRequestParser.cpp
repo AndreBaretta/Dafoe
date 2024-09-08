@@ -47,13 +47,19 @@ HTTPRequest HTTPRequestParser::parseRequest(std::string request){
          path[path.size() - 1] = path[path.size() -1].substr(0,division);
       }
    }
-   if(headers.contains("Content-Length")){
-      if(stream.peek() != EOF){
-         std::getline(stream, body, '\0');
-         size_t length = std::stoi(headers["Content-Length"]);
-         body = body.substr(0,length);
+   try{
+      if(headers.find("Content-Length") != headers.end()){
+         if(stream.peek() != EOF){
+            std::getline(stream, body, '\0');
+            size_t length = std::stoi(headers["Content-Length"]);
+            body = body.substr(0,length);
+         }
       }
+   }catch (std::invalid_argument const& ex)
+   {
+        std::cerr << "#1: " << ex.what() << '\n';
    }
+
    HTTPRequest req = HTTPRequest(method,path,version,headers);
    req.setBody(body);
    req.setQuery(query);
