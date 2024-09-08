@@ -17,7 +17,7 @@ function Sales() {
    useEffect(() => {
       const getData = async () => {
          try {
-            const response = await fetch(`http://localhost:12345/api/sales?name=${searchValue}`);
+            const response = await fetch(`http://localhost:12345/api/order?product=${searchValue}`);
             const data = await response.json();
             setResults(data);
          } catch (error) {

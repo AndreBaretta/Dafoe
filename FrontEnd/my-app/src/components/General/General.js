@@ -1,10 +1,10 @@
-import './History.css';
+import './General.css';
 import Sidebar from '../Sidebar/sidebar';
 import SearchBar from '../SearchBar/SearchBar'; 
 import Menu from '../Menu/Menuu';
 import React, { useState, useEffect } from 'react';
 
-function History() {
+function General() {
    const [searchValue, setSearchValue] = useState("");
    const [results, setResults] = useState([]);
    const [queryOrder, setQueryOrder] = useState("name");
@@ -24,7 +24,7 @@ function History() {
    }, [searchValue, queryOrder]);
 
    return (
-      <div className="History">
+      <div className="General">
          <header className='Menu-header'>
             <Sidebar />
             <Menu />
@@ -32,10 +32,10 @@ function History() {
          <header className='SearchBarHeader'>
             <SearchBar results={searchValue} setResults={setSearchValue} />
          </header>
-         <div className="History-table-container">
+         <div className="General-table-container">
          </div>
       </div>
    );
 }
 
-export default History;
+export default General;
