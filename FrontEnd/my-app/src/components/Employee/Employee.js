@@ -11,7 +11,7 @@ function Employees() {
    const [searchValue, setSearchValue] = useState('');
    const [results, setResults] = useState([]);
    const [newEmployeeScreen, setNewEmployeeScreen] = useState(false);
-   const [editEmployeeScreen, setEditEmployeeScreen] = useState(false); // Adicionado
+   const [editEmployeeScreen, setEditEmployeeScreen] = useState(false);
    const [employeeDetails, setEmployeeDetails] = useState({
       id: '',
       name: '',
@@ -198,8 +198,6 @@ function Employees() {
                </tbody>
             </table>
          </div>
-
-         {/* Modal para adicionar novo funcionário */}
          <Model
             isOpen={newEmployeeScreen}
             onRequestClose={() => setNewEmployeeScreen(false)}
@@ -246,8 +244,6 @@ function Employees() {
                </form>
             </div>
          </Model>
-
-         {/* Modal para editar funcionário */}
          <Model
             isOpen={editEmployeeScreen}
             onRequestClose={() => setEditEmployeeScreen(false)}
