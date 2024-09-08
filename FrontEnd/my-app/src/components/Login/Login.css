@@ -17,16 +17,16 @@
    position: relative; 
 }
 
-
 .Login .logo-container {
    display: flex;
    flex-direction: column;
    align-items: center;
-   margin-bottom: 2.6rem;
+   margin-bottom: 0.4rem;
    transform: translateX(-25px);
 }
 
 .Login .logo {
+   font-family: impact;
    display: flex;
    align-items: center;
    font-weight: bold;
@@ -60,17 +60,22 @@ form {
    width: 100%;
    height: 40px;
    margin: 15px auto;
+   border-radius: 40px;
+   font-size: 20px;
+   background-color: whitesmoke;
+   border: 2px solid rgba(0, 0, 0, 0.15);
+   padding: 0 20px;
+   box-sizing: border-box;
+
 }
 
 .input-field input {
    width: 100%;
    height: 100%;
-   background-color: whitesmoke;
-   border: 2px solid rgba(0, 0, 0, 0.15);
-   border-radius: 17px;
+   background-color: transparent;
+   border: none;
    font-size: 20px;
-   padding: 0 10px;
-   box-sizing: border-box;
+   outline: none;
 }
 
 .Login .recall {
@@ -99,7 +104,7 @@ form {
 }
 
 .watermark {
-   position: absolute;
+   position: center;
    bottom: 1rem;
    right: 1rem;
    font-size: 15px;

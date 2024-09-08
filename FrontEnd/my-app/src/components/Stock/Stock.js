@@ -10,9 +10,9 @@ function Stock() {
    const [results, setResults] = useState([]);
    const [newProductScreen, setNewProductScreen] = useState(false);
    const [addStockScreen, setAddStockScreen] = useState(false);
-   const [deleteProductScreen, setDeleteProductScreen] = useState (false); 
+   const [deleteProductScreen, setDeleteProductScreen] = useState(false); 
    const [queryOrder, setQueryOrder] = useState("name");
-   const [isPendind, setIsPending] = useState(false);
+   const [isPending, setIsPending] = useState(false);
    const [selectedOption, setSelectedOption] = useState('');
    const [productDetails, setProductDetails] = useState({
       manufacturer: '',
@@ -34,21 +34,21 @@ function Stock() {
 
    const submitData = () => {
       try {
-         setIsPending(true)
+         setIsPending(true);
 
          fetch('https://localhost:12354/api/product', {
             method: 'POST',
-            headers: {"Content-Type" : "application/json"},
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify(productDetails)
          }).then(() => {
-            console.log("produto adicionado")
-            setIsPending(false)
-            setNewProductScreen(false)
-         })
+            console.log("Produto adicionado");
+            setIsPending(false);
+            setNewProductScreen(false);
+         });
       } catch (error) {
          console.error(error);
       }
-   }
+   };
 
    useEffect(() => {
       const getData = async () => {
@@ -72,20 +72,19 @@ function Stock() {
       }));
    };
 
-   const openDPSceen = () => {
-      setSearchValue('')
-      setDeleteProductScreen(true)
-   }
+   const openDPScreen = () => {
+      setSearchValue('');
+      setDeleteProductScreen(true);
+   };
 
    const handleDelete = () => {
       fetch(`https://localhost:12354/api/product/${selectedOption}`, {
          method: 'DELETE'
       }).then(response => {
          console.log(response);
-      })
-         .catch(error => {
-            console.error('Error deleting:', error);
-         });
+      }).catch(error => {
+         console.error('Error deleting:', error);
+      });
    };
 
    const handleSort = (key) => {
@@ -113,7 +112,7 @@ function Stock() {
             <div className="button-container">
                <button className="newProductButton" onClick={() => setNewProductScreen(true)}>Novo Produto</button>
                <button className="addStockButton" onClick={() => setAddStockScreen(true)}>Atualizar Produto</button>
-               <button className="addStockButton" onClick={() => openDPSceen(true)}>Deletar Produto</button>
+               <button className="addStockButton" onClick={() => openDPScreen(true)}>Deletar Produto</button>
             </div>
             <SearchBar results={searchValue} setResults={setSearchValue} />
          </header>
@@ -122,14 +121,14 @@ function Stock() {
                <thead>
                   <tr>
                      <th>Item <button onClick={() => handleSort('name')}>{sortOrder.name === 'asc' ? '↑' : '↓'}</button></th>
-                     <th>Fabricante <button onClick={() => handleSort("manufacturer")}>{sortOrder.manufacturer === 'asc' ? '↑' : '↓'}</button></th>
-                     <th>Preço <button onClick={() => handleSort("price")}>{sortOrder.price === 'asc' ? '↑' : '↓'}</button></th>
-                     <th>Custo <button onClick={() => handleSort("cost")}>{sortOrder.cost === 'asc' ? '↑' : '↓'}</button></th>
-                     <th>Quantidade <button onClick={() => handleSort("quantity")}>{sortOrder.quantity === 'asc' ? '↑' : '↓'}</button></th>
+                     <th>Fabricante <button onClick={() => handleSort('manufacturer')}>{sortOrder.manufacturer === 'asc' ? '↑' : '↓'}</button></th>
+                     <th>Preço <button onClick={() => handleSort('price')}>{sortOrder.price === 'asc' ? '↑' : '↓'}</button></th>
+                     <th>Custo <button onClick={() => handleSort('cost')}>{sortOrder.cost === 'asc' ? '↑' : '↓'}</button></th>
+                     <th>Quantidade <button onClick={() => handleSort('quantity')}>{sortOrder.quantity === 'asc' ? '↑' : '↓'}</button></th>
                   </tr>
                </thead>
                <tbody>
-                  {results.map((item) => (
+                  {results.map(item => (
                      <tr key={item.name}>
                         <td>{item.name}</td>
                         <td>{item.manufacturer}</td>
@@ -204,26 +203,26 @@ function Stock() {
                         placeholder="Digite o código de barras"
                      />
                   </label>
-                  <label>Referencia:
+                  <label>Referência:
                      <input 
                         type='text' 
                         name='reference'
                         value={productDetails.reference}
                         onChange={handleInputChange} 
-                        placeholder="Digite a referencia"
+                        placeholder="Digite a referência"
                      />
                   </label>
-                  <label>Produto generico:
+                  <label>Produto genérico:
                      <input 
                         type='text' 
                         name='genericProduct'
                         value={productDetails.genericProduct}
                         onChange={handleInputChange} 
-                        placeholder="Digite o produto generico"
+                        placeholder="Digite o produto genérico"
                      />
                   </label>
-                  { !isPendind && <button type="button" onClick={() => submitData()}>Salvar</button> }
-                  { isPendind && <button disabled>Salvando...</button>}
+                  {!isPending && <button type="button" onClick={submitData}>Salvar</button>}
+                  {isPending && <button disabled>Salvando...</button>}
                </form>
             </div>
          </Model>
@@ -234,7 +233,7 @@ function Stock() {
          >
             <div className='addStock'>
                <span className='ReactModal__Close' onClick={() => setAddStockScreen(false)}>X</span>
-               <h2>Atualizar produto</h2>
+               <h2>Atualizar Produto</h2>
                <form>
                   <label>Nome do Produto:
                      <input 
@@ -264,22 +263,28 @@ function Stock() {
                </form>
             </div>
          </Model>
-         <Model
-            isOpen={deleteProductScreen}
-            onRequestClose={() => setDeleteProductScreen(false)}
-            className="ReactModal__Content"
-         >
-            <span className='ReactModal__Close' onClick={() => setDeleteProductScreen(false)}>X</span>
-            <input type="text" value={searchValue} onChange={(e) => setSearchValue(e.target.value)} placeholder="Search options" />
-            <select value={selectedOption} onChange={(e) => setSelectedOption(e.target.value)}>
-               <option value=''>{selectedOption.name}</option>
-               {results.filter(result => result.name)
-                  .map(result => (
-                     <option key={result.id} value={result.id}>{result.name}</option>
-               ))}
-            </select>
-            <button type="button" onClick={() => handleDelete()}>Deletar</button>
-         </Model>
+         {/* Modal Deletar Produto */}
+<Model
+   isOpen={deleteProductScreen}
+   onRequestClose={() => setDeleteProductScreen(false)}
+   className="ReactModal__Content"
+>
+   <div className='deleteProduct'>
+      <span className='ReactModal__Close' onClick={() => setDeleteProductScreen(false)}>X</span>
+      <h2>Deletar Produto</h2> {/* Título centralizado */}
+      <form>
+                  <label>Selecione o produto a ser deletado:
+                     <select onChange={(e) => setSelectedOption(e.target.value)}>
+                        {results.map(item => (
+                           <option key={item.name} value={item.name}>{item.name}</option>
+                        ))}
+                     </select>
+                  </label>
+                  <button type="button" onClick={handleDelete}>Deletar</button>
+               </form>
+   </div>
+</Model>
+
       </div>
    );
 }

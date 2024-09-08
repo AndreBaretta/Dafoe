@@ -156,7 +156,8 @@
 }
 
 .newProduct,
-.addStock {
+.addStock,
+.deleteProduct {
    width: 100%;
    display: flex;
    flex-direction: column;
@@ -164,7 +165,8 @@
 }
 
 .newProduct label,
-.addStock label {
+.addStock label,
+.deleteProduct label {
    width: 100%;
    margin-bottom: 10px;
    font-weight: bold;
@@ -172,7 +174,8 @@
 }
 
 .newProduct input,
-.addStock input {
+.addStock input
+ {
    width: calc(100% - 16px);
    padding: 8px;
    margin-top: 5px;
@@ -181,7 +184,8 @@
 }
 
 .newProduct button,
-.addStock button {
+.addStock button 
+{
    width: 100%; 
    padding: 10px;
    background-color: #4caf50;
@@ -196,4 +200,41 @@
 .newProduct button:hover,
 .addStock button:hover {
    background-color: #45a049;
+}
+
+.deleteProduct {
+   display: flex;
+   flex-direction: column;
+   align-items: center; /* Centraliza horizontalmente */
+   justify-content: center; /* Centraliza verticalmente */
+   width: 100%;
+}
+
+.deleteProduct label {
+   width: 100%;
+   text-align: center; /* Centraliza o texto dentro do label */
+   margin-bottom: 10px;
+}
+
+.deleteProduct select {
+   width: 100%; /* Ajusta a largura do select */
+   padding: 8px;
+   border-radius: 4px;
+   border: 1px solid #ccc;
+   margin-bottom: 20px; /* Espaçamento entre o select e o botão */
+}
+
+.deleteProduct button {
+   width: 100%; /* Ajusta a largura do botão */
+   padding: 10px;
+   background-color: #e74c3c; /* Cor de fundo do botão */
+   color: white;
+   border: none;
+   border-radius: 4px;
+   cursor: pointer;
+   text-align: center;
+}
+
+.deleteProduct button:hover {
+   background-color: #c0392b; /* Cor de fundo do botão ao passar o mouse */
 }
