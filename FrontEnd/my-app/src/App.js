@@ -24,28 +24,29 @@ function App() {
    )
 
    function returnPage() {
-      if (page === 'home') {
-         return <Home />
-      } else if (page === 'login') {
-         return <Login />
-      } else if (page === 'sales') {
-         return <Sales />
-      } else if (page === 'stock') {
-         return <Stock />
-      } else if (page === 'register') {
-         return <Register />
-      } else if (page === 'clients') {
-         return <Clients />
-      } else if (page === 'history') {
-         return <History />
-      } else if (page === 'manufacturer') {
-         return <Manufacturer />
-      } else if (page === 'general') {
-         return <General />
-      } else if (page === 'employee') {
-         return <Employee />
-      } else {
-         return <Login />
+      switch (page) {
+         case 'login':
+            return <Login />
+         case 'home':
+            return <Home />
+         case 'sales':
+            return <Sales />
+         case 'stock':
+            return <Stock />
+         case 'register':
+            return <Register />
+         case 'clients':
+            return <Clients />
+         case 'history':
+            return <History />
+         case 'manufacturer':
+            return <Manufacturer />
+         case 'general':
+            return <General />
+         case 'employee':
+            return <Employee />
+         default:
+            return <Login />
       }
    }
 
