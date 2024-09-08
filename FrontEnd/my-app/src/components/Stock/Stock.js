@@ -24,6 +24,13 @@ function Stock() {
       reference: '',
       quantity: ''
    });
+   const [sortOrder, setSortOrder] = useState({
+      name: 'asc',
+      manufacturer: 'asc',
+      price: 'asc',
+      cost: 'asc',
+      quantity: 'asc'
+   });
 
    const submitData = () => {
       try {
@@ -80,6 +87,21 @@ function Stock() {
          });
    };
 
+   const handleSort = (key) => {
+      const order = sortOrder[key] === 'asc' ? 'desc' : 'asc';
+
+      const sortedResults = [...results].sort((a, b) => {
+         if (order === 'asc') {
+            return a[key] > b[key] ? 1 : -1;
+         } else {
+            return a[key] < b[key] ? 1 : -1;
+         }
+      });
+
+      setResults(sortedResults);
+      setSortOrder({ ...sortOrder, [key]: order });
+   };
+
    return (
       <div className="Stock">
          <header className='Menu-header'>
@@ -98,11 +120,11 @@ function Stock() {
             <table className="Stock-table">
                <thead>
                   <tr>
-                     <th>Item <button onClick={() => setQueryOrder("name")}></button></th>
-                     <th>Fabricante <button onClick={() => setQueryOrder("manufacturer")}></button></th>
-                     <th>Preço <button onClick={() => setQueryOrder("price")}></button></th>
-                     <th>Custo <button onClick={() => setQueryOrder("cost")}></button></th>
-                     <th>Quantidade <button onClick={() => setQueryOrder("quantity")}></button></th>
+                     <th>Item <button onClick={() => handleSort('name')}>{sortOrder.name === 'asc' ? '↑' : '↓'}</button></th>
+                     <th>Fabricante <button onClick={() => handleSort("manufacturer")}>{sortOrder.manufacturer === 'asc' ? '↑' : '↓'}</button></th>
+                     <th>Preço <button onClick={() => handleSort("price")}>{sortOrder.price === 'asc' ? '↑' : '↓'}</button></th>
+                     <th>Custo <button onClick={() => handleSort("cost")}>{sortOrder.cost === 'asc' ? '↑' : '↓'}</button></th>
+                     <th>Quantidade <button onClick={() => handleSort("quantity")}>{sortOrder.quantity === 'asc' ? '↑' : '↓'}</button></th>
                   </tr>
                </thead>
                <tbody>
