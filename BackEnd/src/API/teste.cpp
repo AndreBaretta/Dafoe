@@ -48,7 +48,7 @@ int main(){
    ClientDAO clientDAO                     = ClientDAO(dafoeGod);
    EmployeeDAO employeeDAO                 = EmployeeDAO(dafoeGod);
    ManufacturerDAO manufacturerDAO         = ManufacturerDAO(dafoeGod);
-   SellOrderDAO sellOrderDAO               = SellOrderDAO(dafoeGod);
+   SellOrderDAO sellOrderDAO               = SellOrderDAO(dafoeGod, productDAO);
    StatusDAO statusDAO                     = StatusDAO(dafoeGod);
    GenericProductDAO genericProductDAO     = GenericProductDAO(dafoeGod);
    UserDAO userDAO                         = UserDAO(dafoeGod);
@@ -178,7 +178,7 @@ int main(){
 
    // Teste GET produto
 
-   /*
+   /*   
    request = tester.testQueryProductByName("oculos");
    response = httpHandler.handleRequest(request);
    std::cout << "\nname=oculos:\n" << response << '\n';
@@ -198,10 +198,10 @@ int main(){
    request = tester.testRetrieveProductByReference("123123");
    response = httpHandler.handleRequest(request);
    std::cout << "\nreference=123123:\n" << response << '\n';
-   */
+   
 
    // Teste GET categoria
-   /*
+   
    request = tester.testRetrieveAllCategories();
    std::cout << "\nRetrieveAll:\n" << httpHandler.handleRequest(request) << '\n';
 
@@ -223,6 +223,7 @@ int main(){
    // request = httpParser.parseRequest(requestString);
    // response = httpHandler.handleRequest(request);
    // std::cout << response << '\n';
+   
    server.startListen();
    while(true){
       if(server.acceptConnection() == 0){

@@ -35,9 +35,9 @@ std::string HTTPRequestHandler::handleRequest(HTTPRequest& request){
    if(method == "GET"){
       // Product
       if(path.size() == 2){
-	 if(!path[0].compare("api"))
+	 if(path[0].compare("api"))
 	    return return404(version,headers,responseBody);
-	 if(path[1].compare("product")){
+	 if(!path[1].compare("product")){
 	    if(query.empty()) {
 	       responseBody = handleRetrieveAllProduct();
 	       headers["Content-Type"] = "application/json";
@@ -60,7 +60,7 @@ std::string HTTPRequestHandler::handleRequest(HTTPRequest& request){
 	    }
 	    return return400(version,headers,responseBody);
 	 }
-	 if(path[1].compare("category")){
+	 if(!path[1].compare("category")){
 	    if(query.empty()){
 	       responseBody = handleRetrieveAllCategory();
 	       headers["Content-Type"] = "application/json";
@@ -68,7 +68,7 @@ std::string HTTPRequestHandler::handleRequest(HTTPRequest& request){
 	    }
 	    return return400(version,headers,responseBody);
 	 }
-	 if(path[1].compare("payment-method")){
+	 if(!path[1].compare("payment-method")){
 	    if(query.empty()){
 	       responseBody = handleRetrieveAllPaymentMethod();
 	       headers["Content-Type"] = "application/json";
@@ -76,7 +76,7 @@ std::string HTTPRequestHandler::handleRequest(HTTPRequest& request){
 	    }
 	    return return400(version,headers,responseBody);
 	 }
-	 if(path[1].compare("client")){
+	 if(!path[1].compare("client")){
 	    if(query.empty()) {
 	       responseBody = handleRetrieveAllClient();
 	       headers["Content-Type"] = "application/json";
@@ -89,7 +89,7 @@ std::string HTTPRequestHandler::handleRequest(HTTPRequest& request){
 	    }
 	    return return400(version,headers,responseBody);
 	 }
-	 if(path[1].compare("employee")){
+	 if(!path[1].compare("employee")){
 	    if(query.empty()){
 	       responseBody = handleRetrieveAllEmployee();
 	       headers["Content-Type"] = "application/json";
@@ -102,7 +102,7 @@ std::string HTTPRequestHandler::handleRequest(HTTPRequest& request){
 	    }
 	    return return400(version,headers,responseBody);
 	 }
-	 if(path[1].compare("manufacturer")){
+	 if(!path[1].compare("manufacturer")){
 	    if(query.empty()){
 	       responseBody = handleRetrieveAllManufacturer();
 	       headers["Content-Type"] = "application/json";
@@ -115,7 +115,7 @@ std::string HTTPRequestHandler::handleRequest(HTTPRequest& request){
 	    }
 	    return return400(version,headers,responseBody);
 	 }
-	 if(path[1].compare("order")){
+	 if(!path[1].compare("order")){
 	    if(query.empty()){
 	       responseBody = handleRetrieveAllOrder();
 	       headers["Content-Type"] = "application/json"; 
@@ -155,7 +155,7 @@ std::string HTTPRequestHandler::handleRequest(HTTPRequest& request){
 	    }
 	    return400(version,headers,responseBody);
 	 }
-	 if(path[1].compare("status")){
+	 if(!path[1].compare("status")){
 	    if(query.empty()){
 	       responseBody = handleRetrieveAllStatus();
 	       headers["Content-Type"] = "application/json";
@@ -165,52 +165,52 @@ std::string HTTPRequestHandler::handleRequest(HTTPRequest& request){
 	 }
       }
       if(path.size() == 3){
-	 if(!path[0].compare("api"))
+	 if(path[0].compare("api"))
 	    return404(version,headers,responseBody);
 	 if(!isNumber(path[2]))
 	    return400(version,headers,responseBody);
-	 if(path[1].compare("product")){
+	 if(!path[1].compare("product")){
 	    int temp = std::stoi(path[2]);
 	    responseBody = handleRetrieveProductById(temp);
 	    headers["Content-Type"] = "application/json";
 	    return200(version,headers,responseBody);
 	 }
-	 if(path[1].compare("category")){
+	 if(!path[1].compare("category")){
 	    int temp = std::stoi(path[2]);
 	    responseBody = handleRetrieveCategory(temp);
 	    return return200(version,headers,responseBody);
 	 }
-	 if(path[1].compare("payment-method")){
+	 if(!path[1].compare("payment-method")){
 	    int temp = std::stoi(path[2]);
 	    responseBody = handleRetrievePaymentMethod(temp);
 	    headers["Content-Type"] = "application/json";
 	    return return200(version, headers, responseBody);
 	 }
-	 if(path[1].compare("client")){
+	 if(!path[1].compare("client")){
 	    int temp = std::stoi(path[2]);
 	    responseBody = handleRetrieveClient(temp);
 	    headers["Content-Type"] = "application/json";
 	    return return200(version,headers,responseBody);
 	 }
-	 if(path[1].compare("employee")){
+	 if(!path[1].compare("employee")){
 	    int temp = std::stoi(path[2]);
 	    responseBody = handleRetrieveEmployee(temp);
 	    headers["Content-Type"] = "application/json";
 	    return return200(version,headers,responseBody);
 	 }
-	 if(path[1].compare("manufacturer")){
+	 if(!path[1].compare("manufacturer")){
 	    int temp = std::stoi(path[2]);
 	    responseBody = handleRetrieveEmployee(temp);
 	    headers["Content-Type"] = "application/json";
 	    return return200(version,headers,responseBody);
 	 }
-	 if(path[1].compare("order")){
+	 if(!path[1].compare("order")){
 	    int temp = std::stoi(path[2]);
 	    responseBody = handleRetrieveOrder(temp);
 	    headers["Content-Type"] = "application/json";
 	    return return200(version,headers,responseBody);
 	 }
-	 if(path[1].compare("status")){
+	 if(!path[1].compare("status")){
 	    int temp = std::stoi(path[2]);
 	    responseBody = handleRetrieveStatus(temp);
 	    headers["Content-Type"] = "application/json";
