@@ -34,7 +34,7 @@ HTTPRequest HTTPRequestParser::parseRequest(std::string request){
          headers[key] = value;
       }
    }
-   
+
    if(!(tempPath == "/")){
       while(std::getline(pathStream,buffer,'/')){
          if(buffer != ""){

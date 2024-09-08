@@ -1,5 +1,6 @@
 #include "HTTPRequestHandler.hpp"
 #include <iostream>
+#include <string>
 
 HTTPRequestHandler::HTTPRequestHandler(HTTPResponseBuilder& responseBuilder, ProductMNG& productMNG, CategoryMNG& categoryMNG, PaymentMethodMNG& paymentMethodMNG,
 				       ClientMNG& clientMNG, EmployeeMNG& employeeMNG, ManufacturerMNG& manufacturerMNG, SellOrderMNG& sellOrderMNG,
@@ -25,11 +26,12 @@ std::string HTTPRequestHandler::handleRequest(HTTPRequest& request){
    std::string stringResponse{};
    std::map<std::string,std::string> headers{};
 
-   headers["Access-Controll-Allow-Origin"] = "*";
+   headers["Access-Control-Allow-Origin"] = "*";
    std::string method = request.getMethod();
    std::vector<std::string> path = request.getPath();
    std::string query = request.getQuery();
    std::string requestBody = request.getBody();
+   std::map<std::string, std::string> requestHeaders = request.getHeaders();
 
    // Lidando com o metodo GET
    if(method == "GET"){
@@ -220,8 +222,9 @@ std::string HTTPRequestHandler::handleRequest(HTTPRequest& request){
    }
 
    if(method == "POST"){
-      if(!headers.contains("Content-Length"))
+      if(!requestHeaders.contains("Content-Length")){
 	 return return411(version,headers,responseBody);
+      }
       if(path.size() != 2)
 	 return return400(version,headers,responseBody);
       if(path[0] != "api")
@@ -315,8 +318,9 @@ std::string HTTPRequestHandler::handleRequest(HTTPRequest& request){
       }
       return return404(version,headers,responseBody);
    }else if(method == "PUT"){
-      if(!headers.contains("Content-Length"))
+      if(!requestHeaders.contains("Content-Length")){
 	 return return411(version,headers,responseBody);
+      }
       if(path.size() != 3)
 	 return return400(version,headers,responseBody);
       if(path[0] != "api")
