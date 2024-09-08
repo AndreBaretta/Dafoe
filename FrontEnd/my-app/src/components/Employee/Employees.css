@@ -1,0 +1,146 @@
+:root {
+  --glass: rgba(255, 255, 255, 0.25);
+}
+
+.Employees {
+  display: flex;
+  min-height: 100vh;
+  background-color: #0d1117;
+}
+
+.Content {
+  flex-grow: 1;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.Employees-table-container {
+  width: 90%;
+  max-width: 2600px;
+  background: linear-gradient(to bottom, #212020, #222121);
+  border-radius: 1rem;
+  padding: 0.75rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin-top: 65px;
+  margin-left: 1%;
+  margin-right: 0.5%;
+}
+
+.Employees-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: calc(10px + 1vmin);
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+  background: #000000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.Employees-table th, .Employees-table td {
+  padding: 0.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.Employees-table th {
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.2);
+  font-weight: bold;
+  color: #ffffff;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.Employees-table tr:nth-child(even) {
+  transition: background-color 0.3s ease;
+}
+
+.Employees-table tr:hover button{
+  transition: background-color 0.3s ease;
+
+}
+
+.Employees-table tr:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+
+}
+
+/* Modal styling */
+.ReactModal__Content {
+  width: 400px;
+  max-width: 90%;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.ReactModal__Close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.ReactModal__Header {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.addEmployee, .editEmployee {
+  margin-top: 20px;
+}
+
+form label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+form input[type="text"], form select {
+  width: calc(100% - 20px);
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+form button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+form button:hover {
+  background-color: #45a049;
+}
+
+form button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+th[onClick] {
+  cursor: pointer;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  padding: 8px 12px;
+  border-radius: 4px;
+}
