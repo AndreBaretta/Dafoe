@@ -230,39 +230,48 @@ std::string HTTPRequestHandler::handleRequest(HTTPRequest& request){
       if(path[0] != "api")
 	 return return404(version,headers,responseBody);
       if(path[1] == "product"){
-	 handleCreateProduct(requestBody);
+	 if(!handleCreateProduct(requestBody))
+	    return return400(version,headers,responseBody);
 	 return return204(version,headers,responseBody);
       }
       if(path[1] == "category"){
-	 handleCreateCategory(requestBody);
+	 if(!handleCreateCategory(requestBody))
+	    return return400(version,headers,responseBody);
 	 return return204(version,headers,responseBody);
       }
       if(path[1] == "payment-method"){
-	 handleCreatePaymentMethod(requestBody);
+	 if(!handleCreatePaymentMethod(requestBody))
+	    return return400(version,headers,responseBody);
 	 return return204(version,headers,responseBody);
       }
       if(path[1] == "client"){
-	 handleCreateClient(requestBody);
+	 if(!handleCreateClient(requestBody))
+	    return return400(version,headers,responseBody);
 	 return return204(version,headers,responseBody);
       }
       if(path[1] == "employee"){
-	 handleCreateEmployee(requestBody);
+	 if(!handleCreateEmployee(requestBody))
+	    return return400(version,headers,responseBody);
 	 return return204(version,headers,responseBody);
       }
       if(path[1] == "manufacturer"){
-	 handleCreateManufacturer(requestBody);
+	 if(!handleCreateManufacturer(requestBody))
+	    return return400(version,headers,responseBody);
 	 return return204(version,headers,responseBody);
       }
       if(path[1] == "order"){
-	 handleCreateOrder(requestBody);
+	 if(!handleCreateOrder(requestBody))
+	    return return400(version,headers,responseBody);
 	 return return204(version,headers,responseBody);
       }
       if(path[1] == "status"){
-	 handleCreateStatus(requestBody);
+	 if(!handleCreateStatus(requestBody))
+	    return return400(version,headers,responseBody);
 	 return return204(version,headers,responseBody);
       }
       if(path[1] == "generic-product"){
-	 handleCreateGenericProduct(requestBody);
+	 if(!handleCreateGenericProduct(requestBody))
+	    return return400(version,headers,responseBody);
 	 return return204(version,headers,responseBody);
       }
       /*if(path[1] == "login"){
@@ -278,42 +287,50 @@ std::string HTTPRequestHandler::handleRequest(HTTPRequest& request){
 	 return return404(version,headers,responseBody);
       if(path[1] == "product"){
 	 int id = std::stoi(path[2]);
-	 handleDeleteProduct(id);
+	 if(handleDeleteProduct(id))
+	    return return400(version,headers,responseBody);
 	 return return204(version,headers,responseBody);
       }
       if(path[1] == "category"){
 	 int id = std::stoi(path[2]);
-	 handleDeleteCategory(id);
+	 if(!handleDeleteCategory(id))
+	    return return400(version,headers,responseBody);
 	 return return204(version,headers,responseBody);
       }
       if(path[1] == "payment-method"){
 	 int id = std::stoi(path[2]);
-	 handleDeletePaymentMethod(id);
+	 if(!handleDeletePaymentMethod(id))
+	    return return400(version,headers,responseBody);
 	 return return204(version,headers,responseBody);
       }
       if(path[1] == "client"){
 	 int id = std::stoi(path[2]);
-	 handleDeleteClient(id);
+	 if(!handleDeleteClient(id))
+	    return return400(version,headers,responseBody);
 	 return return204(version,headers,responseBody);
       }
       if(path[1] == "employee"){
 	 int id = std::stoi(path[2]);
-	 handleDeleteEmployee(id);
+	 if(!handleDeleteEmployee(id))
+	    return return400(version,headers,responseBody);
 	 return return204(version,headers,responseBody);
       }
       if(path[1] == "manufacturer"){
 	 int id = std::stoi(path[2]);
-	 handleDeleteManufacturer(id);
+	 if(!handleDeleteManufacturer(id))
+	    return return400(version,headers,responseBody);
 	 return return204(version,headers,responseBody);
       }
       if(path[1] == "status"){
 	 int id = std::stoi(path[2]);
-	 handleDeleteStatus(id);
+	 if(!handleDeleteStatus(id))
+	    return return400(version,headers,responseBody);
 	 return return204(version,headers,responseBody);
       }
       if(path[1] == "generic-product"){
 	 int id = std::stoi(path[2]);
-	 handleDeleteGenericProduct(id);
+	 if(!handleDeleteGenericProduct(id))
+	    return return400(version,headers,responseBody);
 	 return return204(version,headers,responseBody);
       }
       return return404(version,headers,responseBody);
@@ -329,47 +346,56 @@ std::string HTTPRequestHandler::handleRequest(HTTPRequest& request){
 	 return return400(version,headers,responseBody);
       if(path[1] == "product"){
 	 int id = std::stoi(path[2]);
-	 handleUpdateProduct(id,requestBody);
+	 if(!handleUpdateProduct(id,requestBody))
+	    return return400(version, headers, responseBody);
 	 return return204(version,headers,responseBody);
       }
       if(path[1] == "category"){
 	 int id = std::stoi(path[2]);
-	 handleUpdateCategory(id,requestBody);
+	 if(!handleUpdateCategory(id,requestBody))
+	    return return400(version, headers, responseBody);
 	 return return204(version,headers,responseBody);
       }
       if(path[1] == "payment-method"){
 	 int id = std::stoi(path[2]);
-	 handleUpdatePaymentMethod(id,requestBody);
+	 if(handleUpdatePaymentMethod(id,requestBody))
+	    return return400(version, headers, responseBody);
 	 return return204(version,headers,responseBody);
       }
       if(path[1] == "client"){
 	 int id = std::stoi(path[2]);
-	 handleUpdateClient(id,requestBody);
+	 if(!handleUpdateClient(id,requestBody))
+	    return return400(version,headers,responseBody);
 	 return return204(version,headers,responseBody);
       }
       if(path[1] == "employee"){
 	 int id = std::stoi(path[2]);
-	 handleUpdateEmployee(id,requestBody);
+	 if(!handleUpdateEmployee(id,requestBody))
+	    return return400(version,headers,responseBody);
 	 return return204(version,headers,responseBody);
       }
       if(path[1] == "manufacturer"){
 	 int id = std::stoi(path[2]);
-	 handleUpdateManufacturer(id,requestBody);
+	 if(!handleUpdateManufacturer(id,requestBody))
+	    return return400(version,headers,responseBody);
 	 return return204(version,headers,responseBody);
       }
       if(path[1] == "order"){
 	 int id = std::stoi(path[2]);
-	 handleUpdateOrder(id,requestBody);
+	 if(!handleUpdateOrder(id,requestBody))
+	    return return400(version, headers, responseBody);
 	 return return204(version,headers,responseBody);
       }
       if(path[1] == "status"){
 	 int id = std::stoi(path[2]);
-	 handleUpdateStatus(id,requestBody);
+	 if(!handleUpdateStatus(id,requestBody))
+	    return return400(version, headers, responseBody);
 	 return return204(version,headers,responseBody);
       }
       if(path[1] == "generic-product"){
 	 int id = std::stoi(path[2]);
-	 handleUpdateGenericProduct(id,requestBody);
+	 if(!handleUpdateGenericProduct(id,requestBody))
+	    return return400(version, headers, responseBody);
 	 return return204(version,headers,responseBody);
       }
       return return404(version,headers,responseBody);
@@ -575,10 +601,10 @@ std::string HTTPRequestHandler::handleRetrievePaymentMethod(const int id){
 bool HTTPRequestHandler::handleCreateClient(const std::string& body){
    try{
       json json = json::parse(body);
-      std::string name	   = json["name"].get<std::string>();
-      std::string phoneNumber = json["phoneNumber"].get<std::string>();
-      std::string address	   = json["address"].get<std::string>();
-      double bill		   = std::stod(json["bill"].get<std::string>());
+      std::string name		    = json["name"].get<std::string>();
+      std::string phoneNumber	    = json["phoneNumber"].get<std::string>();
+      std::string address	    = json["address"].get<std::string>();
+      double bill		    = std::stod(json["bill"].get<std::string>());
       return this->m_clientMNG.createClient(name,phoneNumber,address,bill);
    } catch(std::exception &e){
       std::cerr << e.what() << '\n';
@@ -589,10 +615,10 @@ bool HTTPRequestHandler::handleCreateClient(const std::string& body){
 bool HTTPRequestHandler::handleUpdateClient(const int id, const std::string& body){
    try{
       json json = json::parse(body);
-      std::string name	   = json["name"].get<std::string>();
-      std::string phoneNumber = json["phoneNumber"].get<std::string>();
-      std::string address	   = json["address"].get<std::string>();
-      double bill		   = std::stod(json["bill"].get<std::string>());
+      std::string name		    = json["name"].get<std::string>();
+      std::string phoneNumber	    = json["phoneNumber"].get<std::string>();
+      std::string address	    = json["address"].get<std::string>();
+      double bill		    = std::stod(json["bill"].get<std::string>());
       return this->m_clientMNG.updateClient(id,name,phoneNumber,address,bill);
    } catch(std::exception &e){
       std::cerr << e.what() << '\n';
@@ -606,9 +632,9 @@ bool HTTPRequestHandler::handleDeleteClient(const int id){
 
 bool HTTPRequestHandler::handleCreateEmployee(const std::string& body){
    try{
-      json json = json::parse(body);
+      json json		      = json::parse(body);
       std::string name	   = json["name"].get<std::string>();
-      std::string cargo       = json["cargo"].get<std::string>();
+      std::string cargo    = json["cargo"].get<std::string>();
       return this->m_employeeMNG.createEmployee(name,cargo);
    } catch(std::exception &e){
       std::cerr << e.what() << '\n';
@@ -620,7 +646,7 @@ bool HTTPRequestHandler::handleUpdateEmployee(const int id, const std::string& b
    try{
       json json = json::parse(body);
       std::string name	   = json["name"].get<std::string>();
-      std::string cargo       = json["cargo"].get<std::string>();
+      std::string cargo    = json["cargo"].get<std::string>();
       return this->m_employeeMNG.updateEmployee(id,name,cargo);
    } catch(std::exception &e){
       std::cerr << e.what() << '\n';
