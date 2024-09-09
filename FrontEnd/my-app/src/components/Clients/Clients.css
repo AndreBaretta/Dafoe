@@ -45,7 +45,7 @@
 .Clients-table th, .Clients-table td {
    padding: 0.5rem;
    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-   background-color: #212121; 
+   background-color: #000000; 
 }
 
 .Clients-table th {
