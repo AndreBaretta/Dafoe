@@ -102,6 +102,25 @@ form {
    cursor: pointer;
 }
 
+
+button.cadastro {
+   width: 70%;
+   height: 40px;
+   border-radius: 40px;
+   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+   font-size: 20px;
+   font-weight: 500;
+   margin-bottom: 15px;
+   background-color: orange; 
+   color: white;
+   border: none;
+   cursor: pointer;
+}
+
+button.cadastro:hover {
+   background-color: darkorange;
+}
+
 .watermark {
    position: center;
    bottom: 1rem;
