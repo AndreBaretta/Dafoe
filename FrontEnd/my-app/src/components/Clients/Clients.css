@@ -55,8 +55,9 @@
    color: #ffffff;
    text-transform: uppercase;
    text-align: center;
-   border-left: 1px solid rgba(255, 255, 255, 0.2); 
+   border-left: 1px solid rgba(255, 255, 255, 0.2);   
 }
+
 
 .Clients-table th:first-child {
    border-left: none; 

@@ -78,8 +78,8 @@
 }
 
 .General-table th:hover button {
-   opacity: 1; 
-   background: rgba(184, 40, 184, 0.1); 
+   opacity: 1;
+   background: rgba(184, 40, 184, 0.1);
 }
 
 .General-table tr {
