@@ -230,6 +230,8 @@ int main(){
    // response = httpHandler.handleRequest(request);
    // std::cout << response << '\n';
    
+   std::cout << "Token para teste: " << jwt.createToken(1,true);
+
    server.startListen();
    while(true){
       if(server.acceptConnection() == 0){
