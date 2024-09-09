@@ -29,17 +29,23 @@
 #include "../GenericProduct/GenericProductMNG.hpp"
 #include "../User/UserDAO.hpp"
 #include "../User/UserMNG.hpp"
+#include "Token/JWToken.hpp"
+#include "Token/Session.hpp"
 #include "HTTPResponse/HTTPResponse.hpp"
 #include "HTTPResponseBuilder/HTTPResponseBuilder.hpp"
 #include <nlohmann/json.hpp>
 using json = nlohmann::json;
 
 int main(){
+   std::string secret = "Dafoe111111Secret";
+   std::string issuer = "Dafoe";
+   std::chrono::seconds expireTime = std::chrono::seconds(3600);
    Test tester = Test();
    HTTPResponseBuilder httpResponseBuilder = HTTPResponseBuilder();
    
    DafoeGod dafoeGod                       = DafoeGod();
    JsonBuilder jsonBuilder                 = JsonBuilder();
+   JWToken jwt                             = JWToken(secret, issuer, expireTime);
    
    // DAOs
    CategoryDAO categoryDAO                 = CategoryDAO(dafoeGod);
@@ -63,7 +69,7 @@ int main(){
    SellOrderMNG sellOrderMNG               = SellOrderMNG(sellOrderDAO, jsonBuilder);
    StatusMNG statusMNG                     = StatusMNG(statusDAO, jsonBuilder);
    GenericProductMNG genericProductMNG     = GenericProductMNG(genericProductDAO, jsonBuilder);
-   UserMNG userMNG                         = UserMNG(userDAO);
+   UserMNG userMNG                         = UserMNG(userDAO, jwt);
 
    Server server                           = Server("127.0.0.1", 12354, true);
 
@@ -224,6 +230,8 @@ int main(){
    // response = httpHandler.handleRequest(request);
    // std::cout << response << '\n';
    
+   std::cout << "Token para teste: " << jwt.createToken(1,true);
+
    server.startListen();
    while(true){
       if(server.acceptConnection() == 0){

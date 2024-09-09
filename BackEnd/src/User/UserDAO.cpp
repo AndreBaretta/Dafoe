@@ -28,7 +28,22 @@ std::string UserDAO::retrieveUsername(const int id){
    }
 }
 
-bool UserDAO::createUser(const std::string& name, const std::string& password){
+bool UserDAO::getPermission(const int id){
+   try{
+      m_theos.prepareStatement("select admin from user where id = ?");
+      m_theos.getStatement()->setInt(1,id);
+      m_theos.query(RETRIEVE);
+      m_theos.getResult()->next();
+
+      bool admin = m_theos.getResult()->getBoolean("admin");
+      return admin;
+   } catch(std::exception &e){
+      std::cerr << e.what() << '\n';
+      return false;
+   }
+}
+
+bool UserDAO::createUser(const int id, const std::string& name, const std::string& password){
    try{
       m_theos.prepareStatement("select SHA2(?, 256) as hash_value");
       m_theos.getStatement()->setString(1, password);
@@ -37,9 +52,10 @@ bool UserDAO::createUser(const std::string& name, const std::string& password){
 
       std::string hash {m_theos.getResult()->getString("hash_value").c_str()};
 
-      m_theos.prepareStatement("insert into user (name, password) values (?,?)");
-      m_theos.getStatement()->setString(1, name);
-      m_theos.getStatement()->setString(2, hash);
+      m_theos.prepareStatement("insert into user (id, name, password) values (?,?,?)");
+      m_theos.getStatement()->setInt(1, id);
+      m_theos.getStatement()->setString(2, name);
+      m_theos.getStatement()->setString(3, hash);
       m_theos.query(CREATE);
 
       return true;

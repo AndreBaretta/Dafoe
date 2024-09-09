@@ -62,11 +62,14 @@ set(SOURCES
    BackEnd/src/GenericProduct/GenericProductMNG.cpp
    # ProductOrder
    BackEnd/src/ProductOrder/ProductOrder.cpp
-   # BackEnd/src/ProductOrder/ProductOrderDAO.cpp
+   BackEnd/src/ProductOrder/ProductOrderDAO.cpp
    # User
    BackEnd/src/User/User.cpp
    BackEnd/src/User/UserDAO.cpp
    BackEnd/src/User/UserMNG.cpp
+   # JWT
+   BackEnd/src/API/Token/JWToken.cpp
+   BackEnd/src/API/Token/Session.cpp
    # Teste
    BackEnd/src/API/teste.cpp
    BackEnd/src/Test/Test.cpp

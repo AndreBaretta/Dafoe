@@ -73,8 +73,9 @@ json JsonBuilder::paymentMethodVectorToJson(std::vector<PaymentMethod>& paymentM
 
 json JsonBuilder::employeeToJson(Employee& employee){
    json jsonEmployee;
-   jsonEmployee["id"]   = employee.getId();
-   jsonEmployee["name"] = employee.getName();
+   jsonEmployee["id"]    = employee.getId();
+   jsonEmployee["name"]  = employee.getName();
+   jsonEmployee["cargo"] = employee.getCargo();
    return jsonEmployee;
 }
 
@@ -82,8 +83,9 @@ json JsonBuilder::employeeVectorToJson(std::vector<Employee>& employees){
    json jsonEmployeeArray;
    for(int i = 0; i < employees.size(); i++){
       json jsonEmployee;
-      jsonEmployee["id"]   = employees[i].getId();
-      jsonEmployee["name"] = employees[i].getName();
+      jsonEmployee["id"]    = employees[i].getId();
+      jsonEmployee["name"]  = employees[i].getName();
+      jsonEmployee["cargo"] = employees[i].getCargo();
       jsonEmployeeArray.push_back(jsonEmployee);
    }
    return jsonEmployeeArray;

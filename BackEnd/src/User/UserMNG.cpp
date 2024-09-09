@@ -1,13 +1,14 @@
 #include "UserMNG.hpp"
 
-UserMNG::UserMNG(UserDAO& userDAO)
+UserMNG::UserMNG(UserDAO& userDAO, JWToken& jwt)
 : m_userDAO{userDAO}
+, m_jwt{jwt}
 {}
 
 UserMNG::~UserMNG(){}
 
-bool UserMNG::createUser(const std::string& name, const std::string& password){
-   return this->m_userDAO.createUser(name, password);
+bool UserMNG::createUser(const int id, const std::string& name, const std::string& password){
+   return this->m_userDAO.createUser(id, name, password);
 }
 
 bool UserMNG::updateUserPassword(const int id, const std::string& password, const std::string& newPassword){
@@ -33,16 +34,21 @@ json UserMNG::retrieveUsername(const int id){
    return json;
 }
 
-std::string UserMNG::loginUser(const int id, const std::string& password){
-   
-}
-
-bool UserMNG::logoutUser(const int id){
-
+bool UserMNG::loginUser(const int id, const std::string& password){
+   return this->m_userDAO.validatePassword(id,password);
 }
 
 bool UserMNG::validateSession(const std::string& token){
+   return this->m_jwt.validateToken(token);
+}
 
+std::string UserMNG::getToken(const int id){
+   bool admin = this->m_userDAO.getPermission(id);
+   return this->m_jwt.createToken(id, admin);
+}
+
+Session UserMNG::getSession(const std::string& token){
+   return this->m_jwt.getSession(token);
 }
 
 
