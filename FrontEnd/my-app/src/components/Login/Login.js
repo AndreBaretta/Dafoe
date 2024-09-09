@@ -45,6 +45,7 @@ const Login = () => {
                </label>
             </div>
             <button type="submit">Entrar</button>
+            <button className="cadastro">Cadastre-se</button> {/* Botão "Cadastre-se" */}
          </form>
          <div className="watermark">
             ©dafoeformation - 2024
