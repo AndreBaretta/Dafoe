@@ -11,7 +11,7 @@ Model.setAppElement('#root');
 function General() {
    const [searchValue, setSearchValue] = useState("");
    const [results, setResults] = useState([]);
-   const [view, setView] = useState(null); // Track current view: 'payment-methods' or 'categories'
+   const [view, setView] = useState(null); 
    const [itemDetails, setItemDetails] = useState({ name: '' });
    const [isPending, setIsPending] = useState(false);
    const [editingItemId, setEditingItemId] = useState(null);
@@ -151,7 +151,7 @@ function General() {
                   <thead>
                      <tr>
                         <th onClick={handleSort}>
-                           Nome {sortOrder === 'asc' ? '↑' : '↓'}
+                           Nome 
                         </th>
                      </tr>
                   </thead>
