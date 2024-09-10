@@ -1,4 +1,3 @@
-
 import './Manufacturer.css';
 import Sidebar from '../Sidebar/sidebar';
 import SearchBar from '../SearchBar/SearchBar';
@@ -72,6 +71,7 @@ function Manufacturer() {
             console.log('Fabricante adicionado com sucesso');
             setNewManufacturerScreen(false);
             setManufacturerDetails({
+               id: '',
                name: '',
             });
             fetchManufacturers(); // Refresh after adding new manufacturer
@@ -100,6 +100,10 @@ function Manufacturer() {
             console.log('Fabricante atualizado com sucesso');
             setEditManufacturerScreen(false);
             fetchManufacturers(); // Refresh after updating manufacturer
+            setManufacturerDetails({
+               id: '',
+               name: '',
+            });
          } else {
             console.error('Erro ao atualizar fabricante');
          }
@@ -124,6 +128,10 @@ function Manufacturer() {
             console.log('Fabricante deletado com sucesso');
             setEditManufacturerScreen(false);
             fetchManufacturers(); // Refresh after deleting manufacturer
+            setManufacturerDetails({
+               id: '',
+               name: '',
+            });
          } else {
             console.error('Erro ao deletar fabricante');
          }
@@ -144,6 +152,14 @@ function Manufacturer() {
       });
       setResults(sortedResults);
       setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc'); // Toggle sort order
+   };
+
+   // Function to reset manufacturerDetails state
+   const resetManufacturerDetails = () => {
+      setManufacturerDetails({
+         id: '',
+         name: '',
+      });
    };
 
    return (
@@ -180,10 +196,16 @@ function Manufacturer() {
          {/* Modal to edit existing manufacturer */}
          <Model
             isOpen={editManufacturerScreen}
-            onRequestClose={() => setEditManufacturerScreen(false)}
+            onRequestClose={() => {
+               resetManufacturerDetails(); // Reset details when closing modal
+               setEditManufacturerScreen(false);
+            }}
             className="ReactModal__Content"
          >
-            <button className="ReactModal__Close" onClick={() => setEditManufacturerScreen(false)}>X</button>
+            <button className="ReactModal__Close" onClick={() => {
+               resetManufacturerDetails(); // Reset details when closing modal
+               setEditManufacturerScreen(false);
+            }}>X</button>
             <div className='editManufacturer'>
                <h2>Editar Fabricante</h2>
                <form>
@@ -244,4 +266,3 @@ function Manufacturer() {
 }
 
 export default Manufacturer;
-

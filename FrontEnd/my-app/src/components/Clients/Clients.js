@@ -69,8 +69,9 @@ const handleInputChange = (e) => {
       try {
          const response = await fetch('https://localhost:12354/api/client', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json',
-               'token': localStorage.getItem('token'),
+            headers: {
+                  "Content-Type": "application/json",
+                  "token" : localStorage.getItem('token')
             },
             body: JSON.stringify({
                ...clientDetails,

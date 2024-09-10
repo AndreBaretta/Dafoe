@@ -36,7 +36,7 @@ bool EmployeeDAO::deleteEmployee(const int id){
 
 bool EmployeeDAO::updateEmployee(const int id, const std::string& name, const std::string& cargo){
    try{
-      m_theos.prepareStatement("update employee set (name = ?, cargo = ?) where id = ?");
+      m_theos.prepareStatement("update employee set name = ?, cargo = ? where id = ?");
       m_theos.getStatement()->setString(1, name);
       m_theos.getStatement()->setString(2, cargo);
       m_theos.getStatement()->setInt(3, id);

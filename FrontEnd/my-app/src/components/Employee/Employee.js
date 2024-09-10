@@ -18,7 +18,6 @@ function Employees() {
       cargo: '',
    });
    const [isPending, setIsPending] = useState(false);
-   const [selectedEmployee, setSelectedEmployee] = useState(null);
    const [editMode, setEditMode] = useState(false);
 
    const [sortOrder, setSortOrder] = useState({
@@ -30,9 +29,12 @@ function Employees() {
    useEffect(() => {
       const getData = async () => {
          try {
-            const response = await fetch(
-               `https://localhost:12354/api/employee?name=${searchValue}`
-            );
+            const response = await fetch(`https://localhost:12354/api/employee?name=${searchValue}`, {
+                  headers: {
+                     "Content-Type": "application/json",
+                     "token" : localStorage.getItem('token')
+                  },
+               });
             const data = await response.json();
             if (Array.isArray(data)) {
                setResults(data);
@@ -62,7 +64,10 @@ function Employees() {
       try {
          const response = await fetch('https://localhost:12354/api/employee', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 
+               'Content-Type': 'application/json',
+               "token" : localStorage.getItem('token'),
+            },
             body: JSON.stringify(employeeDetails),
          });
 
@@ -75,6 +80,14 @@ function Employees() {
             });
             setNewEmployeeScreen(false);
             setSearchValue('');
+            const response = await fetch(`https://localhost:12354/api/employee`, {
+               headers: {
+                  "Content-Type": "application/json",
+                  "token" : localStorage.getItem('token')
+               },
+            });
+            const data = await response.json();
+            setResults(data);
          } else {
             console.error('Erro ao adicionar funcionário');
          }
@@ -101,9 +114,9 @@ function Employees() {
    };
 
    const handleRowClick = (employee) => {
-      setSelectedEmployee(employee);
       setEmployeeDetails(employee);
       setEditMode(true);
+      setEditEmployeeScreen(true);
    };
 
    const handleUpdateEmployee = async () => {
@@ -111,14 +124,28 @@ function Employees() {
       try {
          const response = await fetch(`https://localhost:12354/api/employee/${employeeDetails.id}`, {
             method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+               'Content-Type': 'application/json',
+               "token" : localStorage.getItem('token'),
+            },
             body: JSON.stringify(employeeDetails),
          });
 
          if (response.ok) {
             console.log('Funcionário atualizado com sucesso');
             setEditMode(false);
+            setEditEmployeeScreen(false);
             setSearchValue('');
+            // Refresh data
+            const response = await fetch(`https://localhost:12354/api/employee`, {
+               headers: {
+                  "Content-Type": "application/json",
+                  "token" : localStorage.getItem('token')
+               },
+            });
+            const data = await response.json();
+            setResults(data);
+            closeEditEmployeeModal();
          } else {
             console.error('Erro ao atualizar funcionário');
          }
@@ -134,12 +161,25 @@ function Employees() {
       try {
          const response = await fetch(`https://localhost:12354/api/employee/${employeeDetails.id}`, {
             method: 'DELETE',
+            headers: {
+               'Content-Type': 'application/json',
+               "token" : localStorage.getItem('token'),
+            },
          });
 
          if (response.ok) {
             console.log('Funcionário deletado com sucesso');
-            setEditMode(false);
+            closeEditEmployeeModal()
             setSearchValue('');
+            // Refresh data
+            const response = await fetch(`https://localhost:12354/api/employee`, {
+               headers: {
+                  "Content-Type": "application/json",
+                  "token" : localStorage.getItem('token')
+               },
+            });
+            const data = await response.json();
+            setResults(data);
          } else {
             console.error('Erro ao deletar funcionário');
          }
@@ -148,6 +188,15 @@ function Employees() {
       } finally {
          setIsPending(false);
       }
+   };
+
+   const closeEditEmployeeModal = () => {
+      setEditEmployeeScreen(false);
+      setEmployeeDetails({
+         id: '',
+         name: '',
+         cargo: '',
+      });
    };
 
    return (
@@ -163,13 +212,6 @@ function Employees() {
                   onClick={() => setNewEmployeeScreen(true)}
                >
                   Novo Funcionário
-               </button>
-               {/* Botão de Editar Funcionário */}
-               <button
-                  className="editEmployeeButton"
-                  onClick={() => setEditEmployeeScreen(true)}
-               >
-                  Editar Funcionário
                </button>
             </div>
             <SearchBar results={searchValue} setResults={setSearchValue} />
@@ -246,11 +288,11 @@ function Employees() {
          </Model>
          <Model
             isOpen={editEmployeeScreen}
-            onRequestClose={() => setEditEmployeeScreen(false)}
+            onRequestClose={closeEditEmployeeModal}
             className="ReactModal__Content"
             ariaHideApp={false}
          >
-            <button className="ReactModal__Close" onClick={() => setEditEmployeeScreen(false)}>X</button>
+            <button className="ReactModal__Close" onClick={closeEditEmployeeModal}>X</button>
             <div className="ReactModal__Header">
                Editar Funcionário
             </div>
@@ -268,29 +310,31 @@ function Employees() {
                   <label>
                      Cargo:
                      <select
-                        name="cargo"
-                        value={employeeDetails.cargo}
-                        onChange={handleInputChange}
-                     >
-                        <option value="">Selecione</option>
-                        {cargos.map((cargo, index) => (
-                           <option key={index} value={cargo}>
-                              {cargo}
-                           </option>
-                        ))}
-                     </select>
-                  </label>
-                  <button type="button" onClick={handleUpdateEmployee}>
-                     Atualizar
+                     name="cargo"
+                     value={employeeDetails.cargo}
+                     onChange={handleInputChange}
+                  >
+                     <option value="">Selecione</option>
+                     {cargos.map((cargo, index) => (
+                        <option key={index} value={cargo}>
+                           {cargo}
+                        </option>
+                     ))}
+                  </select>
+               </label>
+               <div className="editEmployee-buttons">
+                  <button type="button" onClick={handleUpdateEmployee} disabled={isPending}>
+                     {isPending ? 'Atualizando...' : 'Salvar'}
                   </button>
-                  <button type="button" onClick={handleDeleteEmployee}>
-                     Deletar
+                  <button type="button" onClick={handleDeleteEmployee} disabled={isPending}>
+                     {isPending ? 'Deletando...' : 'Deletar'}
                   </button>
-               </form>
-            </div>
-         </Model>
-      </div>
-   );
+               </div>
+            </form>
+         </div>
+      </Model>
+   </div>
+);
 }
 
 export default Employees;
