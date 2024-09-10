@@ -32,7 +32,7 @@ int SellOrderDAO::createOrder(const int clientId, const int sellerId, const int 
 
    }catch(std::exception& e){
       std::cerr << e.what() << '\n';
-      throw;
+      return -1;
    }
 }
 

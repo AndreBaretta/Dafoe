@@ -17,10 +17,9 @@ bool ManufacturerDAO::createManufacturer(const std::string& name){
       m_theos.query(CREATE);
 
       return true;
-
    }catch(std::exception& e){
       std::cerr << e.what() << '\n';
-      throw;
+      return false;
    }
 }
 
@@ -32,10 +31,9 @@ bool ManufacturerDAO::updateManufacturer(const int id, const std::string& name){
       m_theos.query(UPDATE);
 
       return true;
-
    }catch(std::exception& e){
       std::cerr << e.what() << '\n';
-      throw;
+      return false;
    }
 }
 
@@ -46,10 +44,9 @@ bool ManufacturerDAO::deleteManufacturer(const int id){
       m_theos.query(DELETE);
 
       return true;
-
    }catch(std::exception& e){
       std::cerr << e.what() << '\n';
-      throw;
+      return false;
    }
 }
 
@@ -67,7 +64,6 @@ std::vector<Manufacturer> ManufacturerDAO::retrieveManufacturerByName(const std:
       }
 
       return manufacturers;
-
    }catch(std::exception& e){
       std::cerr << e.what() << '\n';
       throw;
@@ -87,7 +83,6 @@ std::vector<Manufacturer> ManufacturerDAO::retrieveManufacturer(const int id){
       manufacturer.push_back(Manufacturer(m_theos.getResult()->getInt("id"), m_theos.getResult()->getString("name").c_str()));
 
       return manufacturer;
-
    }catch(std::exception& e){
       std::cerr << e.what() << '\n';
       throw;
@@ -106,7 +101,6 @@ std::vector<Manufacturer> ManufacturerDAO::listAllManufacturer(){
       }
 
       return manufacturers;
-
    }catch(std::exception& e){
       std::cerr << e.what() << '\n';
       throw;

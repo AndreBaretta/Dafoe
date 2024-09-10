@@ -19,7 +19,7 @@ bool PaymentMethodDAO::createPaymentMethod(const std::string& name){
 
    }catch(std::exception& e){
       std::cout << e.what() << '\n';
-      throw;
+      return false;
    }
 }
 
@@ -33,7 +33,7 @@ bool PaymentMethodDAO::deletePaymentMethod(const int id){
 
    }catch(std::exception& e){
       std::cerr << e.what() << '\n';
-      throw;
+      return false;
    }
 }
 
@@ -48,7 +48,7 @@ bool PaymentMethodDAO::updatePaymentMethod(const int id, const std::string& name
 
    }catch(std::exception& e){
       std::cerr << e.what() << '\n';
-      throw;
+      return false;
    }
 }
 

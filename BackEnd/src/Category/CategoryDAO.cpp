@@ -12,10 +12,9 @@ bool CategoryDAO::createCategory(std::string name){
       m_theos.getStatement()->setString(1, name);
       m_theos.query(CREATE);
       return true;
-
    }catch(std::exception& e){
       std::cerr << e.what() << '\n';
-      throw;
+      return false;
    }
 }
 
@@ -25,10 +24,9 @@ bool CategoryDAO::deleteCategory(const int id){
       m_theos.getStatement()->setInt(1, id);
       m_theos.query(DELETE);
       return true;
-
    }catch(std::exception& e){
       std::cerr << e.what() << '\n';
-      throw;
+      return false;
    }
 }
 
@@ -39,10 +37,9 @@ bool CategoryDAO::updateCategory(const int id, std::string name){
       m_theos.getStatement()->setInt(2, id);
       m_theos.query(UPDATE); 
       return true;
-
    }catch(std::exception& e){
       std::cerr << e.what() << '\n';
-      throw;
+      return false;
    }
 }
 
@@ -59,7 +56,6 @@ std::vector<Category> CategoryDAO::listCategories(){
       }
 
       return categories;
-
    }catch(std::exception& e){
       std::cerr << e.what() << '\n';
       throw;
@@ -82,7 +78,6 @@ std::vector<Category> CategoryDAO::retrieveCategory(const int id){
       category.push_back(Category(categoryId, categoryName));
 
       return category;
-
    }catch(std::exception& e){
       std::cerr << e.what() << '\n';
       throw;

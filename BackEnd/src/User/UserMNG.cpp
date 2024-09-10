@@ -28,10 +28,14 @@ bool UserMNG::deleteUser(const int id, const std::string& password){
 }
 
 json UserMNG::retrieveUsername(const int id){
-   std::string name = this->m_userDAO.retrieveUsername(id);
-   json json;
-   json["name"] = name;
-   return json;
+   try{
+      std::string name = this->m_userDAO.retrieveUsername(id);
+      json json;
+      json["name"] = name;
+      return json;
+   }catch(std::exception &e){
+      throw;
+   }
 }
 
 bool UserMNG::loginUser(const int id, const std::string& password){
@@ -43,12 +47,20 @@ bool UserMNG::validateSession(const std::string& token){
 }
 
 std::string UserMNG::getToken(const int id){
-   bool admin = this->m_userDAO.getPermission(id);
-   return this->m_jwt.createToken(id, admin);
+   try{
+      bool admin = this->m_userDAO.getPermission(id);
+      return this->m_jwt.createToken(id, admin);
+   }catch(std::exception &e){
+      throw;
+   }
 }
 
 Session UserMNG::getSession(const std::string& token){
-   return this->m_jwt.getSession(token);
+   try{
+      return this->m_jwt.getSession(token);
+   }catch(std::exception &e){
+      throw;
+   }
 }
 
 

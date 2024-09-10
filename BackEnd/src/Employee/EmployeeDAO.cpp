@@ -13,10 +13,9 @@ bool EmployeeDAO::createEmployee(const std::string& name, const std::string& car
       m_theos.query(CREATE);
 
       return true;
-
    }catch(std::exception& e){
       std::cerr << e.what() << '\n';
-      throw;
+      return false;
    }
 }
 
@@ -27,10 +26,9 @@ bool EmployeeDAO::deleteEmployee(const int id){
       m_theos.query(DELETE);
 
       return true;
-
    }catch(std::exception& e){
       std::cerr << e.what() << '\n';
-      throw;
+      return false;
    }
 }
 
@@ -43,12 +41,10 @@ bool EmployeeDAO::updateEmployee(const int id, const std::string& name, const st
       m_theos.query(UPDATE);
 
       return true;
-
    }catch(std::exception& e){
       std::cerr << e.what() << '\n';
-      throw;
+      return false;
    }
-
 }
 
 std::vector<Employee> EmployeeDAO::retrieveEmployeeByName(const std::string& name){
@@ -70,7 +66,6 @@ std::vector<Employee> EmployeeDAO::retrieveEmployeeByName(const std::string& nam
       }
 
       return employees;
-
    }catch(std::exception& e){
       std::cerr << e.what() << '\n';
       throw;
@@ -95,7 +90,6 @@ std::vector<Employee> EmployeeDAO::retrieveEmployee(const int id){
       employee.push_back(Employee(employeeId,name,cargo));
 
       return employee;
-
    }catch(std::exception& e){
       std::cerr << e.what() << '\n';
       throw;
@@ -118,11 +112,9 @@ std::vector<Employee> EmployeeDAO::listEmployees(){
       }
 
       return employees;
-
    }catch(std::exception& e){
       std::cerr << e.what() << '\n';
       throw;
    }
-
 }  
 

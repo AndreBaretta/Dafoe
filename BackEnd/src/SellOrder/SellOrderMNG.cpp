@@ -8,8 +8,9 @@ SellOrderMNG::SellOrderMNG(SellOrderDAO& sellOrderDAO, ProductOrderDAO& productO
 
 bool SellOrderMNG::createOrder(const int clientId, const int sellerId, const int statusId,
                                const int paymentMethod, const std::string& date, const double price, json products){
-
    int sellOrder = this->m_sellOrderDAO.createOrder(clientId, sellerId, statusId, paymentMethod, date, price);
+   if(sellOrder == -1)
+      return false;
    std::vector<ProductOrder> productVector = this->m_jsonBuilder.jsonToProductOrderVector(products, sellOrder);
    for(auto e: productVector){
       if(!this->m_productOrderDAO.createProductOrder(e.getSellOrder(),e.getProduct(), e.getQuantity(), e.getDiscount(), e.getPrice()))

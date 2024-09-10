@@ -221,7 +221,7 @@ bool ProductDAO::createProduct(const std::string& name, const int genericProduct
 
    }catch(std::exception& e){
       std::cerr << e.what() << '\n';
-      throw;
+      return false;
    }
 
 }
@@ -236,7 +236,7 @@ bool ProductDAO::deleteProduct(const int id){
 
    }catch(std::exception& e){
       std::cerr << e.what() << '\n';
-      throw;
+      return false;
    }
 
 }
@@ -261,7 +261,7 @@ bool ProductDAO::updateProduct(const int id, const std::string& name, const int 
 
    }catch(std::exception& e){
       std::cerr << e.what() << '\n';
-      throw;
+      return false;
    }
 
 
@@ -278,7 +278,7 @@ bool ProductDAO::updateCategoryPriceByNumber(const int category, const double pr
 
    }catch(std::exception& e){
       std::cerr << e.what() << '\n';
-      throw;
+      return false;
    }
 
 }
@@ -294,7 +294,7 @@ bool ProductDAO::updateCategoryPriceByPercentage(const int category, const doubl
 
    }catch(std::exception& e){
       std::cerr << e.what() << '\n';
-      throw;
+      return false;
    }
 
 }

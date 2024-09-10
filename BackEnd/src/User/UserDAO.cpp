@@ -97,7 +97,7 @@ bool UserDAO::updateUsername(const int id, const std::string& name){
 
    }catch(std::exception& e){
       std::cerr << e.what() << '\n';
-      throw;
+      return false;
    }
 }
 
@@ -117,16 +117,12 @@ bool UserDAO::updateUserPassword(const int id, const std::string& newPassword){
          m_theos.query(UPDATE);
 
          return true;
-
       }
-
+      return false;
    }catch(std::exception& e){
       std::cerr << e.what() << '\n';
-      throw;
+      return false;
    }
-
-   return false;
-
 }
 
 bool UserDAO::validatePassword(const int id, const std::string& password){
@@ -152,7 +148,7 @@ bool UserDAO::validatePassword(const int id, const std::string& password){
       return false;
    }catch(std::exception& e){
       std::cerr << e.what() << '\n';
-      throw;
+      return false;
    }
 }
 
@@ -168,6 +164,6 @@ bool UserDAO::editPermission(const int id, const bool permission){
 
    }catch(std::exception& e){
       std::cerr << e.what() << '\n';
-      throw;
+      return false;
    }
 }

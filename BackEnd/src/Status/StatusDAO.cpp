@@ -17,7 +17,7 @@ bool StatusDAO::createStatus(const std::string& name){
 
    }catch(std::exception& e){
       std::cerr << e.what() << '\n';
-      throw;
+      return false;
    }
 }
 
@@ -32,7 +32,7 @@ bool StatusDAO::updateStatus(const int id,const std::string& name){
 
    }catch(std::exception& e){
       std::cerr << e.what() << '\n';
-      throw;
+      return false;
    }
 
 }
@@ -84,6 +84,6 @@ bool StatusDAO::deleteStatus(const int id){
 
    }catch(std::exception& e){
       std::cerr << e.what() << '\n';
-      throw;
+      return false;
    }
 } 

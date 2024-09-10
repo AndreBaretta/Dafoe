@@ -1,9 +1,8 @@
 #include "SellOrder.hpp"
-SellOrder::SellOrder(int id, int clientId, int sellerId, int deliveredBy, int status, int paymentMethod, const std::string& date, double price)
+SellOrder::SellOrder(int id, int clientId, int sellerId, int status, int paymentMethod, const std::string& date, double price)
 : m_id(id)
 , m_clientId(clientId)
 , m_sellerId(sellerId)
-, m_deliveredBy(deliveredBy)
 , m_statusId(status)
 , m_paymentMethod(paymentMethod)
 , m_date(date)
@@ -22,11 +21,6 @@ bool SellOrder::setClient(int id){
 
 bool SellOrder::setSeller(int id){
    m_sellerId = id;
-   return true;
-}
-
-bool SellOrder::setDeliveredBy(int id){
-   m_deliveredBy = id;
    return true;
 }
 
@@ -55,10 +49,6 @@ int SellOrder::getClientId() const{
 
 int SellOrder::getSellerId() const{
    return m_sellerId;
-}
-
-int SellOrder::getDeliveredBy() const{
-   return m_deliveredBy;
 }
 
 int SellOrder::getStatusId() const{

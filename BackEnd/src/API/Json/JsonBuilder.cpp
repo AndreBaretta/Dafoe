@@ -148,7 +148,6 @@ json JsonBuilder::sellOrderVectorToJson(std::vector<SellOrder>& sellOrders){
       jsonSellOrder["id"]            = sellOrders[i].getId();
       jsonSellOrder["clientId"]      = sellOrders[i].getClientId();
       jsonSellOrder["sellerId"]      = sellOrders[i].getSellerId();
-      jsonSellOrder["deliveredBy"]   = sellOrders[i].getDeliveredBy();
       jsonSellOrder["statusId"]      = sellOrders[i].getStatusId();
       jsonSellOrder["paymentMethod"] = sellOrders[i].getPaymentMethod();
       jsonSellOrder["date"]          = sellOrders[i].getDate();

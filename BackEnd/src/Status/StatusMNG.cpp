@@ -6,15 +6,23 @@ StatusMNG::StatusMNG(StatusDAO& statusDAO, JsonBuilder& jsonBuilder)
 {}
 
 json StatusMNG::retrieveAllStatus(){
-   std::vector<Status> statuss = this->m_statusDAO.listAllStatus();
-   json json = this->m_jsonBuilder.statusVectorToJson(statuss);
-   return json;
+   try{
+      std::vector<Status> statuss = this->m_statusDAO.listAllStatus();
+      json json = this->m_jsonBuilder.statusVectorToJson(statuss);
+      return json;
+   }catch(std::exception &e){
+      throw;
+   }
 }
 
 json StatusMNG::retrieveStatus(const int id){
-   std::vector<Status> status = this->m_statusDAO.retrieveStatus(id);
-   json json = this->m_jsonBuilder.statusVectorToJson(status);
-   return json;
+   try{
+      std::vector<Status> status = this->m_statusDAO.retrieveStatus(id);
+      json json = this->m_jsonBuilder.statusVectorToJson(status);
+      return json;
+   }catch(std::exception &e){
+      throw;
+   }
 }
 
 bool StatusMNG::createStatus(const std::string& name){

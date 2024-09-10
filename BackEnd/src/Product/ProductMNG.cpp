@@ -17,39 +17,59 @@ bool ProductMNG::createProduct(const std::string& name, const int genericProduct
 
 // Read
 json ProductMNG::queryProductByName(const std::string& name){
-   std::vector<Product> product = this->m_productDAO.retrieveByName(name);
-   json json = this->m_jsonBuilder.productVectorToJson(product);
-   return json;
+   try{
+      std::vector<Product> product = this->m_productDAO.retrieveByName(name);
+      json json = this->m_jsonBuilder.productVectorToJson(product);
+      return json;
+   }catch(std::exception &e){
+      throw;
+   }
 }
 
 json ProductMNG::retrieveAll(){
-   std::vector<Product> products = this->m_productDAO.retrieveByName("");
-   json json = this->m_jsonBuilder.productVectorToJson(products);
-   return json;
+   try{
+      std::vector<Product> products = this->m_productDAO.retrieveByName("");
+      json json = this->m_jsonBuilder.productVectorToJson(products);
+      return json;
+   } catch(std::exception &e){
+      throw;
+   }
 }
 
 json ProductMNG::retrieveProductByID(const int id){
-   std::vector<Product> products = this->m_productDAO.retrieveByID(id);
-   json json = this->m_jsonBuilder.productVectorToJson(products);
-   return json;
+   try{
+      std::vector<Product> products = this->m_productDAO.retrieveByID(id);
+      json json = this->m_jsonBuilder.productVectorToJson(products);
+      return json;
+   } catch(std::exception &e){
+      throw;
+   }
 }
 
 json ProductMNG::retrieveProductByBarCode(const std::string& barcode){
-   std::vector<Product> product = this->m_productDAO.retrieveByBarcode(barcode);
-   json json = this->m_jsonBuilder.productVectorToJson(product);
-   return json;
+   try{
+      std::vector<Product> product = this->m_productDAO.retrieveByBarcode(barcode);
+      json json = this->m_jsonBuilder.productVectorToJson(product);
+      return json;
+   } catch(std::exception &e){
+      throw;
+   }
 }
 
 json ProductMNG::retrieveProductByReference(const std::string& reference){
-   std::vector<Product> products = this->m_productDAO.retrieveByReference(reference);
-   json json = this->m_jsonBuilder.productVectorToJson(products);
-   return json;
+   try{
+      std::vector<Product> products = this->m_productDAO.retrieveByReference(reference);
+      json json = this->m_jsonBuilder.productVectorToJson(products);
+      return json;
+   }catch(std::exception &e){
+      throw;
+   }
 }
 
 // Update
 bool ProductMNG::updateProduct(const int id, const std::string& name, const int genericProduct, const int manufacturer,
-                   const std::string& barcode, const double price, const double cost, const std::string& reference,
-                   const int quantity){
+                               const std::string& barcode, const double price, const double cost, const std::string& reference,
+                               const int quantity){
    return this->m_productDAO.updateProduct(id,name,genericProduct,manufacturer,barcode,price,cost,reference,quantity);
 }
 

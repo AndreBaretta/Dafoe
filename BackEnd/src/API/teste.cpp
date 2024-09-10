@@ -58,6 +58,7 @@ int main(){
    StatusDAO statusDAO                     = StatusDAO(dafoeGod);
    GenericProductDAO genericProductDAO     = GenericProductDAO(dafoeGod);
    UserDAO userDAO                         = UserDAO(dafoeGod);
+   ProductOrderDAO productOrderDAO         = ProductOrderDAO(dafoeGod);
    
    // MNGs
    ProductMNG productMNG                   = ProductMNG(productDAO, jsonBuilder);
@@ -66,7 +67,7 @@ int main(){
    ClientMNG clientMNG                     = ClientMNG(clientDAO, jsonBuilder);
    EmployeeMNG employeeMNG                 = EmployeeMNG(employeeDAO, jsonBuilder);
    ManufacturerMNG manufacturerMNG         = ManufacturerMNG(manufacturerDAO, jsonBuilder);
-   SellOrderMNG sellOrderMNG               = SellOrderMNG(sellOrderDAO, jsonBuilder);
+   SellOrderMNG sellOrderMNG               = SellOrderMNG(sellOrderDAO, productOrderDAO, jsonBuilder);
    StatusMNG statusMNG                     = StatusMNG(statusDAO, jsonBuilder);
    GenericProductMNG genericProductMNG     = GenericProductMNG(genericProductDAO, jsonBuilder);
    UserMNG userMNG                         = UserMNG(userDAO, jwt);

@@ -6,21 +6,33 @@ ManufacturerMNG::ManufacturerMNG(ManufacturerDAO& manufacturerDAO, JsonBuilder& 
 {}
 
 json ManufacturerMNG::retrieveAllManufacturer(){
+   try{
    std::vector<Manufacturer> manufacturers = this->m_manufacturerDAO.listAllManufacturer();
    json json = this->m_jsonBuilder.manufacturerVectorToJson(manufacturers);
    return json;
+   }catch(std::exception &e){
+      throw;
+   }
 }
 
 json ManufacturerMNG::retrieveManufacturer(const int id){
+   try{
    std::vector<Manufacturer> manufacturer = this->m_manufacturerDAO.retrieveManufacturer(id);
    json json = this->m_jsonBuilder.manufacturerVectorToJson(manufacturer);
    return json;
+   }catch(std::exception &e){
+      throw;
+   }
 }
 
 json ManufacturerMNG::retrieveManufacturerByName(const std::string& name){
+   try{
    std::vector<Manufacturer> manufacturers = this->m_manufacturerDAO.retrieveManufacturerByName(name);
    json json = this->m_jsonBuilder.manufacturerVectorToJson(manufacturers);
    return json;
+   }catch(std::exception &e){
+      throw;
+   }
 }
 
 bool ManufacturerMNG::createManufacturer(const std::string& name){

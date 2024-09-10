@@ -19,7 +19,7 @@ bool GenericProductDAO::createGenericProduct(const std::string& name, const int 
 
    }catch(std::exception& e){
       std::cerr << e.what() << '\n';
-      throw;
+      return false;
    }
 }
 
@@ -33,7 +33,7 @@ bool GenericProductDAO::deleteGenericProduct(const int id){
 
    }catch(std::exception& e){
       std::cerr << e.what() << '\n';
-      throw;
+      return false;
    }
 }
 
@@ -49,24 +49,24 @@ bool GenericProductDAO::updateGenericProduct(const int id, const std::string& na
 
    }catch(std::exception& e){
       std::cerr << e.what() << '\n';
-      throw;
+      return false;
    }
 }
 
 std::vector<GenericProduct> GenericProductDAO::retrieveGenericProductByName(const std::string& name){
    try{
-   m_theos.prepareStatement("select * from genericProduct where name like ?");
-   m_theos.getStatement()->setString(1, '%' + name + '%');
-   m_theos.query(RETRIEVE);
+      m_theos.prepareStatement("select * from genericProduct where name like ?");
+      m_theos.getStatement()->setString(1, '%' + name + '%');
+      m_theos.query(RETRIEVE);
 
-   std::vector<GenericProduct> vec{};
+      std::vector<GenericProduct> vec{};
 
-   while(m_theos.getResult()->next()){
-      vec.push_back(GenericProduct(m_theos.getResult()->getInt("id"), m_theos.getResult()->getString("name").c_str(), 
-                                   m_theos.getResult()->getInt("category")));
-   }
+      while(m_theos.getResult()->next()){
+         vec.push_back(GenericProduct(m_theos.getResult()->getInt("id"), m_theos.getResult()->getString("name").c_str(), 
+                                      m_theos.getResult()->getInt("category")));
+      }
 
-   return vec;
+      return vec;
 
    }catch(std::exception& e){
       std::cerr << e.what() << '\n';
@@ -76,17 +76,17 @@ std::vector<GenericProduct> GenericProductDAO::retrieveGenericProductByName(cons
 
 std::vector<GenericProduct> GenericProductDAO::retrieveGenericProduct(){
    try{
-   m_theos.prepareStatement("select * from genericProduct");
-   m_theos.query(RETRIEVE);
+      m_theos.prepareStatement("select * from genericProduct");
+      m_theos.query(RETRIEVE);
 
-   std::vector<GenericProduct> vec{};
+      std::vector<GenericProduct> vec{};
 
-   while(m_theos.getResult()->next()){
-      vec.push_back(GenericProduct(m_theos.getResult()->getInt("id"), m_theos.getResult()->getString("name").c_str(), 
-                                   m_theos.getResult()->getInt("category")));
-   }
+      while(m_theos.getResult()->next()){
+         vec.push_back(GenericProduct(m_theos.getResult()->getInt("id"), m_theos.getResult()->getString("name").c_str(), 
+                                      m_theos.getResult()->getInt("category")));
+      }
 
-   return vec;
+      return vec;
 
    }catch(std::exception& e){
       std::cerr << e.what() << '\n';

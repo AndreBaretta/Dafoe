@@ -6,15 +6,23 @@ CategoryMNG::CategoryMNG(CategoryDAO& categoryDAO, JsonBuilder& jsonBuilder)
 {}
 
 json CategoryMNG::retrieveAllCategories(){
-   std::vector<Category> categories = this->m_categoryDAO.listCategories();
-   json json = this->m_jsonBuilder.categoryVectorToJson(categories);
-   return json;
+   try{
+      std::vector<Category> categories = this->m_categoryDAO.listCategories();
+      json json = this->m_jsonBuilder.categoryVectorToJson(categories);
+      return json;
+   }catch(std::exception &e){
+      throw;
+   }
 }
 
 json CategoryMNG::retrieveCategory(const int id){
-   std::vector<Category> category = this->m_categoryDAO.retrieveCategory(id);
-   json json = this->m_jsonBuilder.categoryVectorToJson(category);
-   return json;
+   try{
+      std::vector<Category> category = this->m_categoryDAO.retrieveCategory(id);
+      json json = this->m_jsonBuilder.categoryVectorToJson(category);
+      return json;
+   }catch(std::exception &e){
+      throw;
+   }
 }
 
 bool CategoryMNG::createCategory(const std::string& name){

@@ -21,15 +21,23 @@ bool PaymentMethodMNG::deletePaymentMethod(const int id){
 }
 
 json PaymentMethodMNG::retrievePaymentMethod(const int id){
-   std::vector<PaymentMethod> pMethod = this->m_paymentMethodDAO.retrievePaymentMethod(id);
-   json response = this->m_jsonBuilder.paymentMethodVectorToJson(pMethod);
-   return response;
+   try{
+      std::vector<PaymentMethod> pMethod = this->m_paymentMethodDAO.retrievePaymentMethod(id);
+      json response = this->m_jsonBuilder.paymentMethodVectorToJson(pMethod);
+      return response;
+   } catch(std::exception &e){
+      throw;
+   }
 }
 
 json PaymentMethodMNG::retrieveAllPaymentMethod(){
-   std::vector<PaymentMethod> pMethod = this->m_paymentMethodDAO.listPayment();
-   json response = this->m_jsonBuilder.paymentMethodVectorToJson(pMethod);
-   return response;
+   try{
+      std::vector<PaymentMethod> pMethod = this->m_paymentMethodDAO.listPayment();
+      json response = this->m_jsonBuilder.paymentMethodVectorToJson(pMethod);
+      return response;
+   }catch(std::exception &e){
+      throw;
+   }
 }
 
 
