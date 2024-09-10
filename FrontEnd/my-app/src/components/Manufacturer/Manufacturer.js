@@ -62,7 +62,9 @@ function Manufacturer() {
       try {
          const response = await fetch('https://localhost:12354/api/manufacturer', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json',
+               'token': localStorage.getItem('token')
+            },
             body: JSON.stringify(manufacturerDetails),
          });
 
@@ -88,7 +90,9 @@ function Manufacturer() {
       try {
          const response = await fetch(`https://localhost:12354/api/manufacturer/${manufacturerDetails.id}`, {
             method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json',
+               'token': localStorage.getItem('token')
+            },
             body: JSON.stringify(manufacturerDetails),
          });
 
@@ -111,6 +115,9 @@ function Manufacturer() {
       try {
          const response = await fetch(`https://localhost:12354/api/manufacturer/${manufacturerDetails.id}`, {
             method: 'DELETE',
+            headers: {
+               'token': localStorage.getItem('token')
+            }
          });
 
          if (response.ok) {
