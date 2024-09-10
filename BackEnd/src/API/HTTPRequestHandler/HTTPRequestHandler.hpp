@@ -11,6 +11,7 @@
 #include "../../Status/StatusMNG.hpp"
 #include "../../GenericProduct/GenericProductMNG.hpp"
 #include "../../User/UserMNG.hpp"
+#include "../Json/JsonBuilder.hpp"
 #include "../HTTPResponse/HTTPResponse.hpp"
 #include "../HTTPResponseBuilder/HTTPResponseBuilder.hpp"
 #include <nlohmann/json.hpp>

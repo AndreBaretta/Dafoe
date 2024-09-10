@@ -5,7 +5,7 @@
 
 class SellOrder {
 public:
-   SellOrder(int id, int clientId, int sellerId, int deliveredBy, int status, int paymentMethod, const std::string& date, double price);
+   SellOrder(int id, int clientId, int sellerId, int status, int paymentMethod, const std::string& date, double price);
 
    // Destructor
    ~SellOrder() = default;
@@ -14,7 +14,6 @@ public:
    bool setId(int id);
    bool setClient(int id);
    bool setSeller(int id);
-   bool setDeliveredBy(int id);
    bool setStatusId(int id);
    bool setPrice(double price);
    bool setDate(const std::string& date);
@@ -23,7 +22,6 @@ public:
    int getId() const;
    int getClientId() const;
    int getSellerId() const;
-   int getDeliveredBy() const;
    int getStatusId() const;
    int getPaymentMethod() const;
    double getPrice() const;
@@ -33,7 +31,6 @@ private:
    int m_id{};
    int m_clientId{};
    int m_sellerId{};
-   int m_deliveredBy{};
    int m_statusId{};
    int m_paymentMethod{};
    std::string m_date{};

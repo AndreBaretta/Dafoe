@@ -37,6 +37,7 @@ class JsonBuilder{
       json genericProductVectorToJson(std::vector<GenericProduct>& genericProducts);
       json productOrderToJson(ProductOrder& productOrder);
       json productOrderVectorToJson(std::vector<ProductOrder>& productOrders);
+      std::vector<ProductOrder> jsonToProductOrderVector(json json, int order);
       json clientToJson(Client& client);
       json clientVectorToJson(std::vector<Client>& clients);
       

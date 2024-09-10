@@ -11,17 +11,15 @@ class SellOrderDAO{
 public:
    SellOrderDAO(DafoeGod& zeus, ProductDAO& pDAO);
 
-   bool createOrder(const int clientId, const int sellerId,
-                    const int deliveredBy, const int status, 
+   int createOrder(const int clientId, const int sellerId, const int status, 
                     const int paymentMethod, const std::string& date, const double price);
 
-   bool updateOrder(const int id, const int clientId, const int sellerId,
-                    const int deliveredBy, const int status, 
+   bool updateOrder(const int id, const int clientId, const int sellerId, const int status, 
                     const int paymentMethod, const std::string& date, const double price);
 
-   bool addProductOrder(const int sellOrder, const int product, const int quantity, const double discount, const double price);
-   bool removeProductOrder(const int sellOrder, const int product);
-   bool updateProductOrder(const int sellOrder, const int product, const int quantity, const double discount, const double price);
+   //bool addProductOrder(const int sellOrder, const int product, const int quantity, const double discount, const double price);
+   //bool removeProductOrder(const int sellOrder, const int product);
+   //bool updateProductOrder(const int sellOrder, const int product, const int quantity, const double discount, const double price);
 
    std::vector<SellOrder> retrieveOrderById(const int id);
    std::vector<SellOrder> retrieveOrderByClient(const int clientId);

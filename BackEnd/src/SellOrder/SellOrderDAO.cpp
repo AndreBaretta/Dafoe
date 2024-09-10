@@ -10,22 +10,25 @@ SellOrderDAO::SellOrderDAO(DafoeGod& zeus, ProductDAO& pdao)
 {}
 
 
-bool SellOrderDAO::createOrder(const int clientId, const int sellerId,
-                               const int deliveredBy, const int status, 
-                               const int paymentMethod, const std::string& date, 
-                               const double price){
+int SellOrderDAO::createOrder(const int clientId, const int sellerId, const int status, 
+                              const int paymentMethod, const std::string& date, const double price){
    try{
-      m_theos.prepareStatement("insert into sellOrder (client, seller, deliveredBy, status, paymentMethod, date, price) values (?,?,?,?,?,?,?)");
+      m_theos.prepareStatement("insert into sellOrder (client, seller, status, paymentMethod, date, price) values (?,?,?,?,?,?)");
       m_theos.getStatement()->setInt(1, clientId);
       m_theos.getStatement()->setInt(2, sellerId);
-      m_theos.getStatement()->setInt(3, deliveredBy);
-      m_theos.getStatement()->setInt(4, status);
-      m_theos.getStatement()->setInt(5, paymentMethod);
-      m_theos.getStatement()->setString(6, date);
-      m_theos.getStatement()->setDouble(7, price);
+      m_theos.getStatement()->setInt(3, status);
+      m_theos.getStatement()->setInt(4, paymentMethod);
+      m_theos.getStatement()->setString(5, date);
+      m_theos.getStatement()->setDouble(6, price);
       m_theos.query(CREATE);
+      m_theos.prepareStatement("select MAX(id) from sellOrder");
+      m_theos.query(RETRIEVE);
+      int id;
+      if(m_theos.getResult()->next()){
+         id = m_theos.getResult()->getInt("id");
+      }
 
-      return true;
+      return id;
 
    }catch(std::exception& e){
       std::cerr << e.what() << '\n';
@@ -33,7 +36,7 @@ bool SellOrderDAO::createOrder(const int clientId, const int sellerId,
    }
 }
 
-bool SellOrderDAO::addProductOrder(const int sellOrder, const int product, const int quantity, const double discount, const double price){
+/*bool SellOrderDAO::addProductOrder(const int sellOrder, const int product, const int quantity, const double discount, const double price){
   try{
       m_theos.prepareStatement("insert into productOrder (sellOrder, product, quantity, discount, price) values (?,?,?,?,?)");
       m_theos.getStatement()->setInt(1, sellOrder);
@@ -44,13 +47,10 @@ bool SellOrderDAO::addProductOrder(const int sellOrder, const int product, const
       m_theos.query(CREATE);
       
       return true;
-
    }catch(std::exception& e){
       std::cerr << e.what() << '\n';
-      throw;
+      return false;
    } 
-
-   return false;
 }
 
 bool SellOrderDAO::updateProductOrder(const int sellOrder, const int product, const int quantity, const double discount, const double price){
@@ -64,13 +64,10 @@ bool SellOrderDAO::updateProductOrder(const int sellOrder, const int product, co
       m_theos.query(UPDATE);
 
       return true;
-
    }catch(std::exception& e){
       std::cerr << e.what() << '\n';
-      throw;
+      return false;
    }
-
-   return false;
 }
 
 bool SellOrderDAO::removeProductOrder(const int sellOrder, const int product){
@@ -81,37 +78,30 @@ bool SellOrderDAO::removeProductOrder(const int sellOrder, const int product){
       m_theos.query(DELETE);
 
       return true;
-      
    }catch(std::exception& e){
       std::cerr << e.what() << '\n';
-      throw;
+      return false;
    }
-
-   return false;
-}
+}*/
 
 
-bool SellOrderDAO::updateOrder(const int id, const int clientId, const int sellerId,
-                               const int deliveredBy, const int status, 
-                               const int paymentMethod, const std::string& date, 
-                               const double price){
+bool SellOrderDAO::updateOrder(const int id, const int clientId, const int sellerId, const int status, 
+                               const int paymentMethod, const std::string& date, const double price){
    try{
-      m_theos.prepareStatement("update sellOrder set client = ?, seller = ?, deliveredBy = ?, status = ?, paymentMethod = ?, date = ?, price = ? where id = ?");
+      m_theos.prepareStatement("update sellOrder set client = ?, seller = ?, status = ?, paymentMethod = ?, date = ?, price = ? where id = ?");
       m_theos.getStatement()->setInt(1, id);
       m_theos.getStatement()->setInt(2, clientId);
       m_theos.getStatement()->setInt(3, sellerId);
-      m_theos.getStatement()->setInt(4, deliveredBy);
-      m_theos.getStatement()->setInt(5, status);
-      m_theos.getStatement()->setInt(6, paymentMethod);
-      m_theos.getStatement()->setString(7, date);
-      m_theos.getStatement()->setDouble(8, price);
+      m_theos.getStatement()->setInt(4, status);
+      m_theos.getStatement()->setInt(5, paymentMethod);
+      m_theos.getStatement()->setString(6, date);
+      m_theos.getStatement()->setDouble(7, price);
       m_theos.query(UPDATE);
 
       return true;
-
    }catch(std::exception& e){
       std::cerr << e.what() << '\n';
-      throw;
+      return false;
    }
 }
 
@@ -124,12 +114,10 @@ std::vector<SellOrder> SellOrderDAO::retrieveOrderById(const int id){
       std::vector<SellOrder> sellOrder{};
       if(!m_theos.getResult()->next())
          return sellOrder;
-      sellOrder.push_back(SellOrder(m_theos.getResult()->getInt("id"), m_theos.getResult()->getInt("client"), 
-                                    m_theos.getResult()->getInt("seller"), m_theos.getResult()->getInt("deliveredBy"), 
+      sellOrder.push_back(SellOrder(m_theos.getResult()->getInt("id"), m_theos.getResult()->getInt("client"), m_theos.getResult()->getInt("seller"),
                                     m_theos.getResult()->getInt("status"), m_theos.getResult()->getInt("paymentMethod"), 
                                     m_theos.getResult()->getString("date").c_str(), m_theos.getResult()->getDouble("price")));
       return sellOrder;
-
    }catch(std::exception& e){
       std::cerr << e.what() << '\n';
       throw;
@@ -144,14 +132,11 @@ std::vector<SellOrder> SellOrderDAO::retrieveOrderByClient(const int clientId){
 
       std::vector<SellOrder> vec{};
       while(m_theos.getResult()->next()){
-         vec.push_back(SellOrder(m_theos.getResult()->getInt("id"), m_theos.getResult()->getInt("client"), 
-                                 m_theos.getResult()->getInt("seller"), m_theos.getResult()->getInt("delivereBy"), 
+         vec.push_back(SellOrder(m_theos.getResult()->getInt("id"), m_theos.getResult()->getInt("client"), m_theos.getResult()->getInt("seller"), 
                                  m_theos.getResult()->getInt("status"), m_theos.getResult()->getInt("paymentMethod"), 
                                  m_theos.getResult()->getString("date").c_str(), m_theos.getResult()->getDouble("price")));
       }
-
       return vec;
-
    }catch(std::exception& e){
       std::cerr << e.what() << '\n';
       throw;
@@ -166,14 +151,11 @@ std::vector<SellOrder> SellOrderDAO::retrieveOrderByProduct(const int productId)
 
       std::vector<SellOrder> vec{};
       while(m_theos.getResult()->next()){
-         vec.push_back(SellOrder(m_theos.getResult()->getInt("id"), m_theos.getResult()->getInt("client"), 
-                                 m_theos.getResult()->getInt("seller"), m_theos.getResult()->getInt("delivereBy"), 
+         vec.push_back(SellOrder(m_theos.getResult()->getInt("id"), m_theos.getResult()->getInt("client"), m_theos.getResult()->getInt("seller"), 
                                  m_theos.getResult()->getInt("status"), m_theos.getResult()->getInt("paymentMethod"), 
                                  m_theos.getResult()->getString("date").c_str(), m_theos.getResult()->getDouble("price")));
       }
-
       return vec;
-
    }catch(std::exception& e){
       std::cerr << e.what() << '\n';
       throw;
@@ -188,14 +170,11 @@ std::vector<SellOrder> SellOrderDAO::retrieveOrderByStatus(const int statusId){
 
       std::vector<SellOrder> vec{};
       while(m_theos.getResult()->next()){
-         vec.push_back(SellOrder(m_theos.getResult()->getInt("id"), m_theos.getResult()->getInt("client"), 
-                                 m_theos.getResult()->getInt("seller"), m_theos.getResult()->getInt("delivereBy"), 
+         vec.push_back(SellOrder(m_theos.getResult()->getInt("id"), m_theos.getResult()->getInt("client"), m_theos.getResult()->getInt("seller"), 
                                  m_theos.getResult()->getInt("status"), m_theos.getResult()->getInt("paymentMethod"), 
                                  m_theos.getResult()->getString("date").c_str(), m_theos.getResult()->getDouble("price")));
       }
-
       return vec;
-
    }catch(std::exception& e){
       std::cerr << e.what() << '\n';
       throw;
@@ -210,14 +189,11 @@ std::vector<SellOrder> SellOrderDAO::retrieveOrderBySeller(const int sellerId){
 
       std::vector<SellOrder> vec{};
       while(m_theos.getResult()->next()){
-         vec.push_back(SellOrder(m_theos.getResult()->getInt("id"), m_theos.getResult()->getInt("client"), 
-                                 m_theos.getResult()->getInt("seller"), m_theos.getResult()->getInt("delivereBy"), 
+         vec.push_back(SellOrder(m_theos.getResult()->getInt("id"), m_theos.getResult()->getInt("client"), m_theos.getResult()->getInt("seller"), 
                                  m_theos.getResult()->getInt("status"), m_theos.getResult()->getInt("paymentMethod"), 
                                  m_theos.getResult()->getString("date").c_str(), m_theos.getResult()->getDouble("price")));
       }
-
       return vec;
-
    }catch(std::exception& e){
       std::cerr << e.what() << '\n';
       throw;
@@ -231,8 +207,7 @@ std::vector<SellOrder> SellOrderDAO::listAllSellOrder(){
 
       std::vector<SellOrder> vec{};
       while(m_theos.getResult()->next()){
-         vec.push_back(SellOrder(m_theos.getResult()->getInt("id"), m_theos.getResult()->getInt("client"), 
-                                 m_theos.getResult()->getInt("seller"), m_theos.getResult()->getInt("delivereBy"), 
+         vec.push_back(SellOrder(m_theos.getResult()->getInt("id"), m_theos.getResult()->getInt("client"), m_theos.getResult()->getInt("seller"), 
                                  m_theos.getResult()->getInt("status"), m_theos.getResult()->getInt("paymentMethod"), 
                                  m_theos.getResult()->getString("date").c_str(), m_theos.getResult()->getDouble("price")));
       }

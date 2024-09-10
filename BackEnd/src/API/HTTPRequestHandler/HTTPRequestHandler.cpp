@@ -726,15 +726,16 @@ bool HTTPRequestHandler::handleDeleteManufacturer(const int id){
 
 bool HTTPRequestHandler::handleCreateOrder(const std::string& body){
    try{
-      json json = json::parse(body);
-      int clientId		= std::stoi(json["clientId"].get<std::string>());
-      int sellerId		= std::stoi(json["sellerId"].get<std::string>());
-      int deliveredBy	= std::stoi(json["deliveredBy"].get<std::string>());
-      int statusId		= std::stoi(json["statusId"].get<std::string>());
-      int paymentMethod	= std::stoi(json["paymentMethod"].get<std::string>());
-      std::string date     = json["date"].get<std::string>();
-      double price   	= std::stod(json["price"].get<std::string>());
-      return this->m_sellOrderMNG.createOrder(clientId,sellerId,deliveredBy,statusId,paymentMethod,date,price);
+      json jason = json::parse(body);
+      int clientId		= std::stoi(jason["clientId"].get<std::string>());
+      int sellerId		= std::stoi(jason["sellerId"].get<std::string>());
+      int deliveredBy	= std::stoi(jason["deliveredBy"].get<std::string>());
+      int statusId		= std::stoi(jason["statusId"].get<std::string>());
+      int paymentMethod	= std::stoi(jason["paymentMethod"].get<std::string>());
+      std::string date     = jason["date"].get<std::string>();
+      double price   	= std::stod(jason["price"].get<std::string>());
+      json products = jason["products"];
+      return this->m_sellOrderMNG.createOrder(clientId,sellerId,statusId,paymentMethod,date,price,products);
    }catch(std::exception &e){
       std::cerr << e.what() << '\n';
       return false;

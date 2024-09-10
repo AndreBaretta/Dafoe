@@ -134,7 +134,6 @@ json JsonBuilder::sellOrderToJson(SellOrder& sellOrder){
    jsonSellOrder["id"]            = sellOrder.getId();
    jsonSellOrder["clientId"]      = sellOrder.getClientId();
    jsonSellOrder["sellerId"]      = sellOrder.getSellerId();
-   jsonSellOrder["deliveredBy"]   = sellOrder.getDeliveredBy();
    jsonSellOrder["statusId"]      = sellOrder.getStatusId();
    jsonSellOrder["paymentMethod"] = sellOrder.getPaymentMethod();
    jsonSellOrder["date"]          = sellOrder.getDate();
@@ -201,6 +200,25 @@ json JsonBuilder::productOrderVectorToJson(std::vector<ProductOrder>& productOrd
       jsonProductOrderArray.push_back(jsonProductOrder);
    }
    return jsonProductOrderArray;
+}
+
+std::vector<ProductOrder> JsonBuilder::jsonToProductOrderVector(json json, int order){
+   try{
+      std::vector<ProductOrder> products;
+      for (const auto& e: json["products"]){
+         int id = e["id"];
+         std::string name = e["name"];
+         int quantity = e["quantity"];
+         double discount = e["discount"];
+         double price = e["price"];
+
+         products.push_back(ProductOrder(order, id, quantity, discount, price));
+      }
+      return products;
+   }catch(std::exception &e){
+      std::cerr << e.what() << '\n';
+      throw;
+   }
 }
 
 json JsonBuilder::clientToJson(Client& client){

@@ -18,50 +18,48 @@ bool ProductOrderDAO::createProductOrder(const int sellOrder, const int product,
       m_theos.query(CREATE);
 
       return true;
-
    }catch(std::exception& e){
       std::cerr << e.what() << '\n';
-      throw;
+      return false;
    }
 }
 
-bool ProductOrderDAO::deleteProductOrder(const int sellOrder){
+bool ProductOrderDAO::deleteProductOrder(const int sellOrder, const int product){
    try{
-      m_theos.prepareStatement("delete from productOrder where sellOrder = ?");  
+      m_theos.prepareStatement("delete from productOrder where sellOrder = ? AND product = ?");  
       m_theos.getStatement()->setInt(1, sellOrder);
+      m_theos.getStatement()->setInt(2, product);
       m_theos.query(DELETE);
 
       return true;
-
    }catch(std::exception& e){
       std::cerr << e.what() << '\n';
-      throw;
+      return false;
    }
 }
 
 bool ProductOrderDAO::updateProductOrder(const int sellOrder, const int product, const int quantity, const double discount, const double price){
    try{
-      m_theos.prepareStatement("update productOrder set product=?, quantity=?, discount=?, price=? where sellOrder = ?");  
-      m_theos.getStatement()->setInt(1, product);
-      m_theos.getStatement()->setInt(2, quantity);
-      m_theos.getStatement()->setDouble(3, discount);
-      m_theos.getStatement()->setDouble(4, price);
-      m_theos.getStatement()->setInt(5, sellOrder);
+      m_theos.prepareStatement("update productOrder set quantity=?, discount=?, price=? where sellOrder = ? and product = ?");  
+      m_theos.getStatement()->setInt(1, quantity);
+      m_theos.getStatement()->setDouble(2, discount);
+      m_theos.getStatement()->setDouble(3, price);
+      m_theos.getStatement()->setInt(4, sellOrder);
+      m_theos.getStatement()->setInt(5, product);
       m_theos.query(UPDATE);
 
       return true;
-
    }catch(std::exception& e){
       std::cerr << e.what() << '\n';
-      throw;
+      return false;
    }
 }
 
 
-std::vector<ProductOrder> ProductOrderDAO::retrieveProductOrderById(const int id){
+std::vector<ProductOrder> ProductOrderDAO::retrieveAllProductOrder(const int sellOrderId){
    try{
       m_theos.prepareStatement("select * from productOrder where sellOrder = ?");  
-      m_theos.getStatement()->setInt(1, id);
+      m_theos.getStatement()->setInt(1, sellOrderId);
       m_theos.query(RETRIEVE);
 
       std::vector<ProductOrder> vec{};
@@ -74,7 +72,6 @@ std::vector<ProductOrder> ProductOrderDAO::retrieveProductOrderById(const int id
       }
 
       return vec;
-
    }catch(std::exception& e){
       std::cerr << e.what() << '\n';
       throw;
