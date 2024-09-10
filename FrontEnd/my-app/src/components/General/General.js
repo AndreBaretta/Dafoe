@@ -27,7 +27,11 @@ function General() {
             } else if (view === 'categories') {
                url = 'https://localhost:12354/api/category';
             }
-            const response = await fetch(url);
+            const response = await fetch(url, {
+               headers: {
+                  "token": localStorage.getItem('token'),
+               },
+            });
             const data = await response.json();
             setResults(data || []); // Ensure results is always an array
          } catch (error) {
@@ -64,7 +68,8 @@ function General() {
          }
          const response = await fetch(url, {
             method: method,
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json',
+               'token': localStorage.getItem('token')},
             body: JSON.stringify(itemDetails),
          });
 
@@ -96,7 +101,10 @@ function General() {
          } else {
             return;
          }
-         const response = await fetch(url, { method: 'DELETE' });
+         const response = await fetch(url, { method: 'DELETE',
+            headers: { 'Content-Type': 'application/json',
+               'token': localStorage.getItem('token')},
+         });
 
          if (response.ok) {
             console.log(`${view === 'payment-methods' ? 'PaymentMethod' : 'Category'} deleted successfully`);

@@ -36,11 +36,9 @@ std::string HTTPRequestHandler::handleRequest(HTTPRequest& request){
    // Lidando com o metodo GET
    if(method == "GET"){
       if(!validateSession(requestHeaders, false)){
-         std::cout << ":aaaaa" << std::endl;
-         
 	 return return401(version,headers,responseBody);
-      // Product
       }
+      // Product
       if(path.size() == 2){
 	 if(path[0].compare("api"))
 	    return return404(version,headers,responseBody);

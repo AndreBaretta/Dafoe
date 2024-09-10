@@ -48,7 +48,11 @@ function Stock() {
    useEffect(() => {
       const getData = async () => {
          try {
-            const response = await fetch(`https://localhost:12354/api/product?name=${searchValue}`);
+            const response = await fetch(`https://localhost:12354/api/product?name=${searchValue}`, {
+               headers: {
+                  "token": localStorage.getItem('token'),
+               },
+            });
             const data = await response.json();
             setResults(data);
          } catch (error) {

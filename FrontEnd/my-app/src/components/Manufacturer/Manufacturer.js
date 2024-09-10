@@ -22,7 +22,11 @@ function Manufacturer() {
 
    const fetchManufacturers = async () => {
       try {
-         const response = await fetch(`https://localhost:12354/api/manufacturer?name=${searchValue}`);
+         const response = await fetch(`https://localhost:12354/api/manufacturer?name=${searchValue}`, {
+            headers: {
+               "token": localStorage.getItem('token'),
+            },
+         });
          const data = await response.json();
          if (Array.isArray(data)) {
             setResults(data);
