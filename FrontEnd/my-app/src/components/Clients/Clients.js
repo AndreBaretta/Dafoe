@@ -32,7 +32,11 @@ function Clients() {
    // Extracting fetch logic to reuse
    const getData = async () => {
       try {
-         const response = await fetch(`https://localhost:12354/api/client?name=${searchValue}`);
+         const response = await fetch(`https://localhost:12354/api/client?name=${searchValue}`, {
+            headers: {
+               "token": localStorage.getItem('token'),
+            },
+         });
          const data = await response.json();
          if (Array.isArray(data)) {
             setResults(data);
@@ -62,15 +66,17 @@ const handleInputChange = (e) => {
 };   
   const submitClientData = async () => {
    setIsPending(true);
-   try {
-      const response = await fetch('https://localhost:12354/api/client', {
-         method: 'POST',
-         headers: { 'Content-Type': 'application/json' },
-         body: JSON.stringify({
-            ...clientDetails,
-            bill: String(clientDetails.bill), // Make sure bill is sent as a string
-         }),
-      });
+      try {
+         const response = await fetch('https://localhost:12354/api/client', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json',
+               'token': localStorage.getItem('token'),
+            },
+            body: JSON.stringify({
+               ...clientDetails,
+               bill: String(clientDetails.bill), // Make sure bill is sent as a string
+            }),
+         });
 
       if (response.ok) {
          console.log('Cliente adicionado com sucesso');
@@ -118,13 +124,15 @@ const handleInputChange = (e) => {
   const handleUpdateClient = async () => {
    setIsPending(true);
    try {
-      const response = await fetch(`https://localhost:12354/api/client/${clientDetails.id}`, {
-         method: 'PUT',
-         headers: { 'Content-Type': 'application/json' },
-         body: JSON.stringify({
-            ...clientDetails,
-            bill: String(clientDetails.bill), // Make sure bill is sent as a string
-         }),
+         const response = await fetch(`https://localhost:12354/api/client/${clientDetails.id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json',
+               'token': localStorage.getItem('token'),
+            },
+            body: JSON.stringify({
+               ...clientDetails,
+               bill: String(clientDetails.bill), // Make sure bill is sent as a string
+            }),
       });
 
       if (response.ok) {
@@ -147,6 +155,9 @@ const handleInputChange = (e) => {
       try {
          const response = await fetch(`https://localhost:12354/api/client/${clientDetails.id}`, {
             method: 'DELETE',
+            headers: {
+               "token": localStorage.getItem('token'),
+            }
          });
 
          if (response.ok) {
