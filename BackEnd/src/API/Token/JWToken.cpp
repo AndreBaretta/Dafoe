@@ -21,9 +21,8 @@ std::string JWToken::createToken(const int subject, const bool isAdmin){
 
 bool JWToken::validateToken(const std::string& token){
    try {
-      auto aux = token;
-      aux.erase(remove(aux.begin(), aux.end(), ' '), aux.end());
-      auto decodedToken = jwt::decode(aux);
+      auto auxToken = token.substr(0,token.size()-1);
+      auto decodedToken = jwt::decode(auxToken);
       auto verifier = jwt::verify()
          .allow_algorithm(jwt::algorithm::hs256{this->m_secretKey})
          .with_issuer(this->m_issuer);            
@@ -44,7 +43,8 @@ bool JWToken::validateToken(const std::string& token){
 
 Session JWToken::getSession(const std::string& token){
    try {
-      auto decodedToken = jwt::decode(token);
+      auto auxToken = token.substr(0,token.size()-1);
+      auto decodedToken = jwt::decode(auxToken);
       auto verifier = jwt::verify()
                       .allow_algorithm(jwt::algorithm::hs256{this->m_secretKey})
                       .with_issuer(this->m_issuer);
