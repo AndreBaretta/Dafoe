@@ -26,12 +26,12 @@ bool GenericProductMNG::updateGenericProduct(const int id, const std::string& na
 
 json GenericProductMNG::retrieveGenericProductByName(const std::string& name){
    std::vector<GenericProduct> vec{this->m_gPDAO.retrieveGenericProductByName(name)};
-   json json {this->m_jsonBuilder.genericProductVectorToJson(vec)};
+   json json = this->m_jsonBuilder.genericProductVectorToJson(vec);
    return json;
 }
 
 json GenericProductMNG::retrieveGenericProduct(){
    std::vector<GenericProduct> vec{this->m_gPDAO.retrieveGenericProduct()};
-   json json {this->m_jsonBuilder.genericProductVectorToJson(vec)};
+   json json = this->m_jsonBuilder.genericProductVectorToJson(vec);
    return json;
 }
