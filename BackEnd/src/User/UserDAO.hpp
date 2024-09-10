@@ -8,12 +8,13 @@ class UserDAO{
 public:
    UserDAO(DafoeGod& dafoe);
    std::string retrieveUsername(const int id);
-   bool createUser(const int id, const std::string& name, const std::string& password);
+   bool createUser(const int id, const std::string& name, const std::string& password, bool permission);
    bool deleteUser(const int id);
    bool updateUsername(const int id, const std::string& name);
    bool updateUserPassword(const int id, const std::string& newPassword);
    bool validatePassword(const int id, const std::string& password);
    bool getPermission(const int id);
+   bool editPermission(const int id, const bool permission);
 
 private:
    DafoeGod& m_theos;    

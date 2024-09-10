@@ -7,8 +7,8 @@ UserMNG::UserMNG(UserDAO& userDAO, JWToken& jwt)
 
 UserMNG::~UserMNG(){}
 
-bool UserMNG::createUser(const int id, const std::string& name, const std::string& password){
-   return this->m_userDAO.createUser(id, name, password);
+bool UserMNG::createUser(const int id, const std::string& name, const std::string& password, bool permission){
+   return this->m_userDAO.createUser(id, name, password, permission);
 }
 
 bool UserMNG::updateUserPassword(const int id, const std::string& password, const std::string& newPassword){

@@ -35,9 +35,12 @@ std::string HTTPRequestHandler::handleRequest(HTTPRequest& request){
 
    // Lidando com o metodo GET
    if(method == "GET"){
-      if(!validateSession(requestHeaders, false))
+      if(!validateSession(requestHeaders, false)){
+         std::cout << ":aaaaa" << std::endl;
+         
 	 return return401(version,headers,responseBody);
       // Product
+      }
       if(path.size() == 2){
 	 if(path[0].compare("api"))
 	    return return404(version,headers,responseBody);
@@ -75,6 +78,19 @@ std::string HTTPRequestHandler::handleRequest(HTTPRequest& request){
 	 if(!path[1].compare("payment-method")){
 	    if(query.empty()){
 	       responseBody = handleRetrieveAllPaymentMethod();
+	       headers["Content-Type"] = "application/json";
+	       return return200(version,headers,responseBody);
+	    }
+	    return return400(version,headers,responseBody);
+	 }
+    if(!path[1].compare("generic-product")){
+	    if(query.empty()) {
+	       responseBody = handleRetrieveGenericProduct();
+	       headers["Content-Type"] = "application/json";
+	       return return200(version,headers,responseBody);
+	    }else if (query.find("name=") == 0) {
+	       std::string name = query.substr(5);
+	       responseBody = handleRetrieveGenericProductByName(name);
 	       headers["Content-Type"] = "application/json";
 	       return return200(version,headers,responseBody);
 	    }
@@ -231,7 +247,7 @@ std::string HTTPRequestHandler::handleRequest(HTTPRequest& request){
 	 if(token.empty())
 	    return return401(version,headers,responseBody);
 	 headers["Authorization"] = token;
-	 return200(version,headers,responseBody);
+	 return return200(version,headers,responseBody);
       }
       if(!path[0].compare("signup")){
 	 if(!handleSignup(requestBody))
@@ -777,7 +793,7 @@ bool HTTPRequestHandler::handleCreateGenericProduct(const std::string& body){
       int quantity		 = std::stoi(json["quantity"].get<std::string>());
       int category		 = std::stoi(json["category"].get<std::string>());
       std::string reference = json["reference"].get<std::string>();
-      return this->m_genericProductMNG.createGenericProduct(name,quantity,category,reference);
+      return this->m_genericProductMNG.createGenericProduct(name,category);
    } catch(std::exception &e){
       std::cerr << e.what() << '\n';
       return false;
@@ -791,7 +807,7 @@ bool HTTPRequestHandler::handleUpdateGenericProduct(const int id, const std::str
       int quantity		 = std::stoi(json["quantity"].get<std::string>());
       int category		 = std::stoi(json["category"].get<std::string>());
       std::string reference = json["reference"].get<std::string>();
-      return this->m_genericProductMNG.updateGenericProduct(id, name,quantity,category,reference);
+      return this->m_genericProductMNG.updateGenericProduct(id, name,category);
    } catch(std::exception &e){
       std::cerr << e.what() << '\n';
       return false;
@@ -888,14 +904,19 @@ std::string HTTPRequestHandler::handleRetrieveStatus(const int id){
 }
 
 std::string HTTPRequestHandler::handleRetrieveGenericProductByName(const std::string& name){
-   std::string response = this->m_genericProductMNG.retrieveGenericProductByName(name);
+   std::string response = this->m_genericProductMNG.retrieveGenericProductByName(name).dump();
+   return response;
+}
+
+std::string HTTPRequestHandler::handleRetrieveGenericProduct(){
+   std::string response = this->m_genericProductMNG.retrieveGenericProduct().dump();
    return response;
 }
 
 std::string HTTPRequestHandler::handleLogin(const std::string& body){
    try{
       std::string response{};
-      json json = body;
+      json json = json::parse(body);
       int id = std::stoi(json["id"].get<std::string>());
       std::string password = json["password"].get<std::string>();
       if(!this->m_userMNG.loginUser(id,password))
@@ -925,11 +946,11 @@ bool HTTPRequestHandler::validateSession(const std::map<std::string, std::string
 
 bool HTTPRequestHandler::handleSignup(const std::string& body){
    try{
-      json json = body;
+      json json = json::parse(body);
       int id		      = std::stoi(json["id"].get<std::string>());
       std::string name	      = json["name"].get<std::string>();
       std::string password    = json["password"].get<std::string>();
-      return this->m_userMNG.createUser(id,name,password);
+      return this->m_userMNG.createUser(id,name,password, false);
    } catch(std::exception &e){
       std::cerr << e.what() << '\n';
       return false;

@@ -9,10 +9,11 @@ using json = nlohmann::json;
 class GenericProductMNG{
 public:
    GenericProductMNG(GenericProductDAO& gpdao, JsonBuilder& jason);
-   bool createGenericProduct(const std::string& name, const int quantity, const int category, const std::string& reference);
+   bool createGenericProduct(const std::string& name, const int category);
    bool deleteGenericProduct(const int id);
-   bool updateGenericProduct(const int id, const std::string& name, const int quantity, const int category, const std::string& reference);
+   bool updateGenericProduct(const int id, const std::string& name, const int category);
    json retrieveGenericProductByName(const std::string& name);
+   json retrieveGenericProduct();
 
 private:
    GenericProductDAO& m_gPDAO;

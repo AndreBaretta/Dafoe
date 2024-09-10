@@ -5,15 +5,15 @@ import Menu from '../Menu/Menuu';
 import React, { useState, useEffect } from 'react';
 import Model from 'react-modal';
 
+
+
 function Stock() {
    const [searchValue, setSearchValue] = useState("");
    const [results, setResults] = useState([]);
    const [newProductScreen, setNewProductScreen] = useState(false);
    const [addStockScreen, setAddStockScreen] = useState(false);
-   const [deleteProductScreen, setDeleteProductScreen] = useState(false); 
    const [queryOrder, setQueryOrder] = useState("name");
-   const [isPending, setIsPending] = useState(false);
-   const [selectedOption, setSelectedOption] = useState('');
+   const [isPending, setIsPending] = useState(false)
    const [productDetails, setProductDetails] = useState({
       manufacturer: '',
       genericProduct: '',
@@ -24,31 +24,26 @@ function Stock() {
       reference: '',
       quantity: ''
    });
-   const [sortOrder, setSortOrder] = useState({
-      name: 'asc',
-      manufacturer: 'asc',
-      price: 'asc',
-      cost: 'asc',
-      quantity: 'asc'
-   });
 
    const submitData = () => {
       try {
-         setIsPending(true);
+         setIsPending(true)
 
          fetch('https://localhost:12354/api/product', {
             method: 'POST',
-            headers: { "Content-Type": "application/json" },
+            headers: {"Content-Type" : "application/json"},
+            headers: {"token" : localStorage.getItem('token')},
             body: JSON.stringify(productDetails)
          }).then(() => {
-            console.log("Produto adicionado");
-            setIsPending(false);
+            console.log("produto adicionado")
+            setIsPending(false)
             setNewProductScreen(false);
-         });
+         })
       } catch (error) {
          console.error(error);
+         setNewProductScreen(false);
       }
-   };
+   }
 
    useEffect(() => {
       const getData = async () => {
@@ -72,36 +67,6 @@ function Stock() {
       }));
    };
 
-   const openDPScreen = () => {
-      setSearchValue('');
-      setDeleteProductScreen(true);
-   };
-
-   const handleDelete = () => {
-      fetch(`https://localhost:12354/api/product/${selectedOption}`, {
-         method: 'DELETE'
-      }).then(response => {
-         console.log(response);
-      }).catch(error => {
-         console.error('Error deleting:', error);
-      });
-   };
-
-   const handleSort = (key) => {
-      const order = sortOrder[key] === 'asc' ? 'desc' : 'asc';
-
-      const sortedResults = [...results].sort((a, b) => {
-         if (order === 'asc') {
-            return a[key] > b[key] ? 1 : -1;
-         } else {
-            return a[key] < b[key] ? 1 : -1;
-         }
-      });
-
-      setResults(sortedResults);
-      setSortOrder({ ...sortOrder, [key]: order });
-   };
-
    return (
       <div className="Stock">
          <header className='Menu-header'>
@@ -112,7 +77,6 @@ function Stock() {
             <div className="button-container">
                <button className="newProductButton" onClick={() => setNewProductScreen(true)}>Novo Produto</button>
                <button className="addStockButton" onClick={() => setAddStockScreen(true)}>Atualizar Produto</button>
-               <button className="addStockButton" onClick={() => openDPScreen(true)}>Deletar Produto</button>
             </div>
             <SearchBar results={searchValue} setResults={setSearchValue} />
          </header>
@@ -120,15 +84,15 @@ function Stock() {
             <table className="Stock-table">
                <thead>
                   <tr>
-                     <th>Item <button onClick={() => handleSort('name')}>{sortOrder.name === 'asc' ? '↑' : '↓'}</button></th>
-                     <th>Fabricante <button onClick={() => handleSort('manufacturer')}>{sortOrder.manufacturer === 'asc' ? '↑' : '↓'}</button></th>
-                     <th>Preço <button onClick={() => handleSort('price')}>{sortOrder.price === 'asc' ? '↑' : '↓'}</button></th>
-                     <th>Custo <button onClick={() => handleSort('cost')}>{sortOrder.cost === 'asc' ? '↑' : '↓'}</button></th>
-                     <th>Quantidade <button onClick={() => handleSort('quantity')}>{sortOrder.quantity === 'asc' ? '↑' : '↓'}</button></th>
+                     <th>Item <button onClick={() => setQueryOrder("name")}></button></th>
+                     <th>Fabricante <button onClick={() => setQueryOrder("manufacturer")}></button></th>
+                     <th>Preço <button onClick={() => setQueryOrder("price")}></button></th>
+                     <th>Custo <button onClick={() => setQueryOrder("cost")}></button></th>
+                     <th>Quantidade <button onClick={() => setQueryOrder("quantity")}></button></th>
                   </tr>
                </thead>
                <tbody>
-                  {results.map(item => (
+                  {results.map((item) => (
                      <tr key={item.name}>
                         <td>{item.name}</td>
                         <td>{item.manufacturer}</td>
@@ -203,26 +167,26 @@ function Stock() {
                         placeholder="Digite o código de barras"
                      />
                   </label>
-                  <label>Referência:
+                  <label>Referencia:
                      <input 
                         type='text' 
                         name='reference'
                         value={productDetails.reference}
                         onChange={handleInputChange} 
-                        placeholder="Digite a referência"
+                        placeholder="Digite a referencia"
                      />
                   </label>
-                  <label>Produto genérico:
+                  <label>Produto generico:
                      <input 
                         type='text' 
                         name='genericProduct'
                         value={productDetails.genericProduct}
                         onChange={handleInputChange} 
-                        placeholder="Digite o produto genérico"
+                        placeholder="Digite o produto generico"
                      />
                   </label>
-                  {!isPending && <button type="button" onClick={submitData}>Salvar</button>}
-                  {isPending && <button disabled>Salvando...</button>}
+                  { !isPending && <button type="button" onClick={() => submitData()}>Salvar</button> }
+                  { isPending && <button disabled>Salvando...</button>}
                </form>
             </div>
          </Model>
@@ -233,7 +197,7 @@ function Stock() {
          >
             <div className='addStock'>
                <span className='ReactModal__Close' onClick={() => setAddStockScreen(false)}>X</span>
-               <h2>Atualizar Produto</h2>
+               <h2>Atualizar produto</h2>
                <form>
                   <label>Nome do Produto:
                      <input 
@@ -263,28 +227,6 @@ function Stock() {
                </form>
             </div>
          </Model>
-         {/* Modal Deletar Produto */}
-<Model
-   isOpen={deleteProductScreen}
-   onRequestClose={() => setDeleteProductScreen(false)}
-   className="ReactModal__Content"
->
-   <div className='deleteProduct'>
-      <span className='ReactModal__Close' onClick={() => setDeleteProductScreen(false)}>X</span>
-      <h2>Deletar Produto</h2> 
-      <form>
-                  <label>Selecione o produto a ser deletado:
-                     <select onChange={(e) => setSelectedOption(e.target.value)}>
-                        {results.map(item => (
-                           <option key={item.name} value={item.name}>{item.name}</option>
-                        ))}
-                     </select>
-                  </label>
-                  <button type="button" onClick={handleDelete}>Deletar</button>
-               </form>
-   </div>
-</Model>
-
       </div>
    );
 }
