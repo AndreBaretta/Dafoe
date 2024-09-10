@@ -61,8 +61,8 @@ function Stock() {
                   "token" : localStorage.getItem('token')
                },
             });
-            let genericProductData = await genericProductResponse.json();            
-            setGenericProducts(genericProductData)
+            const genericProductData = await genericProductResponse.json();          
+            setGenericProducts(genericProductData);
          } catch (error) {
             console.error(error);
          }
@@ -80,31 +80,13 @@ function Stock() {
    };
 
    const handleEditClick = (product) => {
-      setProductDetails(product);
+      setProductDetails({
+         ...product,
+         manufacturer: String(product.manufacturer),
+         genericProduct: String(product.genericProduct)
+      });
       setSelectedProduct(product.id);
       setEditProductScreen(true);
-   };
-
-   const handleDelete = async () => {
-      try {
-         await fetch(`https://localhost:12354/api/product/${selectedProduct}`, {
-            method: 'DELETE',
-            headers: {
-               "Content-Type": "application/json",
-               "token" : localStorage.getItem('token')
-            },
-         });
-         console.log('Produto deletado');
-         setEditProductScreen(false);
-         setDeleteProductScreen(false);
-         setSelectedProduct(null);
-         // Refresh product list
-         const response = await fetch(`https://localhost:12354/api/product?name=${searchValue}`);
-         const data = await response.json();
-         setResults(data);
-      } catch (error) {
-         console.error('Erro ao deletar:', error);
-      }
    };
 
    const handleSort = (key) => {
@@ -122,6 +104,33 @@ function Stock() {
       setSortOrder({ ...sortOrder, [key]: order });
    };
 
+   const handleDelete = async () => {
+      try {
+         await fetch(`https://localhost:12354/api/product/${selectedProduct}`, {
+            method: 'DELETE',
+            headers: {
+               "Content-Type": "application/json",
+               "token" : localStorage.getItem('token')
+            },
+         });
+         console.log('Produto deletado');
+         setEditProductScreen(false);
+         setDeleteProductScreen(false);
+         setSelectedProduct(null);
+         // Refresh product list
+         const response = await fetch(`https://localhost:12354/api/product?name=${searchValue}`, {
+            headers: {
+               "Content-Type": "application/json",
+               "token" : localStorage.getItem('token')
+            },
+         });
+         const data = await response.json();
+         setResults(data);
+      } catch (error) {
+         console.error('Erro ao deletar:', error);
+      }
+   };
+
    const submitData = async () => {
       try {
          setIsPending(true);
@@ -131,16 +140,29 @@ function Stock() {
                method: 'PUT',
                headers: { "Content-Type": "application/json" },
                headers: {"token" : localStorage.getItem('token')},
-               body: JSON.stringify(productDetails)
+               body: JSON.stringify({
+                  ...productDetails,
+                  manufacturer: String(productDetails.manufacturer),
+                  genericProduct : String(productDetails.genericProduct),
+                  cost : String(productDetails.cost),
+                  id : String(productDetails.id),
+                  price : String(productDetails.price),
+                  quantity : String(productDetails.quantity)
+               }),
             });
             console.log("Produto atualizado");
+            setSelectedProduct(null);
          } else {
             // Create new product
             await fetch('https://localhost:12354/api/product', {
                method: 'POST',
                headers: { "Content-Type": "application/json" },
                headers: {"token" : localStorage.getItem('token')},
-               body: JSON.stringify(productDetails)
+               body: JSON.stringify({
+                  ...productDetails,
+                  manufacturer: String(productDetails.manufacturer),
+                  genericProduct : String(productDetails.genericProduct),
+               }),
             });
             console.log("Produto adicionado");
          }
@@ -249,9 +271,9 @@ function Stock() {
                   <label>Produto Genérico:
                      <Select 
                         name='genericProduct'
-                        options={genericProducts.map(gp => ({value: gp.id, lavel: gp.name}))} 
+                        options={genericProducts.map(gp => ({ value: gp.id, label: gp.name }))}
                         onChange={(option) => setProductDetails(prevState => ({ ...prevState, genericProduct: option.value }))}
-                        value={genericProducts.find(gp => gp.value === productDetails.genericProduct) ? {value: productDetails.genericProduct, lavel: genericProducts.find(gp => gp.id == productDetails.genericProduct).name} : null}
+                        value={genericProducts.find(gp => gp.id === productDetails.genericProduct) ? { value: productDetails.genericProduct, label: genericProducts.find(gp => gp.id === productDetails.genericProduct).name } : null}
                         placeholder="Selecione o produto genérico"
                      />
                   </label>
@@ -304,6 +326,117 @@ function Stock() {
                      {isPending ? 'Salvando...' : 'Salvar'}
                   </button>
                </form>
+            </div>
+         </Model>
+
+         {/* Modal Edit Product */}
+         <Model
+            isOpen={editProductScreen}
+            onRequestClose={() => setEditProductScreen(false)}
+            className="ReactModal__Content"
+         >
+            <div className='editProduct'>
+               <span className='ReactModal__Close' onClick={() => setEditProductScreen(false)}>X</span>
+               <h2>Editar Produto</h2>
+               <form>
+                  <label>Nome:
+                     <input 
+                        type='text' 
+                        name='name'
+                        value={productDetails.name}
+                        onChange={handleInputChange} 
+                        placeholder="Digite o nome do produto"
+                     />
+                  </label>
+                  <label>Fabricante:
+                     <Select 
+                        name='manufacturer'
+                        options={manufacturers.map(m => ({ value: m.id, label: m.name }))}
+                        onChange={(option) => setProductDetails(prevState => ({ ...prevState, manufacturer: option.value }))}
+                        value={manufacturers.find(m => m.id === productDetails.manufacturer) ? { value: productDetails.manufacturer, label: manufacturers.find(m => m.id === productDetails.manufacturer).name } : null}
+                        placeholder="Selecione o fabricante"
+                     />
+                  </label>
+                  <label>Produto Genérico:
+                     <Select 
+                        name='genericProduct'
+                        options={genericProducts.map(gp => ({ value: gp.id, label: gp.name }))}
+                        onChange={(option) => setProductDetails(prevState => ({ ...prevState, genericProduct: option.value }))}
+                        value={genericProducts.find(gp => gp.id === productDetails.genericProduct) ? { value: productDetails.genericProduct, label: genericProducts.find(gp => gp.id === productDetails.genericProduct).name } : null}
+                        placeholder="Selecione o produto genérico"
+                     />
+                  </label>
+                  <label>Referência:
+                     <input 
+                        type='text' 
+                        name='reference'
+                        value={productDetails.reference}
+                        onChange={handleInputChange} 
+                        placeholder="Digite a referência do produto"
+                     />
+                  </label>
+                  <label>Código de Barras:
+                     <input 
+                        type='text' 
+                        name='barcode'
+                        value={productDetails.barcode}
+                        onChange={handleInputChange} 
+                        placeholder="Digite o código de barras"
+                     />
+                  </label>
+                  <label>Preço:
+                     <input 
+                        type='number' 
+                        name='price'
+                        value={productDetails.price}
+                        onChange={handleInputChange} 
+                        placeholder="Digite o preço"
+                     />
+                  </label>
+                  <label>Custo:
+                     <input 
+                        type='number' 
+                        name='cost'
+                        value={productDetails.cost}
+                        onChange={handleInputChange} 
+                        placeholder="Digite o custo"
+                     />
+                  </label>
+                  <label>Quantidade:
+                     <input 
+                        type='number' 
+                        name='quantity'
+                        value={productDetails.quantity}
+                        onChange={handleInputChange} 
+                        placeholder="Digite a quantidade"
+                     />
+                  </label>
+                  <button type="button" onClick={submitData} disabled={isPending}>
+                     {isPending ? 'Salvando...' : 'Salvar'}
+                  </button>
+                  <button type="button" onClick={() => setDeleteProductScreen(true)}>
+                     Deletar
+                  </button>
+               </form>
+            </div>
+         </Model>
+
+         {/* Modal Confirm Delete */}
+         <Model
+            isOpen={deleteProductScreen}
+            onRequestClose={() => setDeleteProductScreen(false)}
+            className="ReactModal__Content"
+         >
+            <div className='deleteProduct'>
+               <span className='ReactModal__Close' onClick={() => setDeleteProductScreen(false)}>X</span>
+               <h2>Confirmar Exclusão</h2>
+               <p>Tem certeza de que deseja excluir este produto?</p>
+               <button type="button" onClick={handleDelete}>
+                  Confirmar
+               </button>
+               <button type="button" onClick={() => setDeleteProductScreen(false)}>
+                  Cancelar
+               </button>
             </div>
          </Model>
       </div>
