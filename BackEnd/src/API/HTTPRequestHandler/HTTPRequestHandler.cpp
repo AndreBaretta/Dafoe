@@ -788,9 +788,7 @@ bool HTTPRequestHandler::handleCreateGenericProduct(const std::string& body){
    try{
       json json = json::parse(body);
       std::string name	 = json["name"].get<std::string>();
-      int quantity		 = std::stoi(json["quantity"].get<std::string>());
       int category		 = std::stoi(json["category"].get<std::string>());
-      std::string reference = json["reference"].get<std::string>();
       return this->m_genericProductMNG.createGenericProduct(name,category);
    } catch(std::exception &e){
       std::cerr << e.what() << '\n';
@@ -802,9 +800,7 @@ bool HTTPRequestHandler::handleUpdateGenericProduct(const int id, const std::str
    try{
       json json = json::parse(body);
       std::string name	 = json["name"].get<std::string>();
-      int quantity		 = std::stoi(json["quantity"].get<std::string>());
       int category		 = std::stoi(json["category"].get<std::string>());
-      std::string reference = json["reference"].get<std::string>();
       return this->m_genericProductMNG.updateGenericProduct(id, name,category);
    } catch(std::exception &e){
       std::cerr << e.what() << '\n';

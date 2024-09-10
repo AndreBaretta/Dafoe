@@ -71,6 +71,20 @@ function Stock() {
       fetchData();
    }, [searchValue]);
 
+   const resetProductDetails = () => {
+      setProductDetails({
+         manufacturer: '',
+         genericProduct: '',
+         name: '',
+         barcode: '',
+         price: '',
+         cost: '',
+         reference: '',
+         quantity: ''
+      });
+      setSelectedProduct('');
+   };
+
    const handleInputChange = (e) => {
       const { name, value } = e.target;
       setProductDetails(prevState => ({
@@ -81,9 +95,14 @@ function Stock() {
 
    const handleEditClick = (product) => {
       setProductDetails({
-         ...product,
-         manufacturer: String(product.manufacturer),
-         genericProduct: String(product.genericProduct)
+         name: product.name,
+         barcode: product.barcode,
+         manufacturer: product.manufacturer,
+         genericProduct: product.genericProduct,
+         price: product.price,
+         cost: product.cost,
+         reference: product.reference,
+         quantity: product.quantity
       });
       setSelectedProduct(product.id);
       setEditProductScreen(true);
@@ -126,6 +145,11 @@ function Stock() {
          });
          const data = await response.json();
          setResults(data);
+         setIsPending(false);
+         setNewProductScreen(false);
+         setEditProductScreen(false);
+         resetProductDetails();
+         setSelectedProduct(null);
       } catch (error) {
          console.error('Erro ao deletar:', error);
       }
@@ -138,30 +162,34 @@ function Stock() {
             // Update existing product
             await fetch(`https://localhost:12354/api/product/${selectedProduct}`, {
                method: 'PUT',
-               headers: { "Content-Type": "application/json" },
-               headers: {"token" : localStorage.getItem('token')},
+               headers: { 
+                  "Content-Type": "application/json",
+                  "token" : localStorage.getItem('token') 
+               },
                body: JSON.stringify({
                   ...productDetails,
                   manufacturer: String(productDetails.manufacturer),
-                  genericProduct : String(productDetails.genericProduct),
-                  cost : String(productDetails.cost),
-                  id : String(productDetails.id),
-                  price : String(productDetails.price),
-                  quantity : String(productDetails.quantity)
+                  genericProduct: String(productDetails.genericProduct),
+                  cost: String(productDetails.cost),
+                  id: String(productDetails.id),
+                  price: String(productDetails.price),
+                  quantity: String(productDetails.quantity)
                }),
             });
             console.log("Produto atualizado");
-            setSelectedProduct(null);
+            setSelectedProduct(null); 
          } else {
             // Create new product
             await fetch('https://localhost:12354/api/product', {
                method: 'POST',
-               headers: { "Content-Type": "application/json" },
-               headers: {"token" : localStorage.getItem('token')},
+               headers: { 
+                  "Content-Type": "application/json",
+                  "token" : localStorage.getItem('token') 
+               },
                body: JSON.stringify({
                   ...productDetails,
                   manufacturer: String(productDetails.manufacturer),
-                  genericProduct : String(productDetails.genericProduct),
+                  genericProduct: String(productDetails.genericProduct),
                }),
             });
             console.log("Produto adicionado");
@@ -169,16 +197,7 @@ function Stock() {
          setIsPending(false);
          setNewProductScreen(false);
          setEditProductScreen(false);
-         setProductDetails({
-            manufacturer: '',
-            genericProduct: '',
-            name: '',
-            barcode: '',
-            price: '',
-            cost: '',
-            reference: '',
-            quantity: ''
-         });
+         resetProductDetails(); // Reset product details after submission
          // Refresh product list
          const response = await fetch(`https://localhost:12354/api/product?name=${searchValue}`, {
             headers: {
@@ -197,6 +216,11 @@ function Stock() {
    const getManufacturerName = (id) => {
       const manufacturer = manufacturers.find(m => m.id === id);
       return manufacturer ? manufacturer.name : 'N/A';
+   };
+
+   const getGenericProductName = (id) => {
+      const genericProduct = genericProducts.find(gp => gp.id === id);
+      return genericProduct ? genericProduct.name : 'N/A';
    };
 
    return (
@@ -234,20 +258,28 @@ function Stock() {
                         </tr>
                      ))
                   ) : (
-                     <tr><td colSpan="5">Nenhum produto encontrado</td></tr>
+                     <tr>
+                        <td colSpan="5">Nenhum resultado encontrado</td>
+                     </tr>
                   )}
                </tbody>
             </table>
          </div>
 
-         {/* Modal Adicionar Novo Produto */}
+         {/* Modal Novo Produto */}
          <Model
             isOpen={newProductScreen}
-            onRequestClose={() => setNewProductScreen(false)}
+            onRequestClose={() => {
+               setNewProductScreen(false);
+               resetProductDetails(); // Reset product details when closing
+            }}
             className="ReactModal__Content"
          >
             <div className='newProduct'>
-               <span className='ReactModal__Close' onClick={() => setNewProductScreen(false)}>X</span>
+               <span className='ReactModal__Close' onClick={() => {
+                  setNewProductScreen(false);
+                  resetProductDetails(); // Reset product details when closing
+               }}>X</span>
                <h2>Adicionar Novo Produto</h2>
                <form>
                   <label>Nome:
@@ -255,44 +287,29 @@ function Stock() {
                         type='text' 
                         name='name'
                         value={productDetails.name}
-                        onChange={handleInputChange} 
-                        placeholder="Digite o nome do produto"
+                        onChange={handleInputChange}
                      />
                   </label>
-                  <label>Fabricante:
-                     <Select 
-                        name='manufacturer'
-                        options={manufacturers.map(m => ({ value: m.id, label: m.name }))}
-                        onChange={(option) => setProductDetails(prevState => ({ ...prevState, manufacturer: option.value }))}
-                        value={manufacturers.find(m => m.id === productDetails.manufacturer) ? { value: productDetails.manufacturer, label: manufacturers.find(m => m.id === productDetails.manufacturer).name } : null}
-                        placeholder="Selecione o fabricante"
-                     />
-                  </label>
-                  <label>Produto Genérico:
-                     <Select 
-                        name='genericProduct'
-                        options={genericProducts.map(gp => ({ value: gp.id, label: gp.name }))}
-                        onChange={(option) => setProductDetails(prevState => ({ ...prevState, genericProduct: option.value }))}
-                        value={genericProducts.find(gp => gp.id === productDetails.genericProduct) ? { value: productDetails.genericProduct, label: genericProducts.find(gp => gp.id === productDetails.genericProduct).name } : null}
-                        placeholder="Selecione o produto genérico"
-                     />
-                  </label>
-                  <label>Referência:
-                     <input 
-                        type='text' 
-                        name='reference'
-                        value={productDetails.reference}
-                        onChange={handleInputChange} 
-                        placeholder="Digite a referência do produto"
-                     />
-                  </label>
-                  <label>Código de Barras:
+                  <label>Código de barras:
                      <input 
                         type='text' 
                         name='barcode'
                         value={productDetails.barcode}
-                        onChange={handleInputChange} 
-                        placeholder="Digite o código de barras"
+                        onChange={handleInputChange}
+                     />
+                  </label>
+                  <label>Fabricante:
+                     <Select
+                        options={manufacturers.map(m => ({ value: m.id, label: m.name }))}
+                        onChange={(selectedOption) => setProductDetails(prevState => ({ ...prevState, manufacturer: selectedOption.value }))}
+                        value={manufacturers.find(m => m.id === productDetails.manufacturer) ? { value: productDetails.manufacturer, label: manufacturers.find(m => m.id === productDetails.manufacturer).name } : null}
+                     />
+                  </label>
+                  <label>Produto Genérico:
+                     <Select
+                        options={genericProducts.map(gp => ({ value: gp.id, label: gp.name }))}
+                        onChange={(selectedOption) => setProductDetails(prevState => ({ ...prevState, genericProduct: selectedOption.value }))}
+                        value={genericProducts.find(gp => gp.id === productDetails.genericProduct) ? { value: productDetails.genericProduct, label: genericProducts.find(gp => gp.id === productDetails.genericProduct).name } : null}
                      />
                   </label>
                   <label>Preço:
@@ -300,8 +317,7 @@ function Stock() {
                         type='number' 
                         name='price'
                         value={productDetails.price}
-                        onChange={handleInputChange} 
-                        placeholder="Digite o preço"
+                        onChange={handleInputChange}
                      />
                   </label>
                   <label>Custo:
@@ -309,8 +325,15 @@ function Stock() {
                         type='number' 
                         name='cost'
                         value={productDetails.cost}
-                        onChange={handleInputChange} 
-                        placeholder="Digite o custo"
+                        onChange={handleInputChange}
+                     />
+                  </label>
+                  <label>Referência:
+                     <input 
+                        type='text' 
+                        name='reference'
+                        value={productDetails.reference}
+                        onChange={handleInputChange}
                      />
                   </label>
                   <label>Quantidade:
@@ -318,25 +341,31 @@ function Stock() {
                         type='number' 
                         name='quantity'
                         value={productDetails.quantity}
-                        onChange={handleInputChange} 
-                        placeholder="Digite a quantidade"
+                        onChange={handleInputChange}
                      />
                   </label>
-                  <button type="button" onClick={submitData} disabled={isPending}>
-                     {isPending ? 'Salvando...' : 'Salvar'}
+                  <button type="button" onClick={submitData}>
+                     {selectedProduct ? 'Atualizar' : 'Adicionar'}
                   </button>
+                  {isPending && <p>Processing...</p>}
                </form>
             </div>
          </Model>
 
-         {/* Modal Edit Product */}
+         {/* Modal Editar Produto */}
          <Model
             isOpen={editProductScreen}
-            onRequestClose={() => setEditProductScreen(false)}
+            onRequestClose={() => {
+               setEditProductScreen(false);
+               resetProductDetails(); // Reset product details when closing
+            }}
             className="ReactModal__Content"
          >
             <div className='editProduct'>
-               <span className='ReactModal__Close' onClick={() => setEditProductScreen(false)}>X</span>
+               <span className='ReactModal__Close' onClick={() => {
+                  setEditProductScreen(false);
+                  resetProductDetails(); // Reset product details when closing
+               }}>X</span>
                <h2>Editar Produto</h2>
                <form>
                   <label>Nome:
@@ -344,44 +373,29 @@ function Stock() {
                         type='text' 
                         name='name'
                         value={productDetails.name}
-                        onChange={handleInputChange} 
-                        placeholder="Digite o nome do produto"
+                        onChange={handleInputChange}
                      />
                   </label>
-                  <label>Fabricante:
-                     <Select 
-                        name='manufacturer'
-                        options={manufacturers.map(m => ({ value: m.id, label: m.name }))}
-                        onChange={(option) => setProductDetails(prevState => ({ ...prevState, manufacturer: option.value }))}
-                        value={manufacturers.find(m => m.id === productDetails.manufacturer) ? { value: productDetails.manufacturer, label: manufacturers.find(m => m.id === productDetails.manufacturer).name } : null}
-                        placeholder="Selecione o fabricante"
-                     />
-                  </label>
-                  <label>Produto Genérico:
-                     <Select 
-                        name='genericProduct'
-                        options={genericProducts.map(gp => ({ value: gp.id, label: gp.name }))}
-                        onChange={(option) => setProductDetails(prevState => ({ ...prevState, genericProduct: option.value }))}
-                        value={genericProducts.find(gp => gp.id === productDetails.genericProduct) ? { value: productDetails.genericProduct, label: genericProducts.find(gp => gp.id === productDetails.genericProduct).name } : null}
-                        placeholder="Selecione o produto genérico"
-                     />
-                  </label>
-                  <label>Referência:
-                     <input 
-                        type='text' 
-                        name='reference'
-                        value={productDetails.reference}
-                        onChange={handleInputChange} 
-                        placeholder="Digite a referência do produto"
-                     />
-                  </label>
-                  <label>Código de Barras:
+                  <label>Código de barras:
                      <input 
                         type='text' 
                         name='barcode'
                         value={productDetails.barcode}
-                        onChange={handleInputChange} 
-                        placeholder="Digite o código de barras"
+                        onChange={handleInputChange}
+                     />
+                  </label>
+                  <label>Fabricante:
+                     <Select
+                        options={manufacturers.map(m => ({ value: m.id, label: m.name }))}
+                        onChange={(selectedOption) => setProductDetails(prevState => ({ ...prevState, manufacturer: selectedOption.value }))}
+                        value={manufacturers.find(m => m.id === productDetails.manufacturer) ? { value: productDetails.manufacturer, label: manufacturers.find(m => m.id === productDetails.manufacturer).name } : null}
+                     />
+                  </label>
+                  <label>Produto Genérico:
+                     <Select
+                        options={genericProducts.map(gp => ({ value: gp.id, label: gp.name }))}
+                        onChange={(selectedOption) => setProductDetails(prevState => ({ ...prevState, genericProduct: selectedOption.value }))}
+                        value={genericProducts.find(gp => gp.id === productDetails.genericProduct) ? { value: productDetails.genericProduct, label: genericProducts.find(gp => gp.id === productDetails.genericProduct).name } : null}
                      />
                   </label>
                   <label>Preço:
@@ -389,8 +403,7 @@ function Stock() {
                         type='number' 
                         name='price'
                         value={productDetails.price}
-                        onChange={handleInputChange} 
-                        placeholder="Digite o preço"
+                        onChange={handleInputChange}
                      />
                   </label>
                   <label>Custo:
@@ -398,8 +411,15 @@ function Stock() {
                         type='number' 
                         name='cost'
                         value={productDetails.cost}
-                        onChange={handleInputChange} 
-                        placeholder="Digite o custo"
+                        onChange={handleInputChange}
+                     />
+                  </label>
+                  <label>Referência:
+                     <input 
+                        type='text' 
+                        name='reference'
+                        value={productDetails.reference}
+                        onChange={handleInputChange}
                      />
                   </label>
                   <label>Quantidade:
@@ -407,34 +427,46 @@ function Stock() {
                         type='number' 
                         name='quantity'
                         value={productDetails.quantity}
-                        onChange={handleInputChange} 
-                        placeholder="Digite a quantidade"
+                        onChange={handleInputChange}
                      />
                   </label>
-                  <button type="button" onClick={submitData} disabled={isPending}>
-                     {isPending ? 'Salvando...' : 'Salvar'}
+                  <button type="button" onClick={submitData}>
+                     Atualizar
                   </button>
-                  <button type="button" onClick={() => setDeleteProductScreen(true)}>
-                     Deletar
+                  <button type="button" onClick={() => {
+                     setDeleteProductScreen(true);
+                     setEditProductScreen(false);
+                  }}>
+                     Excluir
                   </button>
+                  {isPending && <p>Processing...</p>}
                </form>
             </div>
          </Model>
 
-         {/* Modal Confirm Delete */}
+         {/* Modal Deletar Produto */}
          <Model
             isOpen={deleteProductScreen}
-            onRequestClose={() => setDeleteProductScreen(false)}
+            onRequestClose={() => {
+               setDeleteProductScreen(false);
+               resetProductDetails(); // Reset product details when closing
+            }}
             className="ReactModal__Content"
          >
             <div className='deleteProduct'>
-               <span className='ReactModal__Close' onClick={() => setDeleteProductScreen(false)}>X</span>
+               <span className='ReactModal__Close' onClick={() => {
+                  setDeleteProductScreen(false);
+                  resetProductDetails(); // Reset product details when closing
+               }}>X</span>
                <h2>Confirmar Exclusão</h2>
                <p>Tem certeza de que deseja excluir este produto?</p>
                <button type="button" onClick={handleDelete}>
                   Confirmar
                </button>
-               <button type="button" onClick={() => setDeleteProductScreen(false)}>
+               <button type="button" onClick={() => {
+                  setDeleteProductScreen(false);
+                  resetProductDetails(); // Reset product details when closing
+               }}>
                   Cancelar
                </button>
             </div>
