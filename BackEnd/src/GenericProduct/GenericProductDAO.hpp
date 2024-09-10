@@ -7,10 +7,11 @@
 class GenericProductDAO{
 public:
    GenericProductDAO(DafoeGod& dafoe);
-   bool createGenericProduct(const std::string& name, const int quantity, const int category, const std::string& reference);
+   bool createGenericProduct(const std::string& name, const int category);
    bool deleteGenericProduct(const int id);
-   bool updateGenericProduct(const int id, const std::string& name, const int quantity, const int category, const std::string& reference);
+   bool updateGenericProduct(const int id, const std::string& name, const int category);
    std::vector<GenericProduct> retrieveGenericProductByName(const std::string& name);
+   std::vector<GenericProduct> retrieveGenericProduct();
 
    private:
    DafoeGod& m_theos;

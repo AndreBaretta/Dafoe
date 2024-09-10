@@ -21,7 +21,9 @@ std::string JWToken::createToken(const int subject, const bool isAdmin){
 
 bool JWToken::validateToken(const std::string& token){
    try {
-      auto decodedToken = jwt::decode(token);
+      auto aux = token;
+      aux.erase(remove(aux.begin(), aux.end(), ' '), aux.end());
+      auto decodedToken = jwt::decode(aux);
       auto verifier = jwt::verify()
          .allow_algorithm(jwt::algorithm::hs256{this->m_secretKey})
          .with_issuer(this->m_issuer);            

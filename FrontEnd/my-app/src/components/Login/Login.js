@@ -1,15 +1,49 @@
 import React, { useState } from "react";
+import axios from "axios";
 import './Login.css';
 
 const Login = () => {
-   const [username, setUsername] = useState("");
+   const [id, setId] = useState("");
    const [password, setPassword] = useState("");
+   const [error, setError] = useState(""); // To show any error messages.
 
-   const handleSubmit = (event) => {
+   const handleSubmit = async (event) => {
       event.preventDefault();
-      alert("Enviando dados: " + username + " - " + password);
-      window.location.href = 'http://localhost:3000?home'; 
+   
+      try {
+         // Sending user credentials using fetch
+         const response = await fetch('https://localhost:12354/login', {
+            method: 'POST',
+            headers: {
+               'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+               id,           // sending the user id
+               password,     // sending the password
+            }),
+         });
+   
+         // Check if the response is successful (status 200-299)
+         if (!response.ok) {
+            throw new Error("Login failed, please try again.");
+         }
+   
+         // Assuming the response contains the token in JSON format
+         const token = response.headers.get('Authorization');
+   
+         // Store the JWT in localStorage
+         localStorage.setItem('token', token);
+   
+         // Redirect the user to the home page after successful login
+         window.location.href = 'http://localhost:3000/?home';
+   
+      } catch (error) {
+         // Set error message if login fails
+         setError("Invalid credentials, please try again.");
+         console.error("Login error:", error);
+      }
    };
+   
 
    return (
       <div className="Login">
@@ -26,8 +60,8 @@ const Login = () => {
                <input 
                   type="text" 
                   placeholder="Usuário" 
-                  value={username} 
-                  onChange={(e) => setUsername(e.target.value)} 
+                  value={id} 
+                  onChange={(e) => setId(e.target.value)} 
                />
             </div>
             <div className="input-field">
@@ -46,6 +80,9 @@ const Login = () => {
             </div>
             <button type="submit">Entrar</button>
          </form>
+         
+         {error && <p className="error-message">{error}</p>} {/* Error message */}
+         
          <div className="watermark">
             ©dafoeformation - 2024
          </div>
@@ -54,3 +91,4 @@ const Login = () => {
 };
 
 export default Login;
+

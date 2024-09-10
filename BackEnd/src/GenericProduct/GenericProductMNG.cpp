@@ -6,8 +6,8 @@ GenericProductMNG::GenericProductMNG(GenericProductDAO& gpdao, JsonBuilder& jaso
 , m_jsonBuilder{jason}
 {}
 
-bool GenericProductMNG::createGenericProduct(const std::string& name, const int quantity, const int category, const std::string& reference){
-   m_gPDAO.createGenericProduct(name, quantity, category, reference);
+bool GenericProductMNG::createGenericProduct(const std::string& name, const int category){
+   m_gPDAO.createGenericProduct(name, category);
    return true;
 }
 
@@ -18,14 +18,20 @@ bool GenericProductMNG::deleteGenericProduct(const int id){
 }
 
 
-bool GenericProductMNG::updateGenericProduct(const int id, const std::string& name, const int quantity, const int category, const std::string& reference){
-   m_gPDAO.updateGenericProduct(id, name, quantity, category, reference);
+bool GenericProductMNG::updateGenericProduct(const int id, const std::string& name, const int category){
+   m_gPDAO.updateGenericProduct(id, name, category);
    return true;
 }
 
 
 json GenericProductMNG::retrieveGenericProductByName(const std::string& name){
    std::vector<GenericProduct> vec{this->m_gPDAO.retrieveGenericProductByName(name)};
+   json json {this->m_jsonBuilder.genericProductVectorToJson(vec)};
+   return json;
+}
+
+json GenericProductMNG::retrieveGenericProduct(){
+   std::vector<GenericProduct> vec{this->m_gPDAO.retrieveGenericProduct()};
    json json {this->m_jsonBuilder.genericProductVectorToJson(vec)};
    return json;
 }

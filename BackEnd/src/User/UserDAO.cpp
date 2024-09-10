@@ -10,6 +10,7 @@ UserDAO::UserDAO(DafoeGod& dafoe)
 
 std::string UserDAO::retrieveUsername(const int id){
    try{
+      
       m_theos.prepareStatement("select name from user where id = ?");
       m_theos.getStatement()->setInt(1,id);
       m_theos.query(RETRIEVE);
@@ -30,6 +31,7 @@ std::string UserDAO::retrieveUsername(const int id){
 
 bool UserDAO::getPermission(const int id){
    try{
+      
       m_theos.prepareStatement("select admin from user where id = ?");
       m_theos.getStatement()->setInt(1,id);
       m_theos.query(RETRIEVE);
@@ -43,8 +45,9 @@ bool UserDAO::getPermission(const int id){
    }
 }
 
-bool UserDAO::createUser(const int id, const std::string& name, const std::string& password){
+bool UserDAO::createUser(const int id, const std::string& name, const std::string& password, bool permission){
    try{
+      
       m_theos.prepareStatement("select SHA2(?, 256) as hash_value");
       m_theos.getStatement()->setString(1, password);
       m_theos.query(RETRIEVE);
@@ -52,10 +55,11 @@ bool UserDAO::createUser(const int id, const std::string& name, const std::strin
 
       std::string hash {m_theos.getResult()->getString("hash_value").c_str()};
 
-      m_theos.prepareStatement("insert into user (id, name, password) values (?,?,?)");
+      m_theos.prepareStatement("insert into user (id, name, password, admin) values (?,?,?,?)");
       m_theos.getStatement()->setInt(1, id);
       m_theos.getStatement()->setString(2, name);
       m_theos.getStatement()->setString(3, hash);
+      m_theos.getStatement()->setBoolean(4, permission);
       m_theos.query(CREATE);
 
       return true;
@@ -68,6 +72,7 @@ bool UserDAO::createUser(const int id, const std::string& name, const std::strin
 
 bool UserDAO::deleteUser(const int id){
    try{
+      
       m_theos.prepareStatement("delete from user where id = ?");
       m_theos.getStatement()->setInt(1, id);
       m_theos.query(DELETE);
@@ -82,6 +87,7 @@ bool UserDAO::deleteUser(const int id){
 
 bool UserDAO::updateUsername(const int id, const std::string& name){
    try{
+      
       m_theos.prepareStatement("update user set name = ? where id = ?");
       m_theos.getStatement()->setString(1, name);
       m_theos.getStatement()->setInt(2, id);
@@ -97,6 +103,7 @@ bool UserDAO::updateUsername(const int id, const std::string& name){
 
 bool UserDAO::updateUserPassword(const int id, const std::string& newPassword){
    try{
+      
       m_theos.prepareStatement("select SHA2(?, 256) as hash_value");
       m_theos.getStatement()->setString(1, newPassword);
       m_theos.query(RETRIEVE);  
@@ -125,27 +132,42 @@ bool UserDAO::updateUserPassword(const int id, const std::string& newPassword){
 bool UserDAO::validatePassword(const int id, const std::string& password){
    try{
 
-      m_theos.prepareStatement("select password from user where id = ?");
-      m_theos.getStatement()->setInt(1,id);
+      m_theos.prepareStatement("select SHA2(?, 256) as hash_value");
+      m_theos.getStatement()->setString(1, password);
       m_theos.query(RETRIEVE);   
 
       if(m_theos.getResult()->next()){
-         m_theos.prepareStatement("select SHA2(?, 256) as hash_value");
-         m_theos.getStatement()->setString(1,password);
-         std::string hashDBPassword {m_theos.getResult()->getString("hash_value").c_str()};
-         m_theos.query(RETRIEVE);
+         std::string hashArgPassword{m_theos.getResult()->getString("hash_value").c_str()};
 
-         std::string hashArgPassword {m_theos.getResult()->getString("hash_value").c_str()};
-         if(hashDBPassword == hashArgPassword){
-            return true;
+         m_theos.prepareStatement("select password from user where id=?");
+         m_theos.getStatement()->setInt(1,id);
+         m_theos.query(RETRIEVE);
+         if(m_theos.getResult()->next()){
+            std::string hashDBPassword {m_theos.getResult()->getString("password").c_str()};
+            if(hashDBPassword == hashArgPassword){
+               return true;
+            }
          }
       }
-
       return false;
-
    }catch(std::exception& e){
       std::cerr << e.what() << '\n';
       throw;
    }
 }
 
+bool UserDAO::editPermission(const int id, const bool permission){
+   try{
+      
+      m_theos.prepareStatement("update user set permission = ? where id =?");
+      m_theos.getStatement()->setBoolean(1, permission);
+      m_theos.getStatement()->setInt(2, id);
+      m_theos.query(RETRIEVE);
+
+      return true;
+
+   }catch(std::exception& e){
+      std::cerr << e.what() << '\n';
+      throw;
+   }
+}

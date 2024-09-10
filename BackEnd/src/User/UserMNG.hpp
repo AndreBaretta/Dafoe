@@ -15,7 +15,7 @@ public:
    UserMNG(UserDAO& userDAO, JWToken& jwt);
    ~UserMNG();
    // Create
-   bool createUser(const int id, const std::string& name, const std::string& password);
+   bool createUser(const int id, const std::string& name, const std::string& password, bool permission);
 
    // Read
    json retrieveUsername(const int id);

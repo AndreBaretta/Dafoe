@@ -1,4 +1,5 @@
 #include "JsonBuilder.hpp"
+#include <iostream>
 
 JsonBuilder::JsonBuilder(){}
 JsonBuilder::~JsonBuilder(){}
@@ -162,9 +163,7 @@ json JsonBuilder::genericProductToJson(GenericProduct& genericProduct){
    json jsonGenericProduct;
    jsonGenericProduct["id"]        = genericProduct.getId();
    jsonGenericProduct["name"]      = genericProduct.getName();
-   jsonGenericProduct["quantity"]  = genericProduct.getQuantity();
    jsonGenericProduct["category"]  = genericProduct.getCategory();
-   jsonGenericProduct["reference"] = genericProduct.getReference();
    return jsonGenericProduct;
 }
 
@@ -172,12 +171,15 @@ json JsonBuilder::genericProductVectorToJson(std::vector<GenericProduct>& generi
    json jsonGenericProductArray;
    for(int i = 0; i < genericProducts.size(); i++){
       json jsonGenericProduct;
+      std::cout << "1\n";
       jsonGenericProduct["id"]        = genericProducts[i].getId();
+            std::cout << "2\n";
       jsonGenericProduct["name"]      = genericProducts[i].getName();
-      jsonGenericProduct["quantity"]  = genericProducts[i].getQuantity();
+            std::cout << "3\n";
       jsonGenericProduct["category"]  = genericProducts[i].getCategory();
-      jsonGenericProduct["reference"] = genericProducts[i].getReference();
-      jsonGenericProduct.push_back(jsonGenericProduct);
+            std::cout << "4\n";
+      jsonGenericProductArray.push_back(jsonGenericProduct);
+            std::cout << "5\n";
    }
    return jsonGenericProductArray;
 }
