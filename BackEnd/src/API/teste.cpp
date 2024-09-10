@@ -39,7 +39,7 @@ using json = nlohmann::json;
 int main(){
    std::string secret = "Dafoe111111Secret";
    std::string issuer = "Dafoe";
-   std::chrono::seconds expireTime = std::chrono::seconds(3600);
+   std::chrono::seconds expireTime = std::chrono::seconds(36000);
    Test tester = Test();
    HTTPResponseBuilder httpResponseBuilder = HTTPResponseBuilder();
    

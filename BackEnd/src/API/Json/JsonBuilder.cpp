@@ -171,15 +171,10 @@ json JsonBuilder::genericProductVectorToJson(std::vector<GenericProduct>& generi
    json jsonGenericProductArray;
    for(int i = 0; i < genericProducts.size(); i++){
       json jsonGenericProduct;
-      std::cout << "1\n";
       jsonGenericProduct["id"]        = genericProducts[i].getId();
-            std::cout << "2\n";
       jsonGenericProduct["name"]      = genericProducts[i].getName();
-            std::cout << "3\n";
       jsonGenericProduct["category"]  = genericProducts[i].getCategory();
-            std::cout << "4\n";
       jsonGenericProductArray.push_back(jsonGenericProduct);
-            std::cout << "5\n";
    }
    return jsonGenericProductArray;
 }
