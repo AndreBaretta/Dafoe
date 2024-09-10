@@ -299,3 +299,23 @@ bool ProductDAO::updateCategoryPriceByPercentage(const int category, const doubl
 
 }
 
+bool ProductDAO::updateQuantity(const int id, const int quantity){
+   try{
+      std::vector<Product> product = retrieveByID(id);
+      if(quantity > product[0].getQuantity())
+         return false;
+      product[0].setQuantity(product[0].getQuantity() - quantity);
+      m_theos.prepareStatement("update product set quantity = ? where id = ?");
+      m_theos.getStatement()->setInt(1,quantity);
+      m_theos.getStatement()->setInt(2,id);
+      m_theos.getStatement()->executeQuery();
+
+      return true;
+   }catch(std::exception &e){
+      std::cerr << e.what() << "\n";
+      return false;
+   }
+
+}
+
+

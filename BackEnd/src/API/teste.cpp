@@ -67,7 +67,7 @@ int main(){
    ClientMNG clientMNG                     = ClientMNG(clientDAO, jsonBuilder);
    EmployeeMNG employeeMNG                 = EmployeeMNG(employeeDAO, jsonBuilder);
    ManufacturerMNG manufacturerMNG         = ManufacturerMNG(manufacturerDAO, jsonBuilder);
-   SellOrderMNG sellOrderMNG               = SellOrderMNG(sellOrderDAO, productOrderDAO, jsonBuilder);
+   SellOrderMNG sellOrderMNG               = SellOrderMNG(sellOrderDAO, productOrderDAO, productDAO, jsonBuilder);
    StatusMNG statusMNG                     = StatusMNG(statusDAO, jsonBuilder);
    GenericProductMNG genericProductMNG     = GenericProductMNG(genericProductDAO, jsonBuilder);
    UserMNG userMNG                         = UserMNG(userDAO, jwt);

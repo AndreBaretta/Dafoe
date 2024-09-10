@@ -29,14 +29,14 @@ DafoeGod::~DafoeGod(){
 void DafoeGod::query(TypeOfTransaction type){
 
    try{ 
-   switch(type){
-   case RETRIEVE:
-      this->m_res = m_statement->executeQuery();
-         break;
+      switch(type){
+         case RETRIEVE:
+            this->m_res = m_statement->executeQuery();
+            break;
 
-      default:
-         this->m_statement->executeQuery();
-         break;
+         default:
+            this->m_statement->executeQuery();
+            break;
       }
    }catch(sql::SQLException &e){
       throw;
@@ -48,6 +48,7 @@ bool DafoeGod::prepareStatement(const std::string& stmt){
    this->m_statement = this->m_conn->prepareStatement(stmt);
    return true;
 }
+
 sql::ResultSet* DafoeGod::getResult(){return this->m_res;}
 sql::PreparedStatement* DafoeGod::getStatement(){return this->m_statement;}
 sql::Connection* DafoeGod::getConnection(){return this->m_conn;}

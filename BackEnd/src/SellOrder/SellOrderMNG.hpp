@@ -3,10 +3,11 @@
 #include "SellOrderDAO.hpp"
 #include "../API/Json/JsonBuilder.hpp"
 #include "../ProductOrder/ProductOrderDAO.hpp"
+#include "../Product/ProductDAO.hpp"
 
 class SellOrderMNG{
 public:
-   SellOrderMNG(SellOrderDAO& sellOrderDAO, ProductOrderDAO& productOrderDAO, JsonBuilder& jsonBuilder);
+   SellOrderMNG(SellOrderDAO& sellOrderDAO, ProductOrderDAO& productOrderDAO, ProductDAO& productDAO, JsonBuilder& jsonBuilder);
    bool createOrder(const int clientId, const int sellerID, const int statusId,
                     const int paymentMethod, const std::string& date, const double price, json products);
    bool updateOrder(const int id, const int clientId, const int sellerId, const int statusId,
@@ -24,6 +25,7 @@ public:
 private:
    SellOrderDAO& m_sellOrderDAO;
    ProductOrderDAO& m_productOrderDAO;
+   ProductDAO& m_productDAO;
    JsonBuilder& m_jsonBuilder;
 };
 

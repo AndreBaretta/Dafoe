@@ -1,8 +1,9 @@
 #include "SellOrderMNG.hpp"
 
-SellOrderMNG::SellOrderMNG(SellOrderDAO& sellOrderDAO, ProductOrderDAO& productOrderDAO, JsonBuilder& jsonBuilder)
+SellOrderMNG::SellOrderMNG(SellOrderDAO& sellOrderDAO, ProductOrderDAO& productOrderDAO, ProductDAO& productDAO, JsonBuilder& jsonBuilder)
 : m_sellOrderDAO{sellOrderDAO}
 , m_productOrderDAO{productOrderDAO}
+, m_productDAO{productDAO}
 , m_jsonBuilder{jsonBuilder}
 {}
 
@@ -25,7 +26,17 @@ bool SellOrderMNG::updateOrder(const int id, const int clientId, const int selle
 }
 
 bool SellOrderMNG::addProductToOrder(const int sellOrder, const int product, const int quantity, const double discount, const double price){
-   return this->m_productOrderDAO.createProductOrder(sellOrder, product, quantity, discount, price);
+   try{
+      if(this->m_productOrderDAO.createProductOrder(sellOrder, product, quantity, discount, price)){
+         if(!this->m_productDAO.updateQuantity(product,quantity)){
+            this->m_productOrderDAO.deleteProductOrder(sellOrder, product);
+         }
+         return true;
+      }
+      return false;
+   }catch(std::exception &e){
+      return false;
+   }
 }
 
 bool SellOrderMNG::updateProduct(const int sellOrder, const int product, const int quantity, const double discount, const double price){

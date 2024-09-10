@@ -30,6 +30,7 @@ public:
 
    bool updateCategoryPriceByNumber(const int category, const double price);
    bool updateCategoryPriceByPercentage(const int category, const double percentage);
+   bool updateQuantity(const int product, const int quantity);
 
 private:
    DafoeGod& m_theos;
