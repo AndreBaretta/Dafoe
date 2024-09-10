@@ -35,8 +35,8 @@ bool CategoryDAO::deleteCategory(const int id){
 bool CategoryDAO::updateCategory(const int id, std::string name){
    try{
       m_theos.prepareStatement("update category set name = ? where id = ?");
-      m_theos.getStatement()->setInt(1, id);
-      m_theos.getStatement()->setString(2, name);
+      m_theos.getStatement()->setString(1, name);
+      m_theos.getStatement()->setInt(2, id);
       m_theos.query(UPDATE); 
       return true;
 

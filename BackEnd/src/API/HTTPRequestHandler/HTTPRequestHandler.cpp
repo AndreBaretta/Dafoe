@@ -69,7 +69,7 @@ std::string HTTPRequestHandler::handleRequest(HTTPRequest& request){
 	    if(query.empty()){
 	       responseBody = handleRetrieveAllCategory();
 	       headers["Content-Type"] = "application/json";
-	       return200(version,headers,responseBody);
+	       return return200(version,headers,responseBody);
 	    }
 	    return return400(version,headers,responseBody);
 	 }
@@ -390,7 +390,7 @@ std::string HTTPRequestHandler::handleRequest(HTTPRequest& request){
       }
       if(path[1] == "payment-method"){
 	 int id = std::stoi(path[2]);
-	 if(handleUpdatePaymentMethod(id,requestBody))
+	 if(!handleUpdatePaymentMethod(id,requestBody))
 	    return return400(version, headers, responseBody);
 	 return return204(version,headers,responseBody);
       }
