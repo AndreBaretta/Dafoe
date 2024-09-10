@@ -76,7 +76,7 @@ std::vector<GenericProduct> GenericProductDAO::retrieveGenericProductByName(cons
 
 std::vector<GenericProduct> GenericProductDAO::retrieveGenericProduct(){
    try{
-   m_theos.prepareStatement("select * from genericProduc");
+   m_theos.prepareStatement("select * from genericProduct");
    m_theos.query(RETRIEVE);
 
    std::vector<GenericProduct> vec{};
