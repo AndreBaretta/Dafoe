@@ -1,193 +1,192 @@
 :root {
-   --glass: rgba(255, 255, 255, 0.25);
+  --glass: rgba(255, 255, 255, 0.25);
 }
 
 .Employees {
-   position: relative;
-   display: flex;
-   min-height: 100vh;
-   background-color: #0d1117;
+  position: relative;
+  display: flex;
+  min-height: 100vh;
+  background-color: #0d1117;
 }
 
 .Content {
-   flex-grow: 1;
-   padding: 40px;
-   display: flex;
-   flex-direction: column;
-   align-items: center;
-   justify-content: flex-start;
+  flex-grow: 1;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 .Employees-table-container {
-   width: 90%;
-   max-width: 2600px;
-   background: linear-gradient(to bottom, #212020, #222121);
-   border-radius: 1rem;
-   padding: 0.75rem;
-   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-   margin-top: 65px;
-   margin-left: 1%;
-   margin-right: 0.5%;
-   border: 1px solid rgba(255, 255, 255, 0.3);
-   position: relative;
+  width: 90%;
+  max-width: 2600px;
+  background: linear-gradient(to bottom, #212020, #222121); 
+  border-radius: 1rem;
+  padding: 0.75rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin-top: 65px;
+  margin-left: 1%;
+  margin-right: 0.5%;
+  border: 1px solid rgba(255, 255, 255, 0.3); 
+  position: relative;
 }
 
 .Employees-table {
-   width: 100%;
-   border-collapse: collapse;
-   text-align: left;
-   font-size: calc(10px + 1vmin);
-   color: white;
-   background-color: rgba(0, 0, 0, 0.5);
-   background: #000000;
-   border-radius: 8px;
-   overflow: hidden;
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: calc(10px + 1vmin);
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+  background: #000000;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
-.Employees-table th,
-.Employees-table td {
-   padding: 0.5rem;
-   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-   background-color: #000000;
+.Employees-table th, .Employees-table td {
+  padding: 0.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  background-color: #000000;
 }
 
 .Employees-table th {
-   position: relative;
-   background-color: rgba(0, 0, 0, 0.2);
-   font-weight: bold;
-   color: #ffffff;
-   text-transform: uppercase;
-   text-align: center;
-   border-left: 1px solid rgba(255, 255, 255, 0.2);
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.2);
+  font-weight: bold;
+  color: #ffffff;
+  text-transform: uppercase;
+  text-align: center;
+  border-left: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .Employees-table th:first-child {
-   border-left: none;
+  border-left: none;
 }
 
 .Employees-table td {
-   font-size: calc(8px + 1vmin);
-   white-space: nowrap;
-   text-align: center;
-   border-left: 1px solid rgba(255, 255, 255, 0.2);
+  font-size: calc(8px + 1vmin);
+  white-space: nowrap;
+  text-align: center;
+  border-left: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .Employees-table td:first-child {
-   border-left: none;
+  border-left: none;
 }
 
 .Employees-table tr {
-   transition: background-color 0.3s ease;
-   cursor: pointer;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
 }
 
 .Employees-table tr:hover {
-   background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .employee-button-container {
-   position: absolute;
-   right: -700px;
-   top: 5px;
-   z-index: 11;
+   position: absolute; 
+   right: -700px; 
+   top: 5px; 
+   z-index: 11; 
    display: flex;
    gap: 10px;
 }
 
 .newEmployeeButton,
 .editEmployeeButton {
-   padding: 10px 30px;
-   font-size: calc(10px + 1vmin);
-   color: white;
-   background-color: #262626;
-   border: none;
-   border-radius: 4px;
-   cursor: pointer;
-   transition: background-color 0.3s ease;
+  padding: 10px 30px;
+  font-size: calc(10px + 1vmin);
+  color: white;
+  background-color: #262626;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .newEmployeeButton:hover,
 .editEmployeeButton:hover {
-   background-color: #393838;
+  background-color: #393838;
 }
 
 .ReactModal__Overlay {
-   z-index: 1000;
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .ReactModal__Content {
-   width: 400px;
-   max-width: 90%;
-   background-color: rgba(255, 255, 255, 0.9);
-   border-radius: 20px;
-   padding: 20px;
-   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-   overflow: auto;
-   display: flex;
-   flex-direction: column;
-   align-items: center;
-   position: relative;
+  width: 400px;
+  max-width: 90%;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
 }
 
-.ReactModal__Close {
-   position: absolute;
-   top: 10px;
-   right: 10px;
-   font-size: 30px;
-   cursor: pointer;
+.Employee_ReactModal__Close {
+  position: flex;
+  top: 40px;
+  right: 40px;
+  font-size: 30px;
+  cursor: pointer;
 }
 
 .ReactModal__Header h2 {
-   width: 100%;
-   margin-bottom: 20px;
-   text-align: center;
-   font-size: 1.5rem;
-   color: #333;
+  width: 100%;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 1.5rem;
+  color: #333;
 }
 
 .newEmployee,
 .editEmployee {
-   width: 100%;
-   display: flex;
-   flex-direction: column;
-   align-items: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .newEmployee label,
 .editEmployee label {
-   width: 100%;
-   margin-bottom: 10px;
-   font-weight: bold;
-   color: #333;
+  width: 100%;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #333;
 }
 
 .newEmployee input,
 .editEmployee input {
-   width: 90%;
-   padding: 8px;
-   margin-top: 5px;
-   border-radius: 4px;
-   border: 1px solid #ccc;
+  width: 90%;
+  padding: 8px;
+  margin-top: 5px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
 }
 
 .newEmployee button,
 .editEmployee button {
-   width: 100%;
-   padding: 10px;
-   background-color: #4caf50;
-   color: white;
-   border: none;
-   border-radius: 4px;
-   cursor: pointer;
-   margin-top: 20px;
-   text-align: center;
+  width: 100%;
+  padding: 10px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 20px;
+  text-align: center;
 }
 
 .newEmployee button:hover,
 .editEmployee button:hover {
-   background-color: #45a049;
+  background-color: #45a049;
 }

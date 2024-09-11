@@ -204,7 +204,7 @@ function Manufacturer() {
             }}
             className="ReactModal__Content"
          >
-            <button className="ReactModal__Close" onClick={() => {
+            <button className="Manufacturer_ReactModal__Close" onClick={() => {
                resetManufacturerDetails(); // Reset details when closing modal
                setEditManufacturerScreen(false);
             }}>X</button>
@@ -241,7 +241,7 @@ function Manufacturer() {
             onRequestClose={() => setNewManufacturerScreen(false)}
             className="ReactModal__Content"
          >
-            <button className="ReactModal__Close" onClick={() => setNewManufacturerScreen(false)}>X</button>
+            <button className="Manufacturer_ReactModal__Close" onClick={() => setNewManufacturerScreen(false)}>X</button>
             <div className='newManufacturer'>
                <h2>Novo Fabricante</h2>
                <form>
