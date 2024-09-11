@@ -110,6 +110,3 @@ json SellOrderMNG::retrieveAllSellOrder(){
       throw;
    }
 }
-
-
-
