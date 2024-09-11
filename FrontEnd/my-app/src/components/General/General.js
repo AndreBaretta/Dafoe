@@ -210,7 +210,7 @@ function General() {
             onRequestClose={() => setNewItemModal(false)}
             className="ReactModal__Content"
          >
-            <button className="ReactModal__Close" onClick={() => setNewItemModal(false)}>X</button>
+            <button className="General_ReactModal__Close" onClick={() => setNewItemModal(false)}>X</button>
             <div className='newItem'>
                <h2>{editingItemId ? `Editar ${view === 'payment-methods' ? 'Método de Pagamento' : view === 'categories' ? 'Categoria' : 'Produto Genérico'}` : `Novo ${view === 'payment-methods' ? 'Método de Pagamento' : view === 'categories' ? 'Categoria' : 'Produto Genérico'}`}</h2>
                <form>

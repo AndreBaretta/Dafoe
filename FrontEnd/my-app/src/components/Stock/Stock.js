@@ -297,7 +297,7 @@ function Stock() {
             className="ReactModal__Content"
          >
             <div className='newProduct'>
-               <span className='ReactModal__Close' onClick={() => {
+               <span className='Stock_ReactModal__Close' onClick={() => {
                   setNewProductScreen(false);
                   resetProductDetails(); // Reset product details when closing
                }}>X</span>
@@ -383,7 +383,7 @@ function Stock() {
             className="ReactModal__Content"
          >
             <div className='editProduct'>
-               <span className='ReactModal__Close' onClick={() => {
+               <span className='Stock_ReactModal__Close' onClick={() => {
                   setEditProductScreen(false);
                   resetProductDetails(); // Reset product details when closing
                }}>X</span>
@@ -475,7 +475,7 @@ function Stock() {
             className="ReactModal__Content"
          >
             <div className='deleteProduct'>
-               <span className='ReactModal__Close' onClick={() => {
+               <span className='Stock_ReactModal__Close' onClick={() => {
                   setDeleteProductScreen(false);
                   resetProductDetails(); // Reset product details when closing
                }}>X</span>

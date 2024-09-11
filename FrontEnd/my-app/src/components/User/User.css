@@ -21,7 +21,8 @@
   align-items: center;
 }
 
-button, .toggle-password-button, .back-to-home-button {
+
+button {
   margin: 10px;
   padding: 12px 24px;
   border: none;
@@ -40,14 +41,98 @@ button:disabled {
   cursor: not-allowed;
 }
 
+
 .toggle-password-button {
-  background-color: transparent;
+  margin: 10px;
+  padding: 12px 24px;
   border: none;
+  border-radius: 5px;
+  background-color: transparent;
   color: #007bff;
+  cursor: pointer;
+  width: 100%;
+  max-width: 300px;
+  font-size: 18px;
+  text-align: center;
 }
 
+
+.change-password-button {
+  margin: 10px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  width: 100%;
+  max-width: 350px;
+  font-size: 18px;
+  text-align: center;
+}
+
+
+
 .back-to-home-button {
+  margin: 10px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  width: 100%;
+  max-width: 300px;
+  font-size: 18px;
+  text-align: center;
+}
+
+
+.logout-button {
+  margin: 10px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 5px;
   background-color: #dc3545;
+  color: white;
+  cursor: pointer;
+  width: 100%;
+  max-width: 300px;
+  font-size: 18px;
+  text-align: center;
+}
+
+.logout-button:hover {
+  background-color: #c82333; 
+}
+
+
+.back-to-settings-button {
+  margin: 10px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  width: 100%;
+  max-width: 300px;
+  font-size: 18px;
+  text-align: center;
+}
+
+.save-button {
+  margin: 10px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 5px;
+  background-color: #04ff00;
+  color: white;
+  cursor: pointer;
+  width: 100%;
+  max-width: 300px;
+  font-size: 18px;
+  text-align: center;
 }
 
 .ReactModal__Overlay {
@@ -92,10 +177,10 @@ input {
   margin-top: 10px;
 }
 
-button:hover {
+.back-to-home-button:hover {
   background-color: #0069d9;
 }
 
-.back-to-home-button:hover {
-  background-color: #c82333;
+.back-to-settings-button:hover {
+  background-color: #0069d9;
 }

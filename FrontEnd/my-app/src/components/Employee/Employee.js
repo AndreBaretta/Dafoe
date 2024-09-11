@@ -246,7 +246,7 @@ function Employees() {
             className="ReactModal__Content"
             ariaHideApp={false}
          >
-            <button className="ReactModal__Close" onClick={() => setNewEmployeeScreen(false)}>X</button>
+            <button className="Employee_ReactModal__Close" onClick={() => setNewEmployeeScreen(false)}>X</button>
             <div className="ReactModal__Header">
                Novo Funcionário
             </div>
@@ -292,8 +292,8 @@ function Employees() {
             className="ReactModal__Content"
             ariaHideApp={false}
          >
-            <button className="ReactModal__Close" onClick={closeEditEmployeeModal}>X</button>
-            <div className="ReactModal__Header">
+            <button className="Employee_ReactModal__Close" onClick={closeEditEmployeeModal}>X</button>
+            <div className="z">
                Editar Funcionário
             </div>
             <div className="newEmployee">

@@ -60,9 +60,9 @@ function User() {
           newPassword: userDetails.newPassword,
         }),
       });
-      if(!response.ok){
-        alert('Senha nao foi atualizada!'); // Popup confirmation
-      }else{
+      if (!response.ok) {
+        alert('Senha não foi atualizada!'); // Popup confirmation
+      } else {
         alert('Senha atualizada com sucesso!'); // Popup confirmation
       }
 
@@ -84,10 +84,10 @@ function User() {
           >
             Mudar Senha
           </button>
-          <Link to="/home">
+          <Link to="/home" className="back-to-home-button">
             Voltar para a Tela Inicial
           </Link>
-          <Link to="/">
+          <Link to="/" className="logout-button">
             Logout
           </Link>
         </>

@@ -18,24 +18,26 @@
 .MenuItem {
    margin: 5px 0;
    display: flex;
-   align-items: center;
-   padding: 1rem;
+   align-items: center; 
+   padding: 0; 
    border-radius: 0.5rem;
    background-color: #262627;
    color: white;
    cursor: pointer;
    transition: background-color 0.3s ease;
-   width: 100%;
+   width: 100%; 
+   height: 80px; 
    font-size: medium;
-   max-width: 250px;
 }
 
 .MenuItem a {
    display: flex;
    align-items: center;
+   justify-content: flex-start; 
    background-color: transparent;
    width: 100%;
    height: 100%;
+   padding: 0 1.5rem; 
    border-radius: 4px;
    text-decoration: none;
    color: #ffffff;
@@ -47,9 +49,13 @@
    background-color: transparent;
    width: 100%;
    height: 100%;
+   padding: 0 1.5rem; 
    border-radius: 0.5rem;
    border: transparent;
    cursor: pointer;
+   display: flex;
+   align-items: center;
+   justify-content: center
 }
 
 .Menu-content {

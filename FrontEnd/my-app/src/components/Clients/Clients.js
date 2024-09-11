@@ -231,10 +231,10 @@ const handleInputChange = (e) => {
          <Model
             isOpen={editClientScreen}
             onRequestClose={() => setEditClientScreen(false)}
-            className="ReactModal__Content"
+            className="Client_ReactModal__Content"
             ariaHideApp={false}
          >
-            <button className="ReactModal__Close" onClick={() => setEditClientScreen(false)}>X</button>
+            <button className="Client_ReactModal__Close" onClick={() => setEditClientScreen(false)}>X</button>
             <div className="ReactModal__Header">
                <h2>Editar Cliente</h2>
                <form className="editClient">
@@ -297,7 +297,7 @@ const handleInputChange = (e) => {
             className="ReactModal__Content"
             ariaHideApp={false}
          >
-            <button className="ReactModal__Close" onClick={() => setNewClientScreen(false)}>X</button>
+            <button className="Client_ReactModal__Close" onClick={() => setNewClientScreen(false)}>X</button>
             <div className="ReactModal__Header">
                <h2>Novo Cliente</h2>
                <form className="newClient">
