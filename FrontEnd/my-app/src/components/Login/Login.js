@@ -52,7 +52,7 @@ const Login = () => {
             <div className="logo">
                <img src={require('../../assets/images.jpg')} alt="Logo" />
                <span>
-                  DA<span>FO</span>E
+                  A<span>FO</span>E
                </span>
             </div>
          </div>
