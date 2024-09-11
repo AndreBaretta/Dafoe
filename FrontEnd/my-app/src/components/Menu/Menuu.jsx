@@ -15,7 +15,7 @@ function Menu() {
          <div className="MenuItem">
             <Link to="/sales">
                <div className="Menu-icon">📈</div>
-               <span>Vendas</span>
+               <span>Nova venda</span>
             </Link>
          </div>
          <div className="MenuItem">
