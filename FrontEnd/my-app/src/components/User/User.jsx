@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import './User.css';
 
 function User() {
@@ -70,16 +71,7 @@ function User() {
     } finally {
       setIsPending(false);
     }
-  };
-
-  // Function to navigate back to the home screen
-  const goToHomeScreen = () => {
-    window.open('http://localhost:3000?home', '_self');
-  };
-
-  const goToLogin = () => {
-    window.open('http://localhost:3000?self', '_self');
-  }
+  };  
 
   return (
     <div className="user-profile">
@@ -92,12 +84,12 @@ function User() {
           >
             Mudar Senha
           </button>
-          <button className="back-to-home-button" onClick={goToHomeScreen}>
+          <Link to="/home">
             Voltar para a Tela Inicial
-          </button>
-          <button className="back-to-login" onClick={goToLogin}>
+          </Link>
+          <Link to="/">
             Logout
-          </button>
+          </Link>
         </>
       ) : (
         <form>

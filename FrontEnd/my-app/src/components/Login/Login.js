@@ -33,10 +33,9 @@ const Login = () => {
          // Store the JWT in localStorage
          localStorage.setItem('token', token);
          localStorage.setItem('id', id);
-         localStorage.setItem('password', password);
    
          // Redirect the user to the home page after successful login
-         window.location.href = 'http://localhost:3000/?home';
+         window.location.href = '/home';
    
       } catch (error) {
          // Set error message if login fails

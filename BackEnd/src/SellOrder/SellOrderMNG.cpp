@@ -7,16 +7,18 @@ SellOrderMNG::SellOrderMNG(SellOrderDAO& sellOrderDAO, ProductOrderDAO& productO
 , m_jsonBuilder{jsonBuilder}
 {}
 
-bool SellOrderMNG::createOrder(const int clientId, const int paymentMethod, 
-                               const double price, const int product, const int quantity, Session session){
+bool SellOrderMNG::createOrder(const int clientId, const double price, const std::vector<int>& product,
+                               const std::vector<int>& quantity, std::vector<double>& priceArray, Session session){
+
    auto now = std::chrono::system_clock::now();
    std::time_t time_now = std::chrono::system_clock::to_time_t(now);
    std::stringstream ss;
-   ss << std::put_time(std::localtime(&time_now), "%d-%m-%Y");
+   ss << std::put_time(std::localtime(&time_now), "%Y-%m-%d");
    std::string time_str = ss.str();
    int sellerId = session.getId();
-   int statusId = 0;
-   int sellOrder = this->m_sellOrderDAO.createOrder(clientId, sellerId, statusId, paymentMethod, time_str, price, product, quantity);
+   int statusId = 1;
+   int paymentMethod = 1;
+   int sellOrder = this->m_sellOrderDAO.createOrder(clientId, sellerId, statusId, paymentMethod, time_str, price, product, quantity, priceArray);
    if(sellOrder == -1)
       return false;
    return true;
