@@ -16,6 +16,4 @@ RUN mkdir build && cd build && cmake .. && make
 
 EXPOSE 12354
 
-RUN sleep 20
-
-CMD ["./build/teste.out"]
+CMD ["./build/main.out"]
