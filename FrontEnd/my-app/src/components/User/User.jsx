@@ -93,7 +93,7 @@ function User() {
         </>
       ) : (
         <form>
-          <label>Senha Atual:
+          <label>Senha Atual:ㅤㅤㅤㅤㅤ  
             <input 
               type={showPassword ? "text" : "password"} 
               name="currentPassword" 
@@ -102,7 +102,7 @@ function User() {
               placeholder="Digite a senha atual"
             />
           </label>
-          <label>Nova Senha:
+          <label>Nova Senha:ㅤㅤㅤㅤㅤ  
             <input 
               type={showPassword ? "text" : "password"} 
               name="newPassword" 
@@ -111,7 +111,7 @@ function User() {
               placeholder="Digite a nova senha"
             />
           </label>
-          <label>Confirmar Nova Senha:
+          <label>Confirmar A Nova Senha:
             <input 
               type={showPassword ? "text" : "password"} 
               name="confirmPassword" 
