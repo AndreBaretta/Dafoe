@@ -1,7 +1,7 @@
 #ifndef ORDERDAO_1610
 #define ORDERDAO_1610
 
-#include "../Product/Product.hpp"
+#include "../Product/ProductDAO.hpp"
 #include "../DafoeGod/DafoeGod.hpp"
 #include "SellOrder.hpp"
 #include <mariadb/conncpp.hpp>
@@ -12,7 +12,8 @@ public:
    SellOrderDAO(DafoeGod& zeus, ProductDAO& pDAO);
 
    bool createOrder(const int clientId, const int sellerId, const int status, const int paymentMethod, 
-                   const std::string& date, const double price, const int product, const int quantity);
+                    const std::string& date, const double price, const std::vector<int>& product,
+                    const std::vector<int>& quantity, const std::vector<double>& priceArray);
 
    bool updateOrder(const int id, const int clientId, const int sellerId, const int status, const int paymentMethod, 
                     const std::string& date, const double price, const int product, const int quantity);

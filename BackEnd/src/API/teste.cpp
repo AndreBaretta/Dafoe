@@ -34,6 +34,9 @@
 #include "HTTPResponse/HTTPResponse.hpp"
 #include "HTTPResponseBuilder/HTTPResponseBuilder.hpp"
 #include <nlohmann/json.hpp>
+#include <chrono>
+#include <thread>
+
 using json = nlohmann::json;
 
 int main(){
@@ -43,6 +46,8 @@ int main(){
    Test tester = Test();
    HTTPResponseBuilder httpResponseBuilder = HTTPResponseBuilder();
    
+   std::this_thread::sleep_for(std::chrono::seconds(20));
+
    DafoeGod dafoeGod                       = DafoeGod();
    JsonBuilder jsonBuilder                 = JsonBuilder();
    JWToken jwt                             = JWToken(secret, issuer, expireTime);
@@ -81,6 +86,8 @@ int main(){
    HTTPResponse httpResponse               = HTTPResponse();
    std::string requestString{};
    std::string response{};
+
+
 
    
 
