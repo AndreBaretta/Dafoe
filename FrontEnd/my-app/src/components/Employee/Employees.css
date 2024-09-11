@@ -85,12 +85,12 @@
 }
 
 .employee-button-container {
-  position: absolute; 
-  right: -700px; 
-  top: 5px; 
-  z-index: 11; 
-  display: flex;
-  gap: 10px;
+   position: absolute; 
+   right: -700px; 
+   top: 5px; 
+   z-index: 11; 
+   display: flex;
+   gap: 10px;
 }
 
 .newEmployeeButton,

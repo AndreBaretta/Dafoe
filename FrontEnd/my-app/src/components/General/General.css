@@ -118,7 +118,7 @@
    gap: 10px;
    align-items: center;
    justify-content: flex-start;
-   flex-wrap: nowrap; /* Garante que os botões não quebrem para a linha seguinte */
+   flex-wrap: nowrap; 
    margin: 0;
    padding: 0;
 }
@@ -131,7 +131,7 @@
    border: none;
    border-radius: 4px;
    cursor: pointer;
-   flex-shrink: 0; /* Evita que os botões encolham */
+   flex-shrink: 0; 
 }
 
 .general-button-container button:hover {
