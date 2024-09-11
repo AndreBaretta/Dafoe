@@ -10,6 +10,7 @@ import Manufacturer from './components/Manufacturer/Manufacturer';
 import General from './components/General/General';
 import Employee from './components/Employee/Employee';
 import User from './components/User/User'
+import SalesHistory from './components/SalesHistory/SalesHistory';
 
 function App() {
    return (
@@ -25,6 +26,7 @@ function App() {
             <Route path="/general" element={<General />} />
             <Route path="/employee" element={<Employee />} />
             <Route path="/user" element={<User />} />
+            <Route path="/saleshistory" element={<SalesHistory />} />
             </Routes>
          </Router>
       </div>

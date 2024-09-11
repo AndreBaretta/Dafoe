@@ -32,13 +32,10 @@ CREATE TABLE sellOrder(
    paymentMethod int NOT NULL,
    data VARCHAR(100) NOT NULL,
    price REAL NOT NULL,
-   product int NOT NULL,
-   quantity int NOT NULL,
    FOREIGN KEY(client) REFERENCES client(id),
    FOREIGN KEY(seller) REFERENCES employee(id),
    FOREIGN KEY(status) REFERENCES status(id),
-   FOREIGN KEY(paymentMethod) REFERENCES paymentMethod(id),
-   FOREIGN KEY(product) REFERENCES product(id),
+   FOREIGN KEY(paymentMethod) REFERENCES paymentMethod(id)
 );
 
 CREATE TABLE category(
@@ -90,7 +87,8 @@ CREATE TABLE user(
    admin BOOLEAN NOT NULL
 );
 
-
+SELECT SHA2('admin', 256) as pwd;
+insert into user(id, name, password, admin) values(1,'admin',pwd,true);
 
 
 

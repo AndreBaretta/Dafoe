@@ -70,11 +70,13 @@ set(SOURCES
    # JWT
    BackEnd/src/API/Token/JWToken.cpp
    BackEnd/src/API/Token/Session.cpp
+   # Main
+   BackEnd/src/main.cpp
    # Teste
-   BackEnd/src/API/teste.cpp
-   BackEnd/src/Test/Test.cpp
+   #BackEnd/src/API/teste.cpp
+   #BackEnd/src/Test/Test.cpp
    )
 # Add an executable target
-add_executable(teste.out ${SOURCES})
-target_link_libraries(teste.out mariadbcpp ssl crypto)
+add_executable(main.out ${SOURCES})
+target_link_libraries(main.out mariadbcpp ssl crypto)
 
