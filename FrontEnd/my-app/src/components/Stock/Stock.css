@@ -44,7 +44,7 @@
 
 .Stock-table th, .Stock-table td {
    padding: 0.5rem;
-   border-bottom: 1px solid rgba(255, 255, 255, 0.5); 
+   border-bottom: 1px solid rgba(255, 255, 255, 0.2); 
    border-right: 1px solid rgba(255, 255, 255, 0.2); 
 }
 
