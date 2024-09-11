@@ -4,7 +4,6 @@ import Home from './components/Home/Home';
 import Login from './components/Login/Login';
 import Sales from './components/Sales/Sales';
 import Stock from './components/Stock/Stock';
-import Register from './components/Register/Register';
 import Clients from './components/Clients/Clients';
 import Manufacturer from './components/Manufacturer/Manufacturer';
 import General from './components/General/General';
@@ -32,8 +31,6 @@ function App() {
             return <Sales />
          case 'stock':
             return <Stock />
-         case 'register':
-            return <Register />
          case 'clients':
             return <Clients />
          case 'manufacturer':
