@@ -10,29 +10,24 @@ SellOrderDAO::SellOrderDAO(DafoeGod& zeus, ProductDAO& pdao)
 {}
 
 
-int SellOrderDAO::createOrder(const int clientId, const int sellerId, const int status, 
-                              const int paymentMethod, const std::string& date, const double price){
+bool SellOrderDAO::createOrder(const int clientId, const int sellerId, const int status, const int paymentMethod, 
+                              const std::string& date, const double price, const int product, const int quantity){
    try{
-      m_theos.prepareStatement("insert into sellOrder (client, seller, status, paymentMethod, date, price) values (?,?,?,?,?,?)");
+      m_theos.prepareStatement("insert into sellOrder (client, seller, status, paymentMethod, date, price, product, quantity) values (?,?,?,?,?,?,?,?)");
       m_theos.getStatement()->setInt(1, clientId);
       m_theos.getStatement()->setInt(2, sellerId);
       m_theos.getStatement()->setInt(3, status);
       m_theos.getStatement()->setInt(4, paymentMethod);
       m_theos.getStatement()->setString(5, date);
       m_theos.getStatement()->setDouble(6, price);
+      m_theos.getStatement()->setInt(7, product);
+      m_theos.getStatement()->setInt(8, quantity);
       m_theos.query(CREATE);
-      m_theos.prepareStatement("select MAX(id) from sellOrder");
-      m_theos.query(RETRIEVE);
-      int id;
-      if(m_theos.getResult()->next()){
-         id = m_theos.getResult()->getInt("id");
-      }
-
-      return id;
+      return true;
 
    }catch(std::exception& e){
       std::cerr << e.what() << '\n';
-      return -1;
+      return false;
    }
 }
 
@@ -85,17 +80,19 @@ bool SellOrderDAO::removeProductOrder(const int sellOrder, const int product){
 }*/
 
 
-bool SellOrderDAO::updateOrder(const int id, const int clientId, const int sellerId, const int status, 
-                               const int paymentMethod, const std::string& date, const double price){
+bool SellOrderDAO::updateOrder(const int id, const int clientId, const int sellerId, const int status, const int paymentMethod, 
+                               const std::string& date, const double price, const int product, const int quantity){
    try{
-      m_theos.prepareStatement("update sellOrder set client = ?, seller = ?, status = ?, paymentMethod = ?, date = ?, price = ? where id = ?");
-      m_theos.getStatement()->setInt(1, id);
-      m_theos.getStatement()->setInt(2, clientId);
-      m_theos.getStatement()->setInt(3, sellerId);
-      m_theos.getStatement()->setInt(4, status);
-      m_theos.getStatement()->setInt(5, paymentMethod);
-      m_theos.getStatement()->setString(6, date);
-      m_theos.getStatement()->setDouble(7, price);
+      m_theos.prepareStatement("update sellOrder set client = ?, seller = ?, status = ?, paymentMethod = ?, date = ?, price = ?, product = ?, quantity = ? where id = ?");
+      m_theos.getStatement()->setInt(1, clientId);
+      m_theos.getStatement()->setInt(2, sellerId);
+      m_theos.getStatement()->setInt(3, status);
+      m_theos.getStatement()->setInt(4, paymentMethod);
+      m_theos.getStatement()->setString(5, date);
+      m_theos.getStatement()->setDouble(6, price);
+      m_theos.getStatement()->setInt(7, product);
+      m_theos.getStatement()->setInt(8, quantity);
+      m_theos.getStatement()->setInt(9, id);
       m_theos.query(UPDATE);
 
       return true;

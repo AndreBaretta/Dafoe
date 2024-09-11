@@ -44,7 +44,7 @@ json JsonBuilder::categoryToJson(Category& category){
 }
 
 json JsonBuilder::categoryVectorToJson(std::vector<Category>& categories){
-   json jsonCategoryArray;
+   json jsonCategoryArray = json::array();
    for(int i = 0; i < categories.size(); i++){
       json jsonCategory;
       jsonCategory["id"]   = categories[i].getId();
@@ -55,14 +55,14 @@ json JsonBuilder::categoryVectorToJson(std::vector<Category>& categories){
 }
 
 json JsonBuilder::paymentMethodToJson(PaymentMethod& paymentMethod){
-   json jsonPaymentMethod;
+   json jsonPaymentMethod = json::array();
    jsonPaymentMethod["id"]   = paymentMethod.getId();
    jsonPaymentMethod["name"] = paymentMethod.getName();
    return jsonPaymentMethod;
 }
 
 json JsonBuilder::paymentMethodVectorToJson(std::vector<PaymentMethod>& paymentMethods){
-   json jsonPaymentMethodArray;
+   json jsonPaymentMethodArray = json::array();
    for(int i = 0; i < paymentMethods.size(); i++){
       json jsonPaymentMethod;
       jsonPaymentMethod["id"]   = paymentMethods[i].getId();
@@ -81,7 +81,7 @@ json JsonBuilder::employeeToJson(Employee& employee){
 }
 
 json JsonBuilder::employeeVectorToJson(std::vector<Employee>& employees){
-   json jsonEmployeeArray;
+   json jsonEmployeeArray = json::array();
    for(int i = 0; i < employees.size(); i++){
       json jsonEmployee;
       jsonEmployee["id"]    = employees[i].getId();
@@ -100,7 +100,7 @@ json JsonBuilder::manufacturerToJson(Manufacturer& manufacturer){
 }
 
 json JsonBuilder::manufacturerVectorToJson(std::vector<Manufacturer>& manufacturers){
-   json jsonManufacturerArray;
+   json jsonManufacturerArray = json::array();
    for(int i = 0; i < manufacturers.size(); i++){
       json jsonManufacturer;
       jsonManufacturer["id"]   = manufacturers[i].getId();
@@ -118,7 +118,7 @@ json JsonBuilder::statusToJson(Status& status){
 }
 
 json JsonBuilder::statusVectorToJson(std::vector<Status>& statuses){
-   json jsonStatusArray;
+   json jsonStatusArray = json::array();
    for(int i = 0; i < statuses.size(); i++){
       json jsonStatus;
       jsonStatus["id"]   = statuses[i].getId();
@@ -142,7 +142,7 @@ json JsonBuilder::sellOrderToJson(SellOrder& sellOrder){
 }
 
 json JsonBuilder::sellOrderVectorToJson(std::vector<SellOrder>& sellOrders){
-   json jsonSellOrderArray;
+   json jsonSellOrderArray = json::array();
    for(int i = 0; i < sellOrders.size(); i++){
       json jsonSellOrder;
       jsonSellOrder["id"]            = sellOrders[i].getId();
@@ -166,7 +166,7 @@ json JsonBuilder::genericProductToJson(GenericProduct& genericProduct){
 }
 
 json JsonBuilder::genericProductVectorToJson(std::vector<GenericProduct>& genericProducts){
-   json jsonGenericProductArray;
+   json jsonGenericProductArray = json::array();
    for(int i = 0; i < genericProducts.size(); i++){
       json jsonGenericProduct;
       jsonGenericProduct["id"]        = genericProducts[i].getId();
@@ -188,7 +188,7 @@ json JsonBuilder::productOrderToJson(ProductOrder& productOrder){
 }
 
 json JsonBuilder::productOrderVectorToJson(std::vector<ProductOrder>& productOrders){
-   json jsonProductOrderArray;
+   json jsonProductOrderArray = json::array();
    for(int i = 0; i < productOrders.size(); i++){
       json jsonProductOrder;
       jsonProductOrder["sellOrder"] = productOrders[i].getSellOrder();
@@ -231,7 +231,7 @@ json JsonBuilder::clientToJson(Client& client){
 }
 
 json JsonBuilder::clientVectorToJson(std::vector<Client>& clients){
-   json jsonClientArray;
+   json jsonClientArray = json::array();
    for(int i = 0; i < clients.size(); i++){
       json jsonClient;
       jsonClient["id"]           = clients[i].getId();

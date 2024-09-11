@@ -4,14 +4,15 @@
 #include "../API/Json/JsonBuilder.hpp"
 #include "../ProductOrder/ProductOrderDAO.hpp"
 #include "../Product/ProductDAO.hpp"
+#include "../API/Token/Session.hpp"
+#include <chrono>
 
 class SellOrderMNG{
 public:
    SellOrderMNG(SellOrderDAO& sellOrderDAO, ProductOrderDAO& productOrderDAO, ProductDAO& productDAO, JsonBuilder& jsonBuilder);
-   bool createOrder(const int clientId, const int sellerID, const int statusId,
-                    const int paymentMethod, const std::string& date, const double price, json products);
-   bool updateOrder(const int id, const int clientId, const int sellerId, const int statusId,
-                    const int paymentMethod, const std::string& date, const double price);
+   bool createOrder(const int clientId, const int paymentMethod, const double price, const int product, const int quantity, Session session);
+   bool updateOrder(const int id, const int clientId, const int sellerId, const int statusId, const int paymentMethod, 
+                    const std::string& date, const double price, const int product, const int quantity);
    bool addProductToOrder(const int sellOrder, const int product, const int quantity, const double discount, const double price);
    bool updateProduct(const int sellOrder, const int product, const int quantity, const double discount, const double price);
    bool removeProductFromOrder(const int sellOrder, const int product);
@@ -21,6 +22,7 @@ public:
    json retrieveOrderBySeller(const int sellerId);
    json retrieveOrderByStatus(const int statusId);
    json retrieveAllSellOrder();
+   bool updateStatus(const int sellOrder, const int status);
 
 private:
    SellOrderDAO& m_sellOrderDAO;

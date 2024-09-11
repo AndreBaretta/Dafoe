@@ -11,11 +11,11 @@ class SellOrderDAO{
 public:
    SellOrderDAO(DafoeGod& zeus, ProductDAO& pDAO);
 
-   int createOrder(const int clientId, const int sellerId, const int status, 
-                    const int paymentMethod, const std::string& date, const double price);
+   bool createOrder(const int clientId, const int sellerId, const int status, const int paymentMethod, 
+                   const std::string& date, const double price, const int product, const int quantity);
 
-   bool updateOrder(const int id, const int clientId, const int sellerId, const int status, 
-                    const int paymentMethod, const std::string& date, const double price);
+   bool updateOrder(const int id, const int clientId, const int sellerId, const int status, const int paymentMethod, 
+                    const std::string& date, const double price, const int product, const int quantity);
 
    //bool addProductOrder(const int sellOrder, const int product, const int quantity, const double discount, const double price);
    //bool removeProductOrder(const int sellOrder, const int product);

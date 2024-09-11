@@ -1,5 +1,5 @@
 #include "SellOrder.hpp"
-SellOrder::SellOrder(int id, int clientId, int sellerId, int status, int paymentMethod, const std::string& date, double price)
+SellOrder::SellOrder(int id, int clientId, int sellerId, int status, int paymentMethod, const std::string& date, double price, const int product, const int quantity)
 : m_id(id)
 , m_clientId(clientId)
 , m_sellerId(sellerId)
@@ -7,6 +7,8 @@ SellOrder::SellOrder(int id, int clientId, int sellerId, int status, int payment
 , m_paymentMethod(paymentMethod)
 , m_date(date)
 , m_price(price) 
+, m_product(product)
+, m_quantity(quantity)
 {}
 
 bool SellOrder::setId(int id){
@@ -39,6 +41,16 @@ bool SellOrder::setStatusId(int id){
    return true;
 }
 
+bool SellOrder::setProduct(int id){
+   this->m_product = id;
+   return true;
+}
+
+bool SellOrder::setQuantity(int quantity){
+   this->m_quantity = quantity;
+   return true;
+}
+
 int SellOrder::getId() const{
    return m_id;
 }
@@ -63,6 +75,14 @@ double SellOrder::getPrice() const{
    return m_price;
 }
 
-const std::string& SellOrder::getDate() const{
+int SellOrder::getProduct(){
+   return m_product;
+}
+
+int SellOrder::getQuantity(){
+   return m_quantity;
+}
+
+std::string SellOrder::getDate() const{
    return m_date;
 }

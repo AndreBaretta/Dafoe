@@ -248,8 +248,10 @@ std::string HTTPRequestHandler::handleRequest(HTTPRequest& request){
 	 }
       }
    }
-
    if(method == "POST"){
+      if(requestBody.empty()){
+	 return return400(version,headers,responseBody);
+      }
       if(!path[0].compare("login")){
 	 std::string token = handleLogin(requestBody);
 	 if(token.empty())
@@ -301,7 +303,8 @@ std::string HTTPRequestHandler::handleRequest(HTTPRequest& request){
 	 return return204(version,headers,responseBody);
       }
       if(path[1] == "order"){
-	 if(!handleCreateOrder(requestBody))
+	 Session session = this->m_userMNG.getSession(requestHeaders["token"]);
+	 if(!handleCreateOrder(requestBody,session))
 	    return return400(version,headers,responseBody);
 	 return return204(version,headers,responseBody);
       }
@@ -317,7 +320,7 @@ std::string HTTPRequestHandler::handleRequest(HTTPRequest& request){
       }
       return return404(version,headers,responseBody);
    }else if(method == "DELETE"){
-      if(!validateSession(requestHeaders, false))
+      if(!validateSession(requestHeaders, true))
 	 return return401(version,headers,responseBody);
       if(path.size() != 3)
 	 return return400(version,headers,responseBody);
@@ -375,6 +378,9 @@ std::string HTTPRequestHandler::handleRequest(HTTPRequest& request){
       }
       return return404(version,headers,responseBody);
    }else if(method == "PUT"){
+      if(requestBody.empty()){
+	 return return400(version,headers,responseBody);
+      }
       if(!validateSession(requestHeaders, false))
 	 return return401(version,headers,responseBody);
       if(!requestHeaders.contains("Content-Length")){
@@ -770,17 +776,15 @@ bool HTTPRequestHandler::handleDeleteManufacturer(const int id){
    return this->m_manufacturerMNG.deleteManufacturer(id);
 }
 
-bool HTTPRequestHandler::handleCreateOrder(const std::string& body){
+bool HTTPRequestHandler::handleCreateOrder(const std::string& body, Session session){
    try{
       json jason = json::parse(body);
       int clientId		= std::stoi(jason["clientId"].get<std::string>());
-      int sellerId		= std::stoi(jason["sellerId"].get<std::string>());
-      int statusId		= std::stoi(jason["statusId"].get<std::string>());
       int paymentMethod	= std::stoi(jason["paymentMethod"].get<std::string>());
-      std::string date     = jason["date"].get<std::string>();
       double price   	= std::stod(jason["price"].get<std::string>());
-      json products = jason["products"];
-      return this->m_sellOrderMNG.createOrder(clientId,sellerId,statusId,paymentMethod,date,price,products);
+      int product	= std::stoi(jason["product"].get<std::string>());
+      int quantity	= std::stoi(jason["quantity"].get<std::string>());
+      return this->m_sellOrderMNG.createOrder(clientId,paymentMethod,price,product,quantity,session);
    }catch(std::exception &e){
       std::cerr << e.what() << '\n';
       return false;
@@ -796,7 +800,9 @@ bool HTTPRequestHandler::handleUpdateOrder(const int id, const std::string& body
       int paymentMethod	= std::stoi(json["paymentMethod"].get<std::string>());
       std::string date     = json["date"].get<std::string>();
       double price   	= std::stod(json["price"].get<std::string>());
-      return this->m_sellOrderMNG.updateOrder(id, clientId,sellerId,statusId,paymentMethod,date,price);
+      int quantity	= std::stoi(json["quantity"].get<std::string>());
+      int product	= std::stoi(json["product"].get<std::string>());
+      return this->m_sellOrderMNG.updateOrder(id, clientId,sellerId,statusId,paymentMethod,date,price,product,quantity);
    } catch(std::exception &e){
       std::cerr << e.what() << '\n';
       return false;

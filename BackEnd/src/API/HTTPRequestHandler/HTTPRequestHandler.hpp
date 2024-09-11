@@ -57,7 +57,7 @@ private:
    bool handleCreateManufacturer(const std::string& body);
    bool handleUpdateManufacturer(const int id, const std::string& body);
    bool handleDeleteManufacturer(const int id);
-   bool handleCreateOrder(const std::string& body);
+   bool handleCreateOrder(const std::string& body, Session session);
    bool handleUpdateOrder(const int id, const std::string& body);
    bool handleCreateStatus(const std::string& body);
    bool handleUpdateStatus(const int id, const std::string& body);
