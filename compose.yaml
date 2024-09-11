@@ -23,7 +23,7 @@ services:
       - rede
     depends_on:
       - db
-      
+
 networks:
   rede:
     driver: bridge
