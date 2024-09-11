@@ -33,6 +33,10 @@ function Stock() {
       quantity: 'asc'
    });
    const [isPending, setIsPending] = useState(false);
+   const isFormComplete = () => {
+      const { name, barcode, manufacturer, genericProduct, price, cost, reference, quantity } = productDetails;
+      return name && barcode && manufacturer && genericProduct && price && cost && reference && quantity;
+   };
 
    useEffect(() => {
       const fetchData = async () => {
