@@ -1,7 +1,5 @@
 USE Dafoe;
 
-DROP TABLE user;
-
 CREATE TABLE employee(
    id int PRIMARY KEY AUTO_INCREMENT,
    name VARCHAR(100) NOT NULL,
@@ -29,15 +27,18 @@ CREATE TABLE client(
 CREATE TABLE sellOrder(
    id int PRIMARY KEY AUTO_INCREMENT,
    client int NOT NULL,
-   seller int,
+   seller int NOT NULL,
    status int NOT NULL,
    paymentMethod int NOT NULL,
-   date date NOT NULL,
+   data VARCHAR(100) NOT NULL,
    price REAL NOT NULL,
+   product int NOT NULL,
+   quantity int NOT NULL,
    FOREIGN KEY(client) REFERENCES client(id),
    FOREIGN KEY(seller) REFERENCES employee(id),
    FOREIGN KEY(status) REFERENCES status(id),
-   FOREIGN KEY(paymentMethod) REFERENCES paymentMethod(id)
+   FOREIGN KEY(paymentMethod) REFERENCES paymentMethod(id),
+   FOREIGN KEY(product) REFERENCES product(id),
 );
 
 CREATE TABLE category(

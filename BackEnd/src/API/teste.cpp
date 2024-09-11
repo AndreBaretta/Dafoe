@@ -34,6 +34,9 @@
 #include "HTTPResponse/HTTPResponse.hpp"
 #include "HTTPResponseBuilder/HTTPResponseBuilder.hpp"
 #include <nlohmann/json.hpp>
+#include <chrono>
+#include <thread>
+
 using json = nlohmann::json;
 
 int main(){
@@ -43,6 +46,8 @@ int main(){
    Test tester = Test();
    HTTPResponseBuilder httpResponseBuilder = HTTPResponseBuilder();
    
+   std::this_thread::sleep_for(std::chrono::seconds(20));
+
    DafoeGod dafoeGod                       = DafoeGod();
    JsonBuilder jsonBuilder                 = JsonBuilder();
    JWToken jwt                             = JWToken(secret, issuer, expireTime);
@@ -72,7 +77,7 @@ int main(){
    GenericProductMNG genericProductMNG     = GenericProductMNG(genericProductDAO, jsonBuilder);
    UserMNG userMNG                         = UserMNG(userDAO, jwt);
 
-   Server server                           = Server("127.0.0.1", 12354, true);
+   Server server                           = Server("172.19.0.3", 12354, true);
 
    HTTPRequestParser httpParser            = HTTPRequestParser();
    HTTPRequestHandler httpHandler          = HTTPRequestHandler(httpResponseBuilder, productMNG, categoryMNG, paymentMethodMNG, clientMNG, employeeMNG, manufacturerMNG,
@@ -81,6 +86,8 @@ int main(){
    HTTPResponse httpResponse               = HTTPResponse();
    std::string requestString{};
    std::string response{};
+
+
 
    
 

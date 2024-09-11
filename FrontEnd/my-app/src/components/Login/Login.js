@@ -35,7 +35,7 @@ const Login = () => {
          localStorage.setItem('id', id);
    
          // Redirect the user to the home page after successful login
-         window.location.href = 'http://localhost:3000/?home';
+         window.location.href = '/home';
    
       } catch (error) {
          // Set error message if login fails

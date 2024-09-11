@@ -26,7 +26,7 @@ bool SellOrderMNG::createOrder(const int clientId, const double price, const std
 
 bool SellOrderMNG::updateOrder(const int id, const int clientId, const int sellerId, 
                                const int statusId, const int paymentMethod, const std::string& date, const double price, const int product, const int quantity){
-   return this->m_sellOrderDAO.updateOrder(id,clientId,sellerId,statusId,paymentMethod,date,price, product, quantity);
+   return this->m_sellOrderDAO.updateOrder(id,clientId,sellerId,statusId,paymentMethod,date,price,product,quantity);
 }
 
 bool SellOrderMNG::addProductToOrder(const int sellOrder, const int product, const int quantity, const double discount, const double price){
