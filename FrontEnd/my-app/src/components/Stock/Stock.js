@@ -33,10 +33,7 @@ function Stock() {
       quantity: 'asc'
    });
    const [isPending, setIsPending] = useState(false);
-   const isFormComplete = () => {
-      const { name, barcode, manufacturer, genericProduct, price, cost, reference, quantity } = productDetails;
-      return name && barcode && manufacturer && genericProduct && price && cost && reference && quantity;
-   };
+
 
    useEffect(() => {
       const fetchData = async () => {
@@ -236,12 +233,13 @@ function Stock() {
    };
 
    const isBarcodeUnique = (barcode) => {
-      return !results.some(product => product.barcode === barcode);
+      return !results.some(product => product.barcode === barcode && product.id !== selectedProduct);
    };
 
+
    const isReferenceUnique = (reference) => {
-      return !results.some(product => product.reference == reference);
-   }
+      return !results.some(product => product.reference === reference && product.id !== selectedProduct);
+   };
    
 
    return (

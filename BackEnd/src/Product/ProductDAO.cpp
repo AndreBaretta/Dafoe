@@ -306,7 +306,7 @@ bool ProductDAO::updateQuantity(const int id, const int quantity){
          return false;
       product[0].setQuantity(product[0].getQuantity() - quantity);
       m_theos.prepareStatement("update product set quantity = ? where id = ?");
-      m_theos.getStatement()->setInt(1,quantity);
+      m_theos.getStatement()->setInt(1,product[0].getQuantity());
       m_theos.getStatement()->setInt(2,id);
       m_theos.getStatement()->executeQuery();
 
