@@ -35,7 +35,7 @@ CREATE TABLE sellOrder(
    FOREIGN KEY(client) REFERENCES client(id),
    FOREIGN KEY(seller) REFERENCES employee(id),
    FOREIGN KEY(status) REFERENCES status(id),
-   FOREIGN KEY(paymentMethod) REFERENCES paymentMethod(id),
+   FOREIGN KEY(paymentMethod) REFERENCES paymentMethod(id)
 );
 
 CREATE TABLE category(
