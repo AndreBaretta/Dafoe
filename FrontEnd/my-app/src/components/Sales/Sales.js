@@ -281,7 +281,7 @@ function Sales() {
             <Menu />
          </header>
          <header className='SearchBarHeader'>
-            <div className="button-container">
+            <div className="sales-button-container">
                <button className="newSaleButton" onClick={() => setNewSaleScreen(true)}>Nova Venda</button>
             </div>
             <SearchBar results={searchValue} setResults={setSearchValue} />

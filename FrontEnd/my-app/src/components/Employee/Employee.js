@@ -206,7 +206,7 @@ function Employees() {
             <Menu />
          </header>
          <header className="SearchBarHeader">
-            <div className="button-container">
+            <div className="employee-button-container">
                <button
                   className="newEmployeeButton"
                   onClick={() => setNewEmployeeScreen(true)}

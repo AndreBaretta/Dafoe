@@ -165,7 +165,7 @@ function General() {
             <Menu />
          </header>
          <header className='SearchBarHeader'>
-            <div className="button-container">
+            <div className="general-button-container">
                <button onClick={() => { setView('payment-methods'); setItemDetails({ name: '', category: '' }); }}>Métodos de Pagamento</button>
                <button onClick={() => { setView('categories'); setItemDetails({ name: '', category: '' }); }}>Categorias</button>
                <button onClick={() => { setView('generic-products'); setItemDetails({ name: '', category: '' }); }}>Produtos Genéricos</button>

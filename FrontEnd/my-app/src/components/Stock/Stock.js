@@ -230,7 +230,7 @@ function Stock() {
             <Menu />
          </header>
          <header className='SearchBarHeader'>
-            <div className="button-container">
+            <div className="stock-button-container">
                <button className="newProductButton" onClick={() => setNewProductScreen(true)}>Novo Produto</button>
             </div>
             <SearchBar results={searchValue} setResults={setSearchValue} />

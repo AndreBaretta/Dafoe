@@ -8,7 +8,7 @@ const Sidebar = () => {
          <div className="logo">
             <img src={Image} alt="" />
             <span>
-               DA<span>FO</span>E
+               A<span>FO</span>E
             </span>
          </div>
       </div>
