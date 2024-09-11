@@ -7,7 +7,7 @@
 DafoeGod::DafoeGod(){
    try{
       this->m_driver     = sql::mariadb::get_driver_instance();
-      this->m_url        = "jdbc:mariadb://172.18.0.2:3306/Dafoe";
+      this->m_url        = "jdbc:mariadb://172.19.0.2:3306/Dafoe";
       sql::SQLString user = "Atlas";
       sql::SQLString pwd  = "curitiba";
 
