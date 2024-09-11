@@ -1,12 +1,14 @@
 .Menu {
-   position: relative; /* Make sure the Menu div is positioned relative for absolute positioning inside */
+   display: flex;
+   flex-direction: column;
+   width: 100%; 
 }
 
 .UserIconWrapper img {
-   width: 10px; /* Set the size of the user icon */
-   height: 10px; /* Set the size of the user icon */
-   border-radius: 50%; /* Make the icon circular */
-   object-fit: cover; /* Ensure the image fits well inside the circular frame */
+   width: 10px; 
+   height: 10px; 
+   border-radius: 50%; 
+   object-fit: cover; 
    cursor: pointer;
 }
 
@@ -21,7 +23,6 @@
 
 .MenuItem {
    display: flex;
-   flex-direction: column;
    align-items: center;
    padding: 1rem;
    border-radius: 0.5rem;
@@ -30,24 +31,25 @@
    cursor: pointer;
    transition: background-color 0.3s ease;
    width: 99.5%;
-   height: 10%;
+   height: 99.5%;
    font-size: medium;
    max-width: 250px;
 }
 
 .MenuItem a {
+   display: flex;
+   align-items: center;
    background-color: transparent;
    width: 99.5%;
-   height: 10%;
+   height: 100%;
    border-radius: 0.5rem;
    box-shadow: 0 0 10px rgba(0, 0, 0, 0);
    border: transparent;
    cursor: pointer;
-
    text-decoration: none;
    color: #ffffff;
    border-radius: 4px;
-   font-size: 16px;
+   font-size: 19px;
    font-weight: bold;
  }
 
@@ -70,14 +72,17 @@
    width: 100%;
    height: 100%;
 }
+
 .MenuItem:hover {
    background-color:#393838;
 }
+
 .Menu-icon {
    margin-right: 0.4rem;
    color: #fb02ff;
    font-size: 1.5rem;
 }
+
 .Menu-header {
    align-self: start;
    position: relative;

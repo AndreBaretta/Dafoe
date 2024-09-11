@@ -2,7 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Menu.css';
-import UserIcon from '../UserIcon/UserIcon'; // Import the UserIcon component
+import UserIcon from '../UserIcon/UserIcon';
 
 function Menu() {
   return (
