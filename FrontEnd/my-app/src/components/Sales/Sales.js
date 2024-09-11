@@ -129,7 +129,7 @@ function Sales() {
 
          <div className="Sales-content">
             <div className="SelectedProducts">
-               <h2>Produtos selectionados</h2>
+               <h2>Produtos selecionados</h2>
                {saleDetails.products.length > 0 ? (
                   saleDetails.products.map((product, index) => (
                      <div key={index} className="productLine">

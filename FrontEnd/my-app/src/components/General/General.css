@@ -37,6 +37,7 @@
    margin-left: 1%;
    margin-right: 0.5%;
    border: 1px solid rgba(255, 255, 255, 0.3); 
+   position: relative;
 }
 
 .General-table {
@@ -112,6 +113,16 @@
    background-color: #5ddb63;
 }
 
+.general-button-container {
+   display: flex;
+   gap: 10px;
+   align-items: center;
+   justify-content: flex-start;
+   flex-wrap: nowrap; /* Garante que os botões não quebrem para a linha seguinte */
+   margin: 0;
+   padding: 0;
+}
+
 .general-button-container button {
    padding: 10px 30px;
    font-size: calc(10px + 1vmin);
@@ -120,19 +131,11 @@
    border: none;
    border-radius: 4px;
    cursor: pointer;
+   flex-shrink: 0; /* Evita que os botões encolham */
 }
 
-.button-container button:hover {
+.general-button-container button:hover {
    background-color: #393838;
-}
-
-.button-container {
-   position: absolute;
-   bottom: 1rem;
-   right: 20px; 
-   display: flex;
-   flex-direction: row;
-   gap: 10px; 
 }
 
 .ReactModal__Overlay {
@@ -219,4 +222,3 @@
  .newItem .delete-button:hover {
    background-color: darkred;
  }
- 
