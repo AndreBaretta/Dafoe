@@ -85,6 +85,7 @@ button:disabled {
   max-width: 300px;
   font-size: 18px;
   text-align: center;
+  text-decoration: none;
 }
 
 
@@ -100,6 +101,7 @@ button:disabled {
   max-width: 300px;
   font-size: 18px;
   text-align: center;
+  text-decoration: none;
 }
 
 .logout-button:hover {
