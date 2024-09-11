@@ -5,7 +5,6 @@ import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
 
 function Sales() {
-   const [results, setResults] = useState([]);
    const [clients, setClients] = useState([]);
    const [products, setProducts] = useState([]);
    const [paymentMethods, setPaymentMethods] = useState([]);
@@ -46,12 +45,19 @@ function Sales() {
 
    const addProduct = (productId, quantity) => {
       const product = products.find(p => p.id === productId);
-      if (product && quantity > 0) {
-         setSaleDetails(prevState => ({
-            ...prevState,
-            products: [...prevState.products, { productId, quantity, price: product.price }],
-         }));
-         setTotalPrice(prevTotal => prevTotal + (product.price * quantity));
+      if (product) {
+         if (quantity > product.quantity) {
+            alert(`A quantidade escolida: ${quantity} excede o limite em estoque: (${product.quantity}).`);
+            return;
+         }
+   
+         if (quantity > 0) {
+            setSaleDetails(prevState => ({
+               ...prevState,
+               products: [...prevState.products, { productId, quantity, price: product.price }],
+            }));
+            setTotalPrice(prevTotal => prevTotal + (product.price * quantity));
+         }
       }
    };
 
@@ -60,7 +66,26 @@ function Sales() {
    const prices = saleDetails.products.map(products =>String(products.price));
 
    const handleSubmit = async () => {
-      const today = new Date().toISOString().split('T')[0]; // Current date
+      if (!saleDetails.clientId) {
+         alert('Adicione um cliente.');
+         return;
+      }
+   
+      if (!saleDetails.paymentMethodId) {
+         alert('Adicione um método de pagamento.');
+         return;
+      }
+   
+      if (saleDetails.products.length === 0) {
+         alert('Adicione pelo menos um produto a venda.');
+         return;
+      }
+   
+      const hasInvalidQuantity = saleDetails.products.some(product => product.quantity <= 0);
+      if (hasInvalidQuantity) {
+         alert('Tenha certeza que todos os produtos tem uma quantidade.');
+         return;
+      }
       const saleData = {
          sellerId: String(localStorage.getItem('id')),
          price: String(totalPrice),
@@ -79,7 +104,14 @@ function Sales() {
             },
             body: JSON.stringify(saleData)
          });
-         console.log(saleData);
+         alert("Venda feita com sucesso");
+
+         setSaleDetails({
+            clientId: '',
+            paymentMethodId: '',
+            products: [],
+         })
+
       } catch (error) {
          console.error("Error submitting sale:", error);
       }
@@ -97,7 +129,7 @@ function Sales() {
 
          <div className="Sales-content">
             <div className="SelectedProducts">
-               <h2>Selected Products</h2>
+               <h2>Produtos selectionados</h2>
                {saleDetails.products.length > 0 ? (
                   saleDetails.products.map((product, index) => (
                      <div key={index} className="productLine">
@@ -107,18 +139,18 @@ function Sales() {
                      </div>
                   ))
                ) : (
-                  <p>No products selected yet</p>
+                  <p>Nenhum produto selectionado</p>
                )}
                <div className="totalPrice">Total Price: {totalPrice}</div>
 
                <div className="OrderDetails">
-                  <label>Client</label>
+                  <label>Cliente</label>
                   <Select
                      options={clients.map(client => ({ value: client.id, label: client.name }))}
                      onChange={selectedOption => setSaleDetails(prevState => ({ ...prevState, clientId: selectedOption.value }))}
                   />
 
-                  <label>Payment Method</label>
+                  <label>Método de pagamento</label>
                   <Select
                      options={paymentMethods.map(pm => ({ value: pm.id, label: pm.name }))}
                      onChange={selectedOption => setSaleDetails(prevState => ({ ...prevState, paymentMethodId: selectedOption.value }))}
@@ -127,7 +159,7 @@ function Sales() {
             </div>
 
             <div className="AvailableProducts">
-               <h2>Available Products</h2>
+               <h2>Produtos disponíveis</h2>
                {products.map(product => (
                   <div key={product.id} className="productLine">
                      <span>{product.name}</span>
@@ -145,13 +177,13 @@ function Sales() {
                      <button
                         onClick={() => addProduct(saleDetails.currentProductId, saleDetails.currentQuantity)}
                      >
-                        Add to Sale
+                        Adicionar a venda
                      </button>
                   </div>
                ))}
             </div>
 
-            <button onClick={handleSubmit} className="submitSaleButton">Complete Sale</button>
+            <button onClick={handleSubmit} className="submitSaleButton">Finalizar venda</button>
          </div>
       </div>
    );

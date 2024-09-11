@@ -1,7 +1,7 @@
 #ifndef ORDERDAO_1610
 #define ORDERDAO_1610
 
-#include "../Product/Product.hpp"
+#include "../Product/ProductDAO.hpp"
 #include "../DafoeGod/DafoeGod.hpp"
 #include "SellOrder.hpp"
 #include <mariadb/conncpp.hpp>
