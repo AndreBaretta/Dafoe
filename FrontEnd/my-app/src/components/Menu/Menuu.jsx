@@ -50,7 +50,7 @@ function Menu() {
          </div>
          <div className="MenuItem">
             <Link to="/saleshistory">
-               <div className="Menu-icon">🌐</div>
+               <div className="Menu-icon">🕒</div>
                <span>Histórico</span>
             </Link>
          </div>
