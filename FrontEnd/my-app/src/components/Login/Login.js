@@ -73,14 +73,7 @@ const Login = () => {
                   onChange={(e) => setPassword(e.target.value)} 
                />
             </div>
-            <div className="recall">
-               <label>
-                  <input type="checkbox" />
-                  Lembrar de mim
-               </label>
-            </div>
             <button type="submit">Entrar</button>
-            <button className="cadastro">Cadastre-se</button> {/* Botão "Cadastre-se" */}
          </form>
          
          {error && <p className="error-message">{error}</p>} {/* Error message */}
