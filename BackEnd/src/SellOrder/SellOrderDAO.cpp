@@ -35,6 +35,9 @@ bool SellOrderDAO::createOrder(const int clientId, const int sellerId, const int
          m_theos.query(CREATE);
       }
 
+      for(int i{0}; i < product.size(); ++i){
+         m_pDAO.updateQuantity(product.at(1), quantity.at(1));
+      }
       return true;
 
    }catch(std::exception& e){
