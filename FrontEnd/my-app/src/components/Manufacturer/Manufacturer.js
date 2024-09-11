@@ -169,7 +169,7 @@ function Manufacturer() {
             <Menu />
          </header>
          <header className='SearchBarHeader'>
-            <div className="button-container">
+            <div className="manufacturer-button-container">
                <button className="newManufacturerButton" onClick={() => setNewManufacturerScreen(true)}>Novo Fabricante</button>
             </div>
             <SearchBar results={searchValue} setResults={setSearchValue} />
