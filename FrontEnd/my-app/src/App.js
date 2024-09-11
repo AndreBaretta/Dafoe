@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import './App.css';
 import Home from './components/Home/Home';
 import Login from './components/Login/Login';
@@ -17,16 +17,16 @@ function App() {
       <div className="App">
          <Router>
             <Routes>
-            <Route path="/" element={<Login />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/sales" element={<Sales />} />
-            <Route path="/stock" element={<Stock />} />
-            <Route path="/clients" element={<Clients />} />
-            <Route path="/manufacturer" element={<Manufacturer />} />
-            <Route path="/general" element={<General />} />
-            <Route path="/employee" element={<Employee />} />
-            <Route path="/user" element={<User />} />
-            <Route path="/saleshistory" element={<SalesHistory />} />
+               <Route path="/" element={<Login />} />
+               <Route path="/home" element={<Home />} />
+               <Route path="/sales" element={<Sales />} />
+               <Route path="/stock" element={<Stock />} />
+               <Route path="/clients" element={<Clients />} />
+               <Route path="/manufacturer" element={<Manufacturer />} />
+               <Route path="/general" element={<General />} />
+               <Route path="/employee" element={<Employee />} />
+               <Route path="/user" element={<User />} />
+               <Route path="/saleshistory" element={<SalesHistory />} />
             </Routes>
          </Router>
       </div>

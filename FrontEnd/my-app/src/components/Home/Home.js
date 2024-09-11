@@ -5,10 +5,10 @@ import Menu from '../Menu/Menuu';
 function Home() {
    return (
       <div className="Home">
-            <header className='Menu-header'>
-               <Sidebar />
-               <Menu />
-            </header>
+         <header className='Menu-header'>
+            <Sidebar />
+            <Menu />
+         </header>
       </div>
    );
 }

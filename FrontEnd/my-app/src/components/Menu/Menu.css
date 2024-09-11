@@ -1,7 +1,7 @@
 .Menu {
    display: flex;
    flex-direction: column;
-   width: 100%; 
+   width: 100%;
    position: absolute;
    top: 2rem;
    left: 0;
@@ -10,8 +10,8 @@
 .UserIconWrapper img {
    width: 30px;
    height: 30px;
-   border-radius: 50%; 
-   object-fit: cover; 
+   border-radius: 50%;
+   object-fit: cover;
    cursor: pointer;
 }
 

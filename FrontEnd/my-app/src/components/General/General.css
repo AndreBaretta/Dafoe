@@ -5,7 +5,7 @@
 .General {
    display: flex;
    min-height: 100vh;
-   background-color: #0d1117; 
+   background-color: #0d1117;
 }
 
 .Sidebar {
@@ -29,14 +29,14 @@
 .General-table-container {
    width: 90%;
    max-width: 2600px;
-   background: linear-gradient(to bottom, #212020, #222121); 
+   background: linear-gradient(to bottom, #212020, #222121);
    border-radius: 1rem;
    padding: 0.75rem;
    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
    margin-top: 65px;
    margin-left: 1%;
    margin-right: 0.5%;
-   border: 1px solid rgba(255, 255, 255, 0.3); 
+   border: 1px solid rgba(255, 255, 255, 0.3);
    position: relative;
 }
 
@@ -52,7 +52,8 @@
    overflow: hidden;
 }
 
-.General-table th, .General-table td {
+.General-table th,
+.General-table td {
    padding: 0.5rem;
    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
@@ -63,7 +64,7 @@
    font-weight: bold;
    color: #ffffff;
    text-transform: uppercase;
-   text-align: center; 
+   text-align: center;
 }
 
 .General-table th button {
@@ -75,7 +76,7 @@
    background: transparent;
    border: none;
    cursor: pointer;
-   opacity: 0; 
+   opacity: 0;
 }
 
 .General-table th:hover button {
@@ -118,7 +119,7 @@
    gap: 10px;
    align-items: center;
    justify-content: flex-start;
-   flex-wrap: nowrap; 
+   flex-wrap: nowrap;
    margin: 0;
    padding: 0;
 }
@@ -127,11 +128,11 @@
    padding: 10px 30px;
    font-size: calc(10px + 1vmin);
    color: white;
-   background-color: #262626; 
+   background-color: #262626;
    border: none;
    border-radius: 4px;
    cursor: pointer;
-   flex-shrink: 0; 
+   flex-shrink: 0;
 }
 
 .general-button-container button:hover {
@@ -144,9 +145,9 @@
    align-items: center;
    justify-content: center;
    background-color: rgba(0, 0, 0, 0.5);
- }
- 
- .ReactModal__Content {
+}
+
+.ReactModal__Content {
    width: 400px;
    max-width: 90%;
    background-color: rgba(255, 255, 255, 0.9);
@@ -158,9 +159,9 @@
    flex-direction: column;
    align-items: center;
    position: relative;
- }
- 
- .ReactModal__Close {
+}
+
+.ReactModal__Close {
    position: absolute;
    top: 10px;
    right: 10px;
@@ -169,37 +170,37 @@
    background: none;
    border: none;
    color: #333;
- }
- 
- .newItem {
+}
+
+.newItem {
    width: 100%;
    display: flex;
    flex-direction: column;
    align-items: center;
- }
- 
- .newItem h2 {
+}
+
+.newItem h2 {
    margin-bottom: 20px;
    font-size: 24px;
    text-align: center;
- }
- 
- .newItem label {
+}
+
+.newItem label {
    width: 100%;
    margin-bottom: 10px;
    font-weight: bold;
    color: #333;
- }
- 
- .newItem input {
+}
+
+.newItem input {
    width: calc(100% - 16px);
    padding: 8px;
    margin-top: 5px;
    border-radius: 4px;
    border: 1px solid #ccc;
- }
- 
- .newItem button {
+}
+
+.newItem button {
    width: 100%;
    padding: 10px;
    background-color: #4caf50;
@@ -209,16 +210,16 @@
    cursor: pointer;
    margin-top: 20px;
    text-align: center;
- }
- 
- .newItem button:hover {
+}
+
+.newItem button:hover {
    background-color: #45a049;
- }
- 
- .newItem .delete-button {
+}
+
+.newItem .delete-button {
    background-color: red;
- }
- 
- .newItem .delete-button:hover {
+}
+
+.newItem .delete-button:hover {
    background-color: darkred;
- }
+}

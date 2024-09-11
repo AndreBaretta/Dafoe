@@ -5,7 +5,7 @@
 .Stock {
    display: flex;
    min-height: 100vh;
-   background-color: #0d1117; 
+   background-color: #0d1117;
 }
 
 .Content {
@@ -20,14 +20,14 @@
 .Stock-table-container {
    width: 90%;
    max-width: 2600px;
-   background: linear-gradient(to bottom, #212020, #222121); 
+   background: linear-gradient(to bottom, #212020, #222121);
    border-radius: 1rem;
    padding: 0.75rem;
    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
    margin-top: 65px;
    margin-left: 1%;
    margin-right: 0.5%;
-   border: 1px solid rgba(255, 255, 255, 0.3); 
+   border: 1px solid rgba(255, 255, 255, 0.3);
    position: relative;
 }
 
@@ -43,10 +43,11 @@
    overflow: hidden;
 }
 
-.Stock-table th, .Stock-table td {
+.Stock-table th,
+.Stock-table td {
    padding: 0.5rem;
-   border-bottom: 1px solid rgba(255, 255, 255, 0.2); 
-   border-right: 1px solid rgba(255, 255, 255, 0.2); 
+   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+   border-right: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .Stock-table th {
@@ -55,7 +56,7 @@
    font-weight: bold;
    color: #ffffff;
    text-transform: uppercase;
-   text-align: center; 
+   text-align: center;
 }
 
 .Stock-table th button {
@@ -67,18 +68,23 @@
    background: transparent;
    border: none;
    cursor: pointer;
-   opacity: 0; /* Inicialmente invisível */
+   opacity: 0;
+   /* Inicialmente invisível */
 }
 
 .Stock-table th:hover button {
-   opacity: 0; /* Hover invisível */
+   opacity: 0;
+   /* Hover invisível */
 }
 
 .Stock-table th::after {
-   content: attr(data-title); /* Mostra o texto do th */
+   content: attr(data-title);
+   /* Mostra o texto do th */
    position: relative;
-   z-index: 2; /* Título sobreposto ao botão */
-   pointer-events: none; /* Permite clique no botão mesmo com texto sobreposto */
+   z-index: 2;
+   /* Título sobreposto ao botão */
+   pointer-events: none;
+   /* Permite clique no botão mesmo com texto sobreposto */
 }
 
 .Stock-table tr {
@@ -94,26 +100,30 @@
    white-space: nowrap;
 }
 
-.Stock-table th:last-child, .Stock-table td:last-child {
-   border-right: none; 
+.Stock-table th:last-child,
+.Stock-table td:last-child {
+   border-right: none;
 }
 
 @media (max-width: 768px) {
-   .SearchBarHeader, .Stock-table-container {
-     width: 95%;
+
+   .SearchBarHeader,
+   .Stock-table-container {
+      width: 95%;
    }
 
-   .Stock-table th, .Stock-table td {
-     padding: 0.5rem;
-     font-size: calc(8px + 1vmin);
+   .Stock-table th,
+   .Stock-table td {
+      padding: 0.5rem;
+      font-size: calc(8px + 1vmin);
    }
 }
 
 .stock-button-container {
-   position: absolute; 
-   right: -700px; 
-   top: 5px; 
-   z-index: 11; 
+   position: absolute;
+   right: -700px;
+   top: 5px;
+   z-index: 11;
    display: flex;
    gap: 10px;
 }
@@ -123,15 +133,15 @@
    padding: 10px 30px;
    font-size: calc(10px + 1vmin);
    color: white;
-   background-color: #262626; 
+   background-color: #262626;
    border: none;
    border-radius: 4px;
-   position : right;
+   position: right;
 }
 
 .newProductButton:hover,
 .addStockButton:hover {
-   background-color:  #393838;
+   background-color: #393838;
 }
 
 .ReactModal__Overlay {
@@ -143,9 +153,9 @@
 }
 
 .ReactModal__Content {
-   width: 400px; 
-   max-width: 90%; 
-   background-color: rgba(255, 255, 255, 0.9); 
+   width: 400px;
+   max-width: 90%;
+   background-color: rgba(255, 255, 255, 0.9);
    border-radius: 20px;
    padding: 20px;
    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -177,7 +187,7 @@
 .newProduct label,
 .addStock label,
 .deleteProduct label,
-.editProduct label{
+.editProduct label {
    width: 100%;
    margin-bottom: 10px;
    font-weight: bold;
@@ -197,7 +207,7 @@
 .newProduct button,
 .addStock button,
 .editProduct button {
-   width: 100%; 
+   width: 100%;
    padding: 10px;
    background-color: #4caf50;
    color: white;
@@ -217,29 +227,29 @@
 .deleteProduct {
    display: flex;
    flex-direction: column;
-   align-items: center; 
-   justify-content: center; 
+   align-items: center;
+   justify-content: center;
    width: 100%;
 }
 
 .deleteProduct label {
    width: 100%;
-   text-align: center; 
+   text-align: center;
    margin-bottom: 10px;
 }
 
 .deleteProduct select {
-   width: 100%; 
+   width: 100%;
    padding: 8px;
    border-radius: 4px;
    border: 1px solid #ccc;
-   margin-bottom: 20px; 
+   margin-bottom: 20px;
 }
 
 .deleteProduct button {
-   width: 100%; 
+   width: 100%;
    padding: 10px;
-   background-color: #e74c3c; 
+   background-color: #e74c3c;
    color: white;
    border: none;
    border-radius: 4px;
@@ -248,5 +258,5 @@
 }
 
 .deleteProduct button:hover {
-   background-color: #c0392b; 
+   background-color: #c0392b;
 }

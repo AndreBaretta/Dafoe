@@ -10,7 +10,7 @@ function General() {
    const [searchValue, setSearchValue] = useState("");
    const [results, setResults] = useState([]);
    const [categories, setCategories] = useState([]); // To store categories
-   const [view, setView] = useState(null); 
+   const [view, setView] = useState(null);
    const [itemDetails, setItemDetails] = useState({ name: '', category: '' });
    const [isPending, setIsPending] = useState(false);
    const [editingItemId, setEditingItemId] = useState(null);
@@ -90,8 +90,10 @@ function General() {
          }
          const response = await fetch(url, {
             method: method,
-            headers: { 'Content-Type': 'application/json',
-               'token': localStorage.getItem('token')},
+            headers: {
+               'Content-Type': 'application/json',
+               'token': localStorage.getItem('token')
+            },
             body: JSON.stringify(itemDetails),
          });
 
@@ -101,7 +103,7 @@ function General() {
             setEditingItemId(null);
             setNewItemModal(false);
             // Refresh list after adding/updating
-            await fetchData(); 
+            await fetchData();
          } else {
             console.error(`Error ${editingItemId ? 'updating' : 'creating'} ${view === 'payment-methods' ? 'PaymentMethod' : view === 'categories' ? 'Category' : 'GenericProduct'}`);
          }
@@ -125,9 +127,12 @@ function General() {
          } else {
             return;
          }
-         const response = await fetch(url, { method: 'DELETE',
-            headers: { 'Content-Type': 'application/json',
-               'token': localStorage.getItem('token')},
+         const response = await fetch(url, {
+            method: 'DELETE',
+            headers: {
+               'Content-Type': 'application/json',
+               'token': localStorage.getItem('token')
+            },
          });
 
          if (response.ok) {
@@ -183,7 +188,7 @@ function General() {
                   <thead>
                      <tr>
                         <th onClick={handleSort}>
-                           Nome 
+                           Nome
                         </th>
                      </tr>
                   </thead>

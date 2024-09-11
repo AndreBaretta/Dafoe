@@ -55,23 +55,23 @@ function Clients() {
       getData();
    }, [searchValue]);
 
-const handleInputChange = (e) => {
-   const { name, value } = e.target;
+   const handleInputChange = (e) => {
+      const { name, value } = e.target;
 
-   // Ensure bill is handled as a string
-   setClientDetails((prevState) => ({
-      ...prevState,
-      [name]: name === 'bill' ? String(value) : value, // Always store bill as a string
-   }));
-};   
-  const submitClientData = async () => {
-   setIsPending(true);
+      // Ensure bill is handled as a string
+      setClientDetails((prevState) => ({
+         ...prevState,
+         [name]: name === 'bill' ? String(value) : value, // Always store bill as a string
+      }));
+   };
+   const submitClientData = async () => {
+      setIsPending(true);
       try {
          const response = await fetch('https://localhost:12354/api/client', {
             method: 'POST',
             headers: {
-                  "Content-Type": "application/json",
-                  "token" : localStorage.getItem('token')
+               "Content-Type": "application/json",
+               "token": localStorage.getItem('token')
             },
             body: JSON.stringify({
                ...clientDetails,
@@ -79,27 +79,27 @@ const handleInputChange = (e) => {
             }),
          });
 
-      if (response.ok) {
-         console.log('Cliente adicionado com sucesso');
-         setClientDetails({
-            id: '',
-            name: '',
-            phoneNumber: '',
-            address: '',
-            bill: '', // Reset bill to an empty string
-         });
-         setNewClientScreen(false);
-         setSearchValue('');
-         getData();
-      } else {
-         console.error('Erro ao adicionar cliente');
+         if (response.ok) {
+            console.log('Cliente adicionado com sucesso');
+            setClientDetails({
+               id: '',
+               name: '',
+               phoneNumber: '',
+               address: '',
+               bill: '', // Reset bill to an empty string
+            });
+            setNewClientScreen(false);
+            setSearchValue('');
+            getData();
+         } else {
+            console.error('Erro ao adicionar cliente');
+         }
+      } catch (error) {
+         console.error('Erro na requisição:', error);
+      } finally {
+         setIsPending(false);
       }
-   } catch (error) {
-      console.error('Erro na requisição:', error);
-   } finally {
-      setIsPending(false);
-   }
-};
+   };
    const handleSort = (key) => {
       const order = sortOrder[key] === 'asc' ? 'desc' : 'asc';
 
@@ -122,35 +122,36 @@ const handleInputChange = (e) => {
       setEditClientScreen(true);
    };
 
-  const handleUpdateClient = async () => {
-   setIsPending(true);
-   try {
+   const handleUpdateClient = async () => {
+      setIsPending(true);
+      try {
          const response = await fetch(`https://localhost:12354/api/client/${clientDetails.id}`, {
             method: 'PUT',
-            headers: { 'Content-Type': 'application/json',
+            headers: {
+               'Content-Type': 'application/json',
                'token': localStorage.getItem('token'),
             },
             body: JSON.stringify({
                ...clientDetails,
                bill: String(clientDetails.bill), // Make sure bill is sent as a string
             }),
-      });
+         });
 
-      if (response.ok) {
-         console.log('Cliente atualizado com sucesso');
-         setEditMode(false);
-         setEditClientScreen(false);
-         setSearchValue('');
-         getData();
-      } else {
-         console.error('Erro ao atualizar cliente');
+         if (response.ok) {
+            console.log('Cliente atualizado com sucesso');
+            setEditMode(false);
+            setEditClientScreen(false);
+            setSearchValue('');
+            getData();
+         } else {
+            console.error('Erro ao atualizar cliente');
+         }
+      } catch (error) {
+         console.error('Erro na requisição:', error);
+      } finally {
+         setIsPending(false);
       }
-   } catch (error) {
-      console.error('Erro na requisição:', error);
-   } finally {
-      setIsPending(false);
-   }
-};
+   };
    const handleDeleteClient = async () => {
       setIsPending(true);
       try {

@@ -29,20 +29,20 @@
 .Manufacturer-table-container {
    width: 90%;
    max-width: 2600px;
-   background: linear-gradient(to bottom, #212020, #222121); 
+   background: linear-gradient(to bottom, #212020, #222121);
    border-radius: 1rem;
    padding: 0.75rem;
    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
    margin-top: 65px;
    margin-left: 1%;
    margin-right: 0.5%;
-   border: 1px solid rgba(255, 255, 255, 0.3); 
+   border: 1px solid rgba(255, 255, 255, 0.3);
    position: relative;
 }
 
 .Manufacturer-table {
    width: 100%;
-   border-collapse: collapse; 
+   border-collapse: collapse;
    text-align: left;
    font-size: calc(10px + 1vmin);
    color: white;
@@ -52,43 +52,44 @@
    overflow: hidden;
 }
 
-.Manufacturer-table th, .Manufacturer-table td {
+.Manufacturer-table th,
+.Manufacturer-table td {
    padding: 0.5rem;
-   border-bottom: 1px solid rgba(255, 255, 255, 0.2); 
-   border-right: 1px solid rgba(255, 255, 255, 0.2); 
+   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+   border-right: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .Manufacturer-table th {
-   position: relative; 
+   position: relative;
    background-color: rgba(0, 0, 0, 0.2);
    font-weight: bold;
    color: #ffffff;
    text-transform: uppercase;
    text-align: center;
-   cursor: pointer; 
+   cursor: pointer;
 }
 
 .Manufacturer-table th button {
-   position: absolute; 
+   position: absolute;
    top: 0;
    left: 0;
-   width: 100%; 
-   height: 100%; 
+   width: 100%;
+   height: 100%;
    background: transparent;
    border: none;
    cursor: pointer;
-   z-index: 1; 
+   z-index: 1;
 }
 
 .Manufacturer-table th:hover button {
-   opacity: 0; 
+   opacity: 0;
 }
 
 .Manufacturer-table th::after {
-   content: attr(data-title); 
+   content: attr(data-title);
    position: relative;
-   z-index: 2; 
-   pointer-events: none; 
+   z-index: 2;
+   pointer-events: none;
 }
 
 
@@ -107,10 +108,10 @@
 }
 
 .manufacturer-button-container {
-   position: absolute; 
-   right: -700px; 
-   top: 5px; 
-   z-index: 11; 
+   position: absolute;
+   right: -700px;
+   top: 5px;
+   z-index: 11;
    display: flex;
    gap: 10px;
 }
@@ -158,12 +159,12 @@
    align-items: center;
 }
 
-.newManufacturer h2 { 
+.newManufacturer h2 {
    width: 100%;
-   margin-bottom: 20px; 
-   text-align: center; 
-   font-size: 1.5rem; 
-   color: #333; 
+   margin-bottom: 20px;
+   text-align: center;
+   font-size: 1.5rem;
+   color: #333;
 }
 
 .newManufacturer label {

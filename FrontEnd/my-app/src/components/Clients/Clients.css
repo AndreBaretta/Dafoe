@@ -21,14 +21,14 @@
 .Clients-table-container {
    width: 90%;
    max-width: 2600px;
-   background: linear-gradient(to bottom, #212020, #222121); 
+   background: linear-gradient(to bottom, #212020, #222121);
    border-radius: 1rem;
    padding: 0.75rem;
    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
    margin-top: 65px;
    margin-left: 1%;
    margin-right: 0.5%;
-   border: 1px solid rgba(255, 255, 255, 0.3); 
+   border: 1px solid rgba(255, 255, 255, 0.3);
    position: relative;
 }
 
@@ -44,10 +44,11 @@
    overflow: hidden;
 }
 
-.Clients-table th, .Clients-table td {
+.Clients-table th,
+.Clients-table td {
    padding: 0.5rem;
    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-   background-color: #000000; 
+   background-color: #000000;
 }
 
 .Clients-table th {
@@ -57,12 +58,12 @@
    color: #ffffff;
    text-transform: uppercase;
    text-align: center;
-   border-left: 1px solid rgba(255, 255, 255, 0.2);   
+   border-left: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 
 .Clients-table th:first-child {
-   border-left: none; 
+   border-left: none;
 }
 
 .Clients-table td {
@@ -73,7 +74,7 @@
 }
 
 .Clients-table td:first-child {
-   border-left: none; 
+   border-left: none;
 }
 
 .Clients-table tr {
@@ -86,15 +87,15 @@
 }
 
 .client-button-container {
-   position: absolute; 
-   right: -700px; 
-   top: 5px; 
-   z-index: 11; 
+   position: absolute;
+   right: -700px;
+   top: 5px;
+   z-index: 11;
    display: flex;
    gap: 10px;
 }
 
-.newClientButton{
+.newClientButton {
    padding: 10px 30px;
    font-size: calc(10px + 1vmin);
    color: white;
@@ -105,14 +106,14 @@
    transition: background-color 0.3s ease;
 }
 
-.newClientButton:hover{
+.newClientButton:hover {
    background-color: #393838;
 }
 
 .ReactModal__Content {
-   width: 400px; 
-   max-width: 90%; 
-   background-color: rgba(255, 255, 255, 0.9); 
+   width: 400px;
+   max-width: 90%;
+   background-color: rgba(255, 255, 255, 0.9);
    border-radius: 20px;
    padding: 20px;
    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -166,7 +167,7 @@
 
 .editClient button,
 .newClient button {
-   width: 100%; 
+   width: 100%;
    padding: 10px;
    background-color: #4caf50;
    color: white;

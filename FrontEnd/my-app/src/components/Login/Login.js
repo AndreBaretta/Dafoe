@@ -8,7 +8,7 @@ const Login = () => {
 
    const handleSubmit = async (event) => {
       event.preventDefault();
-   
+
       try {
          // Sending user credentials using fetch
          const response = await fetch('https://localhost:12354/login', {
@@ -21,29 +21,29 @@ const Login = () => {
                password,     // sending the password
             }),
          });
-   
+
          // Check if the response is successful (status 200-299)
          if (!response.ok) {
             throw new Error("Login failed, please try again.");
          }
-   
+
          // Assuming the response contains the token in JSON format
          const token = response.headers.get('Authorization');
-   
+
          // Store the JWT in localStorage
          localStorage.setItem('token', token);
          localStorage.setItem('id', id);
-   
+
          // Redirect the user to the home page after successful login
          window.location.href = '/home';
-   
+
       } catch (error) {
          // Set error message if login fails
          setError("Invalid credentials, please try again.");
          console.error("Login error:", error);
       }
    };
-   
+
 
    return (
       <div className="Login">
@@ -57,26 +57,26 @@ const Login = () => {
          </div>
          <form onSubmit={handleSubmit}>
             <div className="input-field">
-               <input 
-                  type="number" 
-                  placeholder="ID" 
-                  value={id} 
-                  onChange={(e) => setId(e.target.value)} 
+               <input
+                  type="number"
+                  placeholder="ID"
+                  value={id}
+                  onChange={(e) => setId(e.target.value)}
                />
             </div>
             <div className="input-field">
-               <input 
-                  type="password" 
-                  placeholder="Senha" 
-                  value={password} 
-                  onChange={(e) => setPassword(e.target.value)} 
+               <input
+                  type="password"
+                  placeholder="Senha"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                />
             </div>
             <button type="submit">Entrar</button>
          </form>
-         
+
          {error && <p className="error-message">{error}</p>} {/* Error message */}
-         
+
          <div className="watermark">
             ©dafoeformation - 2024
          </div>

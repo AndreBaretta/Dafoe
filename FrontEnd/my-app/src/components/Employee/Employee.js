@@ -30,11 +30,11 @@ function Employees() {
       const getData = async () => {
          try {
             const response = await fetch(`https://localhost:12354/api/employee?name=${searchValue}`, {
-                  headers: {
-                     "Content-Type": "application/json",
-                     "token" : localStorage.getItem('token')
-                  },
-               });
+               headers: {
+                  "Content-Type": "application/json",
+                  "token": localStorage.getItem('token')
+               },
+            });
             const data = await response.json();
             if (Array.isArray(data)) {
                setResults(data);
@@ -64,9 +64,9 @@ function Employees() {
       try {
          const response = await fetch('https://localhost:12354/api/employee', {
             method: 'POST',
-            headers: { 
+            headers: {
                'Content-Type': 'application/json',
-               "token" : localStorage.getItem('token'),
+               "token": localStorage.getItem('token'),
             },
             body: JSON.stringify(employeeDetails),
          });
@@ -83,7 +83,7 @@ function Employees() {
             const response = await fetch(`https://localhost:12354/api/employee`, {
                headers: {
                   "Content-Type": "application/json",
-                  "token" : localStorage.getItem('token')
+                  "token": localStorage.getItem('token')
                },
             });
             const data = await response.json();
@@ -126,7 +126,7 @@ function Employees() {
             method: 'PUT',
             headers: {
                'Content-Type': 'application/json',
-               "token" : localStorage.getItem('token'),
+               "token": localStorage.getItem('token'),
             },
             body: JSON.stringify(employeeDetails),
          });
@@ -140,7 +140,7 @@ function Employees() {
             const response = await fetch(`https://localhost:12354/api/employee`, {
                headers: {
                   "Content-Type": "application/json",
-                  "token" : localStorage.getItem('token')
+                  "token": localStorage.getItem('token')
                },
             });
             const data = await response.json();
@@ -163,7 +163,7 @@ function Employees() {
             method: 'DELETE',
             headers: {
                'Content-Type': 'application/json',
-               "token" : localStorage.getItem('token'),
+               "token": localStorage.getItem('token'),
             },
          });
 
@@ -175,7 +175,7 @@ function Employees() {
             const response = await fetch(`https://localhost:12354/api/employee`, {
                headers: {
                   "Content-Type": "application/json",
-                  "token" : localStorage.getItem('token')
+                  "token": localStorage.getItem('token')
                },
             });
             const data = await response.json();
@@ -310,31 +310,31 @@ function Employees() {
                   <label>
                      Cargo:
                      <select
-                     name="cargo"
-                     value={employeeDetails.cargo}
-                     onChange={handleInputChange}
-                  >
-                     <option value="">Selecione</option>
-                     {cargos.map((cargo, index) => (
-                        <option key={index} value={cargo}>
-                           {cargo}
-                        </option>
-                     ))}
-                  </select>
-               </label>
-               <div className="editEmployee-buttons">
-                  <button type="button" onClick={handleUpdateEmployee} disabled={isPending}>
-                     {isPending ? 'Atualizando...' : 'Salvar'}
-                  </button>
-                  <button type="button" onClick={handleDeleteEmployee} disabled={isPending}>
-                     {isPending ? 'Deletando...' : 'Deletar'}
-                  </button>
-               </div>
-            </form>
-         </div>
-      </Model>
-   </div>
-);
+                        name="cargo"
+                        value={employeeDetails.cargo}
+                        onChange={handleInputChange}
+                     >
+                        <option value="">Selecione</option>
+                        {cargos.map((cargo, index) => (
+                           <option key={index} value={cargo}>
+                              {cargo}
+                           </option>
+                        ))}
+                     </select>
+                  </label>
+                  <div className="editEmployee-buttons">
+                     <button type="button" onClick={handleUpdateEmployee} disabled={isPending}>
+                        {isPending ? 'Atualizando...' : 'Salvar'}
+                     </button>
+                     <button type="button" onClick={handleDeleteEmployee} disabled={isPending}>
+                        {isPending ? 'Deletando...' : 'Deletar'}
+                     </button>
+                  </div>
+               </form>
+            </div>
+         </Model>
+      </div>
+   );
 }
 
 export default Employees;
