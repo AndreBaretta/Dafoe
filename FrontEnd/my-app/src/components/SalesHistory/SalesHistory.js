@@ -251,7 +251,7 @@ function SalesHistory() {
             className="ReactModal__Content"
             ariaHideApp={false}
          >
-            <button className="ReactModal__Close" onClick={() => {
+            <button className="SalesHistory-ReactModal__Close" onClick={() => {
                setSelectedSale(null);
                setProducts([]);
             }}>X</button>
