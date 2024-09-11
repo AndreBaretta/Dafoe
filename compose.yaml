@@ -1,12 +1,29 @@
-name: Dafoe
 services:
   db:
     image: mariadb:11.5.2
-    container_name: mariadb
+    container_name: db
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: Dafoe
       MYSQL_USER: Atlas
       MYSQL_PASSWORD: curitiba
     ports:
-      - "3307:3307"
+      - "3307:3306"  
+    networks:
+      - rede
+
+  cpp-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: cpp-app
+    ports:
+      - "12354:12354" 
+    networks:
+      - rede
+    depends_on:
+      - db
+      
+networks:
+  rede:
+    driver: bridge

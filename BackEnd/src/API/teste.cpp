@@ -72,7 +72,7 @@ int main(){
    GenericProductMNG genericProductMNG     = GenericProductMNG(genericProductDAO, jsonBuilder);
    UserMNG userMNG                         = UserMNG(userDAO, jwt);
 
-   Server server                           = Server("127.0.0.1", 12354, true);
+   Server server                           = Server("172.19.0.3", 12354, true);
 
    HTTPRequestParser httpParser            = HTTPRequestParser();
    HTTPRequestHandler httpHandler          = HTTPRequestHandler(httpResponseBuilder, productMNG, categoryMNG, paymentMethodMNG, clientMNG, employeeMNG, manufacturerMNG,
