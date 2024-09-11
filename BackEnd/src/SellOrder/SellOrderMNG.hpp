@@ -22,7 +22,7 @@ public:
    json retrieveOrderBySeller(const int sellerId);
    json retrieveOrderByStatus(const int statusId);
    json retrieveAllSellOrder();
-   bool updateStatus(const int sellOrder, const int status);
+ //  bool updateStatus(const int sellOrder, const int status);
 
 private:
    SellOrderDAO& m_sellOrderDAO;
