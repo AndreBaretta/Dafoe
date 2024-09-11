@@ -12,41 +12,6 @@ import Employee from './components/Employee/Employee';
 import User from './components/User/User'
 
 function App() {
-   const [page, setPage] = useState('')
-
-   useEffect(
-      () => {
-         const url = window.location.href
-         const res = url.split('?')
-         setPage(res[1])
-      }
-   )
-
-   function returnPage() {
-      switch (page) {
-         case 'login':
-            return <Login />
-         case 'home':
-            return <Home />
-         case 'sales':
-            return <Sales />
-         case 'stock':
-            return <Stock />
-         case 'clients':
-            return <Clients />
-         case 'manufacturer':
-            return <Manufacturer />
-         case 'general':
-            return <General />
-         case 'employee':
-            return <Employee />
-         case 'user':
-            return <User />
-         default:
-            return <Login />
-      }
-   }
-
    return (
       <div className="App">
          <Router>
