@@ -1,9 +1,24 @@
 .Menu {
-   display: flex;
-   flex-direction: column;
-   gap: 0.5rem;
-   width: 100%;
+   position: relative; /* Make sure the Menu div is positioned relative for absolute positioning inside */
+   padding-top: 50px; /* Adjust padding to leave space for the user icon */
 }
+
+.UserIconWrapper img {
+   width: 10px; /* Set the size of the user icon */
+   height: 10px; /* Set the size of the user icon */
+   border-radius: 50%; /* Make the icon circular */
+   object-fit: cover; /* Ensure the image fits well inside the circular frame */
+   cursor: pointer;
+}
+
+.MenuItem {
+   margin: 10px 0;
+}
+
+.Menu-icon {
+   margin-right: 10px;
+}
+
 
 .MenuItem {
    display: flex;
@@ -20,6 +35,7 @@
    max-width: 250px;
 }
 
+
 .MenuItem button {
    background-color: transparent;
    width: 99.5%;
@@ -30,6 +46,7 @@
    position: absolute;
    cursor: pointer;
 }
+
 .Menu-content {
    display: flex;
    flex-direction: column;

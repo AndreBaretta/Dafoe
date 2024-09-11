@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import axios from "axios";
 import './Login.css';
 
 const Login = () => {
@@ -33,6 +32,8 @@ const Login = () => {
    
          // Store the JWT in localStorage
          localStorage.setItem('token', token);
+         localStorage.setItem('id', id);
+         localStorage.setItem('password', password);
    
          // Redirect the user to the home page after successful login
          window.location.href = 'http://localhost:3000/?home';
@@ -58,8 +59,8 @@ const Login = () => {
          <form onSubmit={handleSubmit}>
             <div className="input-field">
                <input 
-                  type="text" 
-                  placeholder="Usuário" 
+                  type="number" 
+                  placeholder="ID" 
                   value={id} 
                   onChange={(e) => setId(e.target.value)} 
                />

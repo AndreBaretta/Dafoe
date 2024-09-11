@@ -1,8 +1,20 @@
-import './Menu.css'
+import React from 'react';
+import './Menu.css';
+import UserIcon from '../UserIcon/UserIcon'; // Import the UserIcon component
 
 function Menu() {
+   const handleUserIconClick = () => {
+      // Handle user icon click, e.g., open user profile or settings
+      window.open('http://localhost:3000?user', '_self');
+   };
+
    return (
       <div className="Menu">
+         <div className="UserIconWrapper">
+            <UserIcon 
+               onClick={handleUserIconClick} 
+            />
+         </div>
          <div className="MenuItem">
             <button onClick={() => window.open('http://localhost:3000?sales', '_self')}></button>
             <div className="Menu-icon">📈</div>

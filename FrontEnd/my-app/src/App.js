@@ -9,10 +9,10 @@ import Clients from './components/Clients/Clients';
 import Manufacturer from './components/Manufacturer/Manufacturer';
 import General from './components/General/General';
 import Employee from './components/Employee/Employee';
+import User from './components/User/User'
 
 function App() {
-
-   const [page, setPage] = useState('login')
+   const [page, setPage] = useState('')
 
    useEffect(
       () => {
@@ -42,6 +42,8 @@ function App() {
             return <General />
          case 'employee':
             return <Employee />
+         case 'user':
+            return <User />
          default:
             return <Login />
       }

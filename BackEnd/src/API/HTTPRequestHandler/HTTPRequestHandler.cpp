@@ -1,4 +1,5 @@
 #include "HTTPRequestHandler.hpp"
+#include <exception>
 #include <iostream>
 #include <string>
 
@@ -433,6 +434,12 @@ std::string HTTPRequestHandler::handleRequest(HTTPRequest& request){
 	 if(!handleUpdateStatus(id,requestBody))
 	    return return400(version, headers, responseBody);
 	 return return204(version,headers,responseBody);
+      }
+      if(path[1] == "user"){
+    int id = std::stoi(path[2]);
+    if(!handleUpdateUserPassword(id, requestBody))
+       return return400(version, headers, responseBody);
+    return return204(version, headers, responseBody);
       }
       if(path[1] == "generic-product"){
 	 int id = std::stoi(path[2]);
@@ -1067,6 +1074,18 @@ bool HTTPRequestHandler::handleSignup(const std::string& body){
       std::string password    = json["password"].get<std::string>();
       return this->m_userMNG.createUser(id,name,password, false);
    } catch(std::exception &e){
+      std::cerr << e.what() << '\n';
+      return false;
+   }
+}
+
+bool HTTPRequestHandler::handleUpdateUserPassword(const int id, std::string& body){
+   try{
+   json jason = json::parse(body);
+   std::string password = jason["password"].get<std::string>();
+   std::string newPassword = jason["newPassword"].get<std::string>();
+   return this->m_userMNG.updateUserPassword(id, password, newPassword);
+   }catch(std::exception &e){
       std::cerr << e.what() << '\n';
       return false;
    }
