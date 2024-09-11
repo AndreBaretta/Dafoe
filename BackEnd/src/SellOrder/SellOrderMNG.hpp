@@ -5,12 +5,13 @@
 #include "../ProductOrder/ProductOrderDAO.hpp"
 #include "../Product/ProductDAO.hpp"
 #include "../API/Token/Session.hpp"
-#include <chrono>
 
 class SellOrderMNG{
 public:
    SellOrderMNG(SellOrderDAO& sellOrderDAO, ProductOrderDAO& productOrderDAO, ProductDAO& productDAO, JsonBuilder& jsonBuilder);
-   bool createOrder(const int clientId, const int paymentMethod, const double price, const int product, const int quantity, Session session);
+   bool createOrder(const int clientId, const double price, const std::vector<int>& product,
+                    const std::vector<int>& quantity, std::vector<double>& priceArray, Session session);
+
    bool updateOrder(const int id, const int clientId, const int sellerId, const int statusId, const int paymentMethod, 
                     const std::string& date, const double price, const int product, const int quantity);
    bool addProductToOrder(const int sellOrder, const int product, const int quantity, const double discount, const double price);
