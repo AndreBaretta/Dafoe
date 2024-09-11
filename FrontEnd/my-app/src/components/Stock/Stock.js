@@ -297,10 +297,10 @@ function Stock() {
             className="ReactModal__Content"
          >
             <div className='newProduct'>
-               <span className='Stock_ReactModal__Close' onClick={() => {
+               <button className='Stock_ReactModal__Close' onClick={() => {
                   setNewProductScreen(false);
                   resetProductDetails(); // Reset product details when closing
-               }}>X</span>
+               }}>X</button>
                <h2>Adicionar Novo Produto</h2>
                <form>
                   <label>Nome:
@@ -383,10 +383,10 @@ function Stock() {
             className="ReactModal__Content"
          >
             <div className='editProduct'>
-               <span className='Stock_ReactModal__Close' onClick={() => {
+               <button className='Stock_ReactModal__Close' onClick={() => {
                   setEditProductScreen(false);
                   resetProductDetails(); // Reset product details when closing
-               }}>X</span>
+               }}>X</button>
                <h2>Editar Produto</h2>
                <form>
                   <label>Nome:
