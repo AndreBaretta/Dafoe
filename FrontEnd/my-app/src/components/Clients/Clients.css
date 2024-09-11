@@ -3,6 +3,7 @@
 }
 
 .Clients {
+   position: relative;
    display: flex;
    min-height: 100vh;
    background-color: #0d1117;
@@ -83,18 +84,17 @@
    background-color: rgba(255, 255, 255, 0.1);
 }
 
-.button-container {
+.client-button-container {
    position: absolute;
-   top: 10px;
+   bottom: 1rem;
    right: 10px;
    display: flex;
    flex-direction: row;
    gap: 10px;
 }
 
-.newClientButton,
-.editClientButton {
-   padding: 8px 12px;
+.newClientButton{
+   padding: 10px 30px;
    font-size: calc(10px + 1vmin);
    color: white;
    background-color: #262626;
@@ -104,8 +104,7 @@
    transition: background-color 0.3s ease;
 }
 
-.newClientButton:hover,
-.editClientButton:hover {
+.newClientButton:hover{
    background-color: #393838;
 }
 

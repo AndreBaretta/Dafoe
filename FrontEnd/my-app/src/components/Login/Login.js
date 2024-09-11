@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import axios from "axios";
 import './Login.css';
 
 const Login = () => {
@@ -33,6 +32,8 @@ const Login = () => {
    
          // Store the JWT in localStorage
          localStorage.setItem('token', token);
+         localStorage.setItem('id', id);
+         localStorage.setItem('password', password);
    
          // Redirect the user to the home page after successful login
          window.location.href = 'http://localhost:3000/?home';
@@ -51,15 +52,15 @@ const Login = () => {
             <div className="logo">
                <img src={require('../../assets/images.jpg')} alt="Logo" />
                <span>
-                  DA<span>FO</span>E
+                  A<span>FO</span>E
                </span>
             </div>
          </div>
          <form onSubmit={handleSubmit}>
             <div className="input-field">
                <input 
-                  type="text" 
-                  placeholder="Usuário" 
+                  type="number" 
+                  placeholder="ID" 
                   value={id} 
                   onChange={(e) => setId(e.target.value)} 
                />
@@ -72,14 +73,7 @@ const Login = () => {
                   onChange={(e) => setPassword(e.target.value)} 
                />
             </div>
-            <div className="recall">
-               <label>
-                  <input type="checkbox" />
-                  Lembrar de mim
-               </label>
-            </div>
             <button type="submit">Entrar</button>
-            <button className="cadastro">Cadastre-se</button> {/* Botão "Cadastre-se" */}
          </form>
          
          {error && <p className="error-message">{error}</p>} {/* Error message */}

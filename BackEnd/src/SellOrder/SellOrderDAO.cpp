@@ -114,6 +114,7 @@ std::vector<SellOrder> SellOrderDAO::retrieveOrderById(const int id){
       sellOrder.push_back(SellOrder(m_theos.getResult()->getInt("id"), m_theos.getResult()->getInt("client"), m_theos.getResult()->getInt("seller"),
                                     m_theos.getResult()->getInt("status"), m_theos.getResult()->getInt("paymentMethod"), m_theos.getResult()->getString("date").c_str(), 
                                     m_theos.getResult()->getDouble("price"),m_theos.getResult()->getInt("product"),m_theos.getResult()->getInt("quantity")));
+
       return sellOrder;
    }catch(std::exception& e){
       std::cerr << e.what() << '\n';
@@ -148,7 +149,6 @@ std::vector<SellOrder> SellOrderDAO::retrieveOrderByProduct(const int productId)
 
       std::vector<SellOrder> vec{};
       while(m_theos.getResult()->next()){
-
          vec.push_back(SellOrder(m_theos.getResult()->getInt("id"), m_theos.getResult()->getInt("client"), m_theos.getResult()->getInt("seller"),
                                  m_theos.getResult()->getInt("status"), m_theos.getResult()->getInt("paymentMethod"), m_theos.getResult()->getString("date").c_str(), 
                                  m_theos.getResult()->getDouble("price"),m_theos.getResult()->getInt("product"),m_theos.getResult()->getInt("quantity")));
@@ -168,7 +168,6 @@ std::vector<SellOrder> SellOrderDAO::retrieveOrderByStatus(const int statusId){
 
       std::vector<SellOrder> vec{};
       while(m_theos.getResult()->next()){
-
          vec.push_back(SellOrder(m_theos.getResult()->getInt("id"), m_theos.getResult()->getInt("client"), m_theos.getResult()->getInt("seller"),
                                  m_theos.getResult()->getInt("status"), m_theos.getResult()->getInt("paymentMethod"), m_theos.getResult()->getString("date").c_str(), 
                                  m_theos.getResult()->getDouble("price"),m_theos.getResult()->getInt("product"),m_theos.getResult()->getInt("quantity")));
@@ -188,7 +187,6 @@ std::vector<SellOrder> SellOrderDAO::retrieveOrderBySeller(const int sellerId){
 
       std::vector<SellOrder> vec{};
       while(m_theos.getResult()->next()){
-
          vec.push_back(SellOrder(m_theos.getResult()->getInt("id"), m_theos.getResult()->getInt("client"), m_theos.getResult()->getInt("seller"),
                                  m_theos.getResult()->getInt("status"), m_theos.getResult()->getInt("paymentMethod"), m_theos.getResult()->getString("date").c_str(), 
                                  m_theos.getResult()->getDouble("price"),m_theos.getResult()->getInt("product"),m_theos.getResult()->getInt("quantity")));
@@ -207,7 +205,6 @@ std::vector<SellOrder> SellOrderDAO::listAllSellOrder(){
 
       std::vector<SellOrder> vec{};
       while(m_theos.getResult()->next()){
-
          vec.push_back(SellOrder(m_theos.getResult()->getInt("id"), m_theos.getResult()->getInt("client"), m_theos.getResult()->getInt("seller"),
                                  m_theos.getResult()->getInt("status"), m_theos.getResult()->getInt("paymentMethod"), m_theos.getResult()->getString("date").c_str(), 
                                  m_theos.getResult()->getDouble("price"),m_theos.getResult()->getInt("product"),m_theos.getResult()->getInt("quantity")));

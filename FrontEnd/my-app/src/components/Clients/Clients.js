@@ -184,7 +184,7 @@ const handleInputChange = (e) => {
             <Menu />
          </header>
          <header className="SearchBarHeader">
-            <div className="button-container">
+            <div className="client-button-container">
                <button
                   className="newClientButton"
                   onClick={() => setNewClientScreen(true)}

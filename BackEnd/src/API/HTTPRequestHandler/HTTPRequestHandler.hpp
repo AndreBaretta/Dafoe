@@ -65,10 +65,10 @@ private:
    bool handleCreateGenericProduct(const std::string& body);
    bool handleUpdateGenericProduct(const int id, const std::string& body);
    bool handleDeleteGenericProduct(const int id);
-   bool handleCreateUser(const int id, const std::string& name, const std::string& password);
+   bool handleCreateUser(const int id, std::string& body);
    bool handleUpdateUsername(const int id, const std::string& name);
-   bool handleUpdateUserPassword(const int id, const std::string& password, const std::string& newPassword);
-   bool handleDeleteUser(const int id, const std::string& name, const std::string& password);
+   bool handleUpdateUserPassword(const int id, std::string& body);
+   bool handleDeleteUser(const int id, std::string& body);
    std::string handleRetrieveGenericProduct();
    std::string handleRetrieveAllCategory();
    std::string handleRetrieveCategory(const int id);

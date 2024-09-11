@@ -141,9 +141,9 @@
    }
 }
 
-.button-container {
+.sales-button-container {
    position: absolute;
-   top: 10px; 
+   bottom: 1rem;
    right: 10px; 
    display: flex;
    flex-direction: row;
@@ -151,7 +151,7 @@
 }
 
 .newSaleButton {
-   padding: 8px 12px;
+   padding: 10px 30px;
    font-size: calc(10px + 1vmin);
    color: white;
    background-color: #262626; 
