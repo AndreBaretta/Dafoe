@@ -786,12 +786,31 @@ bool HTTPRequestHandler::handleDeleteManufacturer(const int id){
 bool HTTPRequestHandler::handleCreateOrder(const std::string& body, Session session){
    try{
       json jason = json::parse(body);
-      int clientId		= std::stoi(jason["clientId"].get<std::string>());
-      int paymentMethod	= std::stoi(jason["paymentMethod"].get<std::string>());
-      double price   	= std::stod(jason["price"].get<std::string>());
-      int product	= std::stoi(jason["product"].get<std::string>());
-      int quantity	= std::stoi(jason["quantity"].get<std::string>());
-      return this->m_sellOrderMNG.createOrder(clientId,paymentMethod,price,product,quantity,session);
+
+      int clientId	               	   = std::stoi(jason["clientId"].get<std::string>());
+      double price   	                  = std::stod(jason["price"].get<std::string>());
+      std::vector<std::string> productS	 = jason["products"].get<std::vector<std::string>>();
+      std::vector<std::string> quantityS   = jason["quantity"].get<std::vector<std::string>>();
+      std::vector<std::string> priceArrayS = jason["priceArray"].get<std::vector<std::string>>();
+      int sellerId  = std::stoi(jason["sellerId"].get<std::string>());
+
+      std::vector<int> product;
+         std::transform(productS.begin(), productS.end(), std::back_inserter(product),
+        [&](std::string s) {
+            return std::stoi(s);
+        });
+      std::vector<int> quantity;
+         std::transform(quantityS.begin(), quantityS.end(), std::back_inserter(quantity),
+        [&](std::string s) {
+            return std::stoi(s);
+        });
+      std::vector<double> priceArray;
+         std::transform(priceArrayS.begin(), priceArrayS.end(), std::back_inserter(priceArray),
+        [&](std::string s) {
+            return std::stod(s);
+        });
+
+      return this->m_sellOrderMNG.createOrder(clientId,price,product,quantity, priceArray,session);
    }catch(std::exception &e){
       std::cerr << e.what() << '\n';
       return false;

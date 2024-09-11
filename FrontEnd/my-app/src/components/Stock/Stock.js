@@ -157,6 +157,14 @@ function Stock() {
 
    const submitData = async () => {
       try {
+         if(!isBarcodeUnique(productDetails.barcode)){
+            alert("Código de barras já existe");
+            return false;
+         }
+         if(!isReferenceUnique(productDetails.reference)){
+            alert("Referencia já existe");
+            return false;
+         }
          setIsPending(true);
          if (selectedProduct) {
             // Update existing product
@@ -222,6 +230,15 @@ function Stock() {
       const genericProduct = genericProducts.find(gp => gp.id === id);
       return genericProduct ? genericProduct.name : 'N/A';
    };
+
+   const isBarcodeUnique = (barcode) => {
+      return !results.some(product => product.barcode === barcode);
+   };
+
+   const isReferenceUnique = (reference) => {
+      return !results.some(product => product.reference == reference);
+   }
+   
 
    return (
       <div className="Stock">

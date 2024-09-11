@@ -11,18 +11,30 @@ SellOrderDAO::SellOrderDAO(DafoeGod& zeus, ProductDAO& pdao)
 
 
 bool SellOrderDAO::createOrder(const int clientId, const int sellerId, const int status, const int paymentMethod, 
-                              const std::string& date, const double price, const int product, const int quantity){
+                              const std::string& date, const double price, const std::vector<int>& product, const std::vector<int>& quantity, const std::vector<double>& priceArray){
    try{
-      m_theos.prepareStatement("insert into sellOrder (client, seller, status, paymentMethod, date, price, product, quantity) values (?,?,?,?,?,?,?,?)");
+      m_theos.prepareStatement("insert into sellOrder (client, seller, status, paymentMethod, date, price) values (?,?,?,?,?,?)");
       m_theos.getStatement()->setInt(1, clientId);
       m_theos.getStatement()->setInt(2, sellerId);
       m_theos.getStatement()->setInt(3, status);
       m_theos.getStatement()->setInt(4, paymentMethod);
       m_theos.getStatement()->setString(5, date);
       m_theos.getStatement()->setDouble(6, price);
-      m_theos.getStatement()->setInt(7, product);
-      m_theos.getStatement()->setInt(8, quantity);
       m_theos.query(CREATE);
+   
+      m_theos.prepareStatement("select * FROM sellOrder order by id desc limit 1");
+      m_theos.query(RETRIEVE);
+      m_theos.getResult()->next();
+
+      for(int i {0}; i < product.size(); ++i){
+         m_theos.prepareStatement("insert into productOrder (sellOrder, product, quantity, price) values (?,?,?,?)");
+         m_theos.getStatement()->setInt(1, m_theos.getResult()->getInt("id"));
+         m_theos.getStatement()->setInt(2, product.at(i));
+         m_theos.getStatement()->setInt(3, quantity.at(i));
+         m_theos.getStatement()->setInt(4, priceArray.at(i)*quantity.at(i));
+         m_theos.query(CREATE);
+      }
+
       return true;
 
    }catch(std::exception& e){
